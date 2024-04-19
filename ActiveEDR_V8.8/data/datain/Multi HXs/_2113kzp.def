@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _2113kzp.inm
+MODNAME: apmain
+RUNID: _2113kzp
+NEW_RUNID: _2113kzp
+OLD_RUNID: _2113kzp
+PDF: _2113kzp.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

@@ -1,0 +1,610 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SilkPerformerLog version="1"
+                  buildInfo="Generated with Silk Performer 16.5.0.6809"
+                  script="" usergroup="" profile="" perspective="TruelogViewer"
+                  interfaces="SILKTEST">
+  <Transaction id="3" time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|" tick="15400640"
+               file="C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t" bdlLine="0"
+               transidx="1">
+    Script EDR_HYSYS.t
+  </Transaction>
+  <SilkTestDoc id="4"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400718"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="5" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[4]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;))
+  </Apiinfo>
+  <ApiProp id="6" apicall="//*/*[4]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|13|</ApiProp>
+  <ApiProp id="7" apicall="//*/*[4]" propId="7129" propName="ROOT"></ApiProp>
+  <ApiProp id="8" apicall="//*/*[4]" propId="7129" propName="CID">7129</ApiProp>
+  <ApiProp id="9" apicall="//*/*[4]" propId="7129" propName="ID"></ApiProp>
+  <ApiProp id="10" apicall="//*/*[4]" propId="7129" propName="V"></ApiProp>
+  <ApiProp id="11" apicall="//*/*[4]" propId="7129" propName="TN"></ApiProp>
+  <ApiProp id="12" apicall="//*/*[4]" propId="7129" propName="T">0</ApiProp>
+  <ApiProp id="13" apicall="//*/*[4]" propId="7129" propName="BID"></ApiProp>
+  <ApiProp id="14" apicall="//*/*[4]" propId="7129" propName="PID">0</ApiProp>
+  <SilkTestDoc id="15"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400765"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="16" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[15]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;))
+  </Apiinfo>
+  <ApiProp id="17" apicall="//*/*[15]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|14|</ApiProp>
+  <ApiProp id="18" apicall="//*/*[15]" propId="7130" propName="ROOT"></ApiProp>
+  <ApiProp id="19" apicall="//*/*[15]" propId="7130" propName="CID">7130</ApiProp>
+  <ApiProp id="20" apicall="//*/*[15]" propId="7130" propName="ID"></ApiProp>
+  <ApiProp id="21" apicall="//*/*[15]" propId="7130" propName="V"></ApiProp>
+  <ApiProp id="22" apicall="//*/*[15]" propId="7130" propName="TN"></ApiProp>
+  <ApiProp id="23" apicall="//*/*[15]" propId="7130" propName="T">0</ApiProp>
+  <ApiProp id="24" apicall="//*/*[15]" propId="7130" propName="BID"></ApiProp>
+  <ApiProp id="25" apicall="//*/*[15]" propId="7130" propName="PID">0</ApiProp>
+  <SilkTestDoc id="26"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400765"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="27" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[26]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;))
+  </Apiinfo>
+  <ApiProp id="28" apicall="//*/*[26]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|15|</ApiProp>
+  <ApiProp id="29" apicall="//*/*[26]" propId="7131" propName="ROOT"></ApiProp>
+  <ApiProp id="30" apicall="//*/*[26]" propId="7131" propName="CID">7131</ApiProp>
+  <ApiProp id="31" apicall="//*/*[26]" propId="7131" propName="ID"></ApiProp>
+  <ApiProp id="32" apicall="//*/*[26]" propId="7131" propName="V"></ApiProp>
+  <ApiProp id="33" apicall="//*/*[26]" propId="7131" propName="TN"></ApiProp>
+  <ApiProp id="34" apicall="//*/*[26]" propId="7131" propName="T">0</ApiProp>
+  <ApiProp id="35" apicall="//*/*[26]" propId="7131" propName="BID"></ApiProp>
+  <ApiProp id="36" apicall="//*/*[26]" propId="7131" propName="PID">0</ApiProp>
+  <SilkTestDoc id="37"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400781"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="38" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[37]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;))
+  </Apiinfo>
+  <ApiProp id="39" apicall="//*/*[37]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|16|</ApiProp>
+  <ApiProp id="40" apicall="//*/*[37]" propId="7132" propName="ROOT"></ApiProp>
+  <ApiProp id="41" apicall="//*/*[37]" propId="7132" propName="CID">7132</ApiProp>
+  <ApiProp id="42" apicall="//*/*[37]" propId="7132" propName="ID"></ApiProp>
+  <ApiProp id="43" apicall="//*/*[37]" propId="7132" propName="V"></ApiProp>
+  <ApiProp id="44" apicall="//*/*[37]" propId="7132" propName="TN"></ApiProp>
+  <ApiProp id="45" apicall="//*/*[37]" propId="7132" propName="T">0</ApiProp>
+  <ApiProp id="46" apicall="//*/*[37]" propId="7132" propName="BID"></ApiProp>
+  <ApiProp id="47" apicall="//*/*[37]" propId="7132" propName="PID">0</ApiProp>
+  <SilkTestDoc id="48"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400781"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="49" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[48]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;))
+  </Apiinfo>
+  <ApiProp id="50" apicall="//*/*[48]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|17|</ApiProp>
+  <ApiProp id="51" apicall="//*/*[48]" propId="7133" propName="ROOT"></ApiProp>
+  <ApiProp id="52" apicall="//*/*[48]" propId="7133" propName="CID">7133</ApiProp>
+  <ApiProp id="53" apicall="//*/*[48]" propId="7133" propName="ID"></ApiProp>
+  <ApiProp id="54" apicall="//*/*[48]" propId="7133" propName="V"></ApiProp>
+  <ApiProp id="55" apicall="//*/*[48]" propId="7133" propName="TN"></ApiProp>
+  <ApiProp id="56" apicall="//*/*[48]" propId="7133" propName="T">0</ApiProp>
+  <ApiProp id="57" apicall="//*/*[48]" propId="7133" propName="BID"></ApiProp>
+  <ApiProp id="58" apicall="//*/*[48]" propId="7133" propName="PID">0</ApiProp>
+  <SilkTestDoc id="59"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400781"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="60" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[59]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;))
+  </Apiinfo>
+  <ApiProp id="61" apicall="//*/*[59]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|18|</ApiProp>
+  <ApiProp id="62" apicall="//*/*[59]" propId="7134" propName="ROOT"></ApiProp>
+  <ApiProp id="63" apicall="//*/*[59]" propId="7134" propName="CID">7134</ApiProp>
+  <ApiProp id="64" apicall="//*/*[59]" propId="7134" propName="ID"></ApiProp>
+  <ApiProp id="65" apicall="//*/*[59]" propId="7134" propName="V"></ApiProp>
+  <ApiProp id="66" apicall="//*/*[59]" propId="7134" propName="TN"></ApiProp>
+  <ApiProp id="67" apicall="//*/*[59]" propId="7134" propName="T">0</ApiProp>
+  <ApiProp id="68" apicall="//*/*[59]" propId="7134" propName="BID"></ApiProp>
+  <ApiProp id="69" apicall="//*/*[59]" propId="7134" propName="PID">0</ApiProp>
+  <SilkTestDoc id="70"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400781"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="71" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[70]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;))
+  </Apiinfo>
+  <ApiProp id="72" apicall="//*/*[70]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|19|</ApiProp>
+  <ApiProp id="73" apicall="//*/*[70]" propId="7135" propName="ROOT"></ApiProp>
+  <ApiProp id="74" apicall="//*/*[70]" propId="7135" propName="CID">7135</ApiProp>
+  <ApiProp id="75" apicall="//*/*[70]" propId="7135" propName="ID"></ApiProp>
+  <ApiProp id="76" apicall="//*/*[70]" propId="7135" propName="V"></ApiProp>
+  <ApiProp id="77" apicall="//*/*[70]" propId="7135" propName="TN"></ApiProp>
+  <ApiProp id="78" apicall="//*/*[70]" propId="7135" propName="T">0</ApiProp>
+  <ApiProp id="79" apicall="//*/*[70]" propId="7135" propName="BID"></ApiProp>
+  <ApiProp id="80" apicall="//*/*[70]" propId="7135" propName="PID">0</ApiProp>
+  <SilkTestDoc id="81"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400781"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="82" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[81]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;))
+  </Apiinfo>
+  <ApiProp id="83" apicall="//*/*[81]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|20|</ApiProp>
+  <ApiProp id="84" apicall="//*/*[81]" propId="7136" propName="ROOT"></ApiProp>
+  <ApiProp id="85" apicall="//*/*[81]" propId="7136" propName="CID">7136</ApiProp>
+  <ApiProp id="86" apicall="//*/*[81]" propId="7136" propName="ID"></ApiProp>
+  <ApiProp id="87" apicall="//*/*[81]" propId="7136" propName="V"></ApiProp>
+  <ApiProp id="88" apicall="//*/*[81]" propId="7136" propName="TN"></ApiProp>
+  <ApiProp id="89" apicall="//*/*[81]" propId="7136" propName="T">0</ApiProp>
+  <ApiProp id="90" apicall="//*/*[81]" propId="7136" propName="BID"></ApiProp>
+  <ApiProp id="91" apicall="//*/*[81]" propId="7136" propName="PID">0</ApiProp>
+  <SilkTestDoc id="92"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400796"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="93" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[92]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;))
+  </Apiinfo>
+  <ApiProp id="94" apicall="//*/*[92]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|21|</ApiProp>
+  <ApiProp id="95" apicall="//*/*[92]" propId="7137" propName="ROOT"></ApiProp>
+  <ApiProp id="96" apicall="//*/*[92]" propId="7137" propName="CID">7137</ApiProp>
+  <ApiProp id="97" apicall="//*/*[92]" propId="7137" propName="ID"></ApiProp>
+  <ApiProp id="98" apicall="//*/*[92]" propId="7137" propName="V"></ApiProp>
+  <ApiProp id="99" apicall="//*/*[92]" propId="7137" propName="TN"></ApiProp>
+  <ApiProp id="100" apicall="//*/*[92]" propId="7137" propName="T">0</ApiProp>
+  <ApiProp id="101" apicall="//*/*[92]" propId="7137" propName="BID"></ApiProp>
+  <ApiProp id="102" apicall="//*/*[92]" propId="7137" propName="PID">0</ApiProp>
+  <SilkTestDoc id="103"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400796"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="104" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[103]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;))
+  </Apiinfo>
+  <ApiProp id="105" apicall="//*/*[103]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|22|</ApiProp>
+  <ApiProp id="106" apicall="//*/*[103]" propId="7138" propName="ROOT"></ApiProp>
+  <ApiProp id="107" apicall="//*/*[103]" propId="7138" propName="CID">7138</ApiProp>
+  <ApiProp id="108" apicall="//*/*[103]" propId="7138" propName="ID"></ApiProp>
+  <ApiProp id="109" apicall="//*/*[103]" propId="7138" propName="V"></ApiProp>
+  <ApiProp id="110" apicall="//*/*[103]" propId="7138" propName="TN"></ApiProp>
+  <ApiProp id="111" apicall="//*/*[103]" propId="7138" propName="T">0</ApiProp>
+  <ApiProp id="112" apicall="//*/*[103]" propId="7138" propName="BID"></ApiProp>
+  <ApiProp id="113" apicall="//*/*[103]" propId="7138" propName="PID">0</ApiProp>
+  <SilkTestDoc id="114"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400796"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="115" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[114]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;))
+  </Apiinfo>
+  <ApiProp id="116" apicall="//*/*[114]" propId="0" propName="CS">$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|23|</ApiProp>
+  <ApiProp id="117" apicall="//*/*[114]" propId="7139" propName="ROOT"></ApiProp>
+  <ApiProp id="118" apicall="//*/*[114]" propId="7139" propName="CID">7139</ApiProp>
+  <ApiProp id="119" apicall="//*/*[114]" propId="7139" propName="ID"></ApiProp>
+  <ApiProp id="120" apicall="//*/*[114]" propId="7139" propName="V"></ApiProp>
+  <ApiProp id="121" apicall="//*/*[114]" propId="7139" propName="TN"></ApiProp>
+  <ApiProp id="122" apicall="//*/*[114]" propId="7139" propName="T">0</ApiProp>
+  <ApiProp id="123" apicall="//*/*[114]" propId="7139" propName="BID"></ApiProp>
+  <ApiProp id="124" apicall="//*/*[114]" propId="7139" propName="PID">0</ApiProp>
+  <SilkTestDoc id="125"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400796"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="126" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[125]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;))
+  </Apiinfo>
+  <ApiProp id="127" apicall="//*/*[125]" propId="0" propName="CS">getLang|C:\ActiveEDR_V8.8\frame\HYSYS\generic_library.inc|34|$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|26|</ApiProp>
+  <ApiProp id="128" apicall="//*/*[125]" propId="7140" propName="ROOT"></ApiProp>
+  <ApiProp id="129" apicall="//*/*[125]" propId="7140" propName="CID">7140</ApiProp>
+  <ApiProp id="130" apicall="//*/*[125]" propId="7140" propName="ID"></ApiProp>
+  <ApiProp id="131" apicall="//*/*[125]" propId="7140" propName="V"></ApiProp>
+  <ApiProp id="132" apicall="//*/*[125]" propId="7140" propName="TN"></ApiProp>
+  <ApiProp id="133" apicall="//*/*[125]" propId="7140" propName="T">0</ApiProp>
+  <ApiProp id="134" apicall="//*/*[125]" propId="7140" propName="BID"></ApiProp>
+  <ApiProp id="135" apicall="//*/*[125]" propId="7140" propName="PID">0</ApiProp>
+  <SilkTestDoc id="136"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400812"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="137" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[136]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;))
+  </Apiinfo>
+  <ApiProp id="138" apicall="//*/*[136]" propId="0" propName="CS">getOS|C:\ActiveEDR_V8.8\frame\HYSYS\generic_library.inc|59|$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|51|</ApiProp>
+  <ApiProp id="139" apicall="//*/*[136]" propId="7141" propName="ROOT"></ApiProp>
+  <ApiProp id="140" apicall="//*/*[136]" propId="7141" propName="CID">7141</ApiProp>
+  <ApiProp id="141" apicall="//*/*[136]" propId="7141" propName="ID"></ApiProp>
+  <ApiProp id="142" apicall="//*/*[136]" propId="7141" propName="V"></ApiProp>
+  <ApiProp id="143" apicall="//*/*[136]" propId="7141" propName="TN"></ApiProp>
+  <ApiProp id="144" apicall="//*/*[136]" propId="7141" propName="T">0</ApiProp>
+  <ApiProp id="145" apicall="//*/*[136]" propId="7141" propName="BID"></ApiProp>
+  <ApiProp id="146" apicall="//*/*[136]" propId="7141" propName="PID">0</ApiProp>
+  <SilkTestDoc id="147"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15400812"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="148" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[147]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;))
+  </Apiinfo>
+  <ApiProp id="149" apicall="//*/*[147]" propId="0" propName="CS">getStartMenu|C:\ActiveEDR_V8.8\frame\HYSYS\Settings.inc|71|$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|10|</ApiProp>
+  <ApiProp id="150" apicall="//*/*[147]" propId="7142" propName="ROOT"></ApiProp>
+  <ApiProp id="151" apicall="//*/*[147]" propId="7142" propName="CID">7142</ApiProp>
+  <ApiProp id="152" apicall="//*/*[147]" propId="7142" propName="ID"></ApiProp>
+  <ApiProp id="153" apicall="//*/*[147]" propId="7142" propName="V"></ApiProp>
+  <ApiProp id="154" apicall="//*/*[147]" propId="7142" propName="TN"></ApiProp>
+  <ApiProp id="155" apicall="//*/*[147]" propId="7142" propName="T">0</ApiProp>
+  <ApiProp id="156" apicall="//*/*[147]" propId="7142" propName="BID"></ApiProp>
+  <ApiProp id="157" apicall="//*/*[147]" propId="7142" propName="PID">0</ApiProp>
+  <SilkTestDoc id="158"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15401312"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;)SYS_GetEnv (&quot;systemdrive&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="159" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[158]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;)SYS_GetEnv (&quot;systemdrive&quot;))
+  </Apiinfo>
+  <ApiProp id="160" apicall="//*/*[158]" propId="0" propName="CS">$WinInit|C:\ActiveEDR_V8.8\frame\HYSYS\AspenHysysClasses.inc|9415|$WinInit|C:\ActiveEDR_V8.8\frame\HYSYS\Frame.inc|65536|$Startup|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|7094|</ApiProp>
+  <ApiProp id="161" apicall="//*/*[158]" propId="7143" propName="ROOT"></ApiProp>
+  <ApiProp id="162" apicall="//*/*[158]" propId="7143" propName="CID">7143</ApiProp>
+  <ApiProp id="163" apicall="//*/*[158]" propId="7143" propName="ID"></ApiProp>
+  <ApiProp id="164" apicall="//*/*[158]" propId="7143" propName="V"></ApiProp>
+  <ApiProp id="165" apicall="//*/*[158]" propId="7143" propName="TN"></ApiProp>
+  <ApiProp id="166" apicall="//*/*[158]" propId="7143" propName="T">0</ApiProp>
+  <ApiProp id="167" apicall="//*/*[158]" propId="7143" propName="BID"></ApiProp>
+  <ApiProp id="168" apicall="//*/*[158]" propId="7143" propName="PID">0</ApiProp>
+  <SilkTestDoc id="169"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15401328"
+               ApiHandle=""
+               file=""
+               bdlLine="5379"
+               status="0"
+               ApiCtxt="//*/*[3]"
+               ApiRefType="parent">
+    Testcase debug
+  </SilkTestDoc>
+  <SilkTestDoc id="170"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15401328"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;)SYS_GetEnv (&quot;systemdrive&quot;)AGT_SYS_LogClientMessage (3, &quot;TCS_ENTERING - TestCase: NULL/debug&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="171" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[170]" severity="0">
+    Print(Setting Agent options...SYS_GetEnv (&quot;APPDATA&quot;)SYS_GetEnv (&quot;CommonProgramFiles&quot;)SYS_GetEnv (&quot;COMPUTERNAME&quot;)SYS_GetEnv (&quot;HOMEDRIVE&quot;)SYS_GetEnv (&quot;HOMEPATH&quot;)SYS_GetEnv (&quot;SYSTEMDRIVE&quot;)SYS_GetEnv (&quot;SYSTEMROOT&quot;)SYS_GetEnv (&quot;WINDIR&quot;)SYS_GetEnv (&quot;ProgramFiles&quot;)SYS_GetEnv (&quot;ProgramFiles(86)&quot;)SYS_GetEnv (&quot;USERNAME&quot;)SYS_GetRegistryValue (-2147483646, &quot;SYSTEM\ControlSet001\Control\Nls\Language&quot;, &quot;InstallLanguage&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;, &quot;ProductName&quot;)SYS_GetRegistryValue (-2147483646, &quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders&quot;, &quot;Common Start Menu&quot;)SYS_GetEnv (&quot;systemdrive&quot;)AGT_SYS_LogClientMessage (3, &quot;TCS_ENTERING - TestCase: NULL/debug&quot;))
+  </Apiinfo>
+  <ApiProp id="172" apicall="//*/*[170]" propId="0" propName="CS">LogClientMessage|C:\Program Files (x86)\Silk\SilkTest\4test.inc|934|debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5380|</ApiProp>
+  <ApiProp id="173" apicall="//*/*[170]" propId="7144" propName="ROOT"></ApiProp>
+  <ApiProp id="174" apicall="//*/*[170]" propId="7144" propName="CID">7144</ApiProp>
+  <ApiProp id="175" apicall="//*/*[170]" propId="7144" propName="ID"></ApiProp>
+  <ApiProp id="176" apicall="//*/*[170]" propId="7144" propName="V"></ApiProp>
+  <ApiProp id="177" apicall="//*/*[170]" propId="7144" propName="TN"></ApiProp>
+  <ApiProp id="178" apicall="//*/*[170]" propId="7144" propName="T">0</ApiProp>
+  <ApiProp id="179" apicall="//*/*[170]" propId="7144" propName="BID"></ApiProp>
+  <ApiProp id="180" apicall="//*/*[170]" propId="7144" propName="PID">0</ApiProp>
+  <SilkTestDoc id="181"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15401328"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    wAirCoolerEDR.Exists (10)
+  </SilkTestDoc>
+  <Apiinfo id="182" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[181]" severity="0">
+    Print(wAirCoolerEDR.Exists (10))
+  </Apiinfo>
+  <ApiProp id="183" apicall="//*/*[181]" propId="0" propName="CS">debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5381|</ApiProp>
+  <ApiProp id="184" apicall="//*/*[181]" propId="7145" propName="ROOT"></ApiProp>
+  <ApiProp id="185" apicall="//*/*[181]" propId="7145" propName="CID">7145</ApiProp>
+  <ApiProp id="186" apicall="//*/*[181]" propId="7145" propName="ID"></ApiProp>
+  <ApiProp id="187" apicall="//*/*[181]" propId="7145" propName="V"></ApiProp>
+  <ApiProp id="188" apicall="//*/*[181]" propId="7145" propName="TN"></ApiProp>
+  <ApiProp id="189" apicall="//*/*[181]" propId="7145" propName="T">0</ApiProp>
+  <ApiProp id="190" apicall="//*/*[181]" propId="7145" propName="BID"></ApiProp>
+  <ApiProp id="191" apicall="//*/*[181]" propId="7145" propName="PID">0</ApiProp>
+  <SilkTestDoc id="192"
+               time="2018-06-20; 22:26:45"
+               timeStamp="|45|26|22|20|5|118|3|170|1|"
+               tick="15401343"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    wAirCoolerEDR.tpgRigorousAirCooler.lstPlyPicker.Select (&quot;Exchanger&quot;)
+  </SilkTestDoc>
+  <Apiinfo id="193" time="2018-06-20; 22:26:45"
+           timeStamp="|45|26|22|20|5|118|3|170|1|" idx="//*/*[192]" severity="0">
+    Print(wAirCoolerEDR.tpgRigorousAirCooler.lstPlyPicker.Select (&quot;Exchanger&quot;))
+  </Apiinfo>
+  <ApiProp id="194" apicall="//*/*[192]" propId="0" propName="CS">debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5382|</ApiProp>
+  <ApiProp id="195" apicall="//*/*[192]" propId="7146" propName="ROOT"></ApiProp>
+  <ApiProp id="196" apicall="//*/*[192]" propId="7146" propName="CID">7146</ApiProp>
+  <ApiProp id="197" apicall="//*/*[192]" propId="7146" propName="ID"></ApiProp>
+  <ApiProp id="198" apicall="//*/*[192]" propId="7146" propName="V"></ApiProp>
+  <ApiProp id="199" apicall="//*/*[192]" propId="7146" propName="TN"></ApiProp>
+  <ApiProp id="200" apicall="//*/*[192]" propId="7146" propName="T">0</ApiProp>
+  <ApiProp id="201" apicall="//*/*[192]" propId="7146" propName="BID"></ApiProp>
+  <ApiProp id="202" apicall="//*/*[192]" propId="7146" propName="PID">0</ApiProp>
+  <SilkTestDoc id="203"
+               time="2018-06-20; 22:26:48"
+               timeStamp="|48|26|22|20|5|118|3|170|1|"
+               tick="15403953"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Select &apos;Exchanger&apos;
+  </SilkTestDoc>
+  <Apiinfo id="204" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[203]" severity="0">
+    WPFListBox.Select(item: Exchanger)
+  </Apiinfo>
+  <Apiinfo id="205" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[203]" severity="0">
+    Locator: //WPFListBox[@automationId=&apos;plypicker_listbox&apos;]
+  </Apiinfo>
+  <ApiProp id="206" apicall="//*/*[203]" propId="7147" propName="ROOT"></ApiProp>
+  <ApiProp id="207" apicall="//*/*[203]" propId="7147" propName="CID">7147</ApiProp>
+  <ApiProp id="208" apicall="//*/*[203]" propId="7147" propName="ID"></ApiProp>
+  <ApiProp id="209" apicall="//*/*[203]" propId="7147" propName="V"></ApiProp>
+  <ApiProp id="210" apicall="//*/*[203]" propId="7147" propName="TN"></ApiProp>
+  <ApiProp id="211" apicall="//*/*[203]" propId="7147" propName="T">0</ApiProp>
+  <ApiProp id="212" apicall="//*/*[203]" propId="7147" propName="BID"></ApiProp>
+  <ApiProp id="213" apicall="//*/*[203]" propId="7147" propName="PID">0</ApiProp>
+  <SilkTestDoc id="214"
+               time="2018-06-20; 22:26:48"
+               timeStamp="|48|26|22|20|5|118|3|170|1|"
+               tick="15404015"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Agent.SetOption (OPT_BITMAP_MATCH_COUNT, 0)
+  </SilkTestDoc>
+  <Apiinfo id="215" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[214]" severity="0">
+    Print(Agent.SetOption (OPT_BITMAP_MATCH_COUNT, 0))
+  </Apiinfo>
+  <ApiProp id="216" apicall="//*/*[214]" propId="0" propName="CS">TestCaseExit|C:\ActiveEDR_V8.8\frame\HYSYS\Settings.inc|81|debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5382|</ApiProp>
+  <ApiProp id="217" apicall="//*/*[214]" propId="7148" propName="ROOT"></ApiProp>
+  <ApiProp id="218" apicall="//*/*[214]" propId="7148" propName="CID">7148</ApiProp>
+  <ApiProp id="219" apicall="//*/*[214]" propId="7148" propName="ID"></ApiProp>
+  <ApiProp id="220" apicall="//*/*[214]" propId="7148" propName="V"></ApiProp>
+  <ApiProp id="221" apicall="//*/*[214]" propId="7148" propName="TN"></ApiProp>
+  <ApiProp id="222" apicall="//*/*[214]" propId="7148" propName="T">0</ApiProp>
+  <ApiProp id="223" apicall="//*/*[214]" propId="7148" propName="BID"></ApiProp>
+  <ApiProp id="224" apicall="//*/*[214]" propId="7148" propName="PID">0</ApiProp>
+  <SilkTestDoc id="225"
+               time="2018-06-20; 22:26:48"
+               timeStamp="|48|26|22|20|5|118|3|170|1|"
+               tick="15404015"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Agent.SetOption (OPT_BITMAP_MATCH_INTERVAL, 0)
+  </SilkTestDoc>
+  <Apiinfo id="226" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[225]" severity="0">
+    Print(Agent.SetOption (OPT_BITMAP_MATCH_INTERVAL, 0))
+  </Apiinfo>
+  <ApiProp id="227" apicall="//*/*[225]" propId="0" propName="CS">TestCaseExit|C:\ActiveEDR_V8.8\frame\HYSYS\Settings.inc|82|debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5382|</ApiProp>
+  <ApiProp id="228" apicall="//*/*[225]" propId="7149" propName="ROOT"></ApiProp>
+  <ApiProp id="229" apicall="//*/*[225]" propId="7149" propName="CID">7149</ApiProp>
+  <ApiProp id="230" apicall="//*/*[225]" propId="7149" propName="ID"></ApiProp>
+  <ApiProp id="231" apicall="//*/*[225]" propId="7149" propName="V"></ApiProp>
+  <ApiProp id="232" apicall="//*/*[225]" propId="7149" propName="TN"></ApiProp>
+  <ApiProp id="233" apicall="//*/*[225]" propId="7149" propName="T">0</ApiProp>
+  <ApiProp id="234" apicall="//*/*[225]" propId="7149" propName="BID"></ApiProp>
+  <ApiProp id="235" apicall="//*/*[225]" propId="7149" propName="PID">0</ApiProp>
+  <SilkTestDoc id="236"
+               time="2018-06-20; 22:26:48"
+               timeStamp="|48|26|22|20|5|118|3|170|1|"
+               tick="15404015"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Agent.SetOption (OPT_BITMAP_MATCH_TIMEOUT, 0)
+  </SilkTestDoc>
+  <Apiinfo id="237" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[236]" severity="0">
+    Print(Agent.SetOption (OPT_BITMAP_MATCH_TIMEOUT, 0))
+  </Apiinfo>
+  <ApiProp id="238" apicall="//*/*[236]" propId="0" propName="CS">TestCaseExit|C:\ActiveEDR_V8.8\frame\HYSYS\Settings.inc|83|debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5382|</ApiProp>
+  <ApiProp id="239" apicall="//*/*[236]" propId="7150" propName="ROOT"></ApiProp>
+  <ApiProp id="240" apicall="//*/*[236]" propId="7150" propName="CID">7150</ApiProp>
+  <ApiProp id="241" apicall="//*/*[236]" propId="7150" propName="ID"></ApiProp>
+  <ApiProp id="242" apicall="//*/*[236]" propId="7150" propName="V"></ApiProp>
+  <ApiProp id="243" apicall="//*/*[236]" propId="7150" propName="TN"></ApiProp>
+  <ApiProp id="244" apicall="//*/*[236]" propId="7150" propName="T">0</ApiProp>
+  <ApiProp id="245" apicall="//*/*[236]" propId="7150" propName="BID"></ApiProp>
+  <ApiProp id="246" apicall="//*/*[236]" propId="7150" propName="PID">0</ApiProp>
+  <SilkTestDoc id="247"
+               time="2018-06-20; 22:26:48"
+               timeStamp="|48|26|22|20|5|118|3|170|1|"
+               tick="15404031"
+               ApiHandle=""
+               file=""
+               bdlLine="0"
+               status="0"
+               ApiCtxt="//*/*[169]"
+               ApiRefType="parent">
+    Agent.SetOption (OPT_BITMAP_MATCH_TIMEOUT, 0)AGT_SYS_Execute (&quot;tasklist&quot;, {})
+  </SilkTestDoc>
+  <Apiinfo id="248" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[247]" severity="0">
+    Print(Agent.SetOption (OPT_BITMAP_MATCH_TIMEOUT, 0)AGT_SYS_Execute (&quot;tasklist&quot;, {}))
+  </Apiinfo>
+  <ApiProp id="249" apicall="//*/*[247]" propId="0" propName="CS">SYS_Execute|C:\Program Files (x86)\Silk\SilkTest\4test.inc|836|TestCaseExit|C:\ActiveEDR_V8.8\frame\HYSYS\Settings.inc|106|debug|C:\ActiveEDR_V8.8\Script\EDR_HYSYS.t|5382|</ApiProp>
+  <ApiProp id="250" apicall="//*/*[247]" propId="7151" propName="ROOT"></ApiProp>
+  <ApiProp id="251" apicall="//*/*[247]" propId="7151" propName="CID">7151</ApiProp>
+  <ApiProp id="252" apicall="//*/*[247]" propId="7151" propName="ID"></ApiProp>
+  <ApiProp id="253" apicall="//*/*[247]" propId="7151" propName="V"></ApiProp>
+  <ApiProp id="254" apicall="//*/*[247]" propId="7151" propName="TN"></ApiProp>
+  <ApiProp id="255" apicall="//*/*[247]" propId="7151" propName="T">0</ApiProp>
+  <ApiProp id="256" apicall="//*/*[247]" propId="7151" propName="BID"></ApiProp>
+  <ApiProp id="257" apicall="//*/*[247]" propId="7151" propName="PID">0</ApiProp>
+  <Apiinfo id="258" time="2018-06-20; 22:26:48"
+           timeStamp="|48|26|22|20|5|118|3|170|1|" idx="//*/*[169]" severity="0">
+    Elapsed Time: 00:00:03
+  </Apiinfo>
+  <Apiinfo id="259" time="2018-06-20; 22:26:49"
+           timeStamp="|49|26|22|20|5|118|3|170|1|" idx="//*/*[3]" severity="0">
+    Elapsed Time: 00:00:04
+  </Apiinfo>
+</SilkPerformerLog>

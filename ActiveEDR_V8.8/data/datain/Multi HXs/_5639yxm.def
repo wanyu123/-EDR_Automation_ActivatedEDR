@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _5639yxm.inm
+MODNAME: apmain
+RUNID: _5639yxm
+NEW_RUNID: _5639yxm
+OLD_RUNID: _5639yxm
+PDF: _5639yxm.appdf
+USERNAME: Admin
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

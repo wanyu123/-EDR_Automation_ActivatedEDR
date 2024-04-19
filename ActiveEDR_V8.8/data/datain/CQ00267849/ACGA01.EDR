@@ -1,0 +1,4184 @@
+<HTEdata FileSignature="AspenTech/EDR " Date="5/27/2009" Time="9:43:36 AM" FileDescription="Company:\nLocation:\nService of Unit:                                 Our Reference:\nItem No.:                                        Your Reference:\nDate:                       Rev No.:             Job No.:">
+    <application name="Acol">
+        <match>false
+        </match>
+        <result>101
+        </result>
+        <uomset>1
+        </uomset>
+        <engineuomset>1
+        </engineuomset>
+        <scalars type="input">
+            <scalar name="XsidePressureSpec">
+                <uom></uom>
+                <value>2
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FinFrequency">
+                <uom>#/in
+                </uom>
+                <value>10.99822
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FinThk">
+                <uom>in
+                </uom>
+                <value>1.102362E-02
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FinTipDia">
+                <uom>in
+                </uom>
+                <value>2.25
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FinType">
+                <uom></uom>
+                <value>2
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="OptItemNum">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeWallThk">
+                <uom>in
+                </uom>
+                <value>.065
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="AcolProgMode">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="ApplTypeTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="BayPar">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="BundPar">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="CompSpcOT">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="CompSpcTS">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeGeomCount">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="NumCurvOT">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="NumCurvTS">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="CondCurCalcMeth">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="CondCurCalcType">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="DBToBeUsedOT">
+                <uom></uom>
+                <value>4
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="DBToBeUsedTS">
+                <uom></uom>
+                <value>4
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FanOD">
+                <uom>ft
+                </uom>
+                <value>2
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FanPerBay">
+                <uom></uom>
+                <value>6
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FlRaTS">
+                <uom>lb/h
+                </uom>
+                <value>32999.45
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="OptPathOffset">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PresOperInTS">
+                <uom>psi
+                </uom>
+                <value>78.99994
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PresOperInOT">
+                <uom>psi
+                </uom>
+                <value>14.69998
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PresOperOutTS">
+                <uom>psi
+                </uom>
+                <value>76.45578
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TempInTS">
+                <uom>F
+                </uom>
+                <value>171
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TempOutTS">
+                <uom>F
+                </uom>
+                <value>100.9999
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeLng">
+                <uom>ft
+                </uom>
+                <value>19.68504
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeOD">
+                <uom>in
+                </uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubePassPerBund">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubePerBund">
+                <uom></uom>
+                <value>70
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeRowDeep">
+                <uom></uom>
+                <value>5
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="VapCurCalcMeth">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="ApplTypeOT">
+                <uom></uom>
+                <value>3
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TempAirInlet">
+                <uom>F
+                </uom>
+                <value>60.00008
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="VapFrcInTS">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="NumPtsOnCrvOT">
+                <uom></uom>
+                <value>24
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="NumPtsOnCrvTS">
+                <uom></uom>
+                <value>24
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TypeTubeLayout">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="InletGaugePres">
+                <uom>inH2O
+                </uom>
+                <value>813.7043
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="EffTubeLng">
+                <uom>ft
+                </uom>
+                <value>18.78018
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FlRaAirSide">
+                <uom>lb/h
+                </uom>
+                <value>177661
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeID">
+                <uom>in
+                </uom>
+                <value>.87
+                </value>
+                <source>User
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="input">
+            <array name="arPassNum">
+                <uom></uom>
+                <values>
+                    <valueslist list="1"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="NozLengthTS">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list="11.81102,11.81102"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="NozOrientationTS">
+                <uom>Degrees
+                </uom>
+                <values>
+                    <valueslist list="89.99812,-89.99812"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="NozFlangeTksTS">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list=".984252,.984252"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="arLastTubeNum">
+                <uom></uom>
+                <values>
+                    <valueslist list="5014"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="Heading">
+                <uom></uom>
+                <values>
+                    <valueslist list="Company:,Location:,Service of Unit:                                 Our Reference:,Item No.:                                        Your Reference:,Date:                       Rev No.:             Job No.:"/>
+                    <sourcelist list="User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="RecapVariables">
+                <uom></uom>
+                <values>
+                    <valueslist list="arTubesInBundle,arRowsDeep,arTubeLen,arTubePass,arBundlP,arBayP,arAreaCalc,arAreaAct,arAreaRatio,arPrDrShell,arAirTempOut,arPrDrTube,arDpRatioTS,arTotPrice,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,arCoCost"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,User"/>
+                </values>
+            </array>
+            <array name="arFinSerrationMethod">
+                <uom></uom>
+                <values>
+                    <valueslist list=",0"/>
+                    <sourcelist list="Default,User"/>
+                </values>
+            </array>
+            <array name="arTubeID">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list=".87"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arTubeOD">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list="1"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arTubeWallThk">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list=".065"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arFinType">
+                <uom></uom>
+                <values>
+                    <valueslist list="2"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arFinFrequency">
+                <uom>#/in
+                </uom>
+                <values>
+                    <valueslist list="10.99822"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arFinThk">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list="1.102362E-02"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arFinTipDia">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list="2.25"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arFinRootDia">
+                <uom>in
+                </uom>
+                <values>
+                    <valueslist list="1"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="arTubeFinMtl">
+                <uom></uom>
+                <values>
+                    <valueslist list="62"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="NozNumTS">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="Temperature">
+                <uom>F
+                </uom>
+                <values>
+                    <valueslist list="60.00008,64.83272,69.66536,74.498,79.33064,84.16256,88.99358,93.82388,98.65328,103.482,108.3099,113.1372,117.9635,122.7891,127.614,132.438,137.2613,142.0837,146.9052,151.7261,156.546,161.3649,166.183,171"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="SpecificEnthalpy">
+                <uom>BTU/lb
+                </uom>
+                <values>
+                    <valueslist list="-4.117548,-2.947033,-1.776517,-.6060017,.5645142,1.73503,2.905545,4.076061,5.246578,6.417094,7.58761,8.758121,9.928638,11.09915,12.26967,13.44018,14.6107,15.78122,16.95173,18.12225,19.29276,20.46328,21.6338,22.80431"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporDensity">
+                <uom>lb/ft3
+                </uom>
+                <values>
+                    <valueslist list="7.582464E-02,7.512601E-02,7.444011E-02,7.376664E-02,7.310528E-02,7.245572E-02,7.181776E-02,7.119099E-02,.0705752,6.997009E-02,6.937527E-02,6.879063E-02,6.821586E-02,.0676507,.0670949,6.654828E-02,6.601059E-02,6.548157E-02,6.496105E-02,6.444883E-02,6.394479E-02,6.344855E-02,6.296011E-02,6.247923E-02"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="Diffusivity">
+                <uom>ft2/hr
+                </uom>
+                <values>
+                    <valueslist list=".2118113,.2089721,.2061469,.2033358,.2005389,.1977563,.1949881,.1922344,.1894951,.1867703,.1840602,.1813648,.1786841,.1760183,.1733673,.1707313,.1681102,.1655043,.1629135,.1603379,.1577776,.1552331,.1527043,.1501915"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporMassFraction">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporViscosity">
+                <uom>cp
+                </uom>
+                <values>
+                    <valueslist list="1.780407E-02,1.793239E-02,1.806022E-02,1.818758E-02,1.831446E-02,1.844086E-02,1.856677E-02,.0186922,1.881717E-02,1.894166E-02,.0190657,1.918928E-02,1.931241E-02,1.943509E-02,1.955733E-02,1.967913E-02,.0198005,1.992144E-02,2.004196E-02,2.016206E-02,2.028174E-02,2.040101E-02,2.051986E-02,2.063832E-02"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporThermalConductivity">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <values>
+                    <valueslist list="1.443354E-02,1.454727E-02,1.466074E-02,1.477397E-02,1.488694E-02,1.499964E-02,1.511208E-02,1.522425E-02,1.533618E-02,1.544784E-02,1.555925E-02,1.567042E-02,1.578134E-02,.015892,1.600244E-02,1.611263E-02,1.622258E-02,1.633229E-02,1.644177E-02,1.655103E-02,1.666005E-02,1.676884E-02,.0168774,1.698574E-02"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporSpecificHeat">
+                <uom>BTU/(lb*F)
+                </uom>
+                <values>
+                    <valueslist list=".2422086,.2422086,.2422086,.2422086,.2422287,.2422695,.2423096,.2423488,.2423875,.2424262,.2424646,.2425031,.242542,.2425812,.2426209,.2426612,.2427023,.2427443,.2427871,.242831,.2428759,.242922,.2429691,.2430176"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporMolecularWeight">
+                <uom></uom>
+                <values>
+                    <valueslist list="28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584,28.76584"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="Comp01VapMoleFrc">
+                <uom></uom>
+                <values>
+                    <valueslist list="1E+35,0,0,0,0,0,0,0,0,0,1E+35,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="ComponentType">
+                <uom></uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="PressureReference">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="14.69998"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+        </arrays>
+        <scalars type="results">
+            <scalar name="FanCoverage">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempFan">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="RowsPerPass">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MaxTubesPerRowPerPass">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaAoAi">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaNonCondTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TypeTubeLayout">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubesPerRowPerBundle">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BayWidth">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BundleWidth">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinMinAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeHydDia">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeHydDia">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeHydDia">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeHydDia">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinMajAx">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PlenumDepth">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="GroundClearance">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DistBundToExchExit">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AngTubeIncl">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AngOutSideFlow">
+                <uom>Degrees
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlowOrientation">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulThkTS">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulThk1OT">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulThk2OT">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTksInletShrt">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTksOtherShrt">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubesheetTksInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubesheetTksOther">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozOrientationInlet">
+                <uom>Degrees
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozOrientationOutlet">
+                <uom>Degrees
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozFlangeTksInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozFlangeTksOutlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozFlangeDiamInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozFlangeDiamOutlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeSupportWidth">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeSupportNum">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubesheetTksTotal">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderCoverTksInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderCoverTksOther">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTksInletLong">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTksOtherLong">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MolWtTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MolWtOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="LatHtInTS">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="LatHtOutTS">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaExtendedSurfPerBundle">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpThruTubesTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpAcrossPassesTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeRowNo">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeRowNo">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeRowNo">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaCondVapzTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaCondVapzOT">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctInNozTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctOutNozTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctThruTubesTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctAcrossPassesTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctInHdTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctOutHdTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdTotalInput">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolUnit">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolBundle">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolInletheader">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolOtherheader">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolTubes">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolInletNoz">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VolOutletNoz">
+                <uom>ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaReqCleanBare">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaReqDirtyBare">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EffSurfTotalBare">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TransferRate">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EnthalpyInletTS">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EnthalpyOutletTS">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EnthalpyInletOT">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EnthalpyOutletOT">
+                <uom>BTU/lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostOperating">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostOperatingandEquipment">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostPowerperKwhr">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PeriodofOperation">
+                <uom>Hours
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevPressureFrmFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevPowerPerFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevPowerPerUnit">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevPressureFrmBund">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanVendor">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="LMTDEndPoints">
+                <uom>F
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostFans">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AirPerFanAct">
+                <uom>ft3/min
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="Altitude">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaReqClean">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BareCleanHTC">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BareServiceHTC">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaBareTubePerBundle">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BayPar">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BrakePowerTotal">
+                <uom>hp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BundleNum">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BundlePar">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtBundleEmpty">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CntrLouver">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensLiqInTS">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensLiqOutTS">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensVapInOT">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensVapInTS">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensVapOutOT">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensVapOutTS">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DraftType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EffSurfTotal">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanBladePitch">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanDiam">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanDriveType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanEfficiency">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanHubDiam">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanPitchCntr">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanRPM">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FansPerBay">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanTipSpd">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmCoefOT">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmCoefTS">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FinDens">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FinEfficiency">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FinOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FinThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FinType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmResTS">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmResOT">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaLiqInTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaLiqOutTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaOT">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaVapInOT">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaVapInTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaVapOutOT">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaVapOutTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulMaxOT">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulMaxTS">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulResOT">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulResTS">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulSpecOT">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulSpecTS">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdTotal">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="LouverType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MassVelOT">
+                <uom>lb/h/ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MolWtVapInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MolWtVapOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MTDCorrected">
+                <uom>F
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumBlades">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumFans">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubePassesPerBundle">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubesPerBundle">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverCoefClean">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverCoefDirty">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverCoefMaxDirty">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverResClean">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverResMaxDirty">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDropAlloOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDropAlloTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDropCalcOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDropCalcTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDesign">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ProgramMode">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResCleanTWPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResCleanOTFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResCleanTSFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResDirtyOTFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResDirtyTSFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResMaxDirtyOTFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResMaxDirtyTSFilmPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResMaxDirtyOTFoulPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResMaxDirtyTSFoulPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResDirtyOTFoulPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResDirtyTSFoulPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResDirtyTWPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ResMaxDirtyTWPct">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtLiqInTS">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtLiqOutTS">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtVapInOT">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtVapInTS">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtVapOutOT">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SpHtVapOutTS">
+                <uom>BTU/(lb*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SteamCoil">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempAmbientMn">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempBubPtTS">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempDewPtTS">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempDesign">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempInOT">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempInTS">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempOutOT">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TempOutTS">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoLiqInTS">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoLiqOutTS">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoVapInOT">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoVapInTS">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoVapOutOT">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ThCoVapOutTS">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostEquipment">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeLngAct">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubePitFR">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubePitRD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeRowsDpPerBundle">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeRowsDpPerUnit">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeWallThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="UnitLength">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="UnitWidth">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelInOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelOTFace">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelInTS">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelTSInNoz">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelTSOutNoz">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscLiqInTS">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscLiqOutTS">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscVapInOT">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscVapInTS">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscVapOutOT">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="ViscVapOutTS">
+                <uom>cp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresAtFan">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaCondVapInTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaCondVapOutTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FlRaTS">
+                <uom>lb/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VapFrcInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VapFrcOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HumidityRatioInOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HumidityRatioOutOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MassQualVapInOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MassQualVapOutOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MassQualVapOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="MassQualVapInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresOperInTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresOperOutTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresOperOutOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresOperInOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DutyRatio">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumLiqInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumLiqOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumVapInOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumVapInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumVapOutOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PranNumVapOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DensAtFan">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="OverResDirty">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaReqDirty">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="Area">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaRatioFinnedToBare">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaRatioClean">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumLiqInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumLiqOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumLiqInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumLiqOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumVapInOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumVapInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumVapOutOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DIAReynNumVapOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumVapInOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumVapInTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumVapOutOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HYDReynNumVapOutTS">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelGroundClrOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFanGuardOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFanInletOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFanSuptOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFanOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelPlenumOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelPlenumPenaltyOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelSteamCoilOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelBundOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelLouversOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelExitOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelBuoyancyOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelAccelerationOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpGroundClrOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpFanGuardOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpFanInletOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpFanSuptOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpFanOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPlenumOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPlenumPenaltyOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpSteamCoilOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtUnitEmpty">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtUnitFull">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtBundleFull">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtInletHeader">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtOtherHeader">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtInletNoz">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtOutletNoz">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtTubeFin">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="WtFrameSupt">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FrameType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BayPerUnit">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="UnitHeight">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BundleType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumTubeTypes">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeShape">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeLngEff">
+                <uom>ft
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumCircuits">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AngTubeLayout">
+                <uom>Degrees
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeMtlThCo">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="EffectivenessOfSurface">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AirPerFanStd">
+                <uom>ft3/min
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFaceAct">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelFaceStd">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaBundleFace">
+                <uom>ft2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpBundOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpLouversOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpExitOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpBuoyancyOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpAccelerationOT">
+                <uom>inH2O
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctFanGuardOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctFanInletOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctGroundClrOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctFanSuptOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctFanOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctPlenumOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctPlenumPenaltyOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctSteamCoilOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctBundOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctLouversOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctExitOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctBuoyancyOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpPctAccelerationOT">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpInNozTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpInHdTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpOutHdTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="PresDpOutNozTS">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostLabor">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostMaterial">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="CostTubeMaterial">
+                <uom>Dollar(US)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLd2PhasePctOT">
+                <uom>%
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLd2PhasePctTS">
+                <uom>%
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLd2PhaseOT">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLd2PhaseTS">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdLiqPctTS">
+                <uom>%
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdLiqTS">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdTotalOT">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdTotalTS">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdVaporPctOT">
+                <uom>%
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdVaporPctTS">
+                <uom>%
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdVaporOT">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HtLdVaporTS">
+                <uom>BTU/h
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DesignTempSummer">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="DesignTempWinter">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BrakePowerSummer">
+                <uom>hp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="BrakePowerWinter">
+                <uom>hp
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanDriveEfficiency">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="StdTemp">
+                <uom>F
+                </uom>
+                <value>-459.67
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="StdPres">
+                <uom>psi
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="StdDensity">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanSpeedLow">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanSpeedHigh">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FanSpeedActual">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevLowPerFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevLowPerUnit">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevLowFrmFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevLowFrmBund">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevHighFrmBund">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevHighPerFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevHighPerUnit">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="SoundLevHighFrmFan">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeOD">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeID">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeID">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeID">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeID">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stTubeFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndTubeFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdTubeFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thTubeFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinType">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinTipDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinTipDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinTipDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinTipDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinHeight">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinHeight">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinHeight">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinHeight">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinBundDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinBundDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinBundDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinBundDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinMinFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinMinFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinMinFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinMinFlowArea">
+                <uom>in2
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinThk">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinFrequency">
+                <uom>#/in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinFrequency">
+                <uom>#/in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinFrequency">
+                <uom>#/in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinFrequency">
+                <uom>#/in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinRootDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinRootDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinRootDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinRootDiam">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinCond">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinCond">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinCond">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinCond">
+                <uom>BTU/(ft*h*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinDens">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinDens">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinDens">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinDens">
+                <uom>lb/ft3
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="1stFinSurfEff">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="2ndFinSurfEff">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="3rdFinSurfEff">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="4thFinSurfEff">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumInletNoz">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NumOutletNoz">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozODInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozODOutlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozIDInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="NozIDOutlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelInletNoz">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelOutletNoz">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="Rhov2InletNoz">
+                <uom>lb/(ft*s2)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="Rhov2OutletNoz">
+                <uom>lb/(ft*s2)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTypeInlet">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderTypeOther">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderDepthInlet">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="HeaderDepthOther">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulCoefTS">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FoulCoefOT">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelOutOT">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="VelOutTS">
+                <uom>ft/s
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmCoefVapSensibleTS">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmCoef2PhaseTS">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="FilmCoefLiqSensibleTS">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeWallRes">
+                <uom>ft2*h*F/BTU
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="TubeWallCoef">
+                <uom>BTU/(h*ft2*F)
+                </uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+            <scalar name="AreaRatioDirty">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Calculated
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="results">
+            <array name="arPresDpInNozTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0"/>
+                    <sourcelist list="Calculated"/>
+                    <textlist list=""/>
+                </values>
+            </array>
+            <array name="arPresDpInHdTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0"/>
+                    <sourcelist list="Calculated"/>
+                    <textlist list=""/>
+                </values>
+            </array>
+            <array name="arPresDpOutNozTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0"/>
+                    <sourcelist list="Calculated"/>
+                    <textlist list=""/>
+                </values>
+            </array>
+            <array name="arPresDpOutHdTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0"/>
+                    <sourcelist list="Calculated"/>
+                    <textlist list=""/>
+                </values>
+            </array>
+            <array name="AcolMsg">
+                <uom></uom>
+                <values>
+                    <valueslist list="Input Warning;8824;0;  101352.932; 23;  517451.535; 23; 0.000000000;  0; 0.000000000;  0;     1;     0;     0;     0;     1;     0;     0;     0;    0,Input Error;8801;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;     2;     2;     0;     0;     2;     2;     0;     0;    0,Input Warning;8824;0;  101352.932; 23;  517451.535; 23; 0.000000000;  0; 0.000000000;  0;     1;     0;     0;     0;     1;     0;     0;     0;    0,Input Error;8801;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;     2;     2;     0;     0;     2;     2;     0;     0;    0"/>
+                    <sourcelist list="Default,Default,Default,Default"/>
+                    <textlist list=",,,"/>
+                </values>
+            </array>
+            <array name="arPresDpInTubeTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+            <array name="arPresDpAlongTubeTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+            <array name="arPresDpExitTubeTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+            <array name="arPresDpAcrossPassTS">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+            <array name="arTwTubeGrp">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09,2.109118E+08,1.002938E+09"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+            <array name="arTwOTFinTipFoulTempMin">
+                <uom>F
+                </uom>
+                <values>
+                    <valueslist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47,-461.47"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated,Calculated"/>
+                    <textlist list=",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"/>
+                </values>
+            </array>
+        </arrays>
+        <objects>
+            <object name="AspenPropertiesTS"></object>
+        </objects>
+    </application>
+</HTEdata>

@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _2711uxq.inm
+MODNAME: apmain
+RUNID: _2711uxq
+NEW_RUNID: _2711uxq
+OLD_RUNID: _2711uxq
+PDF: _2711uxq.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files\AspenTech\Aspen Plus V11.0\Engine\xeq\apmain
+SPONLY:

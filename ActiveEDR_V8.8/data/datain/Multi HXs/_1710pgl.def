@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _1710pgl.inm
+MODNAME: apmain
+RUNID: _1710pgl
+NEW_RUNID: _1710pgl
+OLD_RUNID: _1710pgl
+PDF: _1710pgl.appdf
+USERNAME: administrator
+XMOD: C:\Program Files\AspenTech\Aspen Plus V14.0\Engine\xeq\apmain
+SPONLY:

@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _0927zjw.inm
+MODNAME: apmain
+RUNID: _0927zjw
+NEW_RUNID: _0927zjw
+OLD_RUNID: _0927zjw
+PDF: _0927zjw.appdf
+USERNAME: admin
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V8.8\Engine\xeq\apmain
+SPONLY:

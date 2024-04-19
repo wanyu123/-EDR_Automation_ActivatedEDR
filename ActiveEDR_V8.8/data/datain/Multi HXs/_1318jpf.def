@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _1318jpf.inm
+MODNAME: apmain
+RUNID: _1318jpf
+NEW_RUNID: _1318jpf
+OLD_RUNID: _1318jpf
+PDF: _1318jpf.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files\AspenTech\Aspen Plus V12.0\Engine\xeq\apmain
+SPONLY:

@@ -1,0 +1,9869 @@
+[ ] use "Functions.inc"
+[ ] use "msw32.inc"
+[ ] use "Settings.inc"
+[ ] use "Frame.inc"
+[ ] 
+[-] //-------------------------------------- Winclass Definition-----------------------------------------------------
+	[-] winclass  wcAspenHysys	 							:	WPFWindow							// This is the Aspen Hysys Main class.
+		[ ] //locator "/WPFWindow[@caption='*Aspen HYSYS*aspenONE']"
+		[ ] 
+		[ ] // The working directory of the APplication when it is invoked
+		[ ] //const sDir = "%USERPROFILE%\Desktop"
+		[ ] 
+		[ ] // The command line used to invoke the Application
+		[ ] const sCmdLine = "{sProgramFilePath}\AspenTech\Aspen HYSYS {sVersion}\AspenHysys.exe"
+		[ ] 
+		[ ] const  bExtensionReady = FALSE
+		[ ] // int nInvokeTimeout = 1
+		[ ] 
+		[ ] // The list of windows the recovery system is to leave open
+		[ ] // const lwLeaveOpenWindows = {?}
+		[+] // const lsLeaveOpenLocators = {?}
+			[+] WPFDataGridCell	grdPackedType
+				[ ] locator"//WPFDataGridCell[@caption='Ballast Rings (Metal, random) 1_inch'][1]"
+			[+] WPFComboBox	cmbPack
+				[ ] locator "//WPFComboBox"
+		[+] //---------------------------------------Objects in Navigate Pane------------------------------------------------
+			[+] WPFHeaderedContentControl hccProperties
+				[ ] locator "//WPFHeaderedContentControl[@caption='Properties']"
+			[+] WPFHeaderedContentControl hccSimulation
+				[ ] locator "//WPFHeaderedContentControl[@caption='Simulation']"
+			[+] WPFHeaderedContentControl hccEnergyAnalysis
+				[ ] locator "//WPFHeaderedContentControl[@caption='Energy Analysis']"
+			[+] WPFHeaderedContentControl hccSafetyAnalysis
+				[ ] locator "//WPFHeaderedContentControl[@caption='Safety Analysis']"
+			[+] wcHysysTreeView	trvPartTree
+				[ ] locator "//WPFTreeView[@automationId='Part_Tree']"
+				[+] WPFTreeViewItem	trviUnitOps
+					[ ] locator "/WPFTreeViewItem[@caption='UnitOps']"
+					[+] WPFTreeViewItem trviMIX100
+						[ ] locator "//WPFTreeViewItem[@caption='MIX-100']"
+					[+] WPFTreeViewItem trviMixer
+						[ ] locator "//WPFTreeViewItem[@caption='Mixer']"
+					[+] WPFTreeViewItem trviT100
+						[ ] locator "//WPFTreeViewItem[@caption='T-100']"
+				[+] WPFTreeViewItem	trviStreams
+					[ ] locator "/WPFTreeViewItem[@caption='Streams']"
+					[+] WPFTreeViewItem trviStream1
+						[ ] locator "//WPFTreeViewItem[@caption='1']"
+				[+] WPFTreeViewItem	trviStreamAnalysis
+					[ ] locator "/WPFTreeViewItem[@caption='Stream Analysis']"
+				[+] WPFTreeViewItem trviStream2
+					[ ] locator "//WPFTreeViewItem[@caption='2']"
+				[ ] //Append by Susan
+				[+] WPFTreeViewItem	trviPetroleumAssays
+					[ ] locator "/WPFTreeViewItem[@caption='Petroleum Assays']"
+				[ ] //Append done
+				[ ] //Expanded by Weiwei
+				[+] void Select(string sItem)
+					[ ] //Created by Weiwei Wu
+					[ ] //History
+					[ ] //Background: Previously, if some of the items are out of screen, select function won't work. This function is a work-around. 
+					[ ] //9-13-2013 Bring each level of treeviewitem into view, expand it, and finally select the desired item. 
+					[ ] list of STRING lsTrv
+					[ ] string sTrv
+					[ ] string sLocation=""
+					[ ] window wLocation
+					[ ] int i=1
+					[+] while true
+						[ ] sTrv=GetField(sItem,"/",i)
+						[+] if sTrv==""
+							[ ] break
+						[+] else
+							[ ] listappend(lsTrv,sTrv)
+							[ ] i++
+					[+] for each sTrv in lsTrv
+						[ ] sLocation=sLocation+"/WPFTreeViewItem[@caption='{sTrv}']"
+						[ ] wLocation=AH.trvPartTree.FindWPFTreeViewItem("{sLocation}")
+						[ ] //print(sLocation)
+						[+] if wLocation.Exists()
+							[ ] wLocation.BringIntoView()
+							[ ] wLocation.Expand()
+						[+] else
+							[ ] Log.Fail("Fail to find location {sItem} in AH.trvPartTree")
+							[ ] return
+					[ ] wLocation.Select()
+					[ ] 
+				[ ] //End of  Expansion
+			[+] WPFTreeViewItem trviCrudeColumn
+				[ ] locator "//WPFTreeViewItem[@caption='Crude Column']"
+				[+] WPFMenuItem miOpenSubFlowsheet
+					[ ] locator "//WPFMenuItem[@caption='Open Subflowsheet in new tab']"
+			[+] WPFTreeViewItem trviWorkbook
+				[ ] locator "//WPFTreeViewItem[@caption='Workbook']"
+				[+] WPFMenuItem miOpenNewTab
+					[ ] locator "//WPFMenuItem[@caption='Open in new tab']"	
+			[+] WPFTreeViewItem trviPreheatTrain
+				[ ] locator "//WPFTreeViewItem[@caption='Preheat Train']"
+			[+] WPFTreeViewItem trviInputAssay
+				[ ] locator "//WPFTreeViewItem[@caption='Input Assay']"
+			[+] WPFTreeViewItem trviOutputBlend
+				[ ] locator "//WPFTreeViewItem[@caption='Output Blend']"
+			[+] WPFTreeViewItem trviOilManager
+				[ ] locator "/WPFTreeViewItem[@caption='Oil Manager']"
+			[+] WPFToggleButton		btnStreamLabelTemperature
+				[ ] locator "//WPFToggleButton[@caption='Temperature']"
+			[+] WPFToggleButton		btnToggleNavPane
+				[ ] locator "//WPFToggleButton[@automationId='MinimizeButton']"
+			[ ] 
+		[-] //---------------------------------------Objects in PFS-------------------------------------------------------
+			[ ] //Simulation environment
+			[ ] 
+			[+] wcHysysTabBase tpgCorrelationManger 
+				[+] WPFTreeView trvCorrelationPicker
+					[ ] locator "//WPFTreeView[@automationId='StrmCorrPlyPicker']"
+				[+] WPFTextBox	txtDisplayName
+					[ ] locator "//WPFTextBox[@automationId='NameEditEntry']"
+				[+] WPFButton	btnCloneCorrelation
+					[ ] locator "//WPFButton[@automationId='CloneCorrGraphicButton']"
+				[ ] 
+			[+] WPFTabItem tabiFlowsheetAny
+				[ ] locator "//WPFTabItem[@caption='Flowsheet*']"
+			[ ] 
+			[+] wcHysysDataGridSimple	dg1
+				[ ] locator "//WPFDataGrid[1]"
+			[+] wcHysysDataGridSimple	dg2
+				[ ] locator "//WPFDataGrid[2]"
+			[+] wcHysysDataGridSimple	dg3
+				[ ] locator "//WPFDataGrid[3]"
+			[+] wcHysysDataGridSimple	dg4
+				[ ] locator "//WPFDataGrid[4]"
+			[ ] 
+			[ ] //Added by Juan Situ on January 11, 2013, Februray 26, 2013
+			[+] WPFButton	btnCloseAnalysis
+				[ ] locator "//WPFHeaderedContentControl[@automationId='DashBoardScreenFactoryKey']/WPFContentControl[@caption='Analysis']//WPFButton[@automationId='closeBtn']"
+			[ ] //Add end
+			[ ] //Added by Juan Situ on Februray 26, 2013
+			[+] WPFTabItem	tabiReformer100
+				[ ] locator "//WPFTabItem[@caption='Flowsheet Reformer*']"
+			[ ] //Add end
+			[ ] wcHysysTabBase		tpgGeneralPage						//Some times we just want to use the object but don't need to know which kind of object it is, so add this virtual tab page.
+			[ ] 
+			[ ] //May Have Problems with 13.0, Everyone seems to be using 13.5 now which requires this.
+			[-] FormsHost areaForMainFlowsheet
+				[ ] locator "//FormsHost"
+				[ ] //locator "//FormsHost//FormsWindow"   ---> Old Locator and locator for SilkTest 13.0
+				[+] WPFControl	wFlyover
+					[ ] locator "//FormsWindow[@className='AxHysysPfdCtrlLib.AxHysysPfdCtrl']"
+				[ ] 
+				[-] RECT GetRect()
+					[ ] this.click(1,10,10)
+					[ ] return derived::GetRect()
+					[ ] 
+				[ ] 
+			[ ] 
+			[+] WPFTabItem	tabiFlowsheetMain
+				[ ] locator "//WPFTabItem[@caption='Flowsheet Main*']"
+			[+] WPFTabItem tabiRunner
+				[ ] locator "//WPFTabItem[@caption='Runner']"
+			[+] WPFContentControl	tpgEventScheduler
+				[+] wcHysysDataGridSimple dgDatagrid
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] AnyWin	grpSchedulOptions
+					[+] WPFButton btnAdd
+						[ ] locator "//WPFButton[@caption='Add...']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@caption='Delete...']"
+					[+] WPFButton btnCopy
+						[ ] locator "//WPFButton[@caption='Copy...']"
+					[+] WPFButton btnImport
+						[ ] locator "//WPFButton[@caption='Import...']"
+					[+] WPFButton btnExport
+						[ ] locator "//WPFButton[@caption='Export...']"
+					[+] WPFButton btnSort
+						[ ] locator "//WPFButton[@caption='Sort...']"
+				[+] AnyWin	grpSchedulSequence
+					[+] WPFButton btnView
+						[ ] locator "//WPFButton[@automationId='EditEventSchedulerButton']"
+					[+] WPFButton btnAdd
+						[ ] locator "//WPFButton[@automationId='AddEventSchedulerButton']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteEventSchedulerButton']"
+					[+] WPFButton btnCopy
+						[ ] locator "//WPFButton[@automationId='CopyButton']"
+					[+] WPFButton btnImport
+						[ ] locator "//WPFButton[@caption='I_mport...]"
+					[+] WPFButton btnExport
+						[ ] locator "//WPFButton[@caption='E_xport...']"
+					[+] WPFButton btnSort
+						[ ] locator "//WPFButton[@caption='So_rt...']"
+				[+] AnyWin	grpSequenceControl                                          //Added by Juan on 8/14/2013
+					[+] WPFButton btnStart
+						[ ] locator "//WPFButton[@automationId='Start' or @automationId='Button8']"
+				[ ] 
+			[+] WPFContentControl	tpgSequenceOfSchedule
+				[ ] locator "//WPFContentControl[@caption='Name']"
+				[+] WPFButton btnView
+					[ ] locator "//WPFButton[@caption='View...']"
+				[+] WPFButton btnAdd
+					[ ] locator "//WPFButton[@caption='Add...']"
+				[+] WPFButton btnDelete
+					[ ] locator "//WPFButton[@caption='Delete...']"
+				[+] WPFButton btnCopy
+					[ ] locator "//WPFButton[@caption='Copy...']"
+				[+] WPFButton btnSort
+					[ ] locator "//WPFButton[@caption='Sort...']"
+				[+] WPFButton btnAnalyze
+					[ ] locator "//WPFButton[@caption='Analyze']"
+				[+] AnyWin	grpSequenceOption
+					[+] WPFButton btnStart
+						[ ] locator "//WPFButton[@caption='Start']"
+					[+] WPFButton btnStop
+						[ ] locator "//WPFButton[@caption='Stop']"
+					[+] WPFButton btnResume
+						[ ] locator "//WPFButton[@caption='Resume']"
+					[+] WPFButton btnHold
+						[ ] locator "//WPFButton[@caption='Hold']"
+					[+] WPFButton btnForce
+						[ ] locator "//WPFButton[@caption='Force']"
+					[+] WPFButton btnSkip
+						[ ] locator "//WPFButton[@caption='Skip']"
+				[ ] 
+			[+] WPFContentControl	tpgEventOfSequenceOfSchedule
+				[ ] locator "//WPFContentControl[@caption='Event Options']"
+				[+] AnyWin grpWaitFor
+					[+] WPFRadioButton rdbTheLogicToEvaluateTrue
+						[ ] locator "//WPFRadioButton[@caption='The Logic to Evaluate True']"
+					[+] WPFRadioButton rdbAnElapsedAmountOfTime
+						[ ] locator "//WPFRadioButton[@caption='An Elapsed Amount of Time']"
+					[+] WPFRadioButton rdbASpecificSimulationTime
+						[ ] locator "//WPFRadioButton[@caption='A Specific Simulation Time']"
+					[+] WPFRadioButton rdbAVariableToStabilize
+						[ ] locator "//WPFRadioButton[@caption='A Variable To Stabilize']"
+					[+] WPFTextBox txtTrueFor
+						[ ] locator "//WPFTextBox[4]"
+				[+] AnyWin grpLogicalIfExpresstion
+					[+] WPFButton	btnExpressionHelp
+						[ ] locator "//WPFButton[@caption='Expression Help...' or @automationId='Button8']"
+					[+] WPFTextBox	txtExpression
+						[ ] locator "//WPFTextBox[@automationId='TextEntry1']"
+			[+] wcNoneADJUnitOpsTPG	tpgDePropanizer					//DePropanizer tab page
+				[+] //Common objects
+					[+] WPFButton	btnRun
+						[ ] locator "//WPFButton[@automationId='RunButton']"
+					[+] WPFButton	btnReset
+						[ ] locator "//WPFButton[@caption='Reset']"
+					[+] WPFButton	btnColumnEnviroment
+						[ ] locator "//WPFButton[@caption='Column Environment...']"
+					[+] WPFCheckBox	chkUpdateOutlets
+						[ ] locator "//WPFCheckBox[@caption='Update Outlets']"
+				[+] //Parameters Tab Page
+					[+] AnyWin	tpgParameters
+						[+] //Efficiencies page
+							[+] WPFRadioButton	rdbOverAll
+								[ ] locator "//WPFRadioButton[ @caption='Overall']"
+							[+] WPFRadioButton	rdbComponent
+								[ ] locator "//WPFRadioButton[@caption='Component']"
+							[+] WPFRadioButton	rdbGrouped
+								[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Grouped')]"
+							[+] WPFRadioButton	rdbUserSpecified
+								[ ] locator "//WPFRadioButton[@caption='User Specified']"
+							[+] WPFButton	btnSpecify
+								[ ] locator "//WPFButton[@caption='Specify --->']"
+							[+] WPFTextBox	txtSpecify
+								[ ] locator "//WPFTextBox[2]"
+							[+] WPFButton	btnEfficiencyTuning
+								[ ] locator "//WPFButton[@caption='Efficiency Tuning']"
+						[+] //Profiles page
+							[+] WPFUserControl	ctrPressurePlot
+								[ ] locator "//WPFUserControl[@automationId='PressurePlot']"
+							[+] WPFRadioButton	rdbMolar
+								[ ] locator "//WPFRadioButton[@caption='Molar']"
+							[+] WPFRadioButton	rdbMass
+								[ ] locator "//WPFRadioButton[@caption='Mass']"
+							[+] WPFRadioButton	rdbVolume
+								[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[+] WPFRadioButton	rdbStdIdealVol
+								[ ] locator "//WPFRadioButton[@caption='Std Ideal Vol']"
+							[+] WPFRadioButton	rdbActVolume
+								[ ] locator "//WPFRadioButton[@caption='Act. Volume']"
+							[+] WPFButton	btnUpdateFromSolution
+								[ ] locator "//WPFButton[@automationId='UpdateEst']"
+							[+] WPFButton	btnClearTray
+								[ ] locator "//WPFButton[@automationId='ClearEst']"
+							[+] WPFButton	btnClearAllTrays
+								[ ] locator "//WPFButton[@automationId='ClearAllEst']"
+							[+] WPFButton	btnLock
+								[ ] locator "//WPFButton[@automationId='ColumnOpLockEstButton']"
+							[+] WPFButton	btnUnlock
+								[ ] locator "//WPFButton[@automationId='ColumnOpUnlockEstButton']"
+							[+] WPFButton	btnStreamEstimates
+								[ ] locator "//WPFButton[@automationId='ColOpStreamEstButton']"
+						[+] //Solver page
+							[+] wcHysysDataGridSimple	dgSolvingOptions
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple	dgDamping
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Monitor
+							[+] wcHysysDataGridSimple	dgSpecifications
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+						[+] //Connections
+							[+] WPFComboBox cboCondenserEnergyStream
+								[ ] locator"//WPFComboBox[@caption='Condenser Energy Stream']"
+							[+] WPFComboBox cboReboilerEnergyStream
+								[ ] locator"//WPFComboBox[@automationId='RebEnergyAttach']"
+							[+] WPFComboBox cboBottomsLiquidOutlet
+								[ ] locator"//WPFComboBox[@automationId='BtmsLiquidAttach']"
+							[+] wcHysysDataGridSimple dgInletStreams
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple dgOptionalSideDraws
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] AnyWin	grpStageNumbering
+								[+] WPFRadioButton	rdbTopDown
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Top Down')]"
+								[+] WPFRadioButton	rdbBottomUp
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Bottom Up')]"
+							[+] AnyWin	grpCondenser
+								[+] WPFRadioButton	rdbTotal
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Total')]"
+								[+] WPFRadioButton	rdbPartial
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Partial')]"
+								[+] WPFRadioButton	rdbFullReflux
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Full Reflux')]"
+							[+] wcHysysTextBox txtPCond
+								[ ] locator "//WPFTextBox[@caption='1379	kPa' or @caption='1401	kPa'  or @automationId='PnInput']"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox[5]"
+						[+] //Specs
+							[+] WPFListBox	lstColumnSpecifications
+								[ ] locator "//WPFListBox[@automationId='SpecificationsList']"
+							[+] WPFButton btnView
+								[ ] locator "//WPFButton[@caption='View...']"
+							[+] WPFButton btnAdd
+								[ ] locator "//WPFButton[@caption='Add...']"
+							[+] WPFButton btnDelete
+								[ ] locator "//WPFButton[@caption='Delete...']"
+							[+] wcHysysDataGridSimple	dgSpecType
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple	dgValues
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] wcHysysDataGridSimple	dgErrors
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+				[+] //Side Ops Tab Page
+					[+] AnyWin	tpgSideOps
+						[+] //Side Draws
+							[ ] 
+						[+] //Side Strippers
+							[+] WPFButton btnAdd
+								[ ] locator "//WPFButton[@caption='_Add...']"
+							[+] WPFButton btnView
+								[ ] locator "//WPFButton[@caption='View' or @automationId='ViewSSButton']"
+							[+] WPFButton btnDelete
+								[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeleteSSButton']"
+							[+] WPFButton btnSideOpsInputExpert
+								[ ] locator "//WPFButton[@caption='Side Ops Input Expert...' or @automationId='SideOpsWizButton']"
+							[+] AnyWin	grpFlowBasis
+								[+] WPFRadioButton rdbMolar
+									[ ] locator "//WPFRadioButton[@caption='Molar']"
+								[+] WPFRadioButton rdbMass
+									[ ] locator "//WPFRadioButton[@caption='Mass']"
+								[+] WPFRadioButton rdbVolume
+									[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[ ] 
+				[+] //Performance TabPage
+					[+] AnyWin	tpgPerformance
+						[+] //Summary
+							[ ] 
+						[+] //Column Profiles
+							[ ] 
+						[+] //Feeds/Products
+							[ ] 
+						[+] //Plots
+							[+] AnyWin	grpTrayByTrayProperty
+								[+] WPFListBox lstTrayByTrayProperty
+									[ ] locator "//WPFListBox[4]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphButton']"
+								[+] WPFRadioButton rdbAll
+									[ ] locator "//WPFRadioButton[@caption='All']"
+								[+] WPFRadioButton rdbSingleTower
+									[ ] locator "//WPFRadioButton[@caption='Single Tower']"
+								[+] WPFRadioButton rdbFromTo
+									[ ] locator "//WPFRadioButton[@caption='From/To']"
+							[+] AnyWin	grpAssayCurves
+								[+] WPFListBox lstAssayCurves
+									[ ] locator "//WPFListBox[3]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableCurveButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphCurveButton']"
+							[+] AnyWin	grpHydrocyclone
+								[+] WPFRadioButton	rdbDropletDistribution
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Droplet Distribution')]"
+								[+] WPFRadioButton	rdbMigrationProbability
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Migration Probability')]"
+						[+] //Cond/Reboiler
+							[ ] 
+				[+] //FlowSheet Tab Page
+					[+] AnyWin	tpgFlowSheet
+						[+] //Setup
+							[+] wcHysysDataGridSimple		 dgInletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple		 dgOutletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+			[+] wcNoneADJUnitOpsTPG	tpgMIX								//MIX tab page
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Parameters
+							[+] wcHysysDataGridSimple	dgDeltaP
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+							[+] wcHysysTextBox	txtLiquidVolume1
+								[ ] locator "//WPFTextBox[@automationId='LiqVolInput']"
+							[+] wcHysysTextBox	txtLiquidVolume2
+								[ ] locator "//WPFTextBox[@automationId='SSLiqLevelInput']"
+							[+] wcHysysTextBox	txtVolume
+								[ ] locator "//WPFTextBox[@automationId='RxnVolumeInput']"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox"
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[+] //Nozzles
+							[+] wcHysysTextBox txtBaseElevation
+								[ ] locator "//WPFTextBox[@automationId='ElevationInput']"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox"
+							[+] wcHysysDataGridSimple	dgSimpleHeatLoss
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+			[+] wcNoneADJUnitOpsTPG	tpgLTS								//LTS tab page
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgChiller							//Chiller tab page
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgDewPoint						//Dew Point tab page
+				[ ] 
+			[ ] //Added by Juan Situ on January 11, 2013,February 26, 2013,March 5,2013
+			[+] wcHysysTabBase	tpgFlowSheetMainCalibration
+				[+] //Common objects
+					[ ] 
+				[+] AnyWin	tpgAnalysis
+					[+] WPFButton	btnSaveForSimulation
+						[ ] locator "//WPFButton[@automationId='SaveForSimulationButton']"
+					[+] WPFDataGrid	dgPropertyCurves
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] WPFButton	btnCalibrationFactorsLibrary
+						[ ] locator "//WPFButton[@automationId='btnCalLibrary']"
+					[ ] 
+				[+] AnyWin	tpgProductMeas
+					[+] wcHysysDataGridSimple	dgHeavyEnds
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[+] AnyWin	tpgOperation
+					[+] wcHysysDataGridSimple	dgDelumpingPropertyInitialCurves
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Added by Juan Situ on March 5,2013
+					[+] wcHysysDataGridSimple dgAdvancedTuning
+						[ ] locator "//WPFContentControl[@automationId='wsmAdvancedTuning']//WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Add end
+					[+] WPFButton	btnRestoreDefaults
+						[ ] locator "//WPFButton[@automationId='btnRestoreRefDefaults']"
+			[+] wcNoneADJUnitOpsTPG	tpgReactorSection
+				[+] //Common objects
+					[+] WPFButton	btnRefEnvironment
+						[ ] locator "//WPFButton[@automationId='btnCatRefEnvironment']"
+					[+] WPFCheckBox	chkIgnoredCheckBox //Added by Juan on March, 13, 2013
+						[ ] locator "//WPFCheckBox[@automationId='CheckBox1']"
+				[+] //Design
+					[+] WPFDataGrid dgCatalystLoadings1
+						[ ] locator "//WPFContentControl[@automationId='catMatrixWidget']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFDataGrid dgCatalystLoadings2
+						[ ] locator "//WPFContentControl[@automationId='LengthMatrixWidget']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] //Feed Data
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='btnAddFeedAdjust']"
+					[+] WPFListBox	lstFeedTypes
+						[ ] locator "//WPFListBox[@automationId='alFeedTypes']"
+					[+] WPFListBox	lstFeeds
+						[ ] locator "//WPFListBox[@automationId='alFeedAdjusts']"
+					[+] wcHysysDataGridSimple	dgFeedProperties
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[+] //Operation
+					[ ] //Feeds
+					[+] wcHysysDataGridSimple dgFeedConditions
+						[ ] locator "//WPFContentControl[@automationId='mtxFeedConditions']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgBlendedStream
+						[ ] locator "//WPFContentControl[@automationId='BlendedStreamMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Reactor Control
+					[+] wcHysysDataGridSimple dgReactorTempSpec
+						[ ] locator "//WPFContentControl[@automationId='OpCondMatrix1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgHydrogenRecycle
+						[ ] locator "//WPFContentControl[@automationId='ReactSectRxCtlH2RecycleMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgProductSeparator
+						[ ] locator "//WPFContentControl[@automationId='ReactSectRxCtlProdSeparatorMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Catalyst
+					[+] wcHysysDataGridSimple dgContinousRegeneration1
+						[ ] locator "//WPFContentControl[@automationId='MatrixWidget3bed']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgContinousRegeneration2
+						[ ] locator "//WPFContentControl[@automationId='Matrix3BedPinning']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Product Heater
+					[+] wcHysysDataGridSimple dgProductHeater1
+						[ ] locator "//WPFContentControl[@automationId='prodheaterMatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgProductHeater2
+						[ ] locator "//WPFContentControl[@automationId='prodheaterMatrixWidget2']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Added by Juan Situ on March 5,2013
+					[ ] //Advanced
+					[+] wcHysysDataGridSimple dgAdvancedTuning
+						[ ] locator "//WPFContentControl[@automationId='wsmAdvancedTuning']//WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Add end
+				[+] //Results Tab Page
+					[+] AnyWin	tpgResults
+						[+] WPFDataGrid	dgProductProperties
+							[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+			[ ] //Add end
+			[ ] //Added by Juan Situ on February 4, 2013,February 26, 2013
+			[+] wcReformer	tpgReformer100
+				[ ] 
+				[+] //Common objects
+					[+] WPFButton	btnRefEnvironment
+						[ ] locator "//WPFButton[@automationId='btnCatRefEnvironment']"
+					[+] WPFComboBox	cboDataSet
+						[ ] locator "//WPFComboBox[@automationId='attDataSets']"
+				[ ] 
+				[+] //Design
+					[+] wcHysysDataGridSimple dgCatalystLoadings1
+						[ ] locator "//WPFContentControl[@automationId='catMatrixWidget']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgCatalystLoadings2
+						[ ] locator "//WPFContentControl[@automationId='LengthMatrixWidget']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] 
+					[+] wcHysysDataGridSimple dgReformerFeeds
+						[ ] locator "//WPFContentControl[@automationId='mtxRXRFeeds']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] //Reactor Section
+					[+] // wcHysysDataGridSimple	dgBlended
+						[ ] // locator "//WPFContentControl[@automationId='BlendedStreamMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] // wcHysysDataGridSimple	dgTemperatureSpecification
+						[ ] // locator "//WPFContentControl[@automationId='OpCondMatrix1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] // wcHysysDataGridSimple	dgHydrogenRecycle   ///May have problem!!!!!!!!!!!!!!!!!!!!!!
+						[ ] // locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] // wcHysysDataGridSimple	dgProdSeparator
+						[ ] // locator "//WPFContentControl[@automationId='ReactSectRxCtlProdSeparatorMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] // wcHysysDataGridSimple	dgContinuousRegeneration 
+						[ ] // locator "//WPFContentControl[@automationId='MatrixWidget3bed']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] // wcHysysDataGridSimple	dgprodheater1
+						[ ] // locator "//WPFContentControl[@automationId='prodheaterMatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgprodheater2
+						[ ] locator "//WPFContentControl[@automationId='prodheaterMatrixWidget2']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] //Stabilizer Tower
+				[ ] //Results
+				[+] //Operation or Reactor Section
+					[ ] //Feeds
+					[+] wcHysysDataGridSimple dgFeedConditions
+						[ ] locator "//WPFContentControl[@automationId='mtxFeedConditions']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgBlendedStream
+						[ ] locator "//WPFContentControl[@automationId='BlendedStreamMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Reactor Control
+					[+] wcHysysDataGridSimple dgReactorTempSpec
+						[ ] locator "//WPFContentControl[@automationId='OpCondMatrix1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgHydrogenRecycle
+						[ ] locator "//WPFContentControl[@automationId='ReactSectRxCtlH2RecycleMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgProductSeparator
+						[ ] locator "//WPFContentControl[@automationId='ReactSectRxCtlProdSeparatorMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple		dgCopiedData
+						[ ] locator "//WPFContentControl[@automationId='mtxDataCapture']//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+					[+] WPFButton	btnCopyData
+						[ ] locator "//WPFButton[@caption ='*Copy Data' or @automationId='btnCaptureData']"
+						[ ] 
+					[+] WPFButton	btnRecycleGasLoc
+						[ ] locator "//WPFButton[@caption ='*Recycle Gas Location Options' or @automationId='RecycleH2SplitBtn']"
+					[ ] 
+					[ ] //Catalyst
+					[+] wcHysysDataGridSimple dgContinousRegeneration1
+						[ ] locator "//WPFContentControl[@automationId='MatrixWidget3bed']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgContinousRegeneration2
+						[ ] locator "//WPFContentControl[@automationId='Matrix3BedPinning']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] //Product Heater
+					[+] wcHysysDataGridSimple dgProductHeater1
+						[ ] locator "//WPFContentControl[@automationId='prodheaterMatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgProductHeater2
+						[ ] locator "//WPFContentControl[@automationId='prodheaterMatrixWidget2']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] //Analysis
+					[ ] //Mass Balance
+					[+] wcHysysDataGridSimple	dgFeedGroup
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple	dgFeedGroupTotal
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+					[+] wcHysysDataGridSimple	dgMassHydrogenBalance
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][4]"
+					[+] wcHysysDataGridSimple	dgProductGroup
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[ ] //Summary
+					[+] wcHysysDataGridSimple	dgWAIT
+						[ ] locator "//WPFContentControl[@automationId='MatrixWidget5']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgYieldRon
+						[ ] locator "//WPFContentControl[@automationId='MatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgRecycleH2
+						[ ] locator "//WPFContentControl[@automationId='MatrixWidget6']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgH2Yield
+						[ ] locator "//WPFContentControl[@automationId='H2YieldMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgAromaticsYield
+						[ ] locator "//WPFContentControl[@automationId='AromaticsYieldGroup']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] //Add end
+			[+] wcNoneADJUnitOpsTPG	tpgReboiler						//Reboiler page //Added by Juan Situ on 5/22/2013
+				[+] //Performance Tab Page
+					[+] AnyWin	tpgPerformance
+						[+] //SetUp
+							[+] WPFListBox lstAvailableVariable
+								[ ] locator "//WPFListBox[@automationId='AvailableVariableList']"
+							[+] WPFButton btnAdd
+								[ ] locator "//WPFButton[@automationId='AttachVariableButton']"
+							[+] WPFListBox lstSelectedVarialble
+								[ ] locator "//WPFListBox[@automationId='SelectedVarialbleList']"
+						[ ] //Tables
+						[+] WPFCheckBox chkVapour
+							[ ] locator "//WPFCheckBox[@automationId='VapourCheckBox']"
+			[+] wcNoneADJUnitOpsTPG	tpgT100							//T-100 tab page
+				[+] //Common Objects
+					[+] WPFLabel		stcConverged
+						[ ] locator "//WPFLabel[@caption='Converged']"
+					[+] WPFLabel		stcConvergedAWD
+						[ ] locator "//WPFLabel[@caption='Converged - AWD']"
+					[+] WPFLabel		stcUnconverged
+						[ ] locator "//WPFLabel[@caption='Unconverged']"
+					[+] WPFButton	btnReset
+						[ ] locator"//WPFButton[@automationId='ResetButton']"
+					[+] WPFButton	btnRun
+						[ ] locator"//WPFButton[@automationId='RunButton']"
+					[+] WPFButton	btnColumnEnvironment
+						[ ] locator "//WPFButton[@automationId='ReturnButton' or @caption='Column Environment...']"
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Monitor
+							[+] WPFTextBox	txtDegreesOfFreedom
+								[ ] locator "//WPFTextBox[@automationId='DOF_Display']"
+						[+] //Specs
+							[+] WPFListBox	lstColumnSpecifications
+								[ ] locator "//WPFListBox[@automationId='SpecificationsList']"
+							[+] WPFButton	btnUpdateSpecsFromDynamics
+								[ ] locator "//WPFButton[@automationId='UpdateSpecsFromDynamicButton']"
+							[+] WPFButton	btnView
+								[ ] locator "//WPFButton[@automationId='ColSpecViewButton']"
+							[+] WPFButton	btnAdd
+								[ ] locator "//WPFButton[@automationId='AddSpecsButton']"
+							[+] WPFButton	btnDelete
+								[ ] locator "//WPFButton[@automationId='DeleteSpecsButton']"
+								[ ] 
+							[+] WPFTextBox	txtSpecName
+								[ ] locator "//WPFTextBox[@automationId='IndivSpecName']"
+							[+] WPFCheckBox	chkActive
+								[ ] locator "//WPFCheckBox[@automationId='SpecActiveCheckBox']"
+							[+] WPFCheckBox	chkUseAsEstimate
+								[ ] locator "//WPFCheckBox[@automationId='UseAsEstimateCheckBox']"
+							[+] WPFCheckBox	chkCurrent
+								[ ] locator "//WPFCheckBox[@automationId='TransientCB']"
+							[+] WPFCheckBox	chkDryFlowBasis
+								[ ] locator "//WPFCheckBox[@automationId='DryBasisCB']"
+							[+] wcHysysDataGridSimple		dgConverged
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple		dgValue
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] wcHysysDataGridSimple		dgErrors
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+							[+] wcHysysDataGridSimple		dgSpecType
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][4]"
+						[+] //Advanced
+							[ ] 
+						[+] //Notes
+							[ ] 
+						[ ] //Connections
+						[+] WPFTextBox	txtStagesNum
+							[ ] locator "//WPFTextBox[@automationId='NumStagesNum']"
+				[+] //Side Ops
+					[+] AnyWin	tpgSideOps
+						[+] WPFRadioButton	rdbMolar
+							[ ] locator "//WPFRadioButton[@caption='Molar'][1]"
+						[+] WPFRadioButton	rdbMass
+							[ ] locator "//WPFRadioButton[@caption='Mass'][1]"
+						[+] WPFRadioButton	rdbVolume
+							[ ] locator "//WPFRadioButton[@caption='Volume'][1]"
+						[ ] 
+						[+] WPFButton	btnView
+							[ ] locator "//WPFButton[@automationId='ViewSSButton' or @caption='_View']"
+						[+] WPFButton	btnAdd
+							[ ] locator "//WPFButton[@automationId='AddSSButton' or @caption='_Add...']"
+						[+] WPFButton	btnDelete
+							[ ] locator "//WPFButton[@automationId='DeleteSSButton' or @automationId='DeleteSRButton' or @automationId='DeleteLiqPAButton' or @automationId='DeleteVapPAButton']"
+						[+] WPFButton	btnSideOpsInputExpert
+							[ ] locator "//WPFButton[@automationId='SideOpsWizButton']"
+				[+] //Worksheet Tab Page
+					[+] AnyWin	tpgWorksheet
+						[+] //Conditions
+							[ ] 
+						[+] //Properties
+							[ ] 
+						[+] //Compositions
+							[ ] 
+				[+] //Performance Tab Page
+					[+] AnyWin	tpgPerformance
+						[+] //Plots
+							[+] AnyWin	grpTrayByTrayProperty
+								[+] WPFListBox lstTrayByTrayProperty
+									[ ] locator "//WPFListBox[4]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphButton']"
+								[+] WPFRadioButton rdbAll
+									[ ] locator "//WPFRadioButton[@caption='All']"
+								[+] WPFRadioButton rdbSingleTower
+									[ ] locator "//WPFRadioButton[@caption='Single Tower']"
+								[+] WPFRadioButton rdbFromTo
+									[ ] locator "//WPFRadioButton[@caption='From/To']"
+							[+] AnyWin	grpAssayCurves
+								[+] WPFListBox lstAssayCurves
+									[ ] locator "//WPFListBox[3]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableCurveButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphCurveButton']"
+							[+] AnyWin	grpColumnTrayRanges
+								[+] WPFRadioButton rdbAll
+									[ ] locator "//WPFRadioButton[@caption='All'][1]"
+								[+] WPFRadioButton rdbSingleTower
+									[ ] locator "//WPFRadioButton[@caption='Single Tower'][1]"
+								[+] WPFRadioButton rdbFromTo
+									[ ] locator "//WPFRadioButton[@caption='From*To'][1]"
+				[+] //Calibration Tab Page
+					[+] AnyWin	tpgCalibration
+						[+] //Products
+							[+] WPFComboBox cboTopLeft
+								[ ] locator "//WPFComboBox"
+				[+] //Parameters Tab Page
+					[+] AnyWin	tpgParameters
+						[+] //Profiles page
+							[+] WPFUserControl	ctrPressurePlot
+								[ ] locator "//WPFUserControl[@automationId='PressurePlot']"
+							[+] WPFRadioButton	rdbMolar
+								[ ] locator "//WPFRadioButton[@caption='Molar']"
+							[+] WPFRadioButton	rdbMass
+								[ ] locator "//WPFRadioButton[@caption='Mass']"
+							[+] WPFRadioButton	rdbVolume
+								[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[+] WPFRadioButton	rdbStdIdealVol
+								[ ] locator "//WPFRadioButton[@caption='Std Ideal Vol']"
+							[+] WPFRadioButton	rdbActVolume
+								[ ] locator "//WPFRadioButton[@caption='Act. Volume']"
+						[+] //Solver
+							[+] WPFComboBox	cboSolvingMethod
+								[ ] locator "//WPFComboBox[@automationId='SolverMethodEnum']"
+						[+] //2/3 Phase
+							[+] WPFButton	btnAutoWaterDraws
+								[ ] locator "//WPFButton[@automationId='awdButton1']"
+						[ ] //Added by Juan on 1/22/2014
+						[+] //Efficiencies
+							[+] WPFRadioButton	rdbGrouped
+								[ ] locator "//WPFRadioButton[@automationId='rdb_RadioButtons5_1']"
+							[+] WPFButton	btnEfficiencyTuning
+								[ ] locator "//WPFButton[@automationId='btnEfficiencyTuningView']"
+						[ ] //Add End
+			[+] wcNoneADJUnitOpsTPG	tpgTEE100
+				[+] AnyWin	tpgDesign
+					[+] //Connections
+						[+] WPFTextBox	txtName
+							[ ] locator "//WPFTextBox[@automationId='NameValue']"
+						[+] WPFComboBox	cboInlet
+							[ ] locator "//WPFComboBox[@automationId='FeedValue']"
+						[+] WPFComboBox	cboFluidPackage
+							[ ] locator "//WPFComboBox[@automationId='attFluidPkg']"
+						[+] wcHysysDataGridSimple	dgOutLets
+							[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+						[+] WPFButton	btnDelete
+							[ ] locator "//WPFButton[@automationId='DeleteButton']"
+						[+] WPFCheckBox	chkIgnore
+							[ ] locator "//WPFCheckBox[@automationId='IgnoreCheck']"
+					[+] //Parameters
+						[+] WPFCheckBox 	chkActAsSepCB
+							[ ] locator "//WPFCheckBox[@automationId='ActAsSepCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+						[+] WPFCheckBox 	chkSinglePhaseCB
+							[ ] locator "//WPFCheckBox[@automationId='SinglePhaseCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+							[ ] 
+					[+] //User Variables
+						[ ] 
+					[ ] //Notes
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgR410                                                    //Added by Juan at 5/7/2013
+				[+] AnyWin	tpgDynamics
+					[+] //Specs
+						[+] wcHysysDataGridSimple dgDynamicSpecification
+							[ ] locator "//WPFContentControl[@automationId='DynamicParametersMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG tpgTransferFunctionBlock                      //Added by Juan at 5/27/2013
+				[+] WPFCheckBox chkIntegrator
+					[ ] locator "//WPFCheckBox[@automationId='IntegratorActiveCBox']"
+				[+] WPFCheckBox chkDelay
+					[ ] locator "//WPFCheckBox[@automationId='DelayActiveCBox']"
+				[+] WPFCheckBox chkOrder2
+					[ ] locator "//WPFCheckBox[@automationId='Order2ActiveCBox']"
+				[+] WPFCheckBox chkLag1
+					[ ] locator "//WPFCheckBox[@automationId='Lag1ActiveCBox']"
+				[+] WPFCheckBox chkLag2
+					[ ] locator "//WPFCheckBox[@automationId='Lag2ActiveCBox']"
+				[+] WPFCheckBox chkRamp
+					[ ] locator "//WPFCheckBox[@automationId='RampActive_ChkBx']"
+				[+] WPFCheckBox chkLead1
+					[ ] locator "//WPFCheckBox[@automationId='Lead1ActiveCBox']"
+				[+] WPFCheckBox chkLead2
+					[ ] locator "//WPFCheckBox[@automationId='Lead2ActiveCBox']"
+				[+] WPFCheckBox chkRateLimit
+					[ ] locator "//WPFCheckBox[@automationId='RateLimitActive_ChkBx']"
+				[ ] //Connections
+				[+] WPFTextBox txtName
+					[ ] locator "//WPFTextBox[@automationId='Name']"
+				[+] WPFLabel lblProcessObject
+					[ ] locator "//WPFLabel[@caption='1'][1]"
+				[+] WPFLabel lblProcessVariable
+					[ ] locator "//WPFLabel[@caption='Molar Flow'][1]"
+				[+] WPFLabel lblOPTargetObject
+					[ ] locator "//WPFLabel[@caption='1'][2]"
+				[+] WPFLabel lblOPTargetVariable
+					[ ] locator "//WPFLabel[@caption='Molar Flow'][2]"
+					[ ] 
+				[ ] // Parameters
+				[ ] // Configuration
+				[+] WPFTextBox txtColdInitOP
+					[ ] locator "//WPFTextBox[@automationId='ColdInitOP']"
+				[ ] // "2nd Order"
+				[+] WPFRadioButton rdbLag
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Lag')]"
+				[+] WPFRadioButton rdbSineWaveGenerator
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Sine Wave Generator')]"
+				[ ] // "Ramp"
+				[+] WPFLabel stsRampIsOFF
+					[ ] locator "//WPFLabel[@caption='Ramp Is OFF']"
+				[ ] // Stripchart
+				[+] WPFComboBox cboVariableSet
+					[ ] locator "//WPFComboBox[@automationId='VarListEnumeration']"
+				[ ] // User Variables
+				[+] WPFComboBox cboUserVar
+					[ ] locator "//WPFComboBox[@automationId='UserVar_WSMatrixFilter']"
+			[+] wcNoneADJUnitOpsTPG tpgCSTR                                                    //Added by Juan at 7/10/2013
+				[+] AnyWin	tpgDynamics
+					[+] WPFTabItem	tabiDynamics
+						[ ] locator "//WPFTabItem[@caption='Dynamics']"
+				[+] WPFRadioButton	rdbInitializeFromProducts
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Initialize From Products')]"
+				[+] WPFRadioButton	rdbDryStartup
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Dry Startup')]"
+				[+] WPFRadioButton	rdbInitializeFromUser
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Initialize From User')]"
+				[+] WPFButton	btnInitHoldUp
+					[ ] locator "//WPFButton[@automationId='btnDynInitHoldUp']"
+			[ ] wcLNG tpgLNG                                                                                      //Added by Juan at 7/15/2013
+			[+] wcColumn		tpgDistillationColumn
+				[+] //Design Tab
+					[+] WPFButton btnAddSpc    //Added by Juan on 12/4/2013
+						[ ] locator "//WPFButton[@automationId='MonitorAddSpecButton']"  
+				[+] //Parameters Tab
+					[ ] //Solver
+					[+] WPFRadioButton	rdbAdaptive
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Adaptive']"
+					[+] WPFRadioButton	rdbFixed
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Fixed']"
+					[+] WPFRadioButton	rdbAzeotropic
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Azeotropic']"
+			[+] wcColumn		tpgAbsoberColumn
+				[+] //Parameters Tab
+					[ ] //Acid Gas
+					[+] WPFComboBox cboCalculationType
+						[ ] locator "//WPFComboBox[@automationId='*CalcModeEnum']"//Updated by Juan on 12/4/2013
+					[+] WPFTextBox txtFlowPaths
+						[ ] locator "@automationId='AGSchematicFlowPaths'"
+					[+] WPFTextBox txtWeirHeight2
+						[ ] locator "@automationId='AGSchematicWeirHeight2FP4'"
+					[+] WPFTextBox txtWeirHeight1
+						[ ] locator "@automationId='AGSchematicWeirHeight1'"
+					[+] WPFTextBox	txtSectionDiameter  //Added by Juan on 12/18/2013
+						[ ] locator "//WPFTextBox[@automationId='AGSchematic*Dia']"
+					[+] WPFTextBox	txtWeirLength   //Added by Juan on 12/16/2013
+						[ ] locator "//WPFTextBox[@automationId='AGSchematicWeirLen1']"
+					[+] WPFTextBox	txtTraySpace	//Added by Juan on 12/18/2013
+						[ ] locator "//WPFTextBox[@automationId='AGSchematicTraySpacing']"
+					[+] WPFTextBox	txtPackingHeight	//Added by Juan on 12/18/2013
+						[ ] locator "//WPFTextBox[@automationId='AGSchematicPackingHeight']"
+					[ ]  //Added by Juan on 12/4/2013
+					[+] WPFButton	btnConvParams
+						[ ] locator "WPFButton[@automationId='*ConvergenceParams']"  //Added by Juan on 12/6/2013
+					[+] WPFComboBox cboDiagLevel  //Added by Juan on 12/6/2013
+						[ ] locator "//WPFComboBox[@automationId='*DiagLevelEnum']"
+					[+] WPFImage imgWarning
+						[ ] locator "//WPFImage[@automationId='WarningSignal']"//Added by Juan on 12/12/2013
+					[ ] //Rate-based
+					[+] WPFComboBox cboConvergence
+						[ ] locator "//WPFComboBox[@automationId='*ConvergenceEnu']" //Updated by Juan on 12/6/2013
+					[+] WPFButton	btnAddSection
+						[ ] locator "//WPFButton[@automationId='*AddSection']"//updated by Juan on 12/6/2013
+					[+] WPFButton	btnRemoveSection//Added by Juan on 12/13/2013
+						[ ] locator "//WPFButton[@automationId='*RemoveSect']"
+					[+] WPFComboBox cboReactionSet
+						[ ] locator "//WPFComboBox[@automationId='*RxnSetEnum']" //updated by Juan on 12/6/2013
+					[+] WPFButton	btnViewRxnSet
+						[ ] locator "//WPFButton[@automationId='*ViewRxnButton']"//updated by Juan on 12/6/2013
+					[+] WPFButton	btnAdvanced
+						[ ] locator "//WPFButton[@automationId='*AdvancedParams']"//updated by Juan on 12/6/2013
+					[ ] //Added by Juan on 12/13/2013
+					[ ] //Efficiencies
+					[+] WPFRadioButton rdoOverall
+						[ ] locator "//WPFRadioButton[@caption='Overall'][1]"
+					[+] WPFRadioButton rdoComponent
+						[ ] locator "//WPFRadioButton[@caption='Component'][1]"
+					[+] WPFRadioButton rdoGrouped
+						[ ] locator "//WPFRadioButton[@caption='Grouped'][1]"
+					[+] WPFRadioButton rdoUserSpecified
+						[ ] locator "//WPFRadioButton[@caption='User Specified'][1]"
+					[+] WPFButton btnResetH2SCO2
+						[ ] locator "//WPFButton[@automationId='ResetH2SCO2EffButton']"
+					[+] WPFCheckBox chkSpecifyEfficiencies
+						[ ] locator "//WPFCheckBox[@automationId='SpecifyEfficiencies']"
+					[+] WPFCheckBox chkTranspose
+						[ ] locator "//WPFCheckBox[@automationId='AGTransposeCheckBox']"
+					[+] WPFTextBox txtMultiSpecEffValue
+						[ ] locator "//WPFTextBox[@automationId='AGMultiSpecEffValue']"
+					[+] WPFButton btnSpecify
+						[ ] locator "//WPFButton[@automationId='AGSpecEffsButton2']"
+					[ ] //Add end
+				[+] //Performance Tab
+					[ ] //Plots
+					[+] WPFListBox	lstProperties
+						[ ] locator "//WPFListBox[@automationId='ProfileEnumList']"
+					[+] WPFButton   btnViewTable
+						[ ] locator"//WPFButton[@automationId='ViewTableButton']"
+					[+] WPFButton   btnViewGraph
+						[ ] locator"//WPFButton[@automationId='ViewGraphButton']"
+					[ ] 
+				[ ] //Dynamics
+				[+] WPFLabel	stsDyncNotSupported
+					[ ] locator "WPFLabel[@caption='Dynamics operation is not supported.']"
+				[ ] //Add end
+				[ ] //Side Ops
+				[+] WPFButton btnAdd   //Added by Juan on 12/6/2013
+					[ ] locator "//WPFButton[@automationId='Add*Button']"
+				[+] WPFButton btnEdit   //Added by Juan on 12/6/2013
+					[ ] locator "//WPFButton[@automationId='Edit*Button']"
+				[+] WPFButton btnDelete   //Added by Juan on 12/6/2013
+					[ ] locator "//WPFButton[@automationId='Del*Button']"
+				[+] WPFButton btnSideOpsInputExpert  //Added by Juan on 12/18/2013
+					[ ] locator "//WPFButton[@caption='Side Ops Input Expert...' or @automationId='SideOpsWizButton']"
+			[+] wcColumn		tpgThreePhaseColumn
+				[+] WPFRadioButton	rdbDistillation
+					[ ] locator "//WPFRadioButton[@caption='Distillation'][1]"
+				[+] WPFRadioButton	rdbRefluxedAbsorber
+					[ ] locator "//WPFRadioButton[@caption='Refluxed Absorber'][1]"
+				[+] WPFRadioButton	rdbReboiledAbsorber
+					[ ] locator "//WPFRadioButton[@caption='Reboiled Absorber'][1]"
+				[+] WPFRadioButton	rdbAbsorber
+					[ ] locator "//WPFRadioButton[@caption='Absorber'][1]"
+				[ ] 
+				[+] WPFButton	btnCheckSelected
+					[ ] locator "//WPFButton[@automationId='CheckSomeButton']"
+				[+] WPFButton	btnClearAll
+					[ ] locator "//WPFButton[@automationId='ClearAllButton']"
+				[+] WPFButton	btnCheckAll
+					[ ] locator "//WPFButton[@automationId='CheckAllButton']"
+				[+] WPFButton	btnClearSelected
+					[ ] locator "//WPFButton[@automationId='ClearSomeButton']"
+				[+] WPFComboBox	cboCondenserEnergyStream
+					[ ] locator "//WPFComboBox[@automationId='CondQStream']"
+				[+] WPFComboBox	cboLightOutlet
+					[ ] locator "//WPFComboBox[@automationId='LightProduct']"
+				[+] WPFComboBox	cboHeavyOutlet
+					[ ] locator "//WPFComboBox[@automationId='HeavyProduct']"
+			[+] wcHysysTabBase	tpgMakeup
+				[ ] //Design
+				[+] WPFTextBox txtTotalflow
+					[ ] locator "@automationId='totalvolflowInput'"
+				[ ] 
+			[ ] 
+			[ ] 
+			[+] wcHysysTabBase	tpgHCRReactor							//Hydrocracker Reactor tab page
+				[+] //FeedData
+					[ ] //Properties
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='btnAddFeedAdjust']"
+					[+] WPFRadioButton	rdbBulkProperties
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Bulk Properties')]"
+					[ ] 
+			[ ] wcHydrocracker	tpgHydrocracker							//Hydrocracker tab page
+			[+] wcNoneADJUnitOpsTPG	tpgPreheatTrain					//Preheat Train & Furnace() tab page
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Connections
+							[ ] 
+						[+] //Parameters
+							[ ] 
+						[+] //User Variables
+							[ ] 
+						[+] //Notes
+							[ ] 
+				[+] //Rating Tab Page
+					[ ] AnyWin	tpgRating
+				[+] //Worksheet Tab Page
+					[+] AnyWin	tpgWorksheet
+						[+] //Conditions
+							[ ] 
+						[+] //Properties
+							[ ] 
+						[+] //Compositions
+							[ ] 
+				[+] //Performance Tab Page
+					[+] AnyWin	tpgPerformance
+						[+] //Plots
+							[+] WPFComboBox cboXVariable
+								[ ] locator "//WPFComboBox[1]"
+							[+] WPFComboBox cboYVariable
+								[ ] locator "//WPFComboBox[2]"
+							[+] WPFTextBlock	 txtY
+								[ ] locator "//WPFTextBlock[@caption='Pressure (bar_g)']"
+							[+] WPFTextBlock	 txtX
+								[ ] locator "//WPFTextBlock[@caption='Temperature (C)']"
+							[+] WPFUserControl plotGraph
+								[ ] locator "//WPFUserControl[@className='PlotWidget']"
+							[ ] 
+				[+] //Dynamic Tab Page
+					[+] AnyWin	tpgDynamic
+						[+] //Products
+							[+] WPFComboBox cboTopLeft
+								[ ] locator "//WPFComboBox"
+				[ ] 
+				[ ] WPFComboBox cbo
+			[ ] wcProcDataData	tpgProcData
+			[+] wcNoneADJUnitOpsTPG	tpgK100							//K-100 tab page
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[ ] //Connections
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[+] WPFTextBox txtCompressorSpeed
+							[ ] locator "//WPFTextBox[2]"
+				[+] //Worksheet Tab Page
+					[ ] AnyWin	tpgWorksheet
+				[+] //Performance TabPage
+					[ ] AnyWin	tpgPerformance
+				[+] //Dynamic Tab Page
+					[+] AnyWin	tpgDynamic
+						[+] WPFCheckBox	chkReciprocating
+							[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox'][3]"
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgPipe100						//Pipe-100 tab page
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[ ] //Connections
+						[+] WPFComboBox cboInlet
+							[ ] locator "//WPFComboBox[@automationId='Feed']"
+						[+] WPFComboBox cboOutlet
+							[ ] locator "//WPFComboBox[@automationId='Product']" 
+						[+] WPFComboBox cboEnergy
+							[ ] locator "//WPFComboBox[@automationId='Energy']"
+						[ ] //Parameters
+						[+] WPFComboBox cboHorizDPCorrelation
+							[ ] locator "@automationId='horizDPCorrelation'"
+						[+] WPFComboBox cboVertDPCorrelation
+							[ ] locator "@automationId='vertDPCorrelation'"
+						[+] WPFComboBox cboInclinedDPCorrelation
+							[ ] locator "@automationId='inclinedDPCorrelation'"
+						[ ] 
+						[ ] //Heat Transfer
+						[+] WPFRadioButton		rdbEstimateHTC
+							[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Estimate HTC')]"
+						[+] wcHysysDataGridSimple 			dgPipeWall
+							[ ] locator "//WPFContentControl[@automationId='MatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+						[+] wcHysysDataGridSimple 			dgOuterInsulationLayer
+							[ ] locator "//WPFContentControl[@automationId='CH_LayersOuterMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+						[+] WPFButton 			btnAddOuterLayer
+							[ ] locator "//WPFButton[@automationId='CH_AddOuterLayerButton']"
+						[+] WPFRadioButton		rdbHeatLoss
+							[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Heat Loss')]"
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[ ] //Sizing page
+						[+] WPFButton	btnAppendSegment
+							[ ] locator "//WPFButton[@automationId='AddSegButton2']"
+						[+] WPFButton	btnDeleteSegment
+							[ ] locator "//WPFButton[@automationId='DelSegButton']"
+						[+] WPFButton	btnViewSegment
+							[ ] locator "//WPFButton[@automationId='ViewSegButton']"
+						[+] WPFButton	btnInsertSegment
+							[ ] locator "//WPFButton[@automationId='InsSegButton']"
+						[+] WPFButton	btnCloneSegment
+							[ ] locator "//WPFButton[@automationId='CloneSegButton']"
+						[+] WPFButton	btnClearProfile
+							[ ] locator "//WPFButton[@automationId='ClrProfileButton2']"
+						[ ] //Heat Loss Page
+						[+] WPFRadioButton	rdbTempProfile
+							[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Temp Profile']"
+						[+] WPFRadioButton	rdbConduction
+							[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Conduction']"
+						[+] WPFRadioButton	rdbConvection
+							[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Convection']"
+						[+] WPFRadioButton	rdbInsulation
+							[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Insulation']"
+						[+] WPFRadioButton	rdbMetal
+							[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Metal']"
+							[ ] 
+						[+] WPFTextBox	txtTotalHeatFlow
+							[ ] locator "//WPFTextBox[@automationId='TotalHeatFlowValue']"
+						[+] WPFCheckBox chkRadialLosses
+							[ ] locator "//WPFCheckBox[@automationId='RadialLossesSelection']"
+				[+] //Worksheet Tab Page
+					[ ] AnyWin	tpgWorksheet
+				[+] //Performance TabPage
+					[+] AnyWin	tpgPerformance
+						[+] WPFButton btnPlot
+							[ ] locator "//WPFButton[@automationId='CH_Plot']"
+						[ ] 
+						[ ] 
+				[+] //Flow Assurance
+					[+] AnyWin	tpgFlowAssurance
+						[+] //Wax Deposition
+							[+] WPFListBox lstDeprositionCorrelation
+								[ ] locator "//WPFListBox[@automationId='DepositionEnumList']"
+							[+] WPFButton  btnViewMethod
+								[ ] locator "//WPFButton[@automationId='ViewDepositionButton']"
+							[+] wcHysysDataGridSimple		dgDepositionProfile
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple		dgDepositProperties
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] wcHysysDataGridSimple		dgLimits
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][4]"
+				[+] //Dynamic Tab Page
+					[+] AnyWin	tpgDynamic
+						[ ] //Specs
+			[+] wcNoneADJUnitOpsTPG	tpgPump							//Pump(P-100) tab page
+				[+] //Common Objects
+					[+] WPFLabel		stcUnknownDuty
+						[ ] locator "//WPFLabel[@caption='Unknown Duty']"
+					[+] WPFLabel		stcOverspecified
+						[ ] locator "//WPFLabel[@caption='Overspecified']"
+						[ ] 
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Connections
+							[ ] //Added by Juan on 3/14/2014
+							[+] WPFTextBox txtName  
+								[ ] locator "//WPFTextBox[@automationId='NameValue']"
+							[+] WPFComboBox cboInlet
+								[ ] locator "//WPFComboBox[@automationId='FeedValue']"
+							[+] WPFComboBox cboOutlet  
+								[ ] locator "//WPFComboBox[@automationId='ProdValue']"
+							[+] WPFComboBox cboEnergy  
+								[ ] locator "//WPFComboBox[@automationId='EnergyValue']"
+							[ ] //Add end
+						[+] //Parameters
+							[+] wcHysysTextBox	txtDeltaP
+								[ ] locator "//WPFTextBox[@automationId='dPInput']"
+							[+] wcHysysTextBox	txtAdiabaticEfficiency
+								[ ] locator "//WPFTextBox[@automationId='EffInput']"
+							[+] wcHysysTextBox	txtPressureRatio
+								[ ] locator "//WPFTextBox[@automationId='PressureRatioNumericalInput']"
+							[+] wcHysysTextBox	txtDuty
+								[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+						[+] //Cureves
+							[+] WPFCheckBox	chkActiveCurves
+								[ ] locator "//WPFCheckBox[@automationId='ActivateCurvesCheck']"
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[+] //Curves page
+							[+] WPFCheckBox	chkUseCurves
+								[ ] locator "//WPFCheckBox[@automationId='UseCurvesCB']"
+							[+] WPFCheckBox	chkActingAsTubine
+								[ ] locator "//WPFCheckBox[@automationId='CheckBox2']"
+				[+] //Worksheet Tab Page
+					[ ] AnyWin	tpgWorksheet
+				[+] //Performance TabPage
+					[ ] AnyWin	tpgPerformance
+				[+] //Dynamic Tab Page
+					[+] AnyWin	tpgDynamic
+						[ ] //Specs
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgRATO100						//Pipe-100 tab page
+				[+] //Connections Tab Page
+					[ ] 
+				[+]  //Parameters Tab Page
+					[+] AnyWin	tpgParameters
+						[+] //Configuration page
+							[+] WPFButton	btnFacePlate
+								[ ] locator "//WPFButton[@automationId='FacePlateButton']"
+			[+] wcADJTab			tpgADJ									//ADJ-1 tab page	
+				[ ] 						
+			[+] wcNoneADJUnitOpsTPG	tpgRect							//Rect tab page
+				[+] //Common objects
+					[+] WPFButton	btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteButton1']"
+					[+] WPFButton	btnRun
+						[ ] locator "//WPFButton[@automationId='RunButton' or @caption='Run']"
+					[+] WPFButton	btnReset
+						[ ] locator "//WPFButton[@automationId='ResetButton' or @caption='Reset']"
+					[+] WPFButton	btnColumnEnviroment
+						[ ] locator "//WPFButton[@automationId='ReturnButton' or @caption='Column Environment...']"
+					[+] WPFCheckBox	chkUpdateOutlets
+						[ ] locator "//WPFCheckBox[@caption='Update Outlets']"
+				[+] //Parameters Tab Page
+					[+] AnyWin	tpgParameters
+						[+] //Efficiencies page
+							[+] WPFRadioButton	rdbOverAll
+								[ ] locator "//WPFRadioButton[ @caption='Overall']"
+							[+] WPFRadioButton	rdbComponent
+								[ ] locator "//WPFRadioButton[@caption='Component']"
+							[+] WPFRadioButton	rdbGrouped
+								[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Grouped')]"
+							[+] WPFRadioButton	rdbUserSpecified
+								[ ] locator "//WPFRadioButton[@caption='User Specified']"
+							[+] WPFButton	btnSpecify
+								[ ] locator "//WPFButton[@caption='Specify --->']"
+							[+] WPFTextBox	txtSpecify
+								[ ] locator "//WPFTextBox[2]"
+							[+] WPFButton	btnEfficiencyTuning
+								[ ] locator "//WPFButton[@caption='Efficiency Tuning']"
+						[+] //Profiles page
+							[+] WPFUserControl	ctrPressurePlot
+								[ ] locator "//WPFUserControl[@automationId='PressurePlot']"
+							[+] WPFRadioButton	rdbMolar
+								[ ] locator "//WPFRadioButton[@caption='Molar']"
+							[+] WPFRadioButton	rdbMass
+								[ ] locator "//WPFRadioButton[@caption='Mass']"
+							[+] WPFRadioButton	rdbVolume
+								[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[+] WPFRadioButton	rdbStdIdealVol
+								[ ] locator "//WPFRadioButton[@caption='Std Ideal Vol']"
+							[+] WPFRadioButton	rdbActVolume
+								[ ] locator "//WPFRadioButton[@caption='Act. Volume']"
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Monitor
+							[+] wcHysysDataGridSimple	dgSpecifications
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] WPFButton btnAddSpec       //Added by Juan 4/29/2013
+								[ ] locator "//WPFButton[@automationId='MonitorAddSpecButton']"
+						[+] //Connections
+							[+] WPFComboBox cboCondenserEnergyStream
+								[ ] locator"//WPFComboBox[@caption='Condenser Energy Stream']"
+							[+] WPFComboBox cboReboilerEnergyStream
+								[ ] locator"//WPFComboBox[@automationId='RebEnergyAttach']"
+							[+] WPFComboBox cboBottomsLiquidOutlet
+								[ ] locator"//WPFComboBox[@automationId='BtmsLiquidAttach']"
+							[ ] 
+							[+] wcHysysDataGridSimple dgInletStreams
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple dgOptionalSideDraws
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] AnyWin	grpStageNumbering
+								[+] WPFRadioButton	rdbTopDown
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Top Down')]"
+								[+] WPFRadioButton	rdbBottomUp
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Bottom Up')]"
+							[+] AnyWin	grpCondenser
+								[+] WPFRadioButton	rdbTotal
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Total')]"
+								[+] WPFRadioButton	rdbPartial
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Partial')]"
+								[+] WPFRadioButton	rdbFullReflux
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Full Reflux')]"
+							[+] wcHysysTextBox txtPCond
+								[ ] locator "//WPFTextBox[@caption='1379	kPa' or @caption='1401	kPa' ]"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox[5]"
+						[+] //Specs
+							[+] AnyWin	grpColumnSpecification
+								[+] WPFListBox	lstColumnSpecifications
+									[ ] locator "//WPFListBox[@automationId='SpecificationsList']"
+								[+] WPFButton btnView
+									[ ] locator "//WPFButton[@automationId='ColSpecViewButton']"
+								[+] WPFButton btnAdd
+									[ ] locator "//WPFButton[@automationId='AddSpecsButton']"
+								[+] WPFButton btnDelete
+									[ ] locator "//WPFButton[@automationId='DeleteSpecsButton']"
+								[ ] 
+				[+] //Side Ops Tab Page
+					[+] AnyWin	tpgSideOps
+						[+] //Side Draws
+							[ ] 
+						[+] //Side Strippers
+							[+] WPFButton btnAdd
+								[ ] locator "//WPFButton[@caption='Add...']"
+							[+] WPFButton btnView
+								[ ] locator "//WPFButton[@caption='View']"
+							[+] WPFButton btnDelete
+								[ ] locator "//WPFButton[@caption='Delete']"
+							[+] WPFButton btnSideOpsInputExpert
+								[ ] locator "//WPFButton[@caption='Side Ops Input Expert...']"
+							[+] AnyWin	grpFlowBasis
+								[+] WPFRadioButton rdbMolar
+									[ ] locator "//WPFRadioButton[@caption='Molar']"
+								[+] WPFRadioButton rdbMass
+									[ ] locator "//WPFRadioButton[@caption='Mass']"
+								[+] WPFRadioButton rdbVolume
+									[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[ ] 
+				[+] //Performance TabPage
+					[+] AnyWin	tpgPerformance
+						[+] //Summary
+							[ ] 
+						[+] //Column Profiles
+							[ ] 
+						[+] //Feeds/Products
+							[ ] 
+						[+] //Plots
+							[+] AnyWin	grpTrayByTrayProperty
+								[+] WPFListBox lstTrayByTrayProperty
+									[ ] locator "//WPFListBox[4]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphButton']"
+								[+] WPFRadioButton rdbAll
+									[ ] locator "//WPFRadioButton[@caption='All']"
+								[+] WPFRadioButton rdbSingleTower
+									[ ] locator "//WPFRadioButton[@caption='Single Tower']"
+								[+] WPFRadioButton rdbFromTo
+									[ ] locator "//WPFRadioButton[@caption='From/To']"
+							[+] AnyWin	grpAssayCurves
+								[+] WPFListBox lstAssayCurves
+									[ ] locator "//WPFListBox[3]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableCurveButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphCurveButton']"
+						[+] //Cond/Reboiler
+							[ ] 
+				[+] //FlowSheet Tab Page
+					[+] AnyWin	tpgFlowSheet
+						[+] //Setup
+							[+] wcHysysDataGridSimple		 dgInletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple		 dgOutletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+						[+] //Internal Streams
+							[+] AnyWin	grpInternalStreams
+								[+] WPFButton	btnDelete
+									[ ] locator "//WPFButton[@automationId='DeleteInternalStreamButton']"
+								[+] WPFButton	btnAdd
+									[ ] locator "//WPFButton[@automationId='MakeInternalStreamButton']"
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgCO2							//CO2 tab page
+				[+] //Common objects
+					[+] WPFButton	btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteButton1']"
+					[+] WPFButton	btnRun
+						[ ] locator "//WPFButton[@automationId='RunButton' or @caption='Run']"
+					[+] WPFButton	btnReset
+						[ ] locator "//WPFButton[@automationId='ResetButton' or @caption='Reset']"
+					[+] WPFButton	btnColumnEnviroment
+						[ ] locator "//WPFButton[@automationId='ReturnButton' or @caption='Column Environment...']"
+					[+] WPFCheckBox	chkUpdateOutlets
+						[ ] locator "//WPFCheckBox[@caption='Update Outlets']"
+				[+] //Parameters Tab Page
+					[+] AnyWin	tpgParameters
+						[+] //Efficiencies page
+							[+] WPFRadioButton	rdbOverAll
+								[ ] locator "//WPFRadioButton[ @caption='Overall']"
+							[+] WPFRadioButton	rdbComponent
+								[ ] locator "//WPFRadioButton[@caption='Component']"
+							[+] WPFRadioButton	rdbGrouped
+								[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Grouped')]"
+							[+] WPFRadioButton	rdbUserSpecified
+								[ ] locator "//WPFRadioButton[@caption='User Specified']"
+							[+] WPFButton	btnSpecify
+								[ ] locator "//WPFButton[@caption='Specify --->']"
+							[+] WPFTextBox	txtSpecify
+								[ ] locator "//WPFTextBox[2]"
+							[+] WPFButton	btnEfficiencyTuning
+								[ ] locator "//WPFButton[@caption='Efficiency Tuning']"
+						[+] //Profiles page
+							[+] WPFUserControl	ctrPressurePlot
+								[ ] locator "//WPFUserControl[@automationId='PressurePlot']"
+							[+] WPFRadioButton	rdbMolar
+								[ ] locator "//WPFRadioButton[@caption='Molar']"
+							[+] WPFRadioButton	rdbMass
+								[ ] locator "//WPFRadioButton[@caption='Mass']"
+							[+] WPFRadioButton	rdbVolume
+								[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[+] WPFRadioButton	rdbStdIdealVol
+								[ ] locator "//WPFRadioButton[@caption='Std Ideal Vol']"
+							[+] WPFRadioButton	rdbActVolume
+								[ ] locator "//WPFRadioButton[@caption='Act. Volume']"
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Monitor
+							[+] wcHysysDataGridSimple	dgSpecifications
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+						[+] //Connections
+							[+] WPFComboBox cboCondenserEnergyStream
+								[ ] locator"//WPFComboBox[@caption='Condenser Energy Stream']"
+							[+] WPFComboBox cboReboilerEnergyStream
+								[ ] locator"//WPFComboBox[@automationId='RebEnergyAttach']"
+							[+] WPFComboBox cboBottomsLiquidOutlet
+								[ ] locator"//WPFComboBox[@automationId='BtmsLiquidAttach']"
+							[ ] 
+							[+] wcHysysDataGridSimple dgInletStreams
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple dgOptionalSideDraws
+								[ ] locator"//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] AnyWin	grpStageNumbering
+								[+] WPFRadioButton	rdbTopDown
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Top Down')]"
+								[+] WPFRadioButton	rdbBottomUp
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Bottom Up')]"
+							[+] AnyWin	grpCondenser
+								[+] WPFRadioButton	rdbTotal
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Total')]"
+								[+] WPFRadioButton	rdbPartial
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Partial')]"
+								[+] WPFRadioButton	rdbFullReflux
+									[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Full Reflux')]"
+							[+] wcHysysTextBox txtPCond
+								[ ] locator "//WPFTextBox[@caption='1379	kPa' or @caption='1401	kPa' ]"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox[5]"
+						[+] //Specs
+							[+] AnyWin	grpColumnSpecification
+								[+] WPFListBox	lstColumnSpecifications
+									[ ] locator "//WPFListBox[@automationId='SpecificationsList']"
+								[+] WPFButton btnView
+									[ ] locator "//WPFButton[@automationId='ColSpecViewButton']"
+								[+] WPFButton btnAdd
+									[ ] locator "//WPFButton[@automationId='AddSpecsButton']"
+								[+] WPFButton btnDelete
+									[ ] locator "//WPFButton[@automationId='DeleteSpecsButton']"
+								[ ] 
+				[+] //Side Ops Tab Page
+					[+] AnyWin	tpgSideOps
+						[+] //Side Draws
+							[ ] 
+						[+] //Side Strippers
+							[+] WPFButton btnAdd
+								[ ] locator "//WPFButton[@caption='Add...']"
+							[+] WPFButton btnView
+								[ ] locator "//WPFButton[@caption='View']"
+							[+] WPFButton btnDelete
+								[ ] locator "//WPFButton[@caption='Delete']"
+							[+] WPFButton btnSideOpsInputExpert
+								[ ] locator "//WPFButton[@caption='Side Ops Input Expert...']"
+							[+] AnyWin	grpFlowBasis
+								[+] WPFRadioButton rdbMolar
+									[ ] locator "//WPFRadioButton[@caption='Molar']"
+								[+] WPFRadioButton rdbMass
+									[ ] locator "//WPFRadioButton[@caption='Mass']"
+								[+] WPFRadioButton rdbVolume
+									[ ] locator "//WPFRadioButton[@caption='Volume']"
+							[ ] 
+				[+] //Performance TabPage
+					[+] AnyWin	tpgPerformance
+						[+] //Summary
+							[ ] 
+						[+] //Column Profiles
+							[ ] 
+						[+] //Feeds/Products
+							[ ] 
+						[+] //Plots
+							[+] AnyWin	grpTrayByTrayProperty
+								[+] WPFListBox lstTrayByTrayProperty
+									[ ] locator "//WPFListBox[4]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphButton']"
+								[+] WPFRadioButton rdbAll
+									[ ] locator "//WPFRadioButton[@caption='All']"
+								[+] WPFRadioButton rdbSingleTower
+									[ ] locator "//WPFRadioButton[@caption='Single Tower']"
+								[+] WPFRadioButton rdbFromTo
+									[ ] locator "//WPFRadioButton[@caption='From/To']"
+							[+] AnyWin	grpAssayCurves
+								[+] WPFListBox lstAssayCurves
+									[ ] locator "//WPFListBox[3]"
+								[+] WPFButton   btnViewTable
+									[ ] locator"//WPFButton[@automationId='ViewTableCurveButton']"
+								[+] WPFButton   btnViewGraph
+									[ ] locator"//WPFButton[@automationId='ViewGraphCurveButton']"
+						[+] //Cond/Reboiler
+							[ ] 
+				[+] //FlowSheet Tab Page
+					[+] AnyWin	tpgFlowSheet
+						[+] //Setup
+							[+] wcHysysDataGridSimple		 dgInletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple		 dgOutletStreams
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+						[+] //Internal Streams
+							[+] AnyWin	grpInternalStreams
+								[+] WPFButton	btnDelete
+									[ ] locator "//WPFButton[@automationId='DeleteInternalStreamButton']"
+								[+] WPFButton	btnAdd
+									[ ] locator "//WPFButton[@automationId='MakeInternalStreamButton']"
+				[+] //Worksheet Tab Page
+					[+] AnyWin	tpgWorksheet
+						[+] //Conditions
+							[ ] 
+						[+] //Properties
+							[ ] 
+						[+] //Compositions
+							[ ] 
+				[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgGBR100						//GBR tab page
+				[ ] 
+			[+] AnyWin	tpgWorkbook										//Workbook tab page
+				[+] wcHysysDataGridSimple	dgDataGrid
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] AnyWin	tpgMaterialStreams
+					[+] WPFComboBox	cboFluidPkg
+						[ ] locator "//WPFComboBox[@automationId='FPAttachmentName_1']"
+					[+] WPFCheckBox	chkHorizontalMatrix
+						[ ] locator "//WPFCheckBox[@automationId='FlipMatrixCheckBox_1']"
+					[+] WPFCheckBox	chkSubFlowsheets
+						[ ] locator "//WPFCheckBox[@automationId='SubFSCheckBox_1']"
+					[+] WPFCheckBox	chkShowNameOnlly
+						[ ] locator "//WPFCheckBox[@automationId='NameOnlyCheckBox_1']"
+					[ ] 
+			[+] wcADJTab		tpgRCY										//Recycle tab page
+				[+] //Common objects
+					[+] WPFButton	btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteButton']"
+					[+] WPFButton	btnContinue
+						[ ] locator "//WPFButton[@automationId='ContinueButton']"
+					[+] WPFButton	btnRecycleAdvisor
+						[ ] locator "//WPFButton[@automationId='RecycleWizard']"
+					[+] WPFCheckBox	chkIgnore
+						[ ] locator "//WPFCheckBox[@automationId='IgnoreCheck']"
+					[ ] 
+				[+] //Connections tab page
+					[ ] AnyWin	tpgConnections
+					[+] //Connections
+						[ ] 
+				[+] //Parameters   tab page
+					[+] AnyWin	tpgParameters
+						[+] wcHysysDataGridSimple	dgDatagrid1
+							[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+						[+] wcHysysDataGridSimple	dgDatagrid2
+							[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][2]"
+						[ ] //Variables
+						[ ] //Numerical
+						[ ] //Convergence
+			[+] wcNoneADJUnitOpsTPG	tpgInletSep						//Inlet* tab page
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Parameters
+							[+] wcHysysDataGridSimple	dgDeltaP
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+							[+] wcHysysTextBox	txtLiquidVolume1
+								[ ] locator "//WPFTextBox[@automationId='LiqVolInput']"
+							[+] wcHysysTextBox	txtLiquidVolume2
+								[ ] locator "//WPFTextBox[@automationId='SSLiqLevelInput']"
+							[+] wcHysysTextBox	txtVolume
+								[ ] locator "//WPFTextBox[@automationId='RxnVolumeInput']"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox"
+							[ ] 
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[+] //Heat Loss
+							[+] WPFRadioButton rdbNone
+								[ ] locator "//WPFRadioButton[@caption='None']"
+							[+] WPFRadioButton rdbSimple
+								[ ] locator "//WPFRadioButton[@caption='Simple']"
+							[+] WPFRadioButton rdbDetailed
+								[ ] locator "//WPFRadioButton[@caption='Detailed']"
+							[+] wcHysysDataGridSimple	dgSimpleHeatLoss
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+							[+] WPFComboBox cboUnitSelect
+								[ ] locator "//WPFComboBox"
+				[ ] 
+			[+] WPFContentControl	tpgFlowSheetCol1
+				[+] wcNoneADJUnitOpsTPG	pgColumnDePropanizer
+					[ ] locator "//WPFContentControl[@caption='Ignored']"
+					[+] wcHysysDataGridSimple		 dgColumnInletAndEnergyStreams
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+					[+] WPFDataGrid dgLiquidOutletStreamLocation
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][4]"
+					[+] WPFDataGrid dgVapourOutletStreamLocation
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] WPFDataGrid dgWaterOutletStreamLocation
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] wcStreams	pgStream
+					[ ] locator "//WPFContentControl[@caption='Delete']"
+			[+] wcHeatExchanger	tpgHeatExchanger					//Heat Exchange tab page
+				[+] WPFRadioButton	rdbShellside
+					[ ] locator "//WPFRadioButton[@automationId='rdb_SSExchSideRB_0']" //Added by Juan on 3/10/2014
+				[+] WPFRadioButton	rdbTubeside
+					[ ] locator "//WPFRadioButton[@automationId='rdb_SSExchSideRB_1']" //Added by Juan on 3/10/201
+			[ ] wcProcDataData		tpgKeyVariablesData
+			[+] AnyWin	tpgDataTables									//Data Tables tab page
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@caption='Add' or @automationId='AddPDTButton']"
+				[+] WPFButton	btnEdit
+					[ ] locator "//WPFButton[@caption='Edit' or @automationId='EditPDTButton']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeletePDTButton']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@caption='Copy' or @automationId='CopyPDTButton']"
+				[+] WPFButton	btnDisplay
+					[ ] locator "//WPFButton[@caption='Display' or @automationId='ViewResultButton']"
+				[+] wcHysysDataGridSimple		dgDataGrid
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[+] wcHysysTabBase tpgDataTablesChild
+				[+] wcHysysDataGridSimple dgProcessDataTable
+					[ ] locator "//WPFDataGrid[@automationId='grd_ProcessDataTable']"
+			[ ] 							//Data Tables tab page
+			[+] wcHysysTabBase	tpgStripCharts										//Strip Charts tab page
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@caption='Add' or @automationId='NewWindow']"
+				[+] WPFButton	btnEdit
+					[ ] locator "//WPFButton[@caption='Edit' or @automationId='EditStripChart']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeleteButton2']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@caption='Copy' or @automationId='Button1']"
+				[+] WPFButton	btnDisplay
+					[ ] locator "//WPFButton[@caption='Display' or @automationId='ViewStripChart' or @automationId='DisplayButton']"
+				[+] WPFButton 	btnSaveToCSV
+					[ ] locator "//WPFButton[@automationId='Button1']"
+				[+] WPFButton 	btnClearHistoricalData
+					[ ] locator "//WPFButton[@automationId='Button3']"
+				[+] wcHysysDataGridSimple		dgDataGrid
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[ ] wcSpreadsheet	tpgSpreadsheet							//Spreadsheet or Heating Value tab page
+			[+] AnyWin	tpgComponentMaps
+				[+] WPFButton	btnCreateCollection
+					[ ] locator "//WPFButton[@automationId='CreateB']"
+				[+] WPFButton	btnAddMaps
+					[ ] locator "//WPFButton[@automationId='NewOutMapB']"
+				[+] WPFButton	btnDeleteMap
+					[ ] locator "//WPFButton[@automationId='initDeleteMapBT']"
+				[+] wcHysysDataGridSimple	dgComponentCollectionsAndMaps
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[+] AnyWin	tpgComponentMapsChild
+				[+] WPFCheckBox	chkUnlockAllcomponents
+					[ ] locator "//WPFCheckBox[@automationId='CheckBox1']"
+				[+] WPFCheckBox	chkTransferLikeHypotheticals
+					[ ] locator "//WPFCheckBox[@automationId='CheckBox2']"
+				[+] WPFCheckBox	chkTranspos
+					[ ] locator "//WPFCheckBox[@automationId='CheckBox3']"
+				[+] WPFCheckBox	chkTransferHyposByNBP
+					[ ] locator "//WPFCheckBox[@automationId='CheckBox4']"
+				[+] wcHysysDataGridSimple		dgDatagrid
+					[ ] locator "//WPFDataGrid[@automationId='PART_DataGrid']"
+				[+] WPFButton	btnClone
+					[ ] locator "//WPFButton[@automationId='CopyButton']"
+				[+] WPFButton	btnClearAll
+					[ ] locator "//WPFButton[@automationId='ClearButton']"
+				[+] WPFButton	btnNormalize
+					[ ] locator "//WPFButton[@automationId='NormalizeButton']"
+				[+] WPFButton	btnSpecify
+					[ ] locator "//WPFButton[@automationId='Button1']"
+				[ ] //Append by Susan
+				[+] WPFTextBox	txtSpecifyValue
+					[ ] locator "//WPFTextBox[@automationId='NumericalInput1']"
+				[+] WPFComboBox	cboMapToBeCloned
+					[ ] locator "//WPFComboBox[@automationId='CloneAN']"
+				[ ] //Append done
+			[+] AnyWin	tpgPetrolemAssays
+				[+] //Summary page
+					[+] wcHysysDataGridSimple		dgDatagrid
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='btnAddAssay' or @automationId='CstToggleButton' or @caption='Add']"
+					[+] WPFButton	btnCopy
+						[ ] locator "//WPFButton[@automationId='btnCopyPetroleumAssay' or @automationId='btnCopy']" //Modified by Juan on 8/12/2013
+					[+] WPFButton	btnDelete
+						[ ] locator "//WPFButton[@automationId='btnDelete']"
+						[ ] 
+					[+] WPFButton	btnSave
+						[ ] locator "//WPFButton[@caption='Save']"
+					[+] WPFComboBox	cboSave
+						[ ] locator "//WPFComboBox"
+					[ ] //Append by Susan
+					[+] WPFComboBox	cboAdd
+						[ ] locator "//WPFComboBox[@automationId='CbBox']"
+					[ ] 
+					[ ] //Append done
+				[+] //Settings page
+					[+] WPFButton btnViewMacros
+						[ ] locator "//WPFButton[@automationId='ViewMacrosButton']"
+			[+] wcHysysTabBase	tpgPetrolemAssayChild
+				[+] WPFLabel stcGCDataStatus
+					[ ] locator "//WPFLabel[1]"
+				[+] WPFButton btnViewInputs
+					[ ] locator "//WPFButton[@automationId='btnNaviTo']"
+				[+] WPFButton btnCharacterizeAssay
+					[ ] locator "//WPFButton[@automationId='CstToggleButton']"
+					[ ] 
+				[+] WPFButton btnEnableEdit
+					[ ] locator "//WPFButton[@automationId='btnEnableEdit']"
+				[+] AnyWin	tpgSetUp
+					[+] //Common objects
+						[+] wcHysysDataGridSimple	dgDatagrid
+							[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+					[+] //Assay Property
+						[+] WPFComboBox	cboDistilationType
+							[ ] locator "//WPFComboBox[@automationId='enumDistType']"
+						[+] WPFComboBox	cboYieldBasis
+							[ ] locator "//WPFComboBox[@automationId='enumDistBasis']"
+						[+] WPFComboBox	cboPetroleumProperty
+							[ ] locator "//WPFComboBox[@automationId='Enumeration3']"
+						[+] WPFComboBox	cboAssaySource
+							[ ] locator "//WPFComboBox[@automationId='AssaySourceEnum']"
+						[+] WPFComboBox	cboFluidPackage
+							[ ] locator "//WPFComboBox[@automationId='AttFPEnum']"
+							[ ] 
+						[+] WPFButton	btnAdd_PetroleumProperty
+							[ ] locator "//WPFButton[@automationId='btnAddProp']"
+						[+] WPFButton	btnDelete_PetroleumProperty
+							[ ] locator "//WPFButton[@automationId='btnDeleteProp']"
+						[+] WPFButton	btnDeleteAll_PetroleumProperty
+							[ ] locator "//WPFButton[@automationId='//WPFButton[@automationId='btnDeleteAll']']"
+						[+] WPFButton	btnAdd_DistilationPoint
+							[ ] locator "//WPFButton[@automationId='btnAddDistPts']"
+						[+] WPFButton	btnDelete_DistilationPoint
+							[ ] locator "//WPFButton[@automationId='btnDeleteDistData']"
+						[+] WPFButton	btnDeleteAll_DistilationPoint
+							[ ] locator "//WPFButton[@automationId='Button7' or @caption='Delete All']"
+						[+] WPFButton	btnImportFrom
+							[ ] locator "//WPFButton[@automationId='Button5' or @caption='Import From']"
+						[+] WPFButton	btnExportTo
+							[ ] locator "//WPFButton[@automationId='Button6' or @caption='Export To']"
+						[+] WPFButton	btnSort_DistilationPoint
+							[ ] locator "//WPFButton[@automationId='btnSort']"
+						[+] WPFButton	btnCalculateAssay
+							[ ] locator "//WPFButton[@automationId='CharacterizeBtn']"
+						[+] WPFTextBox	txtName
+							[ ] locator "//WPFTextBox[@automationId='teName']"
+						[+] WPFTextBox	txtAddDistData
+							[ ] locator "//WPFTextBox[@automationId='NumericalInput1']"
+					[+] //Light Ends
+						[+] WPFTextBox	txtTotalPercentage
+							[ ] locator "//WPFTextBox[@automationId='NumericalInput7']"
+					[+] //GC property
+						[+] WPFTreeView trvGCCharacterization
+							[ ] locator "//WPFTreeView[@automationId='etreeGC']"
+						[+] WPFButton btnCharacterizeAssay
+							[ ] locator "//WPFButton[@automationId='CstToggleButton']"
+						[+] WPFButton btnViewResults
+							[ ] locator "//WPFButton[@automationId='btnGCdataViewResults']"
+						[+] WPFRadioButton rdbEvenDistribution
+							[ ] locator "//WPFRadioButton[@caption='Even Distribution'][1]"
+						[+] WPFRadioButton rdbNormalDistribution
+							[ ] locator "//WPFRadioButton[@caption='Normal Distribution'][1]"
+						[+] WPFButton btnRemoveAll
+							[ ] locator "//WPFButton[@automationId='btnGCdataRemoveAll']"
+						[ ] 
+					[+] //Settings
+						[+] WPFRadioButton	rdbRefutas
+							[ ] locator "//WPFRadioButton[@caption='Refutas']"
+						[+] WPFRadioButton	rdbHYSYS
+							[ ] locator "//WPFRadioButton[@caption='HYSYS']"
+						[+] WPFRadioButton	rdbAvailable
+							[ ] locator "//WPFRadioButton[@caption='Available']"
+						[+] WPFRadioButton	rdbNotAvailable
+							[ ] locator "//WPFRadioButton[@caption='Not Available']"
+							[ ] 
+					[+] //Other Options
+						[+] WPFButton	btnEditComponentProperties
+							[ ] locator "//WPFButton[@automationId='btnEditProperties']"
+				[+] AnyWin	tpgResults
+					[+] //Composition
+						[+] WPFButton	btnEditComposition
+							[ ] locator "//WPFButton[@automationId='Button1']"
+						[+] WPFListBox	lst
+							[ ] locator "//WPFListBox[@automationId='AttachList1']"
+				[+] AnyWin	tpgAnalysis
+					[ ] 
+				[+] AnyWin	tpgNotes
+					[ ] 
+				[ ] //New Definitions for Post V8.4 Assay Change
+				[+] AnyWin	tpgDescription
+					[+] WPFComboBox cboRegion
+						[ ] locator "//WPFComboBox[@automationId='cb_Region']"
+					[+] WPFComboBox cboCountry
+						[ ] locator "//WPFComboBox[@automationId='cb_Country']"
+					[+] WPFTextBox txtOilField
+						[ ] locator "//WPFTextBox[@automationId='tb_Well']"
+					[+] WPFTextBox txtLabName
+						[ ] locator "//WPFTextBox[@automationId='tb_LabName']"
+					[+] WPFTextBox txtSampleDate
+						[ ] locator "//WPFTextBox[@automationId='tb_SampleDate']"
+					[+] WPFTextBox txtAssayDate
+						[ ] locator "//WPFTextBox[@automationId='tb_AssayDate']"
+					[+] WPFTextBox txtSampleID
+						[ ] locator "//WPFTextBox[@automationId='tb_SampleID']"
+					[+] WPFTextBox txtSourceReference
+						[ ] locator "//WPFTextBox[@automationId='tb_SourceRef']"
+					[+] WPFTextBox txtPIMSCode
+						[ ] locator "//WPFTextBox[@automationId='tb_PIMSTag']"
+					[+] WPFTextBox txtCharacterizedBy
+						[ ] locator "//WPFTextBox[@automationId='tb_CharacterizationPerson']"
+					[+] WPFTextBox txtCharaterizationDate
+						[ ] locator "//WPFTextBox[@automationId='tb_CharacterizationDate']"
+					[+] WPFTextBox txtNotes
+						[ ] locator "//WPFTextBox[@automationId='tb_CharacterizationNotes']"
+				[+] WPFButton btnClickToAddCut
+					[ ] locator "//WPFButton[@automationId='AddNewColumnButton']"
+				[+] WPFTabItem tabiPureComponent
+					[ ] locator "//WPFTabItem[@automationId='tiPureComponet']"
+				[+] WPFTextBox txbIntialTemperatureUnit
+					[ ] locator "//WPFTextBox[@automationId='LT']"
+				[+] WPFComboBox cboTemperatureUnit
+					[ ] locator "//WPFComboBox[@automationId='EnumBox']"
+				[+] WPFComboBox cboComponentName
+					[ ] locator "//WPFComboBox[@automationId='ComponentComboBox']"
+				[+] WPFButton btnApply
+					[ ] locator "//WPFButton[@automationId='ApplyButton']"
+				[+] WPFTextBlock stcOK
+					[ ] locator "//WPFTextBlock[@automationId='txtMessage']"
+			[+] WPFContentControl	tpgObjectNavigator
+				[ ] locator "//WPFContentControl[@caption='Filte_r']"
+				[+] wcHysysTreeView	trvFlowsheet
+					[ ] locator "//WPFTreeView[@automationId='Flowsheets']"
+				[+] WPFListBox	lstFlowsheetObjects
+					[ ] locator "//WPFListBox[@automationId='Objects']"
+					[+] WPFListBoxItem	lbiBottomSteam
+						[ ] locator "/WPFListBoxItem[@caption='BottomSteam']"
+					[ ] 
+				[+] WPFButton	btnBuild
+					[ ] locator "//WPFButton[@automationId='BuildButton']"
+				[+] WPFButton	btnFind
+					[ ] locator "//WPFButton[@automationId='FindButton']"
+				[+] WPFButton	btnView
+					[ ] locator "//WPFButton[@automationId='ViewButton']"
+				[+] WPFButton	btnSetupCustom
+					[ ] locator "//WPFButton[@automationId='SetCustomButton']"
+				[+] WPFButton	btnCancel
+					[ ] locator "//WPFButton[@automationId='CloseButton']"
+				[+] WPFButton 	btnLocate
+					[ ] locator "//WPFButton[@automationId='LocateButton']"
+				[+] WPFRadioButton	rdbAll
+					[ ] locator "//WPFRadioButton[@caption='All']"
+				[+] WPFRadioButton	rdbStreams
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Streams')]"
+				[+] WPFRadioButton	rdbUnitOps
+					[ ] locator "//WPFRadioButton[@caption='UnitOps']"
+				[+] WPFRadioButton	rdbLogicals
+					[ ] locator "//WPFRadioButton[@caption='Logicals']"
+				[+] WPFRadioButton	rdbCustom
+					[ ] locator "//WPFRadioButton[@caption='Custom']"
+				[+] WPFListBoxItem lbiBottomSteam
+					[ ] locator "/WPFListBoxItem[@caption='BottomSteam']"
+				[+] WPFListBoxItem 	lbiCrudeColum
+					[ ] locator "//WPFListBoxItem[@caption='Crude Column']"
+				[+] WPFListBoxItem	lbiPreheatTrain
+					[ ] locator "//WPFListBoxItem[@caption='Preheat Train']"
+				[+] WPFListBoxItem	lbiRawCrude
+					[ ] locator "//WPFListBoxItem[@caption='Raw Crude']"
+				[+] WPFListBoxItem	lbiCrudeHeater
+					[ ] locator "//WPFListBoxItem[@caption='Crude Heater']"
+				[+] WPFListBoxItem	lbiAGO
+					[ ] locator "//WPFListBoxItem[@caption='AGO']"
+			[ ] wcCutter	tpgStreamCutter
+			[ ] wcCompressor	tpgCompressor
+			[ ] wcConversionReactor	tpgConversionReactor
+			[ ] wcDataFit	tpgDataFit
+			[+] wcTabPageWithDatagridAndButton	tpgDataFitsChild
+				[+] WPFButton btnTargetObjects
+					[ ] locator "//WPFButton[@automationId='AttachPopUpButton']"
+				[+] WPFComboBox cboVariables
+					[ ] locator "//WPFComboBox[@automationId='DCSTagsIOEnumeration']"
+			[ ] 
+			[+] wcNoneADJUnitOpsTPG	tpgGas								//Gas tab page
+				[ ] //Common Objects
+				[+] //Design Tab Page
+					[+] AnyWin	tpgDesign
+						[+] //Connections
+							[ ] 
+						[+] //Parameters
+							[ ] 
+						[+] //Specs
+							[+] wcHysysDataGridSimple dgSolver
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple dgSpecifications
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] wcHysysDataGridSimple dgUnknownVariables
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+								[ ] 
+						[+] //User Variables
+							[ ] 
+						[+] //Notes
+							[ ] 
+				[+] //Rating Tab Page
+					[+] AnyWin	tpgRating
+						[+] //Sizing
+							[+] wcHysysDataGridSimple	dgConfiguration
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+							[+] wcHysysDataGridSimple	dgCalculatedInformation
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+							[+] wcHysysDataGridSimple	dgTemaType
+								[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+							[+] WPFRadioButton	rdbOverall
+								[ ] locator "//WPFRadioButton[@caption='Overall']"
+							[+] WPFRadioButton	rdbShell
+								[ ] locator "//WPFRadioButton[@caption='Shell']"
+							[+] WPFRadioButton	rdbTube
+								[ ] locator "//WPFRadioButton[@caption='Tube']"
+				[+] //Worksheet Tab Page
+					[+] AnyWin	tpgWorksheet
+						[+] //Conditions
+							[ ] 
+						[+] //Properties
+							[ ] 
+						[+] //Compositions
+							[ ] 
+				[+] //Performance Tab Page
+					[+] AnyWin	tpgPerformance
+						[+] //Plots
+							[+] WPFComboBox cboXVariable
+								[ ] locator "//WPFComboBox[1]"
+							[+] WPFComboBox cboYVariable
+								[ ] locator "//WPFComboBox[2]"
+							[+] WPFTextBlock	 txtY
+								[ ] locator "//WPFTextBlock[@caption='Pressure (bar_g)']"
+							[+] WPFTextBlock	 txtX
+								[ ] locator "//WPFTextBlock[@caption='Temperature (C)']"
+							[+] WPFUserControl plotGraph
+								[ ] locator "//WPFUserControl[@className='PlotWidget']"
+				[+] //Dynamic Tab Page
+					[+] AnyWin	tpgDynamic
+						[+] //Products
+							[+] WPFComboBox cboTopLeft
+								[ ] locator "//WPFComboBox"
+				[ ] 
+				[+] WPFComboBox cbo
+					[ ] locator "//WPFComboBox"
+			[+] wcTabPageWithDatagridAndButton	tpgStreamAnalysis
+				[+] WPFComboBox	cboAdd
+					[ ] locator "//WPFComboBox"
+			[ ] wcTabPageWithDatagridAndButton	tpgStreamAnalysisChild
+			[ ] 
+			[+] wcTabPageWithDatagridAndButton	tpgEquipmentDesign
+				[+] WPFComboBox	cboAdd
+					[ ] locator "//WPFComboBox"
+			[+] wcTabPageWithDatagridAndButton	tpgModleAnalysis
+				[+] WPFComboBox	cboAdd
+					[ ] locator "//WPFComboBox"
+			[ ] wctpgModelAnalysis      tpgModelAnalysisChild
+			[+] wcTabPageWithDatagridAndButton	tpgDataFits
+				[+] WPFButton	btnAddDataFit
+					[ ] locator "//WPFButton[@automationId='AddDataFitButton']"
+				[+] WPFButton	btnDeleteDataFit
+					[ ] locator "//WPFButton[@automationId='DeleteButton']"
+			[+] wcTabPageWithDatagridAndButton	tpgCaseStudies
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@automationId='CSAddButton']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@automationId='CSEraseButton']"
+				[+] WPFButton	btnEdit
+					[ ] locator "//WPFButton[@automationId='CSEditButton']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@automationId='CSCopyButton']"
+			[+] wcTabPageWithDatagridAndButton	tpgCaseStudyChild
+				[ ] //Common objects
+				[+] WPFTabItem	tabiSetup
+					[ ] locator "//WPFTabItem[@caption='Set up']"
+				[+] WPFTabItem	tabiResults
+					[ ] locator "//WPFTabItem[@caption='Results']"
+				[+] WPFTabItem	tabiPlots
+					[ ] locator "//WPFTabItem[@caption='Plots']"
+				[+] WPFTabItem	tabiFieldStates
+					[ ] locator "//WPFTabItem[@caption='Field States']"
+				[+] WPFButton	btnRun
+					[ ] locator "//WPFButton[@automationId='RunCS']"
+				[+] WPFLabel		statSuccess
+					[ ] locator "//WPFLabel[@caption='Success']"
+				[+] AnyWin	tpgSetup
+					[+] wcHysysDataGridSimple	dgDataGridAbove
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] wcHysysDataGridSimple	dgDataGridBelow
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='AddVarButton1']"
+					[+] WPFButton	btnRemove
+						[ ] locator "//WPFButton[@automationId='RemoveButton']"
+					[+] WPFButton	btnEdit
+						[ ] locator "//WPFButton[@automationId='EditVarButton']"
+					[+] WPFCheckBox	chkResetAfterRun
+						[ ] locator "//WPFCheckBox[@automationId='ResestCSCheckBox']"
+					[+] WPFCheckBox	chkStepDownWards
+						[ ] locator "//WPFCheckBox[@automationId='StepDownWardsCheckBox']"
+					[ ] 
+				[+] AnyWin	tpgResults
+					[+] WPFRadioButton	rdbTransposeTable
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Transpose Table')]"
+					[+] wcHysysDataGridSimple	dgDataGrid
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+					[+] WPFButton	btnResultsPlot
+						[ ] locator "//WPFButton[@automationId='GenPlotButton']"
+					[+] WPFCheckBox	chkSaveResultsToFile
+						[ ] locator "//WPFCheckBox[@automationId='SaveResultCheckbox']"
+					[+] WPFTextBox	txtFileName
+						[ ] locator "//WPFTextBox[@automationId='FileTextEntry1']"
+				[+] AnyWin	tpgPlots
+					[+] WPFUserControl	plot
+						[ ] locator "//WPFUserControl[@automationId='UserControl_1']"
+				[+] AnyWin	tpgFieldStates
+					[ ] 
+				[+] WPFRadioButton	rdbTransposeTable
+					[ ] locator "//WPFRadioButton[@automationId='rdb_RadioButtons1_3']"
+				[ ] 
+			[+] wcFilterVariableWindow	cObjectNavigator
+				[ ] locator "//WPFContentControl[@caption='Filte_r']"
+				[+] WPFListBox lstUnitOperations
+					[ ] locator "@automationId='Objects'"
+				[+] WPFButton btnLocate
+					[ ] locator "@automationId='LocateButton'"
+			[+] wcHysysTabBase		tpgTraySizing
+				[+] AnyWin	tpgDesign
+					[+] WPFButton	btnSelectTS
+						[ ] locator "//WPFButton[@automationId='SElTSButton']"
+					[+] WPFButton	btnAddSection
+						[ ] locator "//WPFButton[@automationId='AddSection']"
+					[+] WPFButton	btnAutoSection
+						[ ] locator "//WPFButton[@automationId='AutoSection']"
+					[+] WPFButton	btnCopySection
+						[ ] locator "//WPFButton[@automationId='CopySection']"
+					[+] WPFButton	btnRemoveSection
+						[ ] locator "//WPFButton[@automationId='DeleteSection']"
+					[ ] //Add by Susan Shi
+					[+] WPFTextBox txtName
+						[ ] locator "//WPFTextBox[@automationId='TextEntry1']"
+					[+] void SetStartEndSection(string strStartOrEndSection, integer rownum, integer colnum)
+						[ ] AH.tpgTraySizing.dgDataGridSimple.Find("//WPFDataGridRow[{rownum}]").Find("//WPFDataGridCell[{colnum}]").Click()
+						[ ] sleep(1)
+						[ ] AH.tpgTraySizing.dgDataGridSimple.Find("//WPFDataGridRow[{rownum}]").Find("//WPFDataGridCell[{colnum}]").Find("//WPFToggleButton").Click()
+						[ ] sleep(1)
+						[ ] AH.Find("//WPFComboBox[1]").Select("{strStartOrEndSection}*")
+					[ ] //Append done
+				[ ] //Append by Susan
+				[+] AnyWin	tpgPerformance
+					[+] WPFButton btnViewWarnings
+						[ ] locator "//WPFButton[@automationId='WarningsButton']"
+					[+] WPFButton btnExportPressures
+						[ ] locator "//WPFButton[@automationId='exportPressureButton']"
+				[ ] //Append done
+			[+] wcHysysTabBase		tpgVesselSizing
+				[+] AnyWin	tpgDesign
+					[ ] //Connections
+					[+] WPFButton	btnSelectSeperator
+						[ ] locator "//WPFButton[@automationId='SelObjButton']"
+					[+] WPFRadioButton	rdbHorizontal
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Horizontal']"
+					[+] WPFRadioButton	rdbVertical
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Vertical']"
+					[+] WPFTextBox	txtSeparatorName
+						[ ] locator "//WPFTextBox[@automationId='SelSepTextEntry']"
+					[ ] //Sizing
+					[+] WPFButton	btnAddSpec
+						[ ] locator "//WPFButton[@caption = '_Add Spec' or @automationId='Button3']"
+					[+] WPFButton	btnRemoveSpec
+						[ ] locator "//WPFButton[@caption = '_Remove Spec' or @automationId='Button4']"
+					[ ] //Construction
+					[ ] //Costing
+					[+] WPFButton	btnCostEquationHelp
+						[ ] locator "//WPFButton[@caption = 'Cost Eq_uation Help...' or @automationId='Button2']"
+				[+] AnyWin	tpgPerformance
+					[ ] 
+			[ ] 
+			[+] wcHysysTabBase		tpgProductionAllocation
+				[+] AnyWin	tpgSetup
+					[+] wcHysysTreeView	trvFlowSheet
+						[ ] locator "//WPFTreeView[@automationId='FlowsheeAttachTree']"
+					[+] WPFListBox	lstAvailableStreams
+						[ ] locator "//WPFListBox[@automationId='FlowSheetStreamsList']"
+					[+] WPFListBox	lstSelectedStreams
+						[ ] locator "//WPFListBox[@automationId='SelectedSourceStreams']"
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='AddSourceButton']"
+					[+] WPFButton	btnRemove
+						[ ] locator "//WPFButton[@automationId='RemoveSourceButton']"
+					[+] WPFTextBox txtName                    //Added by Stella
+						[ ] locator "//WPFTextBox[@automationId='Name']"
+				[+] AnyWin	tpgReport
+					[+] WPFButton btnRemoveVaraible
+						[ ] locator "//WPFButton[@automationId='btnRemoveVar']"
+					[+] WPFButton btnCreateStripChart
+						[ ] locator "//WPFButton[@automationId='CreateChartButton']"
+				[+] AnyWin	tpgDynamic
+					[ ] 
+			[ ] wcValveTPG	tpgValve
+			[ ] wcPIDController	tpgPIDController
+			[ ] wcCondenser tpgCondenser
+			[+] wcHysysTabBase		tpgPropertyManager
+				[+] WPFComboBox	cboPropertyName
+					[ ] locator "//WPFComboBox[@automationId='PART_ComboBox'][1]"
+				[+] WPFComboBox	cboPIMSCode
+					[ ] locator "//WPFComboBox[@automationId='PART_ComboBox'][2]"
+				[+] WPFComboBox	cboUnit
+					[ ] locator "//WPFComboBox[@automationId='PART_ComboBox'][3]"
+			[ ] 
+			[ ] //Added by Stella
+			[+] wctpgModelAnalysis tpgPropertyBalance
+				[+] AnyWin	tpgMaterialBalance
+					[+] WPFButton	 btnScopeObjects
+						[ ] locator "//WPFButton[@automationId='AttachPopUpButton']"
+					[+] WPFButton btnInsertVariable
+						[ ] locator "//WPFButton[@automationId='Button9']"
+					[+] WPFButton btnRemoveVariable
+						[ ] locator "//WPFButton[@automationId='Button10']"
+					[+] WPFButton btnInsertFormula
+						[ ] locator "//WPFButton[@automationId='Button11']"
+					[+] WPFButton btnRemoveFormula
+						[ ] locator "//WPFButton[@automationId='Button12']"
+					[+] WPFButton btnClose
+						[ ] locator "//WPFButton[@automationId='CloseButton']"
+					[+] WPFButton btnRefreshScopeObjects
+						[ ] locator "//WPFButton[@automationId='Button1']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@automationId='Button2']"
+					[+] WPFRadioButton	rdbSetup
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Setup')]"
+					[+] WPFRadioButton	rdbBalanceResults
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Balance Results')]"
+					[+] WPFComboBox cboBalanceType
+						[ ] locator "//WPFComboBox[@automationId='Enumeration2']"
+					[+] WPFTextBox txtTotalofInletStreams
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput1']"
+					[+] WPFTextBox txtTotalofOutletStreams
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput2']"
+					[+] WPFTextBox txtImbalance
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput3']"
+					[+] WPFTextBox txtRelativeImbalance
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput4']"
+					[+] wcHysysDataGridSimple dgFormula
+						[ ] locator "//WPFContentControl[@automationId='FormulaList']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple dgVariable
+						[ ] locator "//WPFContentControl[@automationId='VariableList']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] AnyWin	tpgEnergyBalance
+					[+] WPFTextBox txtTotalofInletStreams
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput5']"
+					[+] WPFTextBox txtTotalofOutletStreams
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput6']"
+					[+] WPFTextBox txtImbalance
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput7']"
+					[+] WPFTextBox txtRelativeImbalance
+						[ ] locator "//WPFTextBox[@automationId='NumericalInput8']"
+					[+] wcHysysDataGridSimple dgEnergyBalanceResult
+						[ ] locator"//WPFContentControl[@automationId='MatrixWidget1']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] 
+			[ ] //Added by Juan Situ
+			[+] wctpgModelAnalysis		tpgSwingCut
+				[+] AnyWin	tpgSpecifications
+					[+] WPFButton	btnScopeObjects
+						[ ] locator "WPFButton[@automationId='AttachPopUpButton']"
+					[+] WPFButton 	btnSelectAssayFeed
+						[ ] locator "//WPFButton[@automationId='btnMainFeedStream']"
+					[+] WPFButton 	btnMapRigorousColumnSpecs
+						[ ] locator "//WPFButton[@caption='*Map Rigorous Column Specs']"
+					[+] WPFDataGrid	dgCuts
+						[ ] locator "WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFComboBox	cboCalculationBasis
+						[ ] locator "WPFComboBox[@automationId='SwingCutCalcMethodEnumeration']"
+				[+] AnyWin	tpgAssayTable
+					[+] wcHysysDataGridSimple	dgAssayData
+						[ ] locator "WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFButton	btnRun
+						[ ] locator "WPFButton[@automationId='ButtonRun']"
+					[+] WPFTextBox	txtCrudeTag
+						[ ] locator "WPFTextBox[@automationId='CrudeTagTextEntry']"
+					[+] WPFButton	btnExportAssayTable
+						[ ] locator "WPFButton[@automationId='ButtonExportAssayTable']"
+				[+] AnyWin 	tpgPIMSFormat
+					[+] WPFTextBox 	txbCrudeTag
+						[ ] locator "//WPFTextBox[@automationId='CrudeTagTextEntry']"
+					[+] WPFButton 	btnRun
+						[ ] locator "//WPFButton[@automationId='ButtonRun']"
+					[+] WPFButton 	btnExportAssayTable
+						[ ] locator "//WPFButton[@automationId='ButtonExportAssayTable']"
+			[+] wcHysysTabBase		tpgDerivative
+				[+] WPFButton btnMergeUtils
+					[ ] locator "//WPFButton[@automationId='MergeDervUtilButton']"
+				[+] AnyWin	tpgConfiguration
+					[+] WPFListBox	lstVariables
+						[ ] locator	"//WPFListBox[@automationId='SVList2']"
+				[+] AnyWin	tpgVariables
+					[ ] 
+				[+] AnyWin	tpgConstraintsObjectiveFunction
+					[ ] 
+				[+] AnyWin	tpgDerivativeAnalysis
+					[ ] 
+				[+] AnyWin	tpgModelAnalysis
+					[ ] 
+			[-] wcNoneADJUnitOpsTPG tpgCooler                                       //Added by Juan Situ on 8/22/2013
+				[+] AnyWin	tpgDesign
+					[ ] //Parameters
+					[+] WPFTextBox txtOverAllUA
+						[ ] locator "//WPFTextBox[@automationId='UAInput']"
+					[+] WPFComboBox	cboAirCoolerModel
+						[ ] locator "//WPFComboBox[@automationId='AirCoolerModelTypeDataSet']"
+				[+] AnyWin	tpgRigorousAirCooler
+					[+] WPFButton btnImport
+						[ ] locator "//WPFButton[@automationId='ImportAcolPlusButton']"
+			[+] wcNoneADJUnitOpsTPG tpgFiredHeater                                      //Added by Juan Situ on 8/26/2013
+				[+] AnyWin	tpgDesign
+					[ ] //Parameters
+					[+] WPFComboBox	cboAirFeed
+						[ ] locator "//WPFComboBox[@automationId='FuelFeed']"
+			[ ] //Add end
+			[+] wcStreamAnalysisChild		tpgBoilingPointCurves
+				[+] AnyWin	tpgDesign
+					[+] WPFComboBox	cboObjectType
+						[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+					[+] WPFButton	btnSelectObject
+						[ ] locator "//WPFButton[@automationId='Button1']"
+				[+] AnyWin	tpgPerformance
+					[ ] 
+				[+] AnyWin	tpgDynamic
+					[ ] 
+			[+] wcStreamAnalysisChild		tpgColdProperties
+				[+] AnyWin	tpgDesign
+					[ ] //Connections
+					[+] WPFRadioButton	rdbValues
+						[ ] locator "//WPFRadioButton[@caption='Values'][1]"
+					[+] WPFRadioButton	rdbOptions
+						[ ] locator "//WPFRadioButton[@caption='Options'][1]"
+				[+] AnyWin	tpgPerformance
+					[ ] 
+				[ ] AnyWin	tpgDynamic
+				[ ] 
+			[ ] //Append by Susan
+			[+] wcStreamAnalysisChild		tpgHydrateFormation
+				[+] AnyWin	tpgDesign
+						[ ] 
+				[+] AnyWin	tpgPerformance
+					[+] wcHysysDataGridSimple	dgTempatureAtStreamPressure
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] AnyWin	tpgDynamic
+					[ ] 
+			[+] wcHysysTabBase		tpgPipeSizing
+				[+] AnyWin	tpgDesign
+					[+] WPFButton	btnSelectStream
+						[ ] locator "//WPFButton[@automationId='Button1']"
+					[+] WPFTextBox txtName
+						[ ] locator "//WPFTextBox[@automationId='Name']"
+					[+] wcHysysDataGridSimple	dgSizingInput
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+					[ ] 
+				[+] AnyWin 	tpgPerformance
+					[+] wcHysysDataGridSimple	dgStreamProperties
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple	dgParametersA
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] wcHysysDataGridSimple	dgParametersB
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+					[ ] 
+			[+] wcHysysTabBase		tpgNotesManager	
+				[+] WPFRichTextBox	txtNote
+					[ ] locator "//WPFRichTextBox[@automationId='mainRTB']"
+				[+] WPFCheckBox	chkViewObjectsWithNotesOnly
+					[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox'][1]"
+				[+] wcHysysTreeView	trvAllObjects
+					[ ] locator "//WPFTreeView[@automationId='AllObjects']"
+				[+] WPFButton	btnViewObject
+					[ ] locator "//WPFButton[@automationId='ViewObjectButton']"
+				[+] WPFButton	btnClear
+					[ ] locator "//WPFButton[@automationId='Button1']"
+				[+] WPFTextBox	txtSearchByContainingText
+					[ ] locator "//WPFTextBox[@automationId='TextEntry1']"
+				[+] WPFCheckBox	chkSearchByContaining
+					[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox'][2]"
+				[+] WPFCheckBox	chkSearchByDate
+					[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox'][3]"
+				[+] WPFTextBox	txtYear
+					[ ] locator "//WPFTextBox[@automationId='NumericalInput1']"
+				[+] WPFComboBox	cboDay
+					[ ] locator "//WPFComboBox[@automationId='Enumeration3']"
+				[+] WPFComboBox	cboMonth
+					[ ] locator "//WPFComboBox[@automationId='Enumeration2']"
+			[+] wcNoneADJUnitOpsTPG		tpgFeeder
+				[+] AnyWin	tpgWorkSheet
+					[+] wcHysysDataGridSimple	dgPetroleumProps
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[+] AnyWin 	tpgParameters
+					[+] WPFComboBox cboBalanceType
+						[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+					[ ] 
+				[ ] 
+			[ ] //Append done
+			[+] WPFButton		btnZoomtoFitPFD
+				[ ] locator "//WPFButton[@automationId='PART_ZoomToFitButton']"
+			[+] WPFRichTextBox	txtTraceMessage
+				[ ] locator "//WPFRichTextBox[@automationId='textTrace']"
+			[+] wcStreamAnalysisChild		tpgNaphthaAssay
+				[ ] //Added by Justin Watanasiri for CQ00473576
+				[+] AnyWin	tpgDesign
+					[+] WPFComboBox	cboObjectType
+						[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+					[+] WPFButton	btnSelectObject
+						[ ] locator "//WPFButton[@automationId='SelectObjectButton']"
+			[ ] 
+			[ ] 
+			[ ] //Properties environment
+			[+] AnyWin	tpgUserProperties
+				[+] WPFButton btnAdd
+					[ ] locator "//WPFButton[@automationId='AddUserPropButton']"
+				[+] WPFButton btnCopy
+					[ ] locator "//WPFButton[@automationId='Button1']"
+				[+] WPFButton btnDelete
+					[ ] locator "//WPFButton[@automationId='DeleteUserPropButton']"
+				[+] wcHysysDataGridSimple	dgUserProperties
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[+] AnyWin	tpgUserProp
+				[+] AnyWin	tpgData
+					[+] wcHysysDataGridSimple dgBasicUserPropDefinition
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple dgEditUserPropertyValues
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] AnyWin	tpgNotes
+					[ ] 
+			[+] wcTabPageWithDatagridAndButton		tpgComponentLists
+				[+] // wcHysysDataGridDoubleCell		dgComponentLists
+					[ ] // locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[+] WPFComboBox	cboSelect
+					[ ] locator "//WPFComboBox[@automationId='enumComponents']"
+				[+] WPFTextBox	txtSearchFor
+					[ ] locator "//WPFTextBox[@automationId='NameText' or @automationId='txtMatchAPCompName']"
+				[+] WPFComboBox	cboFilter
+					[ ] locator "//WPFComboBox[@automationId='enumFamilyFilter']"
+				[+] WPFComboBox	cboSearchBy
+					[ ] locator "//WPFComboBox[@automationId='NameEnum']"
+				[+] WPFComboBox	cboMethod
+					[ ] locator "//WPFComboBox[@automationId='HypoMethodEnum']"
+				[+] WPFComboBox	cboHypoGroups
+					[ ] locator "//WPFComboBox[@automationId='HypoGroups']"
+				[+] WPFComboBox	cboInterval
+					[ ] locator "//WPFComboBox[@automationId='BatchMethodEnum']"
+				[+] wcHysysDataGridSimple		dgComponent
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+				[+] wcHysysDataGridSimple		dgSearchFor
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] WPFButton	btnGenerateHypos
+					[ ] locator "//WPFButton[@automationId='AddBatchB']"
+				[+] WPFButton	btnNewHypoGroup
+					[ ] locator "//WPFButton[@automationId='AddNewHypoGroupButton']"
+				[+] WPFButton	btnNewHypo
+					[ ] locator "//WPFButton[@automationId='AddNewHypo']"
+				[+] WPFButton	btnEstimateUnknow
+					[ ] locator "//WPFButton[@automationId='EstimateSolidButton' or @automationId='EstimateButton']"
+				[+] WPFButton	btnNewSolid
+					[ ] locator "//WPFButton[@automationId='AddNewSolid']"
+				[+] WPFButton	btnAddAllToLeft
+					[ ] locator "//WPFButton[@caption='<< Add All' or @automationId='AddAllHyposB']"
+				[+] WPFButton	btnAddToLeft
+					[ ] locator "//WPFButton[@caption='< Add' or@automationId='AddPureB']"
+				[+] WPFButton	btnReplace
+					[ ] locator "//WPFButton[@automationId='SubsB']"
+				[+] WPFButton	btnFind
+					[ ] locator "//WPFButton[@automationId='AddPureB']"
+				[+] WPFButton	btnRemove
+					[ ] locator "//WPFButton[@automationId='RemoveB']"
+				[+] WPFButton 	btnCopy
+					[ ] locator "//WPFButton[@caption='Cop_y']"
+				[+] WPFButton 	btnExport
+					[ ] locator "//WPFButton[@caption='E_xport...']"
+				[+] WPFButton	btnDeleteHypo
+					[ ] locator "//WPFButton[@automationId='DeleteHypoButton']"
+				[+] WPFButton	btnDeleteSolid
+					[ ] locator "//WPFButton[@automationId='DeleteSolidButton']"
+				[+] WPFButton	btnAddHSSButton //Added by Juan on 12/23/2013
+					[ ] locator "//WPFButton[@automationId='AddHSSButton']"
+				[+] WPFButton	btnRemoveHSSButton //Added by Juan on 12/23/2013
+					[ ] locator "//WPFButton[@automationId='RemoveHSSButton']"
+				[+] wcHysysTextBox	txtInitialBoilingPoint
+					[ ] locator "//WPFTextBox[@automationId='HypoInitialBPInput']"
+				[+] wcHysysTextBox	txtFinalBoilingPoint
+					[ ] locator "//WPFTextBox[@automationId='HypoFinalBPInput']"
+				[+] wcHysysTextBox	txtIntervalBoilingPoint
+					[ ] locator "//WPFTextBox[@automationId='HypoIntervalInput' or @automationId='HypoNumbersInput']"
+				[ ] 
+			[+] wcHysysTabBase tpgComponentSplitter
+				[+] WPFRadioButton rdbUseStreamFlashSpec
+					[ ] locator "(@automationId='PART_RadioButton' and @caption='Use Stream Flash Specifications:')"
+				[+] wcHysysDataGridSimple		dgGeneric
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+				[+] WPFRadioButton rdbUserStreamPressureSpec
+					[ ] locator "(@automationId='PART_RadioButton' and @caption='Use Stream Pressure Specifications')"
+			[ ] 
+			[ ] 
+			[+] AnyWin	tpgComponentListNo								// This is the page for comonent list - 1 or Basis, when used Aspen Properties.
+				[+] AnyWin	tpgSelectd							// For some page, there is no tab page Selected, but we can still use this logical layer, there is no locator for it.
+					[+] WPFButton	btnGenerateHypos
+						[ ] locator "//WPFButton[@automationId='AddBatchB']"
+					[+] WPFButton	btnNewHypoGroup
+						[ ] locator "//WPFButton[@automationId='AddNewHypoGroupButton']"
+					[+] WPFButton	btnNewHypo
+						[ ] locator "//WPFButton[@automationId='AddNewHypo']"
+					[+] WPFButton	btnEstimateUnknow
+						[ ] locator "//WPFButton[@automationId='EstimateSolidButton' or @automationId='EstimateButton']"
+					[+] WPFButton	btnNewSolid
+						[ ] locator "//WPFButton[@automationId='AddNewSolid']"
+					[+] WPFButton	btnAddAllToLeft
+						[ ] locator "//WPFButton[@caption='<< Add All' or @automationId='AddAllHyposB']"
+					[+] WPFButton	btnAddToLeft
+						[ ] locator "//WPFButton[@automationId='AddPureB' or @automationId='AddHypoB' or @automationId='AddHypoSolidB']"
+					[+] WPFButton	btnReplace
+						[ ] locator "//WPFButton[@automationId='SubsB']"
+					[+] WPFButton	btnFind
+						[ ] locator "//WPFButton[@automationId='AddPureB']"
+					[+] WPFButton	btnRemove
+						[ ] locator "//WPFButton[@automationId='RemoveB']"
+					[+] WPFButton 	btnCopy
+						[ ] locator "//WPFButton[@caption='Cop_y']"
+					[+] WPFButton 	btnExport
+						[ ] locator "//WPFButton[@caption='E_xport...']"
+					[+] WPFButton	btnDeleteHypo
+						[ ] locator "//WPFButton[@automationId='DeleteHypoButton']"
+					[+] WPFButton	btnDeleteSolid
+						[ ] locator "//WPFButton[@automationId='DeleteSolidButton']"
+					[+] wcHysysDataGridSimple	dgComponent
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple	dgSearchFor
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] wcHysysDataGridSimple   dgSourceDatabankAspenProperties
+						[ ] locator"//WPFContentControl[@automationId='mtxCurrAttachedComps']/WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFComboBox	cboFilter
+						[ ] locator "//WPFComboBox[@automationId='enumFamilyFilter']"
+					[+] WPFComboBox	cboSearchBy
+						[ ] locator "//WPFComboBox[@automationId='NameEnum']"
+					[+] WPFComboBox	cboSelect
+						[ ] locator "//WPFComboBox[@automationId='enumComponents' or @automationId='enumCompType']"
+					[+] WPFComboBox	cboMethod
+						[ ] locator "//WPFComboBox[@automationId='HypoMethodEnum']"
+					[+] WPFComboBox	cboHypoGroups
+						[ ] locator "//WPFComboBox[@automationId='HypoGroups']"
+					[+] WPFTextBox	txtSearch
+						[ ] locator "//WPFTextBox[@automationId='txtMatchAPCompName' or @automationId='NameText']"
+					[+] wcHysysTextBox	txtInitialBoilingPoint
+						[ ] locator "//WPFTextBox[@automationId='HypoInitialBPInput']"
+					[+] wcHysysTextBox	txtFinalBoilingPoint
+						[ ] locator "//WPFTextBox[@automationId='HypoFinalBPInput']"
+					[+] wcHysysTextBox	txtIntervalBoilingPoint
+						[ ] locator "//WPFTextBox[@automationId='HypoIntervalInput' or @automationId='HypoNumbersInput']"
+					[+] WPFComboBox	cboInterval
+						[ ] locator "//WPFComboBox[@automationId='BatchMethodEnum']"
+					[ ] 
+				[+] AnyWin	tpgHenryComp
+					[+] WPFButton	btnAdd
+						[ ] locator "//WPFButton[@automationId='addHL']"
+					[+] WPFButton	btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteHCompList']"
+					[+] WPFButton	btnRename
+						[ ] locator "//WPFButton[@automationId='RenameHenryList']"
+					[+] WPFButton	btnMoveRignt
+						[ ] locator "//WPFButton[@automationId='SelectHCompButton']"
+					[+] WPFButton	btnMoveLeft
+						[ ] locator "//WPFButton[@automationId='RemButton']"
+					[+] WPFListBox	lstAvailableComps
+						[ ] locator "//WPFListBox[@automationId='AvailHenryComps']"
+					[+] WPFListBox	lstSelectedComps
+						[ ] locator "//WPFListBox[@automationId='SelectedHenryComps']"
+					[+] WPFListBox	lstHenryCompList
+						[ ] locator "//WPFListBox[@automationId='HenryCompsList']"
+				[+] AnyWin	tpgEnterpriseDataBases
+					[+] WPFListBox	lstInstalledDBs
+						[ ] locator "//WPFListBox[@automationId='tlstAllAPEDDBs']"
+					[+] WPFListBox	lstSelectedDBs
+						[ ] locator "//WPFListBox[@automationId='tlstSelAPEDDBs']"
+					[+] WPFButton	btnMoveRight
+						[ ] locator "//WPFButton[@automationId='btnAddDB']"
+					[+] WPFButton	btnMoveLeft
+						[ ] locator "//WPFButton[@automationId='btnRmvDB']"
+				[+] AnyWin	tpgSetUp
+					[+] WPFButton	btnAddToLeft
+						[ ] locator "//WPFButton[@automationId='AddPureB']"
+					[+] WPFButton	btnFind
+						[ ] locator "//WPFButton[@automationId='AddPureB']"
+					[+] WPFButton	btnRemove
+						[ ] locator "//WPFButton[@automationId='RemoveB']"
+					[+] WPFListBox	lstPropertyPackageSelection
+						[ ] locator "//WPFListBox[@automationId='EnumerationList1']"
+					[+] wcHysysDataGridSimple		dgDataGrid
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] AnyWin	tpgComponentGroups
+					[+] WPFListBox lstComponentGroupList
+						[ ] locator "//WPFListBox[@automationId='APCompGrpGrpNameList']"
+					[+] WPFListBox	lstAllComponents
+						[ ] locator "//WPFListBox[@automationId='APCompGrpFullCompList']"
+					[+] WPFListBox	lstSelectedComponents
+						[ ] locator "//WPFListBox[@automationId='APCompGrpSelCompList']"
+						[ ] 
+					[+] WPFTextBox	txtNewName
+						[ ] locator "//WPFTextBox[@automationId='txtNewGrpName']"
+					[+] WPFButton	btnAddGroup
+						[ ] locator "//WPFButton[@automationId='btnAddNewGroup']"
+					[+] WPFButton	btnRemoveGroup
+						[ ] locator "//WPFButton[@automationId='btnRemoveCompList']"
+					[+] WPFButton	btnAddComponent
+						[ ] locator "//WPFButton[@automationId='btnAddOneComp']"
+					[+] WPFButton	btnRemoveComponent
+						[ ] locator "//WPFButton[@automationId=''btnRemoveOneComp']"
+			[+] wcHysysTabBase	tpgReaction
+				[+] WPFLabel	stcReady
+					[ ] locator "//WPFLabel[@caption='Ready']"
+				[+] wcHysysDataGridSimple		dgDataGrid
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] WPFComboBox	cboAdd
+					[ ] locator "//WPFComboBox"
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@caption='Add']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@automationId='DeleteSet']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@automationId='CopySetButton']"
+				[+] WPFButton	btnAddToFP
+					[ ] locator "//WPFButton[@automationId='AddToFPButton' or @automationId='AddToFluidPkgButton' or @caption='Add to FP']"
+				[+] WPFButton	btnDetachFromFP
+					[ ] locator "//WPFButton[@automationId='DetachFromFPButton' or @automationId='DetachFromFPBT' or @caption='Detach from FP']"
+				[+] WPFButton	btnImportSet
+					[ ] locator "//WPFButton[@automationId='ImportBT']"
+				[+] WPFButton	btnExportSet
+					[ ] locator "//WPFButton[@automationId='ExportBT']"
+				[ ] 
+				[+] WPFComboBox cboAddReactions
+					[ ] locator "//WPFComboBox"
+				[+] wcHysysDataGridSimple dgStoichiometry
+					[ ] locator "//WPFContentControl[@automationId='Components']//WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgBasis
+					[ ] locator "//WPFContentControl[@automationId='MatrixWidget3']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+			[+] AnyWin	tpgReactionSubNodePage
+				[+] wcHysysDataGridSimple		dgDataGridLeft
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][2]"
+				[+] wcHysysDataGridSimple		dgDataGridRight
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][1]"
+				[+] WPFTextBox	txtSetType
+					[ ] locator "//WPFTextBox[@automationId='setTypeText']"
+				[+] WPFButton	btnAddToFP
+					[ ] locator "//WPFButton[@automationId='AddToFPButton']"
+				[+] WPFButton	btnDetachFromFP
+					[ ] locator "//WPFButton[@automationId='DetachFromFPButton']"
+				[+] WPFButton	btnRanking
+					[ ] locator "//WPFButton[@automationId='ConvRxnRanksButton']"
+				[+] WPFButton	btnAdvanced
+					[ ] locator "//WPFButton[@automationId='AdvButton']"
+				[+] WPFButton	btnDeleteReaction
+					[ ] locator "//WPFButton[@automationId='DeleteRxnBT']"
+				[+] WPFButton	btnCopyReaction
+					[ ] locator "//WPFButton[@automationId='CopyRxnBT']"
+				[+] WPFButton	btnAddReaction
+					[ ] locator "//WPFButton[@automationId='Add Reaction' or @caption='Add Reaction']"
+				[+] WPFComboBox	cboAddReaction
+					[ ] locator "//WPFComboBox[1]"
+			[+] wcStreams tpgStreamPage								//StreamPage
+				[ ] 
+			[+] wcTabPageWithDatagridAndButton		tpgFluidPackages
+				[+] WPFButton	btnEdit
+					[ ] locator "//WPFButton[@caption='Edit...' or @caption='_Edit...']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@automationId='CopyButton']"
+				[+] WPFButton	btnExport
+					[ ] locator "//WPFButton[@automationId='StoreBasisButton']"
+				[+] WPFButton	btnImport
+					[ ] locator "//WPFButton[@automationId='RecallBasisButton']"
+				[+] WPFListBox lstEnumerationList
+					[ ] locator "//WPFListBox[@automationId='EnumerationList1' or @automationId='LiquidModelList' or @automationId='VaporList' ]"
+			[+] wcTabPageWithDatagridAndButton		tpgFluidPackageChild
+				[+] //Set Up page
+					[+] WPFComboBox cboPropertyPackageFilter
+						[ ] locator "//WPFComboBox[@automationId='EnumAPkgFilter']"
+					[+] WPFTabItem tabiSetUp
+						[ ] locator "Set Up"
+					[+] WPFButton btnEditProp
+						[ ] locator "@automationId='EditPropButton'"
+					[+] WPFButton btnImport
+						[ ] locator "@automationId='Import'"
+					[+] WPFButton btnExport
+						[ ] locator "@automationId='Export'"
+					[+] WPFButton btnExtendedPropPkgSetup
+						[ ] locator "@automationId='ExtendedPropPkgSetup'"
+					[+] wcHysysDataGridSimple dgActivityModelSpec
+						[ ] locator "@className='OdfDataGrid'"
+					[+] WPFListBox lstPropertyPackageSelection
+						[ ] locator "//WPFListBox[@automationId='EnumerationList1' or @automationId='APropPropertyMethodEnum' or @automationId='VaporList' or @automationId='LiquidModelList']"
+					[+] WPFComboBox cboComponentListSelection
+						[ ] locator "@automationId='CompListAtt'"
+					[+] WPFComboBox cboPropertyPackageSelection
+						[ ] locator "@automationId='COMPPkgType'"
+					[+] WPFComboBox cboPressureCorrection
+						[ ] locator "@automationId='CompreLiqDenCorrectionMethods'"
+					[+] WPFButton btnViewComponentList
+						[ ] locator "@automationId='ViewCLButton'"
+					[+] WPFRadioButton	rdbVapor
+						[ ] locator "//WPFRadioButton[@caption='Vapor']"
+					[+] WPFRadioButton	rdbLiquid
+						[ ] locator "//WPFRadioButton[@caption='Liquid']"
+					[+] WPFRadioButton rdbKentEisenberg
+						[ ] locator "//WPFRadioButton[@caption='Kent-Eisenberg'][1]"
+					[+] WPFRadioButton  rdbLiMather
+						[ ] locator "//WPFRadioButton[@caption='Li-Mather'][1]"
+					[+] WPFButton btnExtendedFlashSetup
+						[ ] locator "//WPFButton[@automationId='ExtendedFlashSetup']"
+					[ ] //Append by Susan
+					[+] WPFButton	btnElectrolyteWizard
+						[ ] locator "//WPFButton[@automationId='LaunchElecWizardButton']"
+					[+] wcHysysDataGridSimple	dgParameters
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] WPFComboBox	cboVolTransDefaultMethods
+						[ ] locator "//WPFComboBox[@automationId='VolTransDefaultMethods']"
+					[+] WPFButton	btnEstimateVolTrans
+						[ ] locator "//WPFButton[@automationId='PRVolTransDefault']"
+					[+] WPFComboBox	cboFreeWaterMethod                   //Added by Juan on9/3/2013
+						[ ] locator "//WPFComboBox[@automationId='enmFreeWaterMethod']"
+					[ ] //Append done
+				[+] //Binary Coeffs page
+					[+] WPFRadioButton	rdbAij
+						[ ] locator "//WPFRadioButton[@caption='Aij']"
+					[+] WPFRadioButton	rdbBij
+						[ ] locator "//WPFRadioButton[@caption='Bij']"
+					[+] WPFRadioButton	rdbAlphaij
+						[ ] locator "//WPFRadioButton[@caption='Alphaij / Cij' or @automationId='PART_RadioButton' and @caption='Alphaij']"
+					[+] WPFRadioButton	rdbAlp2ij
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Alp2ij']"
+					[+] WPFRadioButton	rdbUnifacVle
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='UNIFAC VLE']"
+					[+] WPFRadioButton	rdbUnifacLle
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='UNIFAC LLE']"
+					[+] WPFRadioButton	rdbNone
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='None']"
+					[+] WPFRadioButton	rdbImmiscible
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Immiscible']"
+					[+] WPFRadioButton	rdbSetAllTo0
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Set All to 0.0']"
+					[+] WPFRadioButton	rdbEstimateHCHC
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Estimate HC-HC*']"
+					[ ] 
+					[+] WPFButton		btnResetParams
+						[ ] locator "//WPFButton[@automationId='GlycolPkgResetParamsButton']"
+					[+] WPFButton		btnIndividualPair
+						[ ] locator "//WPFButton[@automationId='GlycolPkgIndividualPairButton']"
+					[+] WPFButton		btnUnknownsOnly
+						[ ] locator "//WPFButton[@automationId='GlycolPkgUnknownsOnly' or @automationId='GlycolPkgLLEUnknownsButton']"
+					[+] WPFButton		btnALLBinaries
+						[ ] locator "//WPFButton[@automationId='GlycolPkgALLBinariesButton' or @automationId='GlycolPkgLLEAllBinariesButton']"
+					[+] WPFButton		btnRowinClmPair
+						[ ] locator "//WPFButton[@automationId='GlycolPkgRowinClmPairButton']"
+					[+] WPFButton		btnClminRowPair
+						[ ] locator "//WPFButton[@automationId='GlycolPkgClminRowPairButton']"
+					[+] WPFButton		btnAllinCol
+						[ ] locator "//WPFButton[@automationId='GlycolPkgAllinColButton']"
+					[ ] 
+					[+] wcHysysDataGridSimple		dgDataGrid
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+					[ ] //Append by Susan
+					[+] wcHysysTreeView	trvPropAttachment
+						[ ] locator "//WPFTreeView[@automationId='PropAttachmentTreeSortByGroup']"
+					[ ] //Append done
+				[ ] //Stab Test page
+				[+] AnyWin	tpgStabTest
+					[+] WPFRadioButton	rdbMethodNone
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='None']"
+					[+] WPFRadioButton	rdbMethodLow
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Low']"
+				[ ] //Tabular tab page
+				[+] AnyWin	tpgTabular
+					[+] WPFCheckBox	chkEnableTabular
+						[ ] locator "//WPFCheckBox[@automationId='EnableTabBox']"
+					[+] WPFCheckBox	chkEnableCalc
+						[ ] locator "//WPFCheckBox[@automationId='EnableCalcBox']"
+					[+] WPFRadioButton	rdbHEQ0
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='H = 0* (HYSIM Basis)']"
+					[+] WPFRadioButton	rdbHEQHeat
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='H = Heat of Formation at 25C']"
+					[+] wcHysysTreeView	trvTabularPkg
+						[ ] locator "//WPFTreeView[1]"
+					[+] WPFButton	btnCmpPlot
+						[ ] locator "//WPFButton[@automationId='PropPlotButton']"
+					[+] WPFButton	btnCmpPropDetail
+						[ ] locator "//WPFButton[@automationId='CompPropDetButton']"
+					[ ] 
+				[ ] //Phase Handling page
+				[+] AnyWin	tpgPhaseHandling
+					[+] WPFComboBox	cboValidPhases
+						[ ] locator "//WPFComboBox[@automationId='eValidPhases']"
+			[ ] //The common part between Simulation and Properties
+			[+] AnyWin	tpgOilManage
+				[+] //Common Objects
+					[+] wcHysysDataGridSimple	dgDataGrid
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+				[+] //Oil Manager Tab Page
+					[+] WPFButton btnInstallOil
+						[ ] locator "//WPFButton[@automationId='InstallOilBT']"
+					[+] WPFButton btnInputAssay
+						[ ] locator "//WPFButton[@automationId='InputAssayBT']"
+						[ ] 
+					[+] WPFButton btnOutputBlend
+						[ ] locator "//WPFButton[@automationId='OutputBlendBT']"
+				[ ] 
+				[+] //Correlation Tab Page
+					[+] wcHysysDataGridSimple	dgCorrelationSets
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple	dgDetailes
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] WPFButton btnAdd
+						[ ] locator "//WPFButton[@caption='Add...' or @automationId='AddCorrelationSetButton']"
+					[+] WPFButton btnCopy
+						[ ] locator "//WPFButton[@caption='Copy' or @automationId='CopyCorrelationSetButton']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeleteCorrelationSetButton']"
+					[+] WPFButton btnAddRange
+						[ ] locator "//WPFButton[@automationId='AddRangeButton']"
+					[ ] //Append by Susan
+					[+] WPFTextBox	txtNameDetails
+						[ ] locator "//WPFTextBox[@automationId='UserPropertyName']"
+					[+] WPFButton	btnRemoveRange
+						[ ] locator "//WPFButton[@automationId='RemoveRangeButton']"
+					[ ] //Append done
+				[+] //Oil Output Settings
+					[ ] 
+			[+] AnyWin	tpgOilManageInputAssay
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@automationId='AddAssayButton']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@automationId='CopyAssayButton']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@automationId='DeleteAssayButton']"
+				[+] WPFButton	btnImport
+					[ ] locator "//WPFButton[@automationId='ImportAssayButton']"
+				[+] WPFButton	btnExport
+					[ ] locator "//WPFButton[@automationId='ExportAssay']"
+				[+] WPFButton	btnOilInputPreference
+					[ ] locator "//WPFButton[@automationId='OilPrefButton']"
+				[+] WPFButton btnOutputBlend
+					[ ] locator "//WPFButton[@automationId='OutputBlendBT']"
+				[ ] 
+				[+] // AnyWin	tpgOilManageInputAssay
+					[+] // WPFButton	btnAdd
+						[ ] // locator "//WPFButton[@automationId='AddAssayButton']"
+					[+] // WPFButton	btnCopy
+						[ ] // locator "//WPFButton[@automationId='CopyAssayButton']"
+					[+] // WPFButton	btnDelete
+						[ ] // locator "//WPFButton[@automationId='DeleteAssayButton']"
+					[+] // WPFButton	btnImport
+						[ ] // locator "//WPFButton[@automationId='ImportAssayButton']"
+					[+] // WPFButton	btnExport
+						[ ] // locator "//WPFButton[@automationId='ExportAssay']"
+					[+] // WPFButton	btnOilInputPreference
+						[ ] // locator "//WPFButton[@automationId='OilPrefButton']"
+					[+] // WPFButton 	btnOilManager
+						[ ] // locator "//WPFButton[@automationId='OilMgrBT']"
+					[+] // WPFButton	btnOutputBlend
+						[ ] // locator "//WPFButton[@automationId='OutputBlendBT']"
+					[ ] // 
+					[+] // wcHysysDataGridSimple	dgAssays
+						[ ] // locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[ ] // 
+				[+] // AnyWin	tpgOilManageOutputBlend
+					[+] // WPFButton	btnAdd
+						[ ] // locator "//WPFButton[@automationId='AddBlendButton']"
+					[+] // WPFButton	btnCopy
+						[ ] // locator "//WPFButton[@automationId='CopyBlendButton']"
+					[+] // WPFButton	btnDelete
+						[ ] // locator "//WPFButton[@automationId='DeleteBlendButton']"
+					[+] // WPFButton 	btnOilManager
+						[ ] // locator "//WPFButton[@automationId='OilMgrBT']"
+					[+] // WPFButton	btnInputAssay
+						[ ] // locator "//WPFButton[@automationId='InputAssayBT']"
+					[+] // wcHysysDataGridSimple	dgBlends
+						[ ] // locator "//WPFDataGrid[@automationId='grd_AvailBlends']"
+				[ ] 
+				[+] wcHysysDataGridSimple	dgAssays
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+			[+] AnyWin	tpgOilManageInputAssayChild	// the child page in Oil Manager -> Input Assay
+				[+] //Common Objects
+					[+] WPFButton	btnHandlingFitting
+						[ ] locator "//WPFButton[@caption='Handling & Fitting']"
+					[+] WPFButton	btnCalculate
+						[ ] locator "//WPFButton[@caption='Calculate' or @automationId='ExecuteButton']"
+					[+] WPFLabel		stcAssayCalculated
+						[ ] locator "//WPFLabel[@caption='Assay Was Calculated']"
+					[+] WPFButton	btnInputAssay
+						[ ] locator "//WPFButton[@automationId='InputAssayBT']"
+					[+] WPFButton 	btnOutputBlend
+						[ ] locator "//WPFButton[@automationId='OutputBlendBT']"
+					[ ] 
+					[ ] 
+				[+] //Input Data
+					[+] WPFTabItem tabiInputData
+						[ ] locator "//WPFTabItem[@caption='Input Data']"
+					[+] WPFComboBox cboBulkProperties
+						[ ] locator "//WPFComboBox[@caption='Choose bulk properties option']"
+					[+] WPFComboBox cboAssayDataType
+						[ ] locator "//WPFComboBox[@caption='Select the distillation type for this assay']"
+					[+] WPFComboBox cboLightEnds
+						[ ] locator "//WPFComboBox[@caption='Select light ends option']"
+					[+] WPFComboBox cboMolecularWt
+						[ ] locator "//WPFComboBox[@caption='Select molecular weight option']"
+					[+] WPFComboBox cboDensityCurve
+						[ ] locator "//WPFComboBox[@caption='Select density curve option']"
+					[+] WPFComboBox cboViscosityCurve
+						[ ] locator "//WPFComboBox[@caption='Select viscosity curve option']"
+					[+] WPFComboBox cboAssayBasis
+						[ ] locator "//WPFComboBox[@automationId='AssayBasisEnum']"
+					[+] WPFComboBox cboLightEndsBasis
+						[ ] locator "//WPFComboBox[@automationId='CompBasisEnumeration']"
+					[+] WPFRadioButton rdbBulkProps
+						[ ] locator "//WPFRadioButton[@caption='Bulk Props']"
+					[+] WPFRadioButton rdbLightEnds
+						[ ] locator "//WPFRadioButton[@caption='Light Ends']"
+					[+] WPFRadioButton rdbDistillation
+						[ ] locator "//WPFRadioButton[@caption='Distillation']"
+					[+] WPFRadioButton rdbMolecularWt
+						[ ] locator "//WPFRadioButton[@caption='Molecular Wt']"
+					[+] WPFRadioButton rdbDensity
+						[ ] locator "//WPFRadioButton[@caption='Density']"
+					[+] WPFRadioButton rdbViscosity1
+						[ ] locator "//WPFRadioButton[@caption='Viscosity1']"
+					[+] WPFRadioButton rdbViscosity2
+						[ ] locator "//WPFRadioButton[@caption='Viscosity2']"
+					[ ] 
+					[+] WPFButton btnAdd
+						[ ] locator "//WPFButton[@automationId='AddAssayButton']"
+					[+] WPFButton btnCopy
+						[ ] locator "//WPFButton[@automationId='CopyAssayButton']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteAssayButton']"
+					[+] WPFButton btnImport
+						[ ] locator "//WPFButton[@automationId='ImportAssayButton']"
+					[+] WPFButton btnExport
+						[ ] locator "//WPFButton[@automationId='ExportAssay']"
+					[+] WPFButton btnOilInputPreferences
+						[ ] locator "//WPFButton[@automationId='OilPrefButton']"
+					[+] WPFButton btnEditAssay
+						[ ] locator "//WPFButton[@automationId='ModalAssayInputButton']"
+					[ ] 
+					[+] wcHysysDataGridSimple	dgInputData
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[+] //Calculation Defaults
+					[+] WPFTabItem tabiCalculationDefaults
+						[ ] locator "//WPFTabItem[@caption='Calculation Defaults']"
+				[+] //User Curves
+					[+] WPFListBox	lstAvailableUserProp
+						[ ] locator "//WPFListBox[@automationId='AvailableUserPropertyList']"
+					[+] WPFListBox	lstSelectedUserProp
+						[ ] locator "//WPFListBox[@automationId='SelectedUserPropertyList']"
+					[+] WPFButton	btnAddToRight
+						[ ] locator "//WPFButton[@caption='Add --->' or @automationId='UserPropertySelectionButton']"
+					[+] WPFButton	btnRemoveFromRight
+						[ ] locator "//WPFButton[@caption='<--- Remove' or @automationId='RemoveUserPropertyButton']"
+					[+] WPFButton	btnEditUserCurve
+						[ ] locator "//WPFButton[@automationId='EditUserCurveButton']"
+			[+] AnyWin	tpgOilManageOutputBlend
+				[+] WPFButton	btnAdd
+					[ ] locator "//WPFButton[@automationId='AddBlendButton']"
+				[+] WPFButton	btnCopy
+					[ ] locator "//WPFButton[@automationId='CopyBlendButton']"
+				[+] WPFButton	btnDelete
+					[ ] locator "//WPFButton[@automationId='DeleteBlendButton']"
+				[+] WPFButton 	btnOilManager
+					[ ] locator "//WPFButton[@automationId='OilMgrBT']"
+				[+] WPFButton	btnInputAssay
+					[ ] locator "//WPFButton[@automationId='InputAssayBT']"
+				[+] wcHysysDataGridSimple	dgBlends
+					[ ] locator "//WPFDataGrid[@automationId='grd_AvailBlends']"
+					[+] WPFButton btnOutputBlend
+						[ ] locator "//WPFButton[@automationId='OutputBlendBT']"
+					[ ] 
+			[ ] 
+			[+] AnyWin	tpgOilManageOutputBlendChild	// the child page in Oil Manager -> Output Blend
+				[+] //Common Objects
+					[+] WPFButton	btnInstallOil
+						[ ] locator "//WPFButton[@automationId='InstallOilBT']"
+					[+] WPFButton 	btnOutputBlend
+						[ ] locator "//WPFButton[@automationId='OutputBlendBT']"
+					[+] WPFButton	btnInputAssay
+						[ ] locator "//WPFButton[@automationId='InputAssayBT']"
+				[ ] 
+				[+] //Input Data
+					[+] WPFButton btnAdd
+						[ ] locator "//WPFButton[@automationId='AddBlendButton']"
+					[+] WPFButton btnCopy
+						[ ] locator "//WPFButton[@automationId='CopyBlendButton']"
+					[+] WPFButton btnDelete
+						[ ] locator "//WPFButton[@automationId='DeleteBlendButton']"
+					[+] wcHysysDataGridSimple	dgBlends
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] //Data
+					[+] WPFListBox		lstSelectedUserProp
+						[ ] locator "//WPFListBox[@automationId='AvailableAssaysList']"
+					[+] WPFButton 		btnAddOil
+						[ ] locator "//WPFButton[@automationId='AssaySelectionButton']"
+					[+] WPFButton 		btnRemovoOil
+						[ ] locator "//WPFButton[@automationId='RemovoOilButton']"
+					[+] wcHysysDataGridSimple		dgOilFlowInfo
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] wcHysysDataGridSimple		dgBulkData
+						[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+					[+] WPFComboBox 	cboCutOptionSelection
+						[ ] locator "//WPFComboBox[@automationId='CutMethodEnumeration']"
+					[+] WPFLabel		stcBlendWasCalculated
+						[ ] locator "//WPFLabel[@caption='Blend Was Calculated']"
+				[+] //Tables
+					[ ] 
+				[+] //Property Plot
+					[ ] 
+				[+] //Distribution Plot
+					[ ] 
+				[+] //Composite Plot
+					[ ] 
+				[+] //Plot Summary
+					[ ] 
+				[+] //Correlations
+					[ ] 
+			[ ] 
+			[ ]  //Model Analysis
+			[+] wctpgModelAnalysis      tpgPIMSSupport
+				[+] //  //Variables Tab Page
+					[+] // WPFButton	btnScopeObject
+						[ ] // locator "//WPFButton[@automationId='AttachPopUpButton']"
+					[+] // WPFButton	btnIndAdd
+						[ ] // locator "//WPFButton[@automationId='IndAddButton']"
+					[+] // WPFButton	btnIndIns
+						[ ] // locator "//WPFButton[@automationId='IndInsButton']"
+					[+] // WPFButton	btnIndEdit
+						[ ] // locator "//WPFButton[@automationId='IndEditButton']"
+					[+] // WPFButton	btnDeleteIndVar
+						[ ] // locator "//WPFButton[@automationId='DeleteIndVarButton']"
+					[+] // WPFButton	btnRefreshInd
+						[ ] // locator "//WPFButton[@automationId='RefreshIndButton']"
+					[+] // WPFButton	btnDepAdd
+						[ ] // locator "//WPFButton[@automationId='DepAddButton']"
+					[+] // WPFButton	btnDepIns
+						[ ] // locator "//WPFButton[@automationId='DepInsButton']"
+					[+] // WPFButton	btnDepEdit
+						[ ] // locator "//WPFButton[@automationId='DepEditButton']"
+					[+] // WPFButton	btnDeleteDepVar
+						[ ] // locator "//WPFButton[@automationId='DeleteDepVarButton']"
+					[+] // WPFButton	btnRefreshDep
+						[ ] // locator "//WPFButton[@automationId='RefreshDepButton']"
+					[+] // WPFButton	btnCancelDep
+						[ ] // locator "//WPFButton[@automationId='CancelDepButton']"
+				[+] // //Base Vectors Tab Page
+					[+] // WPFButton	btnInsSelectPar
+						[ ] // locator "//WPFButton[@automationId='Button1']"
+					[+] // WPFButton	btnEditSelectPar
+						[ ] // locator "//WPFButton[@automationId='Button2']"
+					[+] // WPFButton	btnDelSelectPar
+						[ ] // locator "//WPFButton[@automationId='Button3']"
+				[+] // //Shift Vectors Tab Page
+					[ ] // 
+				[+] // //Analysis Tab Page
+					[ ] // 
+			[+] WPFComboBox		cboAddModelAnalysis
+				[ ] //Added by Justin Watanasiri for CQ00206368 on March 7, 2013
+				[ ] locator "//WPFComboBox"
+				[ ] 
+				[+] WPFComboBoxItem	cbiProductionAllocation
+					[ ] locator "//WPFComboBoxItem[@caption='Production Allocation']"
+				[ ] 
+			[ ] 
+			[+] WPFListBox	lbAvailableStreams
+				[ ] locator "//WPFListBox[@automationId='FlowSheetStreamsList']"
+			[+] WPFListBox	lbAllTerminalStreams
+				[ ] locator "//WPFListBox[@automationId='AllTerminalStreams']"
+			[+] WPFListBox	lbFlowSheetStreamsList
+				[ ] locator "//WPFListBox[@automationId='FlowSheetStreamsList']"
+			[+] WPFButton			btnAddStreamToModelAnalysis
+				[ ] //Added by Justin Watanasiri for CQ00206368 on March 7, 2013
+				[ ] locator "//WPFButton[@automationId='AddSourceButton']"
+			[+] WPFRadioButton		rdbMassFlow
+				[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Mass Flow')]"
+			[ ] 
+			[ ] 
+			[ ] 
+			[ ] //Safety Analysis Environment
+			[+] WPFMenuItem miCreatePSV
+				[ ] locator "//WPFMenuItem[@caption='Create PSV']"
+			[+] WPFMenuItem miLiq
+				[ ] locator "//WPFMenuItem[@caption='Liq']"
+			[+] WPFMenuItem miVap
+				[ ] locator "//WPFMenuItem[@caption='Vap']"
+			[+] WPFMenuItem miCreateScenario
+				[ ] locator "//WPFMenuItem[@caption='Create Scenario']"
+			[ ] 
+			[+] wcHysysTabBase tpgPSV
+				[+] WPFTextBox stcOK
+					[ ] locator "//WPFTextBlock[@caption='OK']"
+				[+] WPFControl txbPressure
+					[ ] locator "//WPFUserControl[@automationId='psvboxsetpress']/WPFControl[@automationId='displayBox']"
+				[+] WPFTextBlock stsbSetPressureMustBySpecified
+					[ ] locator "//WPFTextBlock[@caption='Set Pressure must be specified (Valve Design form)']"
+				[+] WPFTextBlock stsbCreateAnEmergencyScenario
+					[ ] locator "//WPFTextBlock[@caption='Create an emergency scenario']"
+				[+] WPFTextBlock stsbPleaseSelectASizingCase
+					[ ] locator "//WPFTextBlock[@caption='Please select a Sizing Case']"
+				[ ] 
+			[+] wcHysysTabBase tpgScenario
+				[+] WPFTextBox stcOK
+					[ ] locator "//WPFTextBlock[@caption='OK']"
+				[+] WPFRadioButton rdReferenceRelievingFlow
+					[ ] locator "//WPFRadioButton[@automationId='radioRelFlowRef']"
+				[ ] 
+			[ ] 
+			[+] wcHysysTabBase	tpgDownloadAssays
+				[+] WPFComboBox cboAssaySource
+					[ ] locator "//WPFComboBox[@automationId='AssaySource']"
+				[+] WPFComboBox cboRegion
+					[ ] locator "//WPFComboBox[@automationId='Region']"
+				[+] WPFComboBox cboCountry
+					[ ] locator "//WPFComboBox[@automationId='Country']"
+				[+] WPFButton btnDownloadAssays
+					[ ] locator "//WPFButton[@automationId='DownloadAssays']"
+				[+] WPFTextBlock tblkGoDirectlytoSite
+					[ ] locator "//WPFTextBlock[@automationId='tb_Site']"
+			[ ] 
+			[+] wcHysysTabBase tpgUnitOps
+				[+] WPFButton btnDeleteExport
+					[ ] locator "//WPFButton[@automationId='DeleteExportButton']"
+				[+] WPFButton btnAddExport
+					[ ] locator "//WPFButton[@automationId='AddExportButton']"
+			[+] wcHysysTabBase tpgpetroleumShiftReactor
+				[+] WPFComboBox	cboStream
+					[ ] locator "//WPFComboBox[@automationId='Enumeration2']"
+				[+] WPFCheckBox	chkUseMainFeedDistillationCurve
+					[ ] locator "//WPFCheckBox[@automationId='useFeedTBPcheckbox']"
+			[ ] 
+		[-] //---------------------------------------Objects in Menu and Ribbon-------------------------------------
+			[ ] // File Tab
+			[ ] //Added by Juan Situ on March 13, 2013
+			[+] WPFMenu MenuToolMenu
+				[ ] locator "//WPFItemsControl[@automationId='applicationMenu']/WPFMenu[@className='MenuToolMenu']"
+			[ ] //Add end
+			[+] // WPFMenuItem	 mnuFile
+				[ ] // locator "//WPFMenuItem[@caption='File']"
+				[+] // WPFMenuItem miAtmosphericCrudeTower2
+					[ ] // locator "//WPFMenuItem[@caption='Atmospheric Crude Tower__2.hsc']"
+			[-] // WPFMenuItem	 miOpen
+				[ ] // locator "//WPFMenuItem[@caption='*Open']"
+				[+] // WPFMenuItem 	miReformer
+					[ ] // locator "//WPFMenuItem[@caption='Reformer']"
+				[ ] // 
+			[+] // WPFMenuItem       miSave
+				[ ] // locator "//WPFMenuItem[@caption='Save']"
+			[+] // WPFMenuItem       miSaveAs
+				[ ] // locator "//WPFMenuItem[@caption='Save *As']"
+			[+] // WPFMenuItem       miExport
+				[ ] // locator "//WPFMenuItem[@caption='Export']"
+			[+] // WPFMenuItem       miNew
+				[ ] // locator "//WPFMenuItem[@caption='*New']"
+				[+] // WPFMenuItem       miReformer
+					[ ] // locator "//WPFMenuItem[@caption='Reformer']"
+				[+] // WPFMenuItem       miHydrocracker
+					[ ] // locator "//WPFMenuItem[@caption='Hydrocracker'][1]"
+			[+] // WPFMenuItem       miPrint
+				[ ] // locator "//WPFMenuItem[@caption='Print']"
+			[+] // WPFMenuItem       miCatCracker
+				[ ] // locator "//WPFMenuItem[@caption='CatCracker'][2]"
+			[+] // WPFMenuItem       miHydrocracker
+				[ ] // locator "//WPFMenuItem[@caption='Hydrocracker'][2]"
+			[ ] // //Append by Susan
+			[+] // WPFMenuItem	miAbout
+				[ ] // locator "//WPFMenuItem[@caption='_About']"
+			[ ] // //Append done
+			[+] WPFMenuItem	muiCloseOtherTabs
+				[ ] locator "//WPFMenuItem[@caption='Close Other Tabs']"
+			[ ] 
+			[ ] 
+			[+] WPFToggleButton mnuFile
+				[ ] locator "//WPFToggleButton[@automationId='orbPanel']"
+				[+] WPFMenuItem miAtmosphericCrudeTower2
+					[ ] locator "//WPFMenuItem[@caption='Atmospheric Crude Tower__2.hsc']"
+				[ ] 
+				[ ] 
+			[+] WPFHeaderedContentControl miExchange
+				[ ] locator "//WPFHeaderedContentControl[@caption='Exchange']"
+			[+] WPFHeaderedContentControl miNew
+				[ ] locator "//WPFHeaderedContentControl[@automationId='FileNew']"
+			[+] WPFHeaderedContentControl miOpen
+				[ ] locator "//WPFHeaderedContentControl[@automationId='FileOpen']"
+			[+] WPFHeaderedContentControl miActivate
+				[ ] locator "//WPFHeaderedContentControl[@automationId='FileActivate']"
+			[+] WPFHeaderedContentControl miCloseCase
+				[ ] locator "//WPFHeaderedContentControl[@caption='Close Case']"
+			[+] WPFHeaderedContentControl miSave
+				[ ] locator "//WPFHeaderedContentControl[@automationId='FileSave']"
+			[+] WPFHeaderedContentControl miSaveAs
+				[ ] locator "//WPFHeaderedContentControl[@automationId='FileSaveAs']"
+			[+] WPFHeaderedContentControl miExport
+				[ ] locator "//WPFHeaderedContentControl[@caption='Export']"
+			[+] WPFHeaderedContentControl miRecent
+				[ ] locator "//WPFHeaderedContentControl[@caption='Recent']"
+			[+] WPFHeaderedContentControl miEditCompoundFile
+				[ ] locator "//WPFHeaderedContentControl[@automationId='EditCompFile']"
+			[+] WPFHeaderedContentControl miScriptManager
+				[ ] locator "//WPFHeaderedContentControl[@automationId='ScriptMgr']"
+			[+] WPFHeaderedContentControl miPrint
+				[ ] locator "//WPFHeaderedContentControl[@caption='Print']"
+			[+] WPFHeaderedContentControl miPrintSetup
+				[ ] locator "//WPFHeaderedContentControl[@automationId='PrintSetup']"
+			[+] WPFHeaderedContentControl miAbout
+				[ ] locator "//WPFHeaderedContentControl[@automationId='About']"
+			[+] WPFHeaderedContentControl miOptions
+				[ ] locator "//WPFHeaderedContentControl[@automationId='Preferences']"
+			[+] WPFHeaderedContentControl miExit
+				[ ] locator "//WPFHeaderedContentControl[@automationId='Exit']"
+			[ ] 
+			[ ] 
+			[ ] //
+			[ ] //File Menu Item Sub-Menus
+			[ ] // Duplicate Items are only added to the first grouping in which they appear since there is no organization under the File Menu
+			[ ] //
+			[ ] //New sub-Menu
+			[+] WPFButtonBase miCase
+				[ ] locator "//WPFButtonBase[@caption='Case']"
+			[+] WPFButtonBase miTemplate
+				[ ] locator "//WPFButtonBase[@caption='Template']"
+			[+] WPFButtonBase miColumn
+				[ ] locator "//WPFButtonBase[@caption='Column']"
+			[+] WPFButtonBase miReformer
+				[ ] locator "//WPFButtonBase[@caption='Reformer']"
+			[+] WPFButtonBase miHydrocracker
+				[ ] locator "//WPFButtonBase[@caption='Hydrocracker']"
+			[+] WPFButtonBase miCatCracker
+				[ ] locator "//WPFButtonBase[@caption='CatCracker']"
+			[ ] 
+			[ ] //Open sub-Menu
+			[+] WPFButtonBase miOpenCase
+				[ ] locator "//WPFButtonBase[@caption='Open Case']"
+			[+] WPFButtonBase miCutCopyPaste
+				[ ] locator "//WPFButtonBase[@caption='Cut/Copy/Paste']"
+			[ ] 
+			[ ] //Close Case sub-Menu
+			[+] WPFButtonBase miCloseCaseSM       //Close Case SubMenu    There are 2 menu Items for Close Case
+				[ ] locator "//WPFButtonBase[@caption='Close Case']"
+			[+] WPFButtonBase miCloseAllCases
+				[ ] locator "//WPFButtonBase[@caption='Close All Cases']"
+				[ ] 
+			[ ] 
+			[ ] //Export Sub-Menu
+			[+] WPFButtonBase miWorkbookExplorer
+				[ ] locator "//WPFButtonBase[@caption='Workbook Explorer']"
+			[+] WPFButtonBase miHeatProfiles
+				[ ] locator "//WPFButtonBase[@caption='heat-profiles']"
+			[+] WPFButtonBase miHysys
+				[ ] locator "//WPFButtonBase[@caption='hysys']"
+			[+] WPFButtonBase miPetroleumRefining
+				[ ] locator "//WPFButtonBase[@caption='petroleum-refining']"
+			[+] WPFButtonBase miFullReport
+				[ ] locator "//WPFButtonBase[@caption='Full Report']"
+			[+] WPFButtonBase miStreamsReport
+				[ ] locator "//WPFButtonBase[@caption='Streams Report']"
+			[+] WPFButtonBase miColumnProfilesReport
+				[ ] locator "//WPFButtonBase[@caption='Column Profiles Report']"
+			[+] WPFButtonBase miHeatProfilesReport
+				[ ] locator "//WPFButtonBase[@caption='Heat Profiles Report']"
+			[ ] 
+			[ ] //Print Sub-Menu
+			[+] WPFButtonBase btnPrintSM    //Print SubMenu Item           Duplicate naming of menu items
+				[ ] locator "//WPFButtonBase[@caption='Print']"
+			[+] WPFButtonBase btnPrintSnapshot    
+				[ ] locator "//WPFButtonBase[@caption='Print Snapshot']"
+			[ ] 
+			[ ] //Runner Tab
+			[+] WPFButtonBase btnShowColumnRunner
+				[ ] locator "//WPFButtonBase[@caption='Show Column Runner']"
+			[ ] 
+			[ ] //Assay Management Tab
+			[+] WPFMenuItem miNewAssay
+				[ ] locator "//WPFMenuItem[@caption='New Assay']"
+				[+] WPFMenuItem miImportFromLibrary
+					[ ] locator "//WPFMenuItem[@caption='Import from Library']"
+				[+] WPFMenuItem miImportFromFile
+					[ ] locator "//WPFMenuItem[@caption='Import from File']"
+				[+] WPFMenuItem miManuallyEnter
+					[ ] locator "//WPFMenuItem[@caption='Manually Enter']"
+			[+] WPFMenuItem miCharacterize
+				[ ] locator "//WPFMenuItem[@caption='Characterize']"
+				[+] WPFMenuItem miMatchAssayCutProperties
+					[ ] locator "//WPFMenuItem[@caption='Match Assay Cut Properties']"
+				[+] WPFMenuItem miMatchWholeCrudeProperties
+					[ ] locator "//WPFMenuItem[@caption='Match Whole Crude Properties']"
+				[ ] 
+			[+] WPFButtonBase btnDownloadAssay
+				[ ] locator "//WPFButtonBase[@automationId='DownloadAssay']"
+			[+] WPFButtonBase btnExportXmlFile
+				[ ] locator "//WPFButtonBase[@automationId='ExportXmlFile']"
+			[+] WPFMenuItem	miNewProperty   //Added by Juan on 1/8/2014
+				[ ] locator "//WPFMenuItem[@caption='New']"
+			[+] WPFMenuItem	miFromFile //Added by Juan on 1/8/2014
+				[ ] locator "//WPFMenuItem[@caption='From File']"
+			[ ] //Added by Juan Situ
+			[+] WPFComboBox cboFocusSite
+				[ ] locator "WPFComboBox[@automationId='PART_FocusSite']"
+			[ ] //Add end
+			[+] WPFButtonBase	btnReport
+				[ ] locator "//WPFButtonBase[@automationId='_Report Manager']"
+			[+] WPFButtonBase	btnRemoveDuplicates
+				[ ] locator "//WPFButtonBase[@caption='Remove Duplicates']"
+			[+] WPFMenuItem	miEquipmentDesign
+				[ ] locator "//WPFMenuItem[@caption='Equipment Design']"
+				[+] WPFMenuItem	miAirCooled
+					[ ] locator "//WPFMenuItem[@caption='AirCooled Design*Rating']"
+				[+] WPFMenuItem	miPipeSizing
+					[ ] locator "//WPFMenuItem[@caption='Pipe Sizing']"
+				[+] WPFMenuItem	miSheellTube
+					[ ] locator "//WPFMenuItem[@caption='Shell*Tube Exchanger Design*Rating']"
+				[+] WPFMenuItem	miTraySizing
+					[ ] locator "//WPFMenuItem[@caption='Tray Sizing']"
+				[+] WPFMenuItem	miTPSARTraySizing  //Added by Juan on 12/20/2013
+					[ ] locator "//WPFMenuItem[@caption='TPSAR Tray Sizing']"
+				[+] WPFMenuItem	miVesselSizing
+					[ ] locator "//WPFMenuItem[@caption='Vessel Sizing']"
+				[ ] 
+			[ ] //Added by Juan Situ
+			[+] WPFMenuItem	miOptimizer
+				[ ] locator "//WPFButtonBase[@caption='Optimizer']"
+			[ ] //Add end
+			[+] WPFMenuItem	miModelAnalysis
+				[ ] locator "//WPFMenuItem[@caption='Model Analysis']"
+				[+] WPFMenuItem	miDerivative
+					[ ] locator "//WPFMenuItem[@caption='Derivative']"
+				[+] WPFMenuItem	miProductionAllocation
+					[ ] locator "//WPFMenuItem[@caption='Production Allocation']"
+				[+] WPFMenuItem	miPropertyBalance
+					[ ] locator "//WPFMenuItem[@caption='Property Balance']"
+				[+] WPFMenuItem	miPIMSSupport
+					[ ] locator "//WPFMenuItem[@caption='PIMS Support']"
+				[+] WPFMenuItem	miSwingCut
+					[ ] locator "//WPFMenuItem[@caption='Swing Cut']"
+			[+] WPFMenuItem	miWorkbook
+				[ ] locator "//WPFMenuItem[@caption='Workbook']"
+				[+] void Select(string sItem)
+					[ ] RECT rect=this.GetRect()
+					[ ] print("{rect.xPos}--{rect.xSize}--{rect.yPos}--{rect.ySize}")
+					[ ] int x=rect.xSize/2
+					[ ] int y=rect.ySize*5/7
+					[ ] print("{x}--{y}")
+					[ ] this.Click(1,x,y)
+					[ ] sleep(1)
+					[ ] this.Find("//WPFMenuItem[@caption='*{sItem}*']").Click()
+			[+] WPFButtonBase	btnHypotheticalManager
+				[ ] locator "//WPFButtonBase[@caption='Hypotheticals Manager']"
+			[+] WPFRadioButton	rdbSolverActive
+				[ ] // locator "//WPFRadioButton[@caption='Solver Active']"
+				[ ] locator "//WPFRadioButton[@automationId='HysySolverActive'or @automationId='igRibbon:RadioButtonTool_3']"
+			[+] WPFRadioButton	rdbSolverOnHold
+				[ ] locator "//WPFRadioButton[@automationId='HysysSolverHolding' or @automationId='igRibbon:RadioButtonTool_4']"
+				[ ] // locator "//WPFRadioButton[@caption='Solver on Hold']"
+				[ ] 
+			[+] WPFButtonBase	btnPVTLaboratory
+				[ ] locator "//WPFButtonBase[@caption='PVT Laboratory Measurements']"
+			[+] WPFButtonBase	btnComponentLists
+				[ ] locator "//WPFButtonBase[@caption='Component Lists']"
+			[+] WPFControl 		cboUnits
+				[ ] locator "//WPFControl[@caption='Select unit set.']"
+				[+] WPFComboBoxItem		cbiFIeld
+					[ ] locator "/WPFComboBoxItem[@caption='Field']"
+				[+] WPFComboBoxItem		cbiFIeld2
+					[ ] //Added by Justin Watanasiri for CQ00473575
+					[ ] locator "//WPFComboBoxItem[@caption='Field']"
+				[+] WPFComboBoxItem		cbiSI
+					[ ] //Added by Justin Watanasiri for CQ00206350
+					[ ] locator "//WPFComboBoxItem[@caption='SI']"
+				[ ] 
+			[+] WPFToggleButton btnUnitsDrop
+				[ ] locator "//WPFToggleButton[@automationId='DropDownButton']"
+			[+] WPFButtonBase	btnDataFits
+				[ ] locator "//WPFButtonBase[@caption='Data Fits']"
+			[ ] 
+			[ ] // Home Tab
+			[+] WPFTabItem	tabiHome
+				[ ] locator "//WPFTabItem[@automationId='*Home*' or @automationId='Properties*']"
+			[+] WPFButtonBase btnProcessUtilityManager
+				[ ] locator "//WPFButtonBase[@caption='Process Utility Manager']"
+			[+] WPFToggleButton btnActivatedAnalysis
+				[ ] locator "//WPFToggleButton[@caption='Activated']"
+			[+] WPFRadioButton btnActive
+				[ ] locator "//WPFRadioButton[@caption='Active']"
+			[+] WPFRadioButton btnOnHold
+				[ ] locator "//WPFRadioButton[@caption='On Hold']"
+			[+] WPFMenuItem	miStreamAnalysis
+				[ ] locator "//WPFMenuItem[@caption='Stream Analysis']"
+				[+] WPFMenuItem miPetroleumAssay
+					[ ] locator "//WPFMenuItem[@caption='Petroleum Assay']"
+				[+] WPFMenuItem miUserProperty
+					[ ] locator "//WPFMenuItem[@caption='User Property']"
+				[+] void Select(string sItem)
+					[ ] RECT rect=this.GetRect()
+					[ ] print("{rect.xPos}--{rect.xSize}--{rect.yPos}--{rect.ySize}")
+					[ ] int x=rect.xSize/4*3
+					[ ] int y=rect.ySize/2
+					[ ] print("{x}--{y}")
+					[ ] this.Click(1,x,y)
+					[ ] sleep(1)
+					[ ] this.Find("//WPFMenuItem[@caption='*{sItem}*']").Click()
+				[ ] 
+			[+] WPFButtonBase	btnAspenPropertiesOption
+				[ ] locator "//WPFButtonBase[@caption='Aspen Properties']"
+			[+] WPFButtonBase	btnCaseStudies
+				[ ] locator "//WPFButtonBase[@caption='Case Studies']"
+			[+] WPFMenuItem miPetroleumAssay
+				[ ] locator "//WPFMenuItem[@caption='Petroleum Assay']"
+				[ ] ///WPFWindow[@caption='Untitled - Aspen HYSYS V8.4 - aspenONE']//WPFButtonBase[@caption='Petroleum Assays']
+			[+] WPFButtonBase btnShowCorrelationManager
+				[ ] locator "//WPFButtonBase[@caption='Show correlation manager.']"
+			[+] WPFMenuItem miCopy
+				[ ] locator "//WPFMenuItem[@caption='Copy'][1]"
+				[+] WPFMenuItem miCopy
+					[ ] locator "//WPFMenuItem[@caption='Copy']"
+				[+] WPFMenuItem miCopyWithLabels
+					[ ] locator "//WPFMenuItem[@caption='Copy with Labels']"
+				[+] WPFMenuItem miCopyToFile
+					[ ] locator "//WPFMenuItem[@caption='Copy to File (Export)']"
+			[+] WPFMenuItem miPaste
+				[ ] locator "//WPFMenuItem[@caption='Paste'][1]"
+				[ ] 
+			[+] WPFButtonBase	btnFluidPackageAssociations
+				[ ] locator "//WPFButtonBase[@caption='Fluid Package Associations']"
+			[+] WPFButtonBase	btnDepressuring
+				[ ] //Added by Justin Watanasiri on 4/18/13 for CQ00284655
+				[ ] locator "//WPFButtonBase[@caption='Depressuring']"
+			[+] WPFButtonBase	btnFlareSystem                 //Added by Juan on 8/26/2013
+				[ ] locator "//WPFButtonBase[@caption='Flare System']"
+			[+] WPFButtonBase	btnConvertToTemplate // Developer moved this button to Customize tab since V8.3 media 6
+				[ ] locator "//WPFButtonBase[@caption='Convert to Template']"
+			[+] WPFButtonBase	btnFlowsheetSummary
+				[ ] locator "//WPFButtonBase[@automationId='Flowsheet Sum_mary']"
+			[+] WPFButtonBase	btnUserProperties
+				[ ] locator "//WPFButtonBase[@caption='User Properties']"
+			[+] WPFButtonBase	btnOptimizer
+				[ ] locator "//WPFButtonBase[@automationId='_Optimizer']"
+			[+] WPFButtonBase	btnRefiningProperties
+				[ ] locator "//WPFButtonBase[@caption='Sets the properties type to use for assays.']"
+			[+] WPFButtonBase	btnPetroLeumAssays
+				[ ] locator "//WPFButtonBase[@caption='Petroleum Assays']"
+			[ ] //Append by Susan
+			[+] WPFButtonBase	btnConvert
+				[ ] locator "//WPFButtonBase[@caption='Convert']"
+			[+] WPFImage	btnOilManager
+				[ ] locator "//WPFImage[@automationId='image'][17]"
+			[ ] //Append done
+			[+] WPFButtonBase btnOptions
+				[ ] locator "//WPFButtonBase[@caption='Options']"
+			[+] WPFButtonBase	btnInput
+				[ ] locator "//WPFButtonBase[@automationId='Input _Summary']"
+			[+] WPFButtonBase btnReactions
+				[ ] locator "//WPFButtonBase[@caption='Reactions']"
+			[ ] 
+			[ ] 
+			[ ] //Options Tab
+			[+] WPFButtonBase btnAspenOneSearch
+				[ ] locator "//WPFButtonBase[@automationId='aspenONEBtn']"
+			[+] WPFButtonBase btnTools
+				[ ] locator "//WPFButtonBase[@automationId='toolsButton']"
+			[+] WPFButtonBase btnLiterature
+				[ ] locator "//WPFButtonBase[@automationId='literatureButton']"
+			[ ] 
+			[ ] 
+			[ ] 
+			[ ] // Economics Tab
+			[+] WPFTabItem	tabiEcnomics
+				[ ] locator "//WPFTabItem[@automationId='Economics*']"
+			[+] WPFToggleButton tbtnEconomicsActive
+				[ ] locator "//WPFToggleButton[@caption='Economics Active']"
+			[+] WPFToggleButton tbtnAutoEvaluate
+				[ ] locator "//WPFToggleButton[@caption='Auto-Evaluate']"
+				[ ] 
+			[+] WPFButtonBase btnEvaluate
+				[ ] locator "//WPFButtonBase[@caption='Evaluate']"
+			[+] WPFButtonBase btnViewEquipment
+				[ ] locator "//WPFButtonBase[@caption='View Equipment']"
+			[+] WPFButtonBase btnMap
+				[ ] locator "//WPFButtonBase[@caption='Map']"
+			[+] WPFButtonBase	btnStreamPrice
+				[ ] locator "//WPFButtonBase[@caption='Stream Price']"
+			[+] WPFButtonBase	btnCostOptions
+				[ ] locator "//WPFButtonBase[@caption='Cost Options']"
+			[+] WPFButtonBase	btnSize
+				[ ] locator "//WPFButtonBase[@caption='Size']"
+			[+] WPFButtonBase	btnSendToEconomics
+				[ ] locator "//WPFButtonBase[@caption='Send to Economics']"
+			[+] WPFButtonBase	btnProcessUtilities
+				[ ] locator "//WPFButtonBase[@automationId='igRibbon:ButtonTool_79']"
+			[+] WPFButtonBase	btnInvestmentAnalysis
+				[ ] locator "//WPFButtonBase[@automationId='igRibbon:ButtonTool_86']"
+			[+] WPFButtonBase	btnDeleteScenario
+				[ ] locator "//WPFButtonBase[@automationId='igRibbon:ButtonTool_81']"
+			[ ] 
+			[ ] // Dynamics Tab
+			[+] WPFTabItem	tabiDynamics
+				[ ] locator "//WPFTabItem[@automationId='Dynamics*']"
+			[+] WPFButtonBase btnEventScheduler
+				[ ] locator "//WPFButtonBase[@automationId='_Event Scheduler']"
+			[+] WPFRadioButton	btnRun
+				[ ] locator "//WPFRadioButton[@caption='Run']"
+				[+] void Click()
+					[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 5)
+					[ ] RECT rect=this.GetRect()
+					[ ] Desktop.PressMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+					[+] if(dlgAspenHysys.Exists(3))
+						[ ] dlgAspenHysys.SetActive()
+						[ ] dlgAspenHysys.btnYes.Click()
+					[ ] sleep(1)
+					[ ] Desktop.ReleaseMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+					[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 300)
+					[ ] 
+			[+] WPFRadioButton	btnStop
+				[ ] locator "//WPFRadioButton[@caption='Stop']"
+				[+] void Click()
+					[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 5)
+					[ ] RECT rect=this.GetRect()
+					[ ] Desktop.PressMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+					[ ] sleep(1)
+					[ ] Desktop.ReleaseMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+					[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 300)
+					[ ] 
+			[+] WPFButtonBase	btnStripCharts
+				[ ] locator "//WPFButtonBase[@automationId='_Workbooks']"
+			[+] WPFButtonBase	btnDynamicsAssistant
+				[ ] locator "//WPFButtonBase[@automationId='D_ynamics Assistant']"
+			[+] WPFToggleButton	btnDynamicMode
+				[ ] locator"//WPFToggleButton[@automationId='buttonViewDynamics']"
+			[+] WPFButtonBase	btnIntegrator
+				[ ] locator "//WPFButtonBase[@automationId='_Integrator']"
+			[+] WPFButtonBase	btnFacePlate
+				[ ] locator "//WPFButtonBase[@automationId='_Face Plates']"
+			[+] WPFButtonBase	btnProfile
+				[ ] locator "//WPFButtonBase[@automationId='Dy_namic Profiling Tool']"
+			[ ] 
+			[ ] 
+			[ ] 
+			[ ] // View Tab
+			[+] WPFToggleButton btnMessagePanel
+				[ ] locator "//WPFToggleButton[@caption='Message Panel']"
+			[+] WPFTabItem	tabiView
+				[ ] locator "//WPFTabItem[@automationId='View*']"
+			[+] WPFButtonBase	btnFlowSheet
+				[ ] locator "//WPFButtonBase[(@automationId='buttonViewFlowsheet' and @caption='Flowsheet')]"
+			[+] WPFToggleButton btnModelPalette
+				[ ] locator "//WPFToggleButton[@caption='Model']"
+			[+] WPFButtonBase		btnZoomToFIt
+				[ ] locator "//WPFButtonBase[@className='ZoomToFitTool']"
+			[+] WPFButtonBase btnPlantView
+				[ ] locator "//WPFButtonBase[@caption='Plant']"
+			[ ] //Append by Susan
+			[+] WPFButtonBase	btnNotesManager
+				[ ] locator "//WPFButtonBase[@automationId='Notes Manager']"
+			[ ] //Append done
+			[ ] 
+			[ ] // Customize Tab
+			[+] WPFTabItem	tabiCustomize
+				[ ] locator "//WPFTabItem[@automationId='Customize']"
+			[+] WPFButtonBase btnScriptManager
+				[ ] locator "//WPFButtonBase[@caption='Script Manager']"
+			[+] WPFButtonBase btnRegisterExtension
+				[ ] locator "//WPFButtonBase[@caption='Register Extension']"
+			[+] WPFButtonBase btnPropertyLibrary
+				[ ] locator "//WPFButtonBase[@caption='Property Library']"
+			[ ] //Append by Susan
+			[+] WPFButtonBase	btnMacroLanguageEditor
+				[ ] locator "//WPFButtonBase[@caption='Macro Language Editor']"
+			[+] WPFButtonBase	btnCaseSecurity
+				[ ] locator "//WPFButtonBase[@caption='Open case locking utility.' or @automationId='igRibbon:ButtonTool_113']"
+			[ ] //Append done
+			[ ] //Added by Juan on 3/14/2014
+			[+] WPFButtonBase	btnImportExportUserVariables
+				[ ] locator "//WPFButtonBase[@automationId='igRibbon:ButtonTool_104']"
+			[+] WPFMenuItem	btnUserVariables
+				[ ] locator "//WPFMenuItem[@caption='User Variables']"
+			[+] WPFMenuItem	btnFlowsheetUserVariables
+				[ ] locator "//WPFMenuItem[@caption='Flowsheet User Variables']"
+			[ ] //Add end
+			[ ] // Get Started Tab
+			[+] WPFTabItem	tabiGetStarted
+				[ ] locator "//WPFTabItem[@automationId='Get_Started*']"
+			[ ] 
+			[+] WPFButton	btnWhatsNew
+				[ ] locator "//WPFButtonBase[@automationId='buttonWhatsNew']"
+			[+] WPFButton 	btnRIbbonMapping
+				[ ] locator "//WPFButtonBase[@automationId='buttonRibbonMapping']"
+			[+] WPFButton 	btnExamples
+				[ ] locator "//WPFButtonBase[@caption='Examples']"
+			[+] WPFButton 	btnConceptualDesignBuilder
+				[ ] locator "//WPFButtonBase[@caption='Conceptual Design Builder']"
+			[-] WPFButton 	btnExchange
+				[ ] locator "//WPFButtonBase[@automationId='buttonMarket']"
+			[+] WPFButton 	btnSearch
+				[ ] locator "//WPFButtonBase[@automationId='buttonAesSearch']"
+			[+] WPFButton	btnLinkedIn
+				[ ] locator "//WPFButtonBase[@automationId='buttonAskCommunity']"
+			[+] WPFButton	btnSupport
+				[ ] locator "//WPFButtonBase[@automationId='buttonSupport']"
+			[+] WPFButton 	btnHomePage
+				[ ] locator "//WPFButtonBase[@automationId='buttonAspenHYSYSHomePage']"
+			[+] WPFButton 	btnLiveChat
+				[ ] locator "//WPFButtonBase[@automationId='buttonLiveChat']"
+			[+] WPFButton 	btnSendToSupport
+				[ ] locator "//WPFButtonBase[@automationId='buttonSendToSupport']"
+			[+] WPFButton 	btnTraining
+				[ ] locator "//WPFButtonBase[@automationId='buttonTraining']"
+			[+] WPFButton 	btnDocumentation
+				[ ] locator "//WPFButtonBase[@automationId='ButtonDocumentation']"
+			[+] WPFButton 	btnTroubleshooting
+				[ ] locator "//WPFButtonBase[@automationId='buttonTroubleshooting']"
+			[+] WPFButton 	btnCheckForUpdates
+				[ ] locator "//WPFButtonBase[@automationId='buttonReadme']"
+			[+] WPFButtonBase	btnModels
+				[ ] locator "//WPFButtonBase[@caption='Models']"
+			[+] WPFButtonBase	btnAllContent
+				[ ] locator "//WPFButtonBase[@automationId='buttonMarket']"
+			[+] WPFButtonBase	btnNews
+				[ ] locator "//WPFButtonBase[@caption='News']"
+			[ ] 
+			[ ] 
+			[ ] // Format Tab
+			[+] WPFTabItem tabiFormat
+				[ ] locator "//WPFTabItem[@automationId='Format*']"
+			[ ] //Flowsheet/Modify Tab
+			[+] WPFTabItem tabiFlowsheetModify
+				[ ] locator "//WPFTabItem[@automationId='Build*']"
+			[+] WPFToggleButton	btnModelsAndStreams
+				[ ] locator "//WPFToggleButton[@caption='Models and*']"
+			[+] WPFToggleButton	btnAutoAttach
+				[ ] locator "//WPFToggleButton[@caption='Auto Attach']"
+			[+] WPFButtonBase	btnFindObject
+				[ ] locator "//WPFButtonBase[@caption='Find*']"
+			[+] WPFButtonBase	btnRecycleAdvisor
+				[ ] locator "//WPFButtonBase[@caption='Recycle Advisor']"
+			[+] WPFButtonBase	btnViewParent
+				[ ] locator "//WPFButtonBase[@caption='View Parent']" 
+			[+] WPFButtonBase	btnGoToParent
+				[ ] locator "//WPFButtonBase[@caption='Go to*']" 
+			[+] WPFButtonBase	btnEnterSubflowsheet
+				[ ] locator "//WPFButtonBase[@automationId='igRibbon:ButtonTool_12']"
+			[+] WPFButtonBase 	btnEditor
+				[ ] locator "//WPFButtonBase[@caption='Editor']"
+			[+] WPFButtonBase	btnAdditionalFlowsheetCommands
+				[ ] locator "//WPFButtonBase[@caption='Show additional flowsheet commands.']" 
+			[ ] 
+			[ ] //Workbook Tab
+			[+] WPFButtonBase		btnSetup                                                        //Added by Juan on 4/29/2013
+				[ ] locator "//WPFButtonBase[@caption='Setup']"
+			[+] WPFToggleButton		btnShowSubflowshet
+				[ ] locator "//WPFToggleButton[@caption='Show Subflowsheet Objects']"
+			[+] WPFButtonBase		btnWorkbookExport
+				[ ] locator "//WPFButtonBase[@caption='Workbook'][2]"
+			[+] WPFButtonBase		btnExcel
+				[ ] locator "//WPFButtonBase[@caption='Excel']"
+			[+] WPFButtonBase		btnWorkbookImport
+				[ ] locator "//WPFButtonBase[@caption='Workbook'][3]"
+			[+] WPFButtonBase		btnPagesExport
+				[ ] locator "//WPFButtonBase[@caption='Pages'][1]"
+			[+] WPFButtonBase		btnPagesImport
+				[ ] locator "//WPFButtonBase[@caption='Pages'][2]"
+			[ ] //Added by Juan Situ on January 11, 2013
+			[ ] //CatCracker
+			[+] WPFButtonBase btnConfigurationWizard
+				[ ] locator "//WPFButtonBase[@caption='Configuration Wizard']"
+			[+] WPFButtonBase	btnGotoCalibration
+				[ ] locator "//WPFButtonBase[@caption='Go to Calibration']"
+			[+] WPFButtonBase	btnPullDatafromSimulation
+				[ ] locator "//WPFButtonBase[@caption='Pull Data from Simulation']"
+			[+] WPFButtonBase	btnRunCalibration
+				[ ] locator "//WPFButtonBase[@caption='Run Calibration']"
+			[+] WPFButtonBase 	btnRunPreCalibration
+				[ ] locator "//WPFButtonBase[@caption='Run Pre-Calibration' or @caption='Run Predictions of Calibrations']"
+			[+] WPFButtonBase	btnReturntoSimulation
+				[ ] locator "//WPFButtonBase[@caption='Return to Simulation']"
+			[+] WPFButtonBase	btnSelectCalibrationFactors
+				[ ] locator "//WPFButtonBase[@caption='Select Calibration Factors']"
+			[ ] //Added by Juan Situ on February 6, 2013
+			[+] WPFButtonBase	btnManageDataSets
+				[ ] locator "//WPFButtonBase[@caption='Manage Data Sets']"
+			[ ] //Added by Juan Situ on February 26, 2013
+			[+] WPFButtonBase	btnPushDatatoSimulation
+				[ ] locator "//WPFButtonBase[@caption='Push Data to Simulation']"
+			[ ] //Add End
+			[ ] //Context Menu
+			[+] WPFMenuItem miRename
+				[ ] locator "//WPFMenuItem[@caption='Rename']"
+			[+] WPFMenuItem miOpenNewTab
+				[ ] locator "//WPFMenuItem[@caption='Open in new tab']"
+			[+] WPFMenuItem miDelete
+				[ ] locator "//WPFMenuItem[@caption='Delete']"
+			[+] WPFMenuItem miOpenSubflowsheetNewTab
+				[ ] locator "//WPFMenuItem[@caption='Open Subflowsheet in new tab']"
+			[+] WPFMenuItem miCloseTab
+				[ ] locator "//WPFMenuItem[@caption='Close']"
+			[+] FormsWindow miRMBSelObj
+				[ ] locator "//FormsHost//MenuItem[5]"
+			[+] FormsWindow miRMBCloneObj
+				[ ] locator "//FormsHost//MenuItem[12]"
+			[+] FormsWindow miRMBCutObj
+				[ ] locator "//FormsHost//MenuItem[13]"
+			[+] FormsWindow miRMBPasteObj
+				[ ] locator "//FormsHost//MenuItem[17]"
+			[+] WPFMenuItem miFloating
+				[ ] locator "//WPFMenuItem[@caption='Floating']"
+			[ ] 
+			[ ] //Equation Oriented Tab
+			[+] WPFTabItem	tabiEquationOriented
+				[ ] locator "//WPFTabItem[@caption='Equation Oriented']"
+				[ ] 
+			[+] WPFRadioButton rdbEquationOriented
+				[ ] locator "//WPFRadioButton[@caption='Equation Oriented']"
+			[+] WPFRadioButton rdbSequentialModular
+				[ ] locator "//WPFRadioButton[@caption='Sequential Modular']"
+			[+] WPFButtonBase btnSetupandReport
+				[ ] locator "//WPFButtonBase[@caption='Setup and Report']"
+			[ ] 
+			[ ] //Tabs
+			[+] WPFTextBlock		tblkCOL1
+				[ ] locator "//WPFTextBlock[@caption='Flowsheet COL1']"
+			[ ] 
+			[ ] 
+			[ ] // Context menu
+			[+] WPFMenuItem	muiAutoHide
+				[ ] locator "//WPFMenuItem[@caption='Auto Hide']"
+			[+] WPFButtonBase	btnExpandCollapseDashboard
+				[ ] locator "//WPFButtonBase[@automationId='buttonExpandOrCollapse']"
+			[ ] 
+		[+] //---------------------------------------Statusbar related----------------------------------------------------
+			[+] WPFStatusBarItem	stsbRunDone
+				[ ] locator "//WPFStatusBarItem[@caption='Results Available']"
+			[+] WPFStatusBarItem	stsbRunNotDone
+				[ ] locator "//WPFStatusBarItem[@caption='Results Available (problem not yet run)']"
+			[+] WPFStatusBarItem	stsbEORunDone
+				[ ] locator "//WPFStatusBarItem[@caption='EO Solution Converged']"
+			[+] WPFStatusBarItem	stsbSMRunDone
+				[ ] locator "//WPFStatusBarItem[@caption='SM Results Available']"
+			[+] WPFStatusBarItem	stsbRunDoneWithError
+				[ ] locator "//WPFStatusBarItem[@caption='Results Available with Errors']"
+				[ ] 
+			[+] WPFStatusBarItem	stsbRunDoneWithWarnings
+				[ ] locator "//WPFStatusBarItem[@caption='Results Available with Warnings']"
+			[+] WPFStatusBarItem	stsbEOSolutionFailed
+				[ ] locator "//WPFStatusBarItem[@caption='EO Solution Failed']"
+			[+] WPFStatusBarItem	stsbInputChanged
+				[ ] locator "//WPFStatusBarItem[@caption='Input Changed']"
+			[+] WPFStatusBarItem stsbRequiredInputIncomplete
+				[ ] locator"//WPFStatusBarItem[@caption='Required Input Incomplete']"
+			[+] property  StatusText 
+				[+] string Get()
+					[ ] return this.Find("//WPFStatusBarItem[2]").sCaption
+			[+] WPFRepeatButton btnZoomOut
+				[ ] locator "//WPFRepeatButton[@automationId='PART_ZoomOutButton']"
+			[+] WPFRepeatButton btnZoomIn
+				[ ] locator "//WPFRepeatButton[@automationId='PART_ZoomInButton']"
+			[+] WPFStatusBarItem	stsbOK
+				[ ] locator "//WPFLabel[@caption='OK']"
+			[+] WPFButton btnZoomDialog
+				[ ] locator "//WPFButton[@automationId='Part_ZoomDialogButton']"
+			[+] WPFLabel stscCaseStudyStatus
+				[ ] locator "//WPFLabel[@automationId='lb_CaseStdyStatusStaticText']"
+			[ ] 
+			[ ] //Added by Juan Situ on 4/5/2013
+			[+] WPFStatusBarItem	stsbNotSolved
+				[ ] locator "//WPFLabel[@caption='Not Solved']"
+			[+] WPFStatusBarItem	stsbUnknownDuty
+				[ ] locator "//WPFLabel[@caption='Unknown Duty']"
+			[ ] //Add end
+			[+] WPFStatusBarItem	stsbIntegratorRunning                                         //Added by Juan Situ on 4/30/2013
+				[ ] locator "//WPFStatusBarItem[@caption='Integrator Running*']"
+			[+] WPFStatusBarItem	stsbIntegratorStopped                                         //Added by Juan Situ on 5/8/2013
+				[ ] locator "//WPFStatusBarItem[@caption='Integrator Stopped*']"
+			[+] WPFStatusBarItem 	stsbAssayCalculated
+				[ ] locator "//WPFLabel[@caption='Assay Was Calculated']"
+			[+] WPFStatusBarItem	stsbNotCalculated
+				[ ] locator "//WPFLabel[@automationId='lb_NotCalculatedText']"
+				[ ] 
+			[+] WPFStatusBarItem	stsbSolverReady
+				[ ] locator "//WPFStatusBarItem[@caption='*Solver*Ready']"
+			[+] WPFStatusBarItem	stsbSolverHolding
+				[ ] locator "//WPFStatusBarItem[@caption='Solver*Holding']"
+			[+] WPFStatusBarItem	stsbStopped
+				[ ] locator "//WPFStatusBarItem[@caption='*Stopped*']"
+			[+] WPFStatusBarItem	stsbSolverActive
+				[ ] locator "//WPFStatusBarItem[@caption='*Solver*Active']"
+			[+] WPFLabel				stsbConverged
+				[ ] locator "//WPFLabel[@caption='Converged']"
+			[+] WPFStatusBarItem	stsbCalibrationReady
+				[ ] locator "//WPFStatusBarItem[@caption='Calibration*Ready*']"
+			[+] WPFStatusBarItem	stsbCalibrationRunning
+				[ ] locator "//WPFStatusBarItem[@caption='Calibration*Running*']"
+			[ ] 
+			[+] WPFLabel				stsbFinishedFailedSteps
+				[ ] locator "//WPFLabel[@caption='Finished with failed states']"
+			[+] WPFStatusBarItem	stsbScriptPlaying
+				[ ] locator "//WPFStatusBarItem[@caption='Script Playing*']"
+			[ ] 
+			[+] WPFStatusBarItem	stsbReady
+				[ ] locator "//WPFLabel[@caption='Ready']"
+			[ ] 
+			[+] wcStatusBase 		stsbFlowsheetCalibrationStatus
+				[ ] locator "//WPFLabel[@automationId='lb_StaticText2']"
+			[ ] 
+		[+] //---------------------------------------Enterprise Database-----------------------------------------------
+			[+] WPFListBox lstAvailableDataBanks
+				[ ] locator "//WPFListBox[@automationId='Part_OptionsBox']"
+				[+] list of string GetContents()
+					[ ] integer i
+					[ ] list of string lsResult = derived::GetContents()
+					[ ] 
+					[+] for (i=1; i<=ListCount(lsResult); i++)
+						[ ] lsResult[i] = StrTran(lsResult[i], "[WPFListBoxItem]",  "")
+					[ ] return lsResult
+			[+] WPFListBox lstSelectedDataBanks
+				[ ] locator "//WPFListBox[@automationId='Part_SelectionBox']"
+				[+] list of string GetContents()
+					[ ] integer i
+					[ ] list of string lsResult = derived::GetContents()
+					[+] for (i=1; i<=ListCount(lsResult); i++)
+						[ ] lsResult[i] = StrTran(lsResult[i], "[WPFListBoxItem]",  "")
+					[ ] return lsResult
+			[+] WPFButton btnMoveRight
+				[ ] locator "//WPFButton[@automationId='Move Right']"
+			[+] WPFButton btnMoveAllRight
+				[ ] locator "//WPFButton[@automationId='Move All Right']"
+			[+] WPFButton btnMoveLeft
+				[ ] locator "//WPFButton[@automationId='Move Left']"
+			[+] WPFButton btnMoveAllLeft
+				[ ] locator "//WPFButton[@automationId='Move All Left']"
+		[-] //-------------------------------------- Mehods for main window-----------------------------------------
+			[-] AnyWin Performance
+				[+] SetAllWindow(int iMode optional)
+					[ ] //Set all window to certain condition
+					[ ] //iMode=1 or null Minimize all windows
+					[ ] //iMode=2 Close all windows
+					[ ] //iMode=3 Initialize all windows
+					[ ] 
+					[ ] string sName
+					[ ] int i=0
+					[ ] list of WINDOW lw
+					[ ] window w
+					[ ] 
+					[+] if iMode==null
+						[ ] iMode=1
+					[ ] 
+					[+] if AH.stsbSolverActive.Exists(5)
+						[+] while AH.stsbSolverActive.Exists()
+							[+] if wAspenHysys.Exists()
+								[ ] sleep(0.8)
+								[ ] wAspenHysys.Close()
+							[ ] sleep(1)
+							[ ] 
+					[ ] lw=Desktop.FindAll("/WPFWindow")
+					[+] for each w in lw
+						[+] if w.GetCaption()!=AH.GetCaption()
+							[ ] print(w.GetCaption())
+							[+] do
+								[ ] w.SetActive()
+								[ ] sleep(0.8)
+								[+] switch iMode
+									[+] case 1
+										[ ] w.Minimize()
+									[+] case 2
+										[ ] w.Close()
+										[ ] w.WaitForDisappearance(60)
+									[+] case 3
+										[ ] glInitializeWin(w)
+								[ ] sleep(0.8)
+							[+] except
+								[ ] glFail("Fail to initialize window")
+					[ ] AH.SetActive()
+					[ ] sleep(0.8)
+					[ ] 
+				[+] Open(string sFileName, int iTimeOut optional, boolean leaveFormsOpen optional, OPENTYPE openType optional, boolean reload optional)
+					[ ] string sName
+					[ ] int i=0
+					[ ] list of WINDOW lw
+					[ ] window w
+					[ ] 
+					[ ] 
+					[+] while i<=99
+						[ ] i++
+						[+] if GetField(sFileName,"\",i)==""
+							[ ] break
+						[+] else
+							[ ] sName=GetField(sFileName,"\",i)
+							[ ] sName=StrTran(sName," ","")
+					[+] if !AH.Exists(5)
+						[ ] AH.Launch()
+						[ ] sleep(2)
+					[ ] 
+					[ ] 
+					[ ] AH.Open(sFileName, iTimeOut, true,openType, reload)
+					[ ] sleep(2)
+					[ ] 
+					[ ] AH.Performance.SetAllWindow()
+					[ ] 
+					[ ] AH.SaveAs("{sAspenHysys_sProjectDir}data\dataout\{sTestCaseID}\SaveAs_{sName}")
+					[ ] sleep(2)
+					[ ] AH.Exit()
+					[ ] AH.Launch()
+					[ ] sleep(3)
+					[ ] AH.Open("{sAspenHysys_sProjectDir}data\dataout\{sTestCaseID}\SaveAs_{sName}", iTimeOut, leaveFormsOpen,openType, reload)
+					[ ] 
+					[ ] 
+				[ ] 
+			[-] Open(string sFileName, int iTimeOut optional, boolean leaveFormsOpen optional, OPENTYPE openType optional, boolean reload optional)
+				[ ] // Open case file
+				[ ] //   Arguments
+				[ ] //   1.  fileName , string, name of case file - full path or relative to current directory
+				[ ] //   Usage:  AH.Open('..\\xmp\\pfdtut.bkp')
+				[ ] //  Susan: Add steps to deal with wMultipleChildFormsOpen popup.(2013/1/22)
+				[ ] //		    Add method 'ExpandNaviPane" to expand the navigation pane if it's minimized originally
+				[ ] // Eric: Add the second optional parameter to enable user set the time out for special case when they need long time to load.
+				[ ] 
+				[+] if( reload == NULL)
+					[ ] reload = FALSE
+				[ ] 
+				[+] if( hOpenTimer == NULL || timerState(hOpenTimer) == TS_STOPPED)
+					[+] if( hOpenTimer != NULL)
+						[ ] timerDestroy(hOpenTimer)
+					[ ] hOpenTimer = timerCreate()
+					[ ] timerStart(hOpenTimer)
+				[ ] 
+				[ ] Log.Message("Open Called for {sFileName}		-----	{TimerStr(hOpenTimer)}")
+				[ ] this.SetActive()
+				[+] if( openType == NULL)
+					[ ] openType = OpenCase
+					[ ] this.TypeKeys("<Ctrl-o>")
+				[+] else
+					[+] if( !AH.miOpen.Exists())
+						[ ] AH.mnuFile.Click()
+					[ ] AH.miOpen.Exists(5)
+					[ ] AH.miOpen.Click()
+					[ ] AH.miOpenCase.Exists(5)
+					[ ] sleep(0.5)
+					[ ] 
+					[+] switch( openType)
+						[+] // case OpenCase
+							[ ] // this.miOpenCase.Click()
+						[+] case Template
+							[ ] this.miTemplate.Click()
+						[+] case Column
+							[ ] this.miColumn.Click()
+						[+] case Reformer
+							[ ] this.miReformer.Click()
+						[+] case Hydrocracker
+							[ ] this.miHydrocracker.Click()
+						[+] case CatCracker
+							[ ] this.miCatCracker.Click()
+						[+] case CutCopyPaste
+							[ ] this.miCutCopyPaste.Click()
+						[+] default
+							[ ] Log.Error("ERROR: Unrecognized open type")
+				[ ] 
+				[+] // if(!dlgOpen.Exists(15))
+					[ ] // this.SetActive()
+					[ ] // this.mnuFile.Click()
+					[ ] // sleep(2)
+					[ ] // this.miOpen.Click()
+					[ ] // sleep(2)
+				[-] if(!this.dlgOpen.Exists(65))
+					[ ] Log.Fail("There might be performance issue, the open dialog didn't pop up in 15 Seconds.")
+					[ ] Desktop.CaptureBitmap("{sDataout}OpenFail.bmp")
+					[ ] Log.Message("You can reference the screenshot {sDataout}OpenFail.bmp")
+					[ ] exit
+				[ ] Log.Message("Open Dialog Box Appeared		-----	{TimerStr(hOpenTimer)}")
+				[ ] this.dlgOpen.SetActive()
+				[ ] sleep(0.2)
+				[-] do
+					[ ] this.dlgOpen.txtFileName.SetText(sFileName)
+				[+] except
+					[ ] this.dlgOpen.txtFileName.SetFocus()
+					[ ] sleep(0.5)
+					[ ] this.dlgOpen.txtFileName.TypeKeys("<Ctrl-A><Delete>")
+					[ ] sleep(0.5)
+					[ ] this.dlgOpen.SetActive()
+					[ ] sleep(0.2)
+					[ ] this.dlgOpen.txtFileName.SetFocus()
+					[ ] sleep(0.5)
+					[ ] this.dlgOpen.txtFileName.TypeKeys("<Ctrl-A><Delete>")
+					[ ] this.dlgOpen.txtFileName.TypeKeys("{sFileName}")
+				[ ] real prevSyncTimeout = Agent.GetOption(OPT_SYNC_TIMEOUT)
+				[+] if this.dlgOpen.btnOpen.Exists()
+					[ ] sleep(0.5)
+					[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 0.5)
+					[ ] this.dlgOpen.btnOpen.Click()
+					[ ] Agent.GetOption(OPT_SYNC_TIMEOUT)
+				[ ] sleep(0.5)
+				[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, prevSyncTimeout )
+				[-] do
+					[ ] this.dlgOpen.WaitForDisappearance(10)
+				[-] except
+					[-] if this.dlgOpen.btnOpen.Exists()
+						[ ] sleep(0.5)
+						[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 0.5)
+						[ ] this.dlgOpen.btnOpen.Click()
+						[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 300)
+					[ ] ExceptClear()
+				[ ] sleep(2)
+				[-] if( reload)
+					[ ] wCaseAlreadyLoaded.Exists(5)
+					[ ] wCaseAlreadyLoaded.btnReload.Click()
+					[-] if( dlgAspenHysys.exists(3))
+						[ ] dlgAspenHysys.btnOK.Click()
+						[ ] sleep(2)
+					[ ] 
+				[ ] waitForOpen(sFileName, iTimeOut, leaveFormsOpen)
+				[ ] 
+			[-] Open2(string sFileName)
+				[ ] 
+				[ ] this.SetActive()
+				[ ] sleep(3)
+				[ ] this.btnOpen.click()
+				[-] if (this.dlgOpen.btnOpen.Exists(3))
+					[ ] this.dlgOpen.txtFileName.SetText(sFileName)
+					[ ] sleep(2)
+					[ ] this.dlgOpen.btnOpen.Click()
+					[ ] sleep(2)
+				[-] if( dlgAspenHysys.exists(40))
+					[ ] dlgAspenHysys.btnOK.Click()
+					[ ] sleep(2)
+					[ ] 
+					[ ] 
+				[ ] 
+				[ ] 
+				[ ] 
+				[ ] 
+				[ ] 
+			[+] waitForOpen(string sFileName optional, int iTimeOut optional, boolean leaveFormsOpen optional)
+				[ ] //For those cases where you are supposed to take an untraditional open path.
+				[ ] //This is simply the end of the old open function
+				[ ] 
+				[+] if( hOpenTimer == NULL || timerState(hOpenTimer) == TS_STOPPED)
+					[+] if( hOpenTimer != NULL)
+						[ ] timerDestroy(hOpenTimer)
+					[ ] hOpenTimer = timerCreate()
+					[ ] timerStart(hOpenTimer)
+				[ ] 
+				[ ] Log.Message("Waiting for {sFileName} to Open 	-----	{TimerStr(hOpenTimer)}")
+				[+] if(iTimeOut==null)
+					[ ] iTimeOut=360
+				[ ] 
+				[ ] glWaitForMouseIdle(30)
+				[ ] int i=0
+				[+] while(!this.tabiHome.Exists())
+					[ ] // We can handle the window or dialog here if the window pops up before openning successful.
+					[+] if dlgAspenHysys.Exists()
+						[ ] dlgAspenHysys.SetActive()
+						[+] if( matchStr( "*acid gas*", dlgAspenHysys.TextCapture() ))
+							[+] if( dlgAspenHysys.btnNo.Exists())
+								[ ] dlgAspenHysys.btnNo.Click()
+							[+] else
+								[ ] dlgAspenHysys.btnOK.Click()
+							[ ] sleep(1)
+							[ ] continue
+						[ ] 
+						[ ] dlgAspenHysys.btnYes.Click()
+						[ ] sleep(0.5)
+						[ ] continue
+					[+] if(wAspenHysysdlg.Exists())
+						[ ] wAspenHysysdlg.SetActive()
+						[ ] wAspenHysysdlg.btnLoadCaseWithoutSwitching.Click()
+						[ ] glWaitForMouseIdle(10)
+					[+] if wAspenHysysdlg.Exists()
+						[ ] wAspenHysysdlg.SetActive()
+						[ ] wAspenHysysdlg.btnYes.Click()
+						[ ] sleep(0.5)
+						[ ] continue
+					[+] if(wRecoveryFilesFound.Exists())
+						[ ] wRecoveryFilesFound.SetActive()
+						[ ] wRecoveryFilesFound.btnCancel.Click()
+						[+] if(wAspenHysysdlg.Exists(3))
+							[ ] wAspenHysysdlg.SetActive()
+							[ ] wAspenHysysdlg.btnYes.Click()
+					[+] if wMatchHypotheticals.Exists()
+						[ ] wMatchHypotheticals.SetActive()
+						[ ] wMatchHypotheticals.btnContinue.Click()
+						[ ] glWaitForMouseIdle(10)
+					[+] if(wMultipleChildFormsOpen.Exists())
+						[+] if( leaveFormsOpen != NULL && leaveFormsOpen == TRUE)
+							[ ] wMultipleChildFormsOpen.btnLeaveFormsOpen.Click()
+						[+] else 
+							[ ] wMultipleChildFormsOpen.Close()
+					[+] if wVisualFortranError.Exists()
+						[ ] wVisualFortranError.SetActive()
+						[ ] Log.Error("Visual Fortran Run-Time error occurred while loading the case. Please see {sDataout}\OpenFailed.bmp.")
+						[ ] Desktop.CaptureBitmap("{sDataout}\OpenFailed.bmp")
+						[ ] wVisualFortranError.btnOK.Click()
+					[ ] 
+					[ ] sleep(1)
+					[ ] i+=1
+					[+] if(i>iTimeOut)
+						[ ] Desktop.CaptureBitmap("{sDataout}\OpenFailed.bmp")
+						[ ] Log.Fail("Open file {sFileName} failed in {iTimeOut} seconds, you can reference {sDataout}\OpenFailed.bmp.")
+						[ ] return
+				[ ] glWaitForMouseIdle(30)
+				[+] if dlgAspenHysys.Exists(3)
+					[ ] dlgAspenHysys.SetActive()
+					[ ] dlgAspenHysys.btnYes.Click()
+					[ ] glWaitForMouseIdle(10)
+				[ ] glWaitForMouseIdle(360)
+				[ ] 
+				[ ] Log.Message("Case Loaded		-----	{TimerStr(hOpenTimer)}")
+				[ ] 
+				[+] if(wPalette.Exists(1))
+					[ ] wPalette.SetActive()
+					[ ] wPalette.Close()
+				[+] if( leaveFormsOpen == NULL || leaveFormsOpen == FALSE)
+					[ ] AH.TypeKeys("<Shift-F4>")
+				[+] if(wMultipleChildFormsOpen.Exists(3))
+					[+] if( leaveFormsOpen == NULL || leaveFormsOpen == FALSE)
+						[ ] wMultipleChildFormsOpen.btnDontOpen.Click()
+					[+] else
+						[ ] wMultipleChildFormsOpen.btnLeaveFormsOpen.Click()
+						[ ] sleep(1)
+				[+] if( sFileName != NULL)
+					[ ] Log.Pass("{TimerStr(hOpenTimer)}	-----  Open file {sFileName} successfully!!!")
+				[ ] ExpandNaviPane()
+				[ ] timerStop(hOpenTimer)
+				[ ] 
+				[ ] 
+				[ ] 
+			[-] // Launch(int totalInstances optional)
+				[ ] // // Launch Aspen Hysys
+				[ ] // //   Usage:  AH.Launch()
+				[ ] // //
+				[+] // if( totalInstances == NULL)
+					[ ] // totalInstances = 1
+				[ ] // 
+				[ ] // SYS_Execute(sUserRegisterFile)
+				[ ] // 
+				[+] // if( hOpenTimer == NULL || timerState(hOpenTimer) == TS_STOPPED)
+					[+] // if( hOpenTimer != NULL)
+						[ ] // timerDestroy(hOpenTimer)
+					[ ] // hOpenTimer = timerCreate()
+					[ ] // timerStart(hOpenTimer)
+				[ ] // Agent.SetOption (OPT_WINDOW_TIMEOUT, 2000)
+				[ ] // Agent.SetOption(OPT_APPREADY_TIMEOUT, 2000)
+				[ ] // this.Start(AH.sCmdLine,null,null,1000)
+				[ ] // 
+				[ ] // int i=0
+				[ ] // Agent.SetOption (OPT_WINDOW_TIMEOUT, 5)
+				[ ] // Agent.SetOption(OPT_APPREADY_TIMEOUT, 120)
+				[ ] // 
+				[+] // while(!this.Exists() && i < 400)
+					[+] // if(dlgAspenHysys.Exists())
+						[ ] // dlgAspenHysys.SetActive()
+						[ ] // dlgAspenHysys.btnYes.Click()
+						[ ] // glWaitForMouseIdle(10)
+					[ ] // i++
+					[ ] // sleep(1)
+				[+] // if( this.Exists())
+					[ ] // Log.Message("Aspen HYSYS Appeared		-----	{TimerStr(hOpenTimer)}")
+					[+] // if( wAspenTechnologyLicenseManagerReminder.Exists())
+						[ ] // wAspenTechnologyLicenseManagerReminder.btnSnooze.Click()
+						[ ] // sleep(1)
+				[+] // else
+					[ ] // Log.Error("{TimerStr(hOpenTimer)} ------	HYSYS Has Failed to Start")
+				[ ] // 
+				[ ] // glWaitForMouseIdle(60,10)
+				[ ] // int j =ListCount(Desktop.FindAll("//WPFWindow",{10,false}))
+				[ ] // 
+				[+] // while( j>totalInstances || dlgAspenHysys.Exists(10) || wRecoveryFilesFound.Exists(10))
+					[+] // if(dlgAspenHysys.Exists())
+						[ ] // dlgAspenHysys.SetActive()
+						[ ] // dlgAspenHysys.btnYes.Click()
+						[ ] // glWaitForMouseIdle(10)
+					[+] // if(wRecoveryFilesFound.Exists())
+						[ ] // wRecoveryFilesFound.SetActive()
+						[ ] // wRecoveryFilesFound.btnCancel.Click()
+						[ ] // sleep(1)
+						[+] // if(wAspenHysysdlg.Exists())
+							[ ] // wAspenHysysdlg.SetActive()
+							[ ] // wAspenHysysdlg.btnYes.Click()
+							[ ] // glWaitForMouseIdle(10)
+						[+] // if(dlgAspenHysys.Exists())
+							[ ] // dlgAspenHysys.SetActive()
+							[ ] // dlgAspenHysys.btnYes.Click()
+							[ ] // glWaitForMouseIdle(10)
+							[ ] // 
+					[+] // if(wAspenHysysdlg.Exists())
+						[ ] // wAspenHysysdlg.SetActive()
+						[ ] // wAspenHysysdlg.btnYes.Click()
+						[ ] // glWaitForMouseIdle(10)
+					[+] // if(dlgAspenHysys.Exists())
+						[ ] // dlgAspenHysys.SetActive()
+						[ ] // dlgAspenHysys.btnYes.Click()
+						[ ] // glWaitForMouseIdle(10)
+						[ ] // 
+					[ ] // glWaitForMouseIdle(30)
+					[ ] // j =ListCount(Desktop.FindAll("//WPFWindow",{10,false}))
+					[ ] // sleep(1)
+					[ ] // i+=1
+					[+] // if(i>150)
+						[ ] // Desktop.CaptureBitmap("{sDataout}\LaunchFailed.bmp")
+						[ ] // Log.Fail("Failed to launch Hysys in 150s, you can reference {sDataout}\LaunchFailed.bmp.")
+						[ ] // return
+				[ ] // this.SetActive()
+				[ ] // this.Maximize()
+				[ ] // //CloseTheStartUsingDlg()           Start Page is needed for certain long standing test cases.
+				[ ] // 
+				[ ] // Log.Message("Aspen HYSYS Startup Complete	-----	{TimerStr(hOpenTimer)}")
+				[ ] 
+				[ ] 
+			[-] Launch()
+				[ ] this.Invoke()
+				[-] if (wRecovery.exists(15))
+					[ ] wRecovery.btnCancel.Click()
+				[-] if (dlgAspenHysys.exists(6))
+					[ ] dlgAspenHysys.btnYes.Click()
+				[ ] this.SetActive()
+				[ ] this.Maximize()
+			[-] SaveAs (string sFileName)
+				[ ]  //Saves the case to a file
+				[ ] //   Arguments
+				[ ] //   1.  fileName , string, name of case file - full path or relative to current directory
+				[ ] //   extension determines type of file to save
+				[ ] //string sExtension = glGetReverseField(sFileName, ".", 1)
+				[ ] //string sBaseFileName = SubStr(sFileName,1, len(sFileName) - len(sExtension)-1)
+				[ ] string sExtension = glGetReverseField(sFileName, ".", 1)
+				[ ] string sBaseFileName = SubStr(sFileName,1, len(sFileName) - len(sExtension)-1)
+				[-] if( !this.miSaveAs.Exists())
+					[ ] this.mnuFile.Click()
+				[ ] this.miSaveAs.Exists(5)
+				[ ] this.miSaveAs.Click()
+				[-] if(dlgSaveAs.Exists(5))
+					[ ] dlgSaveAs.SetActive()
+					[ ] dlgSaveAs.txtFileName.SetText(sBaseFileName)
+					[ ] dlgSaveAs.cboSaveAsType.Select("*{lower(sExtension)}*")
+					[ ] dlgSaveAs.btnSave.Click()
+					[-] if(dlgConfirmSaveAs.Exists(3))
+						[ ] dlgConfirmSaveAs.SetActive()
+						[ ] dlgConfirmSaveAs.btnYes.Click()
+					[ ] Log.Pass("Save file {sBaseFileName} as {Upper(sExtension)} successfully!!!")
+				[-] else
+					[ ] Log.Fail("Save as dialog didn't pop up.")
+					[ ] CaptureCurrentBitmap("{sDataout}\NoSaveAs.bmp")
+				[ ] glWaitForMouseIdle(60)
+				[ ] 
+				[ ] 
+			[ ] 
+			[+] CloseCase(boolean bSaveOrNot optional)
+				[+] if(bSaveOrNot==null)
+					[ ] bSaveOrNot=false
+				[ ] this.SetActive()
+				[ ] this.TypeKeys("<Ctrl-j>")
+				[ ] sleep(1)
+				[+] if dlgAspenHysys.Exists(3)
+					[ ] dlgAspenHysys.SetActive()
+					[+] if (bSaveOrNot==false)
+						[ ] dlgAspenHysys.btnNo.Click()
+					[+] else
+						[ ] dlgAspenHysys.btnYes.Click()
+				[ ] glWaitForMouseIdle(10)
+				[ ] Log.Pass("Closed case successfuly.")
+			[-] InvokeOptionsFromFile()
+				[ ] this.SetActive()
+				[-] if( !this.miOptions.Exists())
+					[ ] this.mnuFile.Click()
+					[ ] this.miOptions.Exists(5)
+				[ ] this.miOptions.Click()
+			[+] string GetMode()
+				[+] //Description
+					[ ] //GetMode ( ) - Gets the current problem mode (Simulation/Properties/Energy Analysis)
+					[ ] //Created by Eric Lu on July 31, 2012
+				[+] if (this.tabiDynamics.Exists())
+					[ ] return "Simulation"
+				[+] else if(this.tabiCustomize.Exists())
+					[ ] return "Properties"
+				[+] else
+					[ ] return "Energy Analysis"
+			[+] // SetMode( string sMode, boolean bHandleDialogByYes optional)       ---> Old one
+				[+] // //Description
+					[ ] // // SetMode ( string ) - Sets the problem mode
+					[ ] // //  Arguments:
+					[ ] // //  1.  mode  - string, problem mode 'Simulation' or 'Properties'
+					[ ] // //  Usage: AH.SetMode('Properties')
+					[ ] // //Created by Eric Lu on July 31, 2012
+				[+] // if sMode == this.GetMode()
+					[ ] // return
+				[+] // else
+					[+] // switch(sMode)
+						[+] // case "Simulation"
+							[ ] // this.SetActive()
+							[ ] // this.hccSimulation.Click()
+						[+] // case "Properties"
+							[ ] // this.SetActive()
+							[ ] // this.hccProperties.Click()
+						[+] // case "Energy Analysis"
+							[ ] // this.SetActive()
+							[ ] // this.hccEnergyAnalysis.Click()
+						[+] // case "Safety Analysis"
+							[ ] // this.SetActive()
+							[ ] // this.hccSafetyAnalysis.Click()
+					[ ] // 
+					[+] // if(bHandleDialogByYes!=null)
+						[+] // if(!dlgAspenHysys.Exists(10))
+							[ ] // Log.Error("ERROR: Aspen Hysys Dialog box did not appear")
+						[ ] // 
+						[+] // if(bHandleDialogByYes==true)
+							[ ] // dlgAspenHysys.btnYes.Click()
+							[ ] // glWaitForMouseIdle(15)
+							[+] // // if(dlgAspenHysys.Exists(2))
+								[ ] // // Log.Fail("The dialog pops up twice, defect CQ00479767 and CQ00483435 are linked to  this issue.")
+								[ ] // // dlgAspenHysys.SetActive()
+								[ ] // // dlgAspenHysys.btnYes.Click()
+						[+] // else
+							[ ] // dlgAspenHysys.btnNo.Click()
+							[ ] // glWaitForMouseIdle(15)
+					[+] // else
+						[ ] // glWaitForMouseIdle(10)
+						[+] // if(dlgAspenHysys.Exists(2))
+							[ ] // dlgAspenHysys.SetActive()
+							[ ] // dlgAspenHysys.SetActive()
+							[+] // if( dlgAspenHysys.btnNo.Exists())
+								[ ] // dlgAspenHysys.btnNo.Click()
+							[+] // else
+								[ ] // dlgAspenHysys.btnOK.Click()
+							[ ] // glWaitForMouseIdle(15)
+						[ ] // 
+					[ ] // glWaitForMouseIdle(60)
+				[ ] // ExpandNaviPane()
+			[+] SetMode( string sMode, boolean bHandleDialogByYes optional)  //New One relies on new glWaitForMouseIdle
+				[+] //Description
+					[ ] // SetMode ( string ) - Sets the problem mode
+					[ ] //  Arguments:
+					[ ] //  1.  mode  - string, problem mode 'Simulation' or 'Properties'
+					[ ] //  Usage: AH.SetMode('Properties')
+					[ ] //Created by Eric Lu on July 31, 2012
+				[+] if sMode == this.GetMode()
+					[ ] return
+				[+] else
+					[+] switch(sMode)
+						[+] case "Simulation"
+							[ ] this.SetActive()
+							[ ] this.hccSimulation.Click()
+						[+] case "Properties"
+							[ ] this.SetActive()
+							[ ] this.hccProperties.Click()
+						[+] case "Energy Analysis"
+							[ ] this.SetActive()
+							[ ] this.hccEnergyAnalysis.Click()
+						[+] case "Safety Analysis"
+							[ ] this.SetActive()
+							[ ] this.hccSafetyAnalysis.Click()
+					[ ] 
+					[ ] int i = 0
+					[ ] boolean DialogFound = false
+					[ ] 
+					[ ] int wait = 5
+					[+] if( bHandleDialogByYes != NULL)
+						[ ] wait = 20  // 10 Seconds Timeout
+					[ ] 
+					[+] while( glWaitForMouseIdle(60,wait, dlgAspenHysys) && i < 20 )
+						[ ] DialogFound = true
+						[+] if(bHandleDialogByYes!=null)
+							[ ] if(!dlgAspenHysys.Exists(10))
+							[ ] 
+							[+] if(bHandleDialogByYes==true)
+								[ ] dlgAspenHysys.btnYes.Click()
+								[ ] glWaitForMouseIdle(15)
+							[+] else
+								[ ] dlgAspenHysys.btnNo.Click()
+								[ ] glWaitForMouseIdle(15)
+						[+] else
+							[+] 
+								[ ] dlgAspenHysys.SetActive()
+								[ ] dlgAspenHysys.SetActive()
+								[+] if( dlgAspenHysys.btnNo.Exists())
+									[ ] dlgAspenHysys.btnNo.Click()
+								[+] else
+									[ ] dlgAspenHysys.btnOK.Click()
+								[ ] glWaitForMouseIdle(15)
+							[ ] 
+						[ ] wait = 5
+						[ ] i++
+					[ ] 
+					[+] if( !DialogFound && bHandleDialogByYes!=null)
+							[ ] Log.Error("ERROR: Aspen Hysys Dialog box did not appear")
+						[ ] 
+				[ ] ExpandNaviPane()
+			[ ] 
+			[+] ActiveTab(string sTabNameOrID)
+				[+] //Description
+					[ ] // Make the tab active
+					[ ] // Arguments:
+					[ ] // 1.  sTabNameOrID  - string, automationId or caption of tab
+					[ ] // Usage: AH.ActiveTab('Global')
+					[ ] //Created by Eric Lu on July 31, 2012
+				[ ] window wTab
+				[+] do
+					[ ] wTab = this.Find("//WPFTabItem[@automationId='*{sTabNameOrID}*']")
+				[+] except
+					[ ] wTab = this.Find("//WPFTabItem[@caption='*{sTabNameOrID}*']")
+				[ ] wTab.SetFocus()
+				[ ] //wTab.Select()
+				[ ] wTab.Click()
+				[ ] glWaitForMouseIdle(10)
+			[+] CloseTab(string sTabNameOrID)
+				[+] //Description
+					[ ] // Make the tab closed, make sure tabitem can be closed.
+					[ ] // Arguments:
+					[ ] // 1.  sTabNameOrID  - string, automationId or caption of tab
+					[ ] // Usage: AH.CloseTab('Global')
+					[ ] //Created by Eric Lu on April 10, 2012
+				[ ] window wTab
+				[+] do
+					[ ] wTab = this.Find("//WPFTabItem[@automationId='*{sTabNameOrID}*']")
+				[+] except
+					[ ] wTab = this.Find("//WPFTabItem[@caption='*{sTabNameOrID}*']")
+				[ ] wTab.SetFocus()
+				[ ] wTab.Find("//WPFButton").Click()
+				[ ] glWaitForMouseIdle(10)
+			[+] CloseContentCtrlPage(string sCaption)
+				[+] //Description
+					[ ] // Make the WPFContentControl page closed, 
+					[ ] // Arguments:
+					[ ] // 1.  sCaption  - string, the  caption of WPFContentControl or part key word,
+					[ ] // Usage: AH.CloseContentCtrlPage('abc')
+					[ ] //Created by Eric Lu on April 12, 2013
+				[ ] window wContentCtrl
+				[ ] wContentCtrl = this.Find("//WPFContentControl[@caption='*{sCaption}*']")
+				[ ] wContentCtrl.Find("//WPFButton[@automationId='closeBtn']").SetFocus()
+				[ ] sleep(0.5)
+				[ ] wContentCtrl.Find("//WPFButton[@automationId='closeBtn']").Click()
+				[ ] glWaitForMouseIdle(10)
+			[+] CloseTheStartUsingDlg()
+				[ ] //First, locate the Start Using dialogbox
+				[+] if(this.Find("//WPFUserControl[@automationId='startUsingControl']",{3, false})!=null)
+					[ ] //Second, locate the close button on it.
+					[+] if(this.Find("//WPFUserControl[@automationId='startUsingControl']//WPFButton[@automationId='CloseButton']",{3, true})!=null)
+						[ ] this.Find("//WPFUserControl[@automationId='startUsingControl']//WPFButton[@automationId='CloseButton']").Click()
+			[+] ShowTraceMessage()
+				[+] if(!this.txtTraceMessage.Exists(3))
+					[ ] this.ActiveTab("View")
+					[ ] this.btnMessagePanel.Click()
+					[ ] sleep(1)
+					[+] if(!this.txtTraceMessage.Exists(3))
+						[ ] this.btnMessagePanel.Click()
+						[ ] sleep(1)
+			[+] SelectTheContextMenuItemOfObject(window wObject,string sContextMenuItemName)
+				[+] //Description
+					[ ] //For any object, if it has context menu, we can use this method to select the contextmenuitem.
+					[ ] //wObject: is the object we want invoke the contextmenu.
+					[ ] //sContextMenuItemName: is the contextmenuitem name we want to select.
+					[ ] //Created by Eric Lu on July 31, 2012
+				[ ] wObject.Click(2,10,10)
+				[ ] sleep(1)
+				[ ] wObject.Find("//WPFMenuItem[@caption='*{sContextMenuItemName}*']").Click()
+				[ ] sleep(1)
+				[ ] glWaitForMouseIdle(10)
+			[+] Exit()
+				[ ] int i = 0
+				[+] while(AH.Exists() && i < 2)
+					[ ] this.SetActive()
+					[ ] this.TypeKeys("<Alt-F4>")
+					[+] if dlgAspenHysys.Exists(3)
+						[ ] dlgAspenHysys.SetActive()
+						[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 0.5)
+						[+] if( dlgAspenHysys.btnNo.Exists())
+							[ ] dlgAspenHysys.btnNo.Click()
+						[+] else if( dlgAspenHysys.btnOK.Exists())
+							[ ] dlgAspenHysys.btnOK.Click()
+						[+] else
+							[ ] Log.Warning("CAN'T Find OK or NO BUTTON IN ASPEN HYSYS DIALOG BOX. MUST RESORT TO TASKKILL.")
+							[ ] break
+						[ ] Agent.SetOption (OPT_SYNC_TIMEOUT, 300)
+					[ ] glWaitForMouseIdle(10)
+					[ ] i++
+				[+] if( AH.Exists())
+					[ ] SYS_Execute("taskkill /f /t /im aspenhysys.exe")
+					[ ] Log.Warning("WARNING: Had to kill the HYSYS process since it wasn't responding to exit commands.")
+					[ ] 
+			[+] string GetDatagridCellValue(window datagrid,int row, int coloumn)
+				[+] //Description
+					[ ] //move focus to the specific row and column in datagrid and get the cell value.
+					[ ] //Created by Eric Lu on July 31, 2012
+				[ ] datagrid.SetFocus()
+				[ ] this.gridcellFirst.Click()
+				[ ] datagrid.TypeKeys("<Ctrl-Home>")
+				[ ] int i
+				[+] if(row>1)
+					[+] for i=1 to row-1 step 1
+						[ ] this.TypeKeys("<Down>")
+						[ ] sleep(0.5)
+				[+] if(coloumn>1)
+					[+] for i=1 to coloumn-1 step 1
+						[ ] this.TypeKeys("<Right>")
+						[ ] sleep(0.5)
+				[ ] Clipboard.SetText()
+				[ ] this.TypeKeys("<Ctrl-C 5> ")
+				[ ] list lstStr = Clipboard.GetText()
+				[ ] return lstStr[1]
+			[+] string GoToCell(int row, int column, window datagrid,string str optional)
+				[+] //Description
+					[ ] // GoToCellInEOVar ( row, column, datagrid, str) - move focus to the specific row and column in datagrid, if str is not null, will set the cell value as str or will get the cell value.
+					[ ] //  Usage:
+					[ ] //  - AH.GoToCellInEOVar(3,4,datagrid,"BLK.SPEC3O_PRES") or AH.GoToCell(3,4,datagrid,"Constant")
+					[ ] //Created by Eric Lu on July 31, 2012
+				[ ] datagrid.SetFocus()
+				[ ] list of string lststrValue
+				[ ] this.TypeKeys("<Ctrl-Home>")
+				[ ] this.TypeKeys("<Down {row-1}>")
+				[ ] sleep(1)
+				[ ] this.TypeKeys("<Right {column-1}>")
+				[ ] sleep(1)
+				[+]  if (str != null)
+					[+] list of STRING lststr = {...}
+						[ ] str
+					[ ] Clipboard.SetText(lststr)
+					[ ] this.TypeKeys("<Ctrl-V>")
+					[ ] Clipboard.SetText()
+					[ ] //datagrid.TypeKeys("<Ctrl-C>")
+					[ ] this.TypeKeys("<Ctrl-C>")
+					[ ] lststrValue = Clipboard.GetText()
+					[+] if(str == lststrValue[1])
+						[ ] Log.Pass("Value modifies to {str} Pass.")
+					[+] else
+						[ ] Log.Fail("Value modifies to {str} Fail, actually to {lststrValue[1]}.")
+					[ ] datagrid.TypeKeys("<Enter>")
+					[ ] return lststrValue[1]
+				[+] else
+					[ ] Clipboard.SetText()
+					[ ] datagrid.TypeKeys("<Ctrl-C>")
+					[ ] lststrValue = Clipboard.GetText()
+					[ ] return lststrValue[1]
+			[+] string GoToCellInInverted(int row, int column, window datagrid,string str optional)
+				[ ] // GoToCellInEOVar ( row, column, datagrid, str) - move focus to the specific row and column inverted in datagrid, if str is not null, will set the cell value as str.
+				[ ] //  Usage:
+				[ ] //  - AH.GoToCellInEOVar(3,4,datagrid,"BLK.SPEC3O_PRES") or AH.GoToCell(3,4,datagrid,"Constant")
+				[ ] //Created by Eric Lu on July 31, 2012
+				[ ] 
+				[ ] datagrid.SetFocus()
+				[ ] list of string lststrValue
+				[ ] this.TypeKeys("<Ctrl-End>")
+				[ ] this.TypeKeys("<Up {row-1}>")
+				[ ] sleep(1)
+				[ ] this.TypeKeys("<Left {column-1}>")
+				[ ] sleep(1)
+				[+]  if (str != null)
+					[+] list of STRING lststr = {...}
+						[ ] str
+					[ ] Clipboard.SetText(lststr)
+					[ ] this.TypeKeys("<Ctrl-V>")
+					[ ] Clipboard.SetText()
+					[ ] datagrid.TypeKeys("<Ctrl-C>")
+					[ ] lststrValue = Clipboard.GetText()
+					[+] if(str == lststrValue[1])
+						[ ] Log.Pass("Value modifies to {str} Pass.")
+					[+] else
+						[ ] Log.Fail("Value modifies to {str} Fail, actually to {lststrValue[1]}.")
+					[ ] datagrid.TypeKeys("<Enter>")
+					[ ] return lststrValue[1]
+				[+] else
+					[ ] Clipboard.SetText()
+					[ ] datagrid.TypeKeys("<Ctrl-C>")
+					[ ] lststrValue = Clipboard.GetText()
+					[ ] return lststrValue[1]
+				[ ] 
+			[+] SelectItemInComboBox(string sAttribute, string sValue, string sItemName, int iIndex optional)
+				[ ] //Description:
+				[ ] //AH.SelectItemInComboBox("automationId","PART_editControl","11",3)
+				[ ] // use to select combox item in A+ user interface.
+				[ ] //sAttribute:  such as caption, automationid , classtype...
+				[ ] //sValue : the actual value of caption, automationid , classtype...
+				[ ] //sItemName: the  item to be selected.
+				[ ] //index :the index for sValue; e.g.  "2"  in the @className='AesXamComboEdit'][2]"
+				[ ] //Created by Eric Lu on July 31, 2012
+				[ ] window comboBox
+				[+] if(iIndex == null)
+					[ ] comboBox = this.Find("//WPFControl[@{sAttribute}='{sValue}']")
+					[ ] comboBox.Click()
+					[ ] sleep(0.5)
+					[+] do
+						[ ] comboBox.SetProperty("MaxDropDownHeight",650)
+						[ ] this.Find("//WPFComboBoxItem[@caption='{sItemName}']").Click()
+					[+] except
+						[ ] this.TypeKeys("{sItemName}<enter>",0.2)
+				[+] else
+					[ ] comboBox = this.Find("//WPFControl[@{sAttribute}='{sValue}'][{iIndex}]")
+					[ ] comboBox.Click()
+					[ ] sleep(0.5)
+					[+] do
+						[ ] comboBox.SetProperty("MaxDropDownHeight",650)
+						[ ] this.Find("//WPFComboBoxItem[@caption='{sItemName}']").Click()
+					[+] except
+						[ ] this.TypeKeys("{sItemName}<enter>",0.2)
+				[ ] 
+			[+] InputTextInTextBox(string sAttribute, string sValue, string sText, int iIndex optional)
+				[ ] //Description:
+				[ ] //AH.InputTextInTextBox("automationId","PART_editControl","11",3)
+				[ ] // use input value to TextBox  in A+ user interface.
+				[ ] //sAttribute:  such as caption, automationid , classtype...
+				[ ] //sValue : the actual value of caption, automationid , className...
+				[ ] //sText: the  value to be input.
+				[ ] //index :the index for sValue; e.g.  "2"  in the @className='PART_editControl'][2]"
+				[ ] //Created by Eric Lu on July 31, 2012
+				[ ] window TextBox
+				[+] if(iIndex == null)
+					[ ] TextBox = this.Find("//WPFControl[@{sAttribute}='{sValue}']")
+					[ ] TextBox.Click()
+					[ ] sleep(0.5)
+					[+] do
+						[ ] this.Find("//WPFTextBox[@automationId='PART_TextBox']").SetText("{sText}")
+					[+] except
+						[ ] this.TypeKeys("{sText}<enter>",0.2)
+				[+] else
+					[ ] TextBox = this.Find("//WPFControl[@{sAttribute}='{sValue}'][{iIndex}]")
+					[ ] TextBox.Click()
+					[ ] sleep(0.5)
+					[+] do
+						[ ] this.Find("//WPFTextBox[@automationId='PART_TextBox']").SetText("{sText}")
+					[+] except
+						[ ] this.TypeKeys("{sText}<enter>",0.2)
+				[ ] 
+			[+] list of string DataGridMultiSelect(window wDataGrid,int iSelectedRowCount,int iSelecttedColumnCount, int iStartRow optional,int iStartColumn)
+				[+] //Description
+					[ ] //Select iSelectedRowCount rows and iSelecttedColumnCount from start point row number iStartRow and column number iStartColumn.
+					[ ] //The iStartRow iStartColumn need have value at the same time, or neither or them has value, if they are none, select from left top corner.
+					[ ] //wDataGrid: it is the table we want to select.
+					[ ] //iSelectedRowCount: row count we want to select.
+					[ ] //iSelecttedColumnCount: column count we want to select
+					[ ] //iStartRow: the start row number.
+					[ ] //iStartColumn: the start column number.
+					[ ] //Created by Eric Lu on July 31, 2012
+				[ ] wDataGrid.SetFocus()
+				[ ] wDataGrid.Click()
+				[+] if(iStartColumn==null)
+					[ ] wDataGrid.TypeKeys("<Ctrl-Home>")
+				[+] else
+					[+] if(iStartRow>1)
+						[ ] this.TypeKeys("<Down {iStartRow-1}>")
+					[+] if(iStartColumn>1)
+						[ ] this.TypeKeys("<Right {iStartColumn-1}>")
+				[ ] this.PressKeys("<Shift>")
+				[+] if(iSelecttedColumnCount>1)
+					[ ] this.TypeKeys("<Right {iSelecttedColumnCount-1}>")
+				[+] if(iSelectedRowCount>1)
+					[ ] this.TypeKeys("<Down {iSelectedRowCount-1}>")
+				[ ] this.ReleaseKeys("<Shift>")
+				[ ] Clipboard.SetText()
+				[ ] this.TypeKeys("<Ctrl-C>")
+				[ ] list of string lstString = Clipboard.GetText()
+				[ ] return lstString
+			[ ] 
+			[ ] 
+			[+] void FindAndSelectObjects(list of string lstUnitOperations, boolean viewObject optional, boolean doubleClick optional)
+				[ ] //   Arguments
+				[ ] //   1. lstUnitOperations , list of string, names of Block, this can support to select more than one object.
+				[ ] //   2. View/Locate the Objects Workbook/Window 
+				[ ] //   Usage:  AH.FindAndSelectObjects(lst, TRUE)
+				[ ] 
+				[+] if( !matchstr("Simulation",this.getMode()))
+					[ ] this.SetMode("Simulation")
+					[ ] glWaitForMouseIdle(15)
+					[ ] 
+				[ ] 
+				[ ] //For some reason, errors sometimes appear with tabiFlowsheetAny
+				[+] do
+					[+] if (this.tabiFlowsheetAny.Exists(3))
+						[+] if( !this.tabiFlowsheetAny.IsSelected )
+							[ ] this.tabiFlowsheetAny.Select()
+							[ ] glWaitForMouseIdle(10)
+					[+] else
+						[ ] this.setTab("View")
+						[ ] this.btnFlowSheet.Exists(5)
+						[ ] this.btnFlowSheet.Click()
+						[ ] glWaitForMouseIdle(10)
+						[+] if( !this.areaForMainFlowsheet.Exists(5) )
+							[ ] Log.Error("ERROR: Unable to load Main Flowsheet")
+							[ ] return
+					[ ] Log.Pass("Main Flowsheet Loaded")
+				[+] except
+					[ ] exceptClear()
+					[ ] Log.Warning("Unable to verify whether the flowsheet is active")
+					[ ] 
+				[ ] 
+				[ ] //Adding a loop being this sometimes fails on slow machines
+				[ ] boolean pass = false
+				[ ] int i = 0
+				[+] if( !AH.tabiFlowsheetModify.exists())
+					[+] while( pass == false && i < 3 )
+						[+] do
+							[+] do
+								[ ] AH.areaForMainFlowsheet.SetFocus()
+							[+] except
+								[ ] exceptClear()
+							[ ] AH.areaForMainFlowsheet.Click(1,20,20)
+							[ ] pass = true
+						[+] except// extra sleep for slower machines
+							[ ] exceptClear()
+							[ ] sleep(1)
+							[ ] i++
+						[ ] 
+				[ ] 
+				[ ] AH.SetTab("Flowsheet/Modify")
+				[ ] AH.btnFindObject.Exists(5)
+				[ ] AH.btnFindObject.Click()
+				[+] if( !wObjectNavigator.Exists(5))
+					[ ] this.areaForMainFlowsheet.TypeKeys("<F3>")
+					[+] if( !wObjectNavigator.Exists(2))
+						[ ] Log.Error("ERROR: Object Navigator cannot be found")
+					[ ] 
+				[ ] //wObjectNavigator.Maximize()
+				[ ] sleep(0.3)
+				[ ] Move(200,200)
+				[ ] sleep(0.5)
+				[ ] 
+				[ ] //Adding a loop being this sometimes fails on slow machines
+				[ ]   pass = false
+				[ ] i = 0
+				[+] while( pass == false && i < 4 )
+					[+] do
+						[ ] wObjectNavigator.grpObjectFilter.rdbAll.Click()
+						[ ] wObjectNavigator.grpObjectFilter.rdbAll.Check()
+						[ ] pass = true
+					[+] except// extra sleep for slower machines
+						[ ] exceptClear()
+						[ ] sleep(2)
+						[ ] i++
+				[ ] 
+				[ ] sleep(1)
+				[+] for each sValue in lstUnitOperations
+					[+] do
+						[ ] wObjectNavigator.lstUnitOperations.Select(sValue)
+						[ ] wObjectNavigator.PressKeys("<Ctrl>")
+						[ ] sleep(0.5)
+					[+] except
+						[ ] Log.Fail("ERROR: The Requested Object {sValue} Cannot be Found")
+						[ ] ExceptClear()
+						[ ] return
+				[ ] sleep(0.5)
+				[ ] wObjectNavigator.ReleaseKeys("<Ctrl>")
+				[ ] 
+				[+] if( viewObject == Null || viewObject == FALSE)
+					[ ] wObjectNavigator.btnLocate.SetFocus()
+					[ ] sleep(0.5)
+					[ ] wObjectNavigator.btnLocate.Click()
+					[ ] wObjectNavigator.WaitForDisappearance(5)
+					[ ] sleep(1)
+					[ ] RECT rect = AH.areaForMainFlowsheet.GetRect()
+					[ ] AH.areaForMainFlowsheet.Click(1, rect.xSize-15, rect.ySize-15)
+				[+] else
+					[ ] wObjectNavigator.btnView.SetFocus()
+					[ ] sleep(0.5)
+					[ ] wObjectNavigator.btnView.Click()
+					[ ] wObjectNavigator.WaitForDisappearance(5)
+				[ ] 
+				[+] if( doubleClick != NULL && doubleClick == TRUE)
+					[ ] sleep(0.5)
+					[ ] RECT rectFlowSheet= AH.areaForMainFlowsheet.GetRect()
+					[ ] AH.areaForMainFlowsheet.DoubleClick(1, (rectFlowSheet.xSize)/2, (rectFlowSheet.ySize)/2)
+				[ ] 
+			[ ] 
+			[+] void AddComponent(string sComponentName, string sSearchBy optional)
+				[+] if( !AH.tpgComponentLists.txtSearchFor.Exists())
+					[+] do
+						[ ] AH.trvPartTree.Select("Component Lists/Component List - 1")
+						[ ] AH.tpgComponentLists.txtSearchFor.Exists(5)
+					[+] except
+						[ ] exceptClear()
+						[ ] Log.Error("ERROR, UNABLE TO ADD COMPONENT: Component List is not selected and/or default Component List - 1 cannot be found")
+						[ ] return
+				[+] if sSearchBy!=null
+					[ ] sValue=AH.tpgComponentLists.cboSearchBy.SelectedItemText
+					[+] if(!MatchStr("*{sSearchBy}*",sValue))
+						[ ] AH.tpgComponentLists.cboSearchBy.Select("*{sSearchBy}*")
+						[ ] sleep(1)
+				[ ] AH.SetActive()
+				[ ] AH.tpgComponentLists.txtSearchFor.WaitForProperty("IsEnabled", TRUE, 10)
+				[ ] 
+				[ ] 
+				[+] do
+					[ ] Clipboard.SetText({"{sComponentName}"})
+					[ ] sleep(0.2)
+					[ ] AH.tpgComponentLists.txtSearchFor.TypeKeys("<ctrl-a> <ctrl-a><ctrl-v>", 0.1)
+					[ ] //Wait for the Search for Grid to Stabilize
+					[ ] sleep(0.5)
+				[+] except
+					[ ] exceptClear()
+					[ ] AH.tpgComponentLists.txtSearchFor.SetFocus()
+					[ ] AH.tpgComponentLists.txtSearchFor.TypeKeys("<Ctrl-A><Delete>")
+					[ ] AH.tpgComponentLists.txtSearchFor.TypeKeys("{sComponentName}",0.2)
+					[ ] //Wait for the Search for Grid to Stabilize
+					[ ] sleep(1.5)
+				[ ] 
+				[ ] 
+				[+] if(AH.tpgComponentLists.dgSearchFor.Exists(3))
+					[ ] 
+					[+] if( sComponentName != AH.tpgComponentLists.dgSearchFor.SelectedCellText )
+						[ ] window cell = AH.tpgComponentLists.dgSearchFor.SelectedCell
+						[ ] cell.SetFocus()
+						[ ] Desktop.typeKeys("<Right>")
+						[ ] Desktop.typeKeys("<Left>")
+						[ ] Desktop.typeKeys("<ctrl-Shift-Right>")
+						[ ] list of string row = AH.tpgComponentLists.dgSearchFor.SelectedCellTexts
+						[+] if( !matchStr(sComponentName, row[2]) && !matchStr(sComponentName, row[3]) )
+							[ ] Log.Fail("Didn't find the component:  {sComponentName}")
+							[ ] return
+					[ ] Log.Pass("Found Component: {sComponentName}")
+					[ ] AH.tpgComponentLists.dgSearchFor.SelectedCell.DoubleClick()
+					[ ] glWaitForMouseIdle(10,2)
+				[+] else
+					[ ] AH.TypeKeys("<Enter>")
+					[+] if wResolveComponentNameConflict.Exists()
+						[ ] sleep(0.8)
+						[ ] wResolveComponentNameConflict.Close()
+					[+] if wAspenHysys.Exists()
+						[ ] sleep(0.8)
+						[ ] wAspenHysys.Close()	
+					[ ] sleep(2)
+			[+] void Navigate(string sFormPath, boolean bTypeEnter optional)
+				[ ] // On Februray 4th, Eric added the optional bool parameter to judge if we will type "Enter" key after the click 
+				[ ] // If you want to right click the treeviewitem you can directy to use the click() method in wcHysysTreeView by set the parameter iButton as 2.
+				[ ] // If there is no action after we clicking the treeviewitem you can try to use the click() method in wcHysysTreeView by set the parameter bPressMouse as true, if this still cannot help you, try to use double click on the item.
+				[ ] this.SetActive()
+				[ ] Sleep(1)
+				[ ] this.trvPartTree.Expand(sFormPath)				//navigate to the correct path
+				[ ] sleep(1)
+				[ ] glWaitForMouseIdle(30)
+				[ ] this.trvPartTree.Click(sFormPath)
+				[ ] sleep(1)
+				[+] if(bTypeEnter!=null)
+					[+] if(bTypeEnter)
+						[ ] this.TypeKeys("<Enter>")
+				[ ] glWaitForMouseIdle(30)
+				[ ] 
+			[+] SetTab(string sTabName)
+				[ ] // SetTab ( string )  - Sets the active tab
+				[ ] //  Arguments:
+				[ ] //  1.  tabName  - string, name of tab to make active
+				[ ] //  Usage: AP.SetTab('Global')
+				[ ] //window wTab = this.ctlTabs.Find("//WPFTabItem[@caption='{sTabName}*']")
+				[ ] window wTab = this.Find("//WPFTabItem[@caption='{sTabName}*']")
+				[ ] wTab.Select()
+			[+] void CheckValue(real rInput, real rExpected, real rTol, string sType optional, string sUnit optional)
+				[ ] //Created by Justin Watanasiri for CQ00207066
+				[ ] //Use: specify an observed value (rInput) and an expected value (rExpected). Function will find the relative tolerance between the two values and 
+				[ ] //either print a message or log an error depending on whether or not the difference betweent he two values is within acceptable tolerance limits.
+				[ ] 
+				[ ] //Notes:
+				[ ] //Specify rTol as a percentage. e.g to use a 10% tolerance set rTol to 10, not 0.1. 
+				[ ] //Specify sType as the type of property being compared e.g temperature, pressure
+				[ ] //Specify sUnit as the unit of measure
+				[ ] 
+				[ ] //specify defaults for sType and sUnit
+				[+] if sType==null
+					[ ] sType = "value"
+				[+] if sUnit==null
+					[ ] sUnit = ""
+				[ ] //Convert rTol from a percentage to a decimal
+				[ ] rTol = rTol/100
+				[ ] 
+				[ ] //absolute tolerance = (X-Y) / Min(X, Y)
+				[+] if ((abs(rInput - rExpected)/(min(abs(rInput), abs(rExpected))))>= rTol)
+					[ ] LogError("*** Error: The specified {sType} is outside of acceptable tolerances. Experimental value: {rInput} {sUnit}. Expected value: {rExpected} {sUnit}. Please check manually.")
+				[+] else
+					[ ] Print("		The specified {sType} is within an acceptable tolerance.")
+			[+] void SetUnitSI(string sTab optional)
+				[ ] //Created by Justin Watanasiri on Februrary 5, 2013
+				[ ] //Use: string sTab determines the name of the tab to set active after the default unit is set to SI. Leaving this blank will set  the 'Flowsheet/Modify' tab as active.
+				[ ] AH.SetActive()
+				[ ] Sleep(0.5)
+				[ ] AH.SetTab("Home")
+				[ ] AH.cboUnits.Exists(5)
+				[ ] AH.cboUnits.Find("//WPFToggleButton[@automationId='DropDownButton']").Click()
+				[ ] sleep(0.5)
+				[ ] AH.cboUnits.Find("//WPFComboBox[@automationId='PART_FocusSite']").Select("SI")
+				[ ] sleep(1)
+				[+] if sTab != null
+					[ ] AH.SetTab("{sTab}")
+					[ ] Sleep(1)
+				[+] else
+					[ ] AH.SetTab("Flowsheet/Modify")
+					[ ] Sleep(1)
+			[ ] 
+			[+] new()
+				[+] if( !AH.miNew.Exists())
+					[ ] AH.mnuFile.Click()
+				[ ] AH.miNew.exists(5)
+				[ ] AH.miNew.Click()
+				[ ] AH.miCase.Exists(5)
+				[ ] AH.miCase.Click()
+				[ ] glWaitForMouseIdle()
+				[+] if( hOpenTimer != NULL && timerState(hOpenTimer) != TS_STOPPED  )
+					[ ] timerStop(hOpenTimer)
+			[+] SelectCbiInGridBox( int row, int column, string caption, window dataGrid)
+				[ ] dataGrid.selectCell( row, column )
+				[ ] sleep(0.5)
+				[ ] Desktop.TypeKeys(substr(caption,1,1))
+				[ ] sleep(0.5)
+				[+] do
+					[ ] dataGrid.SelectedCell.find("//WPFComboBox").Select(caption)
+				[+] except
+					[ ] exceptClear()
+					[ ] dataGrid.find("//WPFComboBoxItem[@caption='{caption}']").Click()
+				[ ] sleep(0.5)
+				[ ] 
+			[+] addAssayFromCSV(string assay)
+				[ ] this.addAssay("CSV", assay)
+				[ ] 
+			[+] void addAssay(string assayType, string assayName)
+				[ ] //Specify "Library" or other file type, then the name and or filepath of the assay if applicable
+				[+] 
+					[ ] string name = substr(assayName,strPos("\",assayName, TRUE)+1)
+				[ ] 
+				[+] if( this.GetMode() != "Properties")
+					[ ] this.SetMode("Properties")
+				[ ] 
+				[ ] this.trvPartTree.Select("Petroleum Assays")
+				[ ] this.tpgPetrolemAssays.cboAdd.Exists(5)
+				[ ] 
+				[ ] assayType = lower(assayType)
+				[ ] 
+				[+]  if (assayType == "library"  )
+					[ ] this.tpgPetrolemAssays.cboAdd.Select("Import from Library")
+					[ ] wAddAssay.exists(5)
+					[ ] wAddAssay.cboAssayFilter.Exists(5)
+					[ ] wAddAssay.cboAssayFilter.TypeKeys("{assayName}<Enter>")
+					[ ] sleep(0.25)
+					[ ] wAddAssay.find("//WPFDataGrid[@automationId='PART_DataGrid'][2]//WPFDataGridCell[1]").Click()
+					[ ] sleep(0.25)
+					[ ] wAddAssay.btnOK.Click()
+					[ ] glWaitForMouseIdle()
+				[+] else
+					[ ] this.tpgPetrolemAssays.cboAdd.Select("Import from File")
+					[ ] wImportAssayDataFromFiles.Exists(5)
+					[ ] wImportAssayDataFromFiles.cboAssayDataFormat.Exists(5)
+					[ ] wImportAssayDataFromFiles.cboAssayDataFormat.Select(assayType)
+					[ ] sleep(0.25)
+					[ ] wImportAssayDataFromFiles.btnAdd.Click()
+					[ ] dlgOpen.Exists(5)
+					[ ] dlgOpen.OpenFile(assayName)
+					[ ] dlgOpen.WaitForDisappearance()
+					[ ] wImportAssayDataFromFiles.btnImport.Click()
+					[ ] wAspenAssayManagement.exists(3)
+					[ ] 
+					[ ] 
+					[ ] int i = 0
+					[+] while( wAspenAssayManagement.Exists() && i < 200) // About 2 minutes timeout
+						[+] if( wAspenAssayManagementMainWin.Exists())
+							[+] if( matchstr("*Error*", wAspenAssayManagementMainWin.txtMessage.TextCapture()))
+								[ ] Log.Error("ERROR while importing assay: {name}" )
+							[+] else
+								[ ] Log.Warning("Message Box has appeared that reads: {wAspenAssayManagementMainWin.txtMessage.TextCapture()}")
+							[+] if( wAspenAssayManagementMainWin.btnOK.Exists())
+								[ ] wAspenAssayManagementMainWin.btnOK.Click()
+							[+] else
+								[ ] wAspenAssayManagementMainWin.Close()
+						[ ] sleep(0.5)
+						[ ] i++
+						[ ] 
+					[ ] wAspenAssayManagement.WaitForDisappearance(120)
+					[ ] glWaitForMouseIdle()
+					[ ] 
+					[ ] //Unable to Deal with Import Assays Status Window
+					[ ] list of window children = Desktop.GetChildren()
+					[ ] window child
+					[ ]  i = 0
+					[+] while( i < 5)            // Loop in case window does not immediately appear. Standard exists call will not work.
+						[ ] children = Desktop.GetChildren()
+						[+] for each child in children
+							[+] if( matchstr("*Import Assays Status*", child.getCaption() ) )
+								[+] if wImportAssaysStatus.Exists(15)
+									[ ] sleep(1)
+									[ ] wImportAssaysStatus.Close()
+								[ ] i=5
+								[ ] glWaitForMouseIdle()
+								[ ] break
+						[ ] glWaitForMouseIdle()
+						[ ] i++
+					[ ] 
+					[ ] glWaitForMouseIdle()
+					[ ] // wImportAssayStatus.exists(5)
+					[ ] 
+				[ ] 
+				[ ] 
+			[+] void IntegratorSettings(string sEndTime, string sTimeUnits, string sCurrentTime optional, boolean bRun optional)
+				[ ] //Created by Justin Watanasiri on 3/25/2013 for CQ00206364
+				[ ] //Use: Specify the End time and optionally the current time and units for the specified end time. Specify bRun as TRUE if you wish to run the case immediately.
+				[ ] 
+				[ ] this.ActiveTab("Dynamics")
+				[ ] this.btnIntegrator.Click()
+				[ ] 
+				[ ] glWaitForExists(wIntegrator, 30)
+				[ ] //Set End time
+				[ ] wIntegrator.SetActive()
+				[ ] wIntegrator.tabiGeneral.Click()
+				[ ] wIntegrator.dgDataGrid1.SetCellValue(4, 2, sEndTime, sTimeUnits, wIntegrator)
+				[ ] Sleep(1)
+				[ ] 
+				[+] if sCurrentTime != NULL
+					[ ] wIntegrator.dgDataGrid1.SetCellValue(2, 2, sCurrentTime, sTimeUnits, wIntegrator)
+					[ ] 
+				[ ] 
+				[+] if bRun != NULL && bRun == TRUE
+					[ ] wIntegrator.btnStart.Click()
+					[ ] glWaitForExists(dlgAspenHysys, 60)
+					[ ] dlgAspenHysys.SetActive()
+					[ ] dlgAspenHysys.btnNo.Click()
+				[ ] 
+			[+] void checkTraceForMessages(list of STRING goodMessages optional, list of string badMessages optional, list of STRING ignoreMessages optional, boolean LogError optional)
+				[ ] PRINT()
+				[ ] PRINT("**************************CHECKING TRACE MESSAGES*************************")
+				[+] if( !(AH.getMode() == "Simulation" || AH.getMode() == "Properties"))
+					[ ] AH.setMode("Simulation")
+				[+] if( !AH.txtTraceMessage.exists())
+					[ ] AH.SetTab("View")
+					[ ] AH.btnMessagePanel.Exists(5)
+					[ ] AH.btnMessagePanel.Click()
+					[ ] AH.txtTraceMessage.Exists(5)
+					[ ] sleep(0.2)
+				[ ] string trace = AH.txtTraceMessage.Text
+				[+] if(len(trace) < 3)
+					[ ] sleep(0.5)
+					[ ] trace = AH.txtTraceMessage.Text
+				[ ] 
+				[ ] int errorsBefore = getTestCaseErrorCount()
+				[+] if( ignoreMessages != NULL )
+					[ ] string item
+					[+] for each item in ignoreMessages
+						[ ] trace = strTran(trace, item,"")
+						[ ] print("Ignoring all instances of {chr(34)}{item}{chr(34)}")
+				[+] if( goodMessages != NULL)
+					[+] for each item in goodMessages
+						[+] if( matchStr("*{item}*", trace))
+							[ ] Log.Pass("Found: {chr(34)}{item}{chr(34)}")
+						[+] else
+							[ ] Log.Error("ERROR: Unable to find {chr(34)}{item}{chr(34)}")
+					[ ] 
+				[+] if( badMessages != NULL)
+					[+] for each item in badMessages
+						[+] if( !matchStr("*{item}*", trace))
+							[ ] Log.Pass("Unable to Find: {chr(34)}{item}{chr(34)}")
+						[+] else
+							[+] if( LogError == NULL || LogError == TRUE) 
+								[ ] Log.Error("ERROR: Found {chr(34)}{item}{chr(34)}")
+							[+] else
+								[ ] Log.Warning("ERROR: Found {chr(34)}{item}{chr(34)}")
+				[ ] 
+				[+] if( getTestCaseErrorCount() > errorsBefore)
+					[ ] PRINT("{chr(10)}{chr(10)} --------ERROR FOUND, PRINTING TRACE MESSAGES----------------{chr(10)}{chr(10)}")
+					[ ] PRINT(AH.txtTraceMessage.Text)
+					[ ] PRINT()
+				[ ] PRINT("*********************************************************************************************")
+				[ ] PRINT()
+			[+] void updateDBRAminePackage(string fluidPackage, boolean updateFlash optional, string selectModel optional)
+				[ ] 
+				[+] if( !(SYS_FILEEXISTS(DBRAminePackageLocation64) || SYS_FILEEXISTS(DBRAminePackageLocation32) ))
+						[ ] Log.Error("ERROR: Unable to find DBRAminePkg.dll in {DBRAminePackageLocation64}   or   {DBRAminePackageLocation32}")
+					[ ] 
+				[+] if( AH.getMode() != "Properties")
+					[ ] AH.hccProperties.Click()
+					[ ] glWaitForMouseIdle()
+					[ ] 
+				[ ] AH.trvPartTree.Select("Fluid Packages/{fluidPackage}")
+				[ ] 
+				[+] if( !AH.tpgFluidPackageChild.btnExtendedPropPkgSetup.Exists(3) )
+					[ ] AH.SetTab("Set Up")
+					[ ] sleep(1)
+				[ ] AH.tpgFluidPackageChild.btnExtendedPropPkgSetup.Exists(5)
+				[ ] AH.tpgFluidPackageChild.btnExtendedPropPkgSetup.Click()
+				[ ] wExtendedPropertyPackageSetup.Exists(5)
+				[ ] wExtendedPropertyPackageSetup.btnFinishSetup.Click()
+				[ ] 
+				[ ] dlgModelSelection.Exists(5)
+				[+] if( selectModel != NULL )
+					[ ] dlgModelSelection.find("//RadioList[@caption='{selectModel}']").Click()
+					[ ] sleep(1)
+				[ ] dlgModelSelection.btnOK.Click()
+				[ ] 
+				[+] if( updateFlash != NULL && updateFlash == TRUE)
+					[ ] AH.tpgFluidPackageChild.btnExtendedFlashSetup.Exists(5)
+					[ ] AH.tpgFluidPackageChild.btnExtendedFlashSetup.Click()
+					[ ] wExtendedFlashSetup.exists(5)
+					[ ] wExtendedFlashSetup.btnFinishSetup.Click()
+					[+] if( dlgModelSelection.Exists(2))
+						[ ] dlgModelSelection.btnOK.Click()
+				[ ] AH.trvPartTree.Select("Fluid Packages")
+				[ ] AH.tpgFluidPackages.btnAdd.Exists(5)
+				[+] do
+					[ ] AH.find("//WPFDataGridCell[@caption='{DBRAminePackageName}']")
+				[+] except
+					[ ] exceptClear()
+					[ ] Log.Error("ERROR: Failed to find {DBRAminePackageName}")
+					[ ] 
+				[ ] 
+			[+] boolean checkFlowsheetForConvergenece(list of string ignoreList optional, boolean checkAll optional)
+				[+] list of string ignoreAlways = <text>
+					[ ] spreadsheet
+					[ ] Sub-Flowsheet Operation
+				[ ] string item
+				[ ] AH.ActiveTab("View")
+				[ ] AH.btnFlowSheet.Click()
+				[ ] AH.SetTab("Flowsheet/Modify")
+				[ ] AH.btnFindObject.Exists(5)
+				[ ] AH.btnFindObject.Click()
+				[ ] wObjectNavigator.Exists(5)
+				[+] if( checkAll != NULL && checkAll == TRUE)
+					[ ] wObjectNavigator.rdbAll.Check()
+					[ ] wObjectNavigator.rdbAll.Click()
+				[+] else
+					[ ] wObjectNavigator.rdbUnitOps.Check()
+					[ ] wObjectNavigator.rdbUnitOps.Click()
+				[ ] sleep(1.5)
+				[ ] wObjectNavigator.lstObject.Find("/WPFListBoxItem[1]").Click()
+				[ ] Desktop.TypeKeys("<ctrl-a>")
+				[ ] sleep(0.5)
+				[ ] wObjectNavigator.btnView.Click()
+				[ ] glWaitForMouseIdle(60,10)
+				[ ] wAnyWin.sLocator = "//WPFWindow[2]"
+				[ ] boolean bPass = true
+				[ ] boolean toIgnore = FALSE
+				[ ] int count = 0
+				[+] while( wAnyWin.Exists(1))
+					[ ] toIgnore = false
+					[ ] wAnyWin.SetActive()
+					[ ] string caption = wAnyWin.GetCaption()
+					[+] for each item in ignoreAlways
+						[+] if( matchStr( "*{item}*", caption) )
+							[ ] toIgnore = TRUE
+							[ ] break
+					[ ] 
+					[+] if( ignoreList != NULL && !toIgnore)
+						[+] for each item in ignoreList
+							[+] if( matchStr( "*{item}*", caption) )
+								[ ] toIgnore = TRUE
+								[ ] break
+					[+] if( caption == "")
+						[ ] Print("WIndow with empty caption was found. This appears to be a SilkTest Bug")
+						[ ] wAnyWin.Close()
+						[ ] continue
+					[ ] 
+					[+] if( !toIgnore)
+						[+] if( !(wAnyWin.stcOK.Exists() ||wAnyWin.stcConverged.Exists() ) && !wAnyWin.stcIgnored.Exists() )
+							[ ] Log.Message("{chr(34)}{caption}{chr(34)} ---- NOT CONVERGED")
+							[ ] bPass = FALSE
+						[+] else
+							[ ] Log.Message("{chr(34)}{caption}{chr(34)}  ----  Converged")
+							[ ] 
+						[ ] count++
+					[+] else
+						[ ] Print("{chr(34)}{caption}{chr(34)} ---- Ignored")
+					[ ] 
+					[ ] wAnyWin.Close()
+				[ ] 
+				[+] if( count < 2 && checkAll != NULL && checkAll == TRUE)
+					[ ] Log.Warning("Only 1 object was checked")
+				[ ] 
+				[+] if( ignoreList != NULL)
+					[ ] string exceptNote = "except:"
+				[+] else
+					[ ] exceptNote =""
+				[ ] 
+				[+] if( checkAll != NULL && checkAll != False)
+					[ ] Log.Pass("Flowsheet Converged. All UnitOPS checked {exceptNote}")
+				[+] else
+					[ ] Log.Pass("Flowsheet Converged. All UnitOPS and Streams checked {exceptNote}")
+				[+] if( ignoreList != NULL)
+					[ ] listPrint(ignoreList)
+					[ ] Print()
+				[ ] 
+				[+] if wObjectNavigator.Exists()
+					[ ] wObjectNavigator.Restore()
+				[ ] return bPass
+				[ ] 
+			[+] boolean checkCellTextBlue( window cell)
+				[ ] //Select the cell you want to check first. Cell must be highlighted
+				[ ] //Must have at least 15 blue pixels to pass or 1824 total in a 96*19 grid cell.
+				[ ] Agent.SetOption (OPT_BITMAP_PIXEL_TOLERANCE, 1815)
+				[+] do
+					[ ] cell.verifyBitmap("{sAspenHysys_sProjectDir}data\datain\General\block.bmp")
+					[ ] Agent.SetOption (OPT_BITMAP_PIXEL_TOLERANCE, 0)
+					[ ] return true
+				[+] except
+					[ ] exceptClear()
+					[ ] Agent.SetOption (OPT_BITMAP_PIXEL_TOLERANCE, 0)
+					[ ] return False
+				[ ] 
+				[ ] 
+			[+] void runSCPFile(string filePath)
+				[ ] int i = 1
+				[+] while( getField(filePath,"\", i) != "")
+					[ ] i++
+				[ ] string fileName = getField(filePath, "\", i-1)
+				[ ] 
+				[ ] list of string output
+				[ ] SYS_EXECUTE("del c:\*.scp", output)
+				[ ] print()
+				[ ] print("----------------------------------------------REMOVING OLD SCP FILES FROM ROOT (C-DRIVE )--------------------------------------------------------")
+				[ ] print(output)
+				[ ] print()
+				[ ] 
+				[+] if( SYS_FileExists("c:\{fileName}"))
+					[ ] SYS_RemoveFile("c:\{fileName}")
+				[ ] SYS_CopyFile(filePath, "c:\{fileName}")
+				[ ] 
+				[ ] AH.setTab("Customize")
+				[ ] AH.btnScriptManager.Exists(5)
+				[ ] AH.btnScriptManager.Click()
+				[ ] 
+				[ ] wScriptManager.Exists(5)
+				[ ] wScriptManager.SetActive()
+				[ ] sleep(0.5)
+				[ ] wScriptManager.lstDirectories.DoubleClick(1,100,10)
+				[ ] sleep(0.2)
+				[ ] wScriptManager.lstDirectories.DoubleClick(1,100,10)
+				[ ] sleep(0.2)
+				[ ] wScriptManager.lstDirectories.DoubleClick(1,100,10)
+				[ ] sleep(0.5)
+				[ ] wScriptManager.lstDirectories.DoubleClick(1,100,10)
+				[ ] sleep(0.5)
+				[ ] wScriptManager.lstDirectories.DoubleClick(1,100,10)
+				[ ] sleep(1)
+				[ ] wScriptManager.lstScriptFiles.Click(1,100,10)
+				[ ] wScriptManager.btnPlay.Click()
+				[ ] 
+				[ ] i = 0
+				[+] while( !AH.tabiHome.exists(2)&& i <150)
+					[ ] i++
+					[+] if( dlgAspenHysys.Exists() && matchstr( "*Script Syntax Error*",dlgAspenHysys.TextCapture()) )
+						[ ] Log.Error("ERROR:             {dlgAspenHysys.TextCapture()}              ")
+						[ ] CleanState()
+						[ ] exit
+					[ ] 
+				[+] if( !AH.tabiHome.exists() )
+					[ ] Log.Warning("ERROR: Script Failed to Load")
+				[+] else
+					[ ] Log.Pass("Script Loaded")
+				[ ] 
+				[+] if( AH.stsbScriptPlaying.exists(30) )
+					[ ] Log.Pass("Script Started Playing")
+				[ ] 
+				[ ] //Problem with waitForDisappearance method. It is not quitting.
+				[ ] i = 0
+				[+] while( AH.stsbScriptPlaying.exists() && i <150)
+					[ ] sleep(2)
+					[ ] i++
+					[+] if( dlgAspenHysys.Exists() && matchstr( "*Script Syntax Error*",dlgAspenHysys.TextCapture()) )
+						[ ] Log.Error("ERROR:             {dlgAspenHysys.TextCapture()}              ")
+						[ ] CleanState()
+						[ ] exit
+				[ ] Log.Pass("Script Finished Playing")
+				[ ] 
+				[ ] i=0
+				[+] do
+					[+] while( !matchStr("*Finished script*", AH.txtTraceMessage.Text ) && i < 150  )
+						[ ] sleep(2)
+						[ ] i++
+					[+] if( dlgAspenHysys.Exists() && matchstr( "*Script Syntax Error*",dlgAspenHysys.TextCapture()) )
+						[ ] Log.Error("ERROR:             {dlgAspenHysys.TextCapture()}              ")
+						[ ] CleanState()
+						[ ] exit
+						[ ] 
+				[+] except
+					[ ] exceptClear()
+					[+] if( dlgAspenHysys.Exists(2) && matchstr( "*Script Syntax Error*",dlgAspenHysys.TextCapture()) )
+						[ ] Log.Error("ERROR:             {dlgAspenHysys.TextCapture()}              ")
+						[ ] CleanState()
+						[ ] exit
+					[ ] 
+				[ ] 
+				[ ] 
+				[ ] glWaitForMouseIdle(30)
+				[ ] 
+				[ ] SYS_RemoveFile("c:\{fileName}")
+				[ ] 
+				[ ] 
+				[ ] 
+			[+] void loadOptionsPreferences(string fileName)
+				[ ] AH.InvokeOptionsFromFile()
+				[ ] wOptions.Exists(5)
+				[ ] wOptions.btnLoad.Click()
+				[ ] wOpenPreferencesFile.Exists(5)
+				[ ] wOpenPreferencesFile.OpenFile(fileName)
+				[ ] wOptions.btnOK.Click()
+				[ ] 
+			[+] undockTab(string tab)
+				[ ] AH.find("//WPFTabItem[@caption='*{tab}*']").Click(2)
+				[ ] AH.miFloating.exists(5)
+				[ ] AH.miFloating.Click()
+				[ ] sleep(0.5)
+			[+] doubleClickObjectInPFS(string object)
+				[ ] //Only works if flowsheet is a reasonable size and the names are unique
+				[+] if( !this.tabiFlowsheetAny.Exists())
+					[ ] this.SetTab("View")
+					[ ] this.btnFlowSheet.Exists(5)
+					[ ] this.btnFlowSheet.Click()
+					[ ] glWaitForMouseIdle()
+					[ ] 
+				[+] do
+					[ ] AH.areaForMainFlowsheet.textClick(object,1,CT_LEFTDOUBLE)
+				[+] except
+					[ ] exceptClear()
+					[+] do
+						[ ] this.zoomToFit()
+						[ ] AH.areaForMainFlowsheet.textClick(object,1,CT_LEFTDOUBLE)
+					[+] except
+						[ ] exceptClear()
+						[ ] Log.Warning("UNABLE TO FIND OBJECT THROUGH TEXT RECOGNITION")
+						[ ] this.FindAndSelectObjects({object}, NULL, TRUE)
+				[ ] 
+				[ ] 
+			[+] zoomToFit()
+				[ ] AH.SetTab("View")
+				[ ] AH.btnZoomToFIt.Exists(5)
+				[ ] AH.btnZoomToFIt.Click()
+				[ ] sleep(0.25)
+			[+] string  addFluidPackage(string packageSelection, string packageType optional, string modelSelection optional, string componentsListSelection optional)
+				[ ] //Adds a new fluid package to HYSYS
+				[ ] //return the name of that fluid package
+				[ ] //packageSelection --> HYSYS, Aspen Properties, COMTHermo
+				[ ] //Model Selection---> Generic COMThermo, Amine, etc...
+				[ ] //Compoent List Selection ---> Something like "Basis-1"
+				[ ] //
+				[ ] //PLEASE IMPROVE AND  ADD OPTIONS AS YOU SEE FIT
+				[ ] //
+				[ ] 
+				[+] if( packageType == NULL)
+					[ ] packageType = "HYSYS"
+				[ ] 
+				[+] if( AH.GetMode() != "Properties")
+					[ ] AH.SetMode("Properties")
+				[ ] AH.trvPartTree.Select("Fluid Packages")
+				[ ] AH.tpgFluidPackages.btnAdd.Exists(5)
+				[ ] Clipboard.setText()
+				[ ] AH.dg1.SelectAll()
+				[ ] AH.dg1.TypeKeys("<ctrl-c>")
+				[ ] 
+				[ ] list of string packageNamesInitial = Clipboard.GetText()
+				[ ] 
+				[+] switch( upper(packageType))
+					[+] case "HYSYS"
+						[ ] AH.tpgFluidPackages.btnAdd.Click()
+						[ ] 
+					[+] case "ASPEN PROPERTIES"
+						[ ] AH.tpgFluidPackages.cboAdd.Select("Aspen Properties")
+						[ ] 
+					[+] case "COMTHERMO"
+						[ ] AH.tpgFluidPackages.cboAdd.Select("ComThermo")
+						[+] if( modelSelection != NULL)
+							[ ] AH.tpgFluidPackageChild.Exists(30)
+							[ ] AH.tpgFluidPackageChild.cboPropertyPackageSelection.Select(modelSelection)
+							[ ] glWaitForMouseIdle()
+					[+] default
+						[ ] Log.Error("Fluid Package Type {packageType} is not recognized")
+				[ ] 
+				[ ] AH.tpgFluidPackageChild.cboComponentListSelection.Exists(30)
+				[ ] AH.tpgFluidPackageChild.lstPropertyPackageSelection.Select(packageSelection)
+				[ ] glWaitForMouseIdle(30,3)
+				[ ] AH.trvPartTree.Select("Fluid packages")
+				[ ] AH.tpgFluidPackages.btnEdit.Exists(5)
+				[ ] Clipboard.setText()
+				[ ] AH.dg1.SelectAll()
+				[ ] AH.dg1.TypeKeys("<ctrl-c>")
+				[ ] 
+				[ ] list of string packageNamesFinal = Clipboard.GetText()
+				[ ] 
+				[ ] sleep(0.25)
+				[+] if( listCount(packageNamesInitial) == listCount(packageNamesFinal) && len(packageNamesInitial[1]) > 10)
+					[ ] Log.Error("ERROR: Fluid Package was not added sucessfully")
+				[+] else
+					[ ] Log.Pass("New Fluid Package {getField(packageNamesFinal[listCount(packageNamesFinal)], chr(9), 1)} ----------  Package Type: {packageType}  ----------- Package Selection: {packageSelection}")
+				[ ] 
+				[ ] AH.trvPartTree.TextClick("Component Lists", 1, CT_LEFTDOUBLE)
+				[ ] return getField(packageNamesFinal[listCount(packageNamesFinal)], chr(9), 1)
+				[ ] 
+			[+] boolean registerExtension(string extension, boolean restart optional)
+				[+] if( !AH.Exists())
+					[ ] AH.Launch()
+				[ ] AH.SetTab("Customize")
+				[ ] AH.btnRegisterExtension.Exists(5)
+				[ ] AH.btnRegisterExtension.Click()
+				[ ] wRegisterExtensions.Exists(5)
+				[ ] wRegisterExtensions.btnRegisterAnExtension.Click()
+				[ ] wSelectAnExtensionToBeRegistered.Exists(5)
+				[ ] wSelectAnExtensionToBeRegistered.OpenFile(extension)
+				[+] if( !wHysysExtensionManager.Exists(5))
+					[ ] Log.Error("ERROR: HYSYS Extension Manager failed to appear. HYSYS may not have been started with Administrative Priveleges")
+					[ ] return false
+				[ ] string info = wHysysExtensionManager.txtInfo.TextCapture()
+				[ ] string extensionName = substr(extension, strPos("\",extension, TRUE)+1 )
+				[ ] int i = 0
+				[ ] boolean status = false
+				[+] while( i < 20 )
+					[+] if( matchstr("*Successfully registered*", info))
+						[ ] Log.Pass("Extension {extensionName} Sucessfully Registered")
+						[ ] status = true
+						[ ] break
+					[+] if( matchstr("*Registration of*failed*", info))
+						[ ] Log.Error("ERROR: Registration of {chr(34)}{extensionName}{chr(34)} failed")
+						[ ] break
+					[+] if( matchstr("*error*", info))
+						[ ] Log.Error("ERROR Encountered during registration of {chr(34)}{extensionName}{chr(34)}")
+						[ ] break
+					[ ] sleep(0.5)
+					[ ] i++
+					[ ]  info = wHysysExtensionManager.txtInfo.TextCapture()
+				[ ] 
+				[+] if( i ==20)
+					[ ] Log.Error("Registration Status could not be determined, Please examine this function")
+				[ ] 
+				[ ] Print()
+				[ ] Print("-----------------------------REGISTRATION READ-OUT-----------------------------------------")
+				[ ] Print()
+				[ ] print(info)
+				[ ] Print()
+				[ ] Print("--------------------------------------------------------------------------------------------------------------")
+				[ ] Print()
+				[ ] 
+				[+] if(wHysysExtensionManager.Exists())
+					[ ] wHysysExtensionManager.btnOK.Click()
+					[ ] sleep(0.2)
+				[ ] wRegisterExtensions.Close()
+				[ ] sleep(0.2)
+				[ ] 
+				[+] if( restart != NULL && restart == TRUE)
+					[ ] AH.Exit()
+					[ ] AH.Launch()
+				[ ] return status
+			[+] AddNewPropertyForAssayDetail(string sProperty, string sTab optional, string sTabControl optional,string sMethod optional)
+				[ ] // Add new property for assay detail
+				[ ] //   Arguments
+				[ ] //   1.  sProperty - Property name
+				[ ] //   Usage:  AddNewPropertyForAssayDetail("C5Mass")
+				[ ] // Stella: Default group is all, so insert the correct property name is ok.If the selected property has already shown in the table, there will be a warning message.
+				[ ] this.SetActive()
+				[+] if(sTab==null)
+					[ ] this.ActiveTab("Results Summary")
+				[+] else
+					[ ] this.ActiveTab(sTab)
+				[ ] this.ActiveTab("Details")
+				[ ] this.dg1.Click()
+				[ ] sleep(1)
+				[ ] Desktop.TypeKeys("<Ctrl-End>")
+				[ ] sleep(2)
+				[ ] Desktop.TypeKeys("<Home>")
+				[ ] sleep(2)
+				[ ] RECT rect=AH.dg1.GetRect()
+				[ ] int xPosition=rect.xPos-10
+				[ ] int yPosition=rect.ySize-1
+				[+] if(sTabControl==null)
+					[ ] this.Find("//WPFTabControl[@automationId='tiAssayNode']").DoubleClick(1,xPosition,yPosition)
+				[+] else
+					[ ] this.Find("//WPFTabControl[@automationId='{sTabControl}']").DoubleClick(1,xPosition,yPosition)
+				[ ] this.Find("//WPFTabControl[@automationId='tiAssayNode']").DoubleClick(1,xPosition,yPosition)
+				[ ] sleep(1)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").TypeKeys("<ctrl-a><Delete>")
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").SetText(sProperty)
+				[ ] sleep(1)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").TypeKeys("<Enter>")
+				[ ] sleep(1)
+				[+] if(sMethod!=null)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").TypeKeys("<ctrl-a><Delete>")
+					[ ] sleep(1)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").SetText(sMethod)
+					[ ] sleep(1)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").TypeKeys("<Enter>")
+					[ ] sleep(1)
+				[ ] this.Find("//WPFButton[@automationId='ApplyButton']").Click()
+				[ ] sleep(2)
+				[+] if(dlgAspenAssayManagement.Exists(2))
+					[ ] String StrMessage =dlgAspenAssayManagement.TextCapture()
+					[ ] Log.Warning("The popup window shows that '{StrMessage}'")
+					[ ] dlgAspenAssayManagement.SetActive()
+					[ ] dlgAspenAssayManagement.btnOK.Click()
+				[+] else
+					[ ] this.dg1.Click()
+					[ ] Desktop.TypeKeys("<Ctrl-End>")
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Up>")
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Home>")
+					[ ] Clipboard.SetText()
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Ctrl-c>")
+					[ ] sleep(1)
+					[ ] lstString=Clipboard.GetText()
+					[ ] print(lstString)
+					[+] if(glFindStringInList(sProperty,lstString))
+						[ ] Log.Message("Add New Property {sProperty} Success.")
+					[+] else
+						[ ] Log.Warning("Add New Property {sProperty} UnSuccess")
+						[ ] 
+			[+] string GetInitialTempInAssay(int iIndex)
+				[+] //Description
+					[ ] // This is only for the Input Assay datagrid which is under Petroleum Assays
+					[ ] // iIndex is the column number of the cell
+					[ ] //  Usage:
+					[ ] //  - AH.GetInitialTempInAssay ( 3, datagrid)
+					[ ] //Created by Eric Lu on November 18, 2013
+				[+] do
+					[ ] Clipboard.SetText()
+					[ ] this.Find("//WPFDataGridColumnHeader[{iIndex+1}]").BringIntoView()
+					[ ] this.Find("//WPFDataGridColumnHeader[{iIndex+1}]//WPFControl[@automationId='LT']").Click()
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Ctrl-c>")
+					[ ] string str=Clipboard.GetText()[1]
+					[+] if(str=="")
+						[ ] str=this.Find("//WPFDataGridColumnHeader[{iIndex+1}]//WPFControl[@automationId='LT']").TextCapture()
+					[ ] return str
+				[+] except
+					[ ] ExceptLog()
+					[ ] ExceptClear()
+					[ ] return "There is error"
+				[ ] 
+			[+] string GetFinalTempInAssay(int iIndex)
+				[+] //Description
+					[ ] // This is only for the Input Assay datagrid which is under Petroleum Assays
+					[ ] // iIndex is the column number of the cell
+					[ ] //  Usage:
+					[ ] //  - AH.GetFinalTempInAssay ( 3, datagrid)
+					[ ] //Created by Eric Lu on November 18, 2013
+				[+] do
+					[ ] Clipboard.SetText()
+					[ ] this.Find("//WPFDataGridColumnHeader[{iIndex+1}]").BringIntoView()
+					[ ] this.Find("//WPFDataGridColumnHeader[{iIndex+1}]//WPFControl[@automationId='UT']").Click()
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Ctrl-c 5>")
+					[ ] sleep(0.5)
+					[ ] string str=Clipboard.GetText()[1]
+					[+] if(str=="")
+						[ ] str=this.Find("//WPFDataGridColumnHeader[{iIndex+1}]//WPFControl[@automationId='UT']").TextCapture()
+					[ ] return str
+				[+] except
+					[ ] ExceptLog()
+					[ ] ExceptClear()
+					[ ] return "There is error"
+				[ ] 
+			[+] boolean AddEquipment(string sUnitOps)
+				[ ] AH.SetActive()
+				[ ] sleep(1)
+				[+] if !AH.areaForMainFlowsheet.Exists(1)
+					[ ] AH.SetTab("View")
+					[ ] AH.btnFlowSheet.Exists(10)
+					[ ] sleep(0.8)
+					[ ] AH.btnFlowSheet.Click()
+					[ ] AH.areaForMainFlowsheet.Exists(30)
+					[ ] sleep(1)
+				[ ] AH.areaForMainFlowsheet.SetFocus()
+				[ ] sleep(1)
+				[ ] AH.areaForMainFlowsheet.TypeKeys("<F12>")
+				[ ] glInitializeWin(wUnitOps)
+				[ ] sleep(0.8)
+				[ ] wUnitOps.lstAvailableUnitOperations.TypeKeys(sUnitOps)
+				[+] if !MatchStr("{sUnitOps}",wUnitOps.lstAvailableUnitOperations.SelectedItem.TextCapture())
+					[ ] Log.Fail("Fail to find the specified unit operation {sUnitOps}")
+					[ ] print(wUnitOps.lstAvailableUnitOperations.SelectedItem.TextCapture())
+					[ ] Log.Fail("Fail to input {sUnitOps}")
+					[ ] return false
+				[+] else
+					[ ] wUnitOps.btnAdd.Click()
+					[ ] return true
+				[ ] 
+			[ ] 
+			[ ] 
+			[+] AddNewPropertyForAssayDetail2(string sProperty, string sTabControl optional,string sMethod optional)
+				[ ] // Add new property for assay detail
+				[ ] //   Arguments
+				[ ] //   1.  sProperty - Property name
+				[ ] //   Usage:  AddNewPropertyForAssayDetail("C5Mass")
+				[ ] // Stella: Default group is all, so insert the correct property name is ok.If the selected property has already shown in the table, there will be a warning message.
+				[ ] this.SetActive()
+				[ ] this.ActiveTab("Results Summary")
+				[ ] this.dg1.Click()
+				[ ] sleep(1)
+				[ ] Desktop.TypeKeys("<Ctrl-End>")
+				[ ] sleep(2)
+				[ ] Desktop.TypeKeys("<Home>")
+				[ ] sleep(2)
+				[ ] RECT rect=AH.dg1.GetRect()
+				[ ] int xPosition=rect.xPos+10
+				[ ] int yPosition=rect.ySize-1
+				[+] if(sTabControl==null)
+					[ ] this.Find("//WPFTabControl[@automationId='tiAssayNode']").DoubleClick(1,xPosition,yPosition)
+				[+] else
+					[ ] this.Find("//WPFTabControl[@automationId='{sTabControl}']").DoubleClick(1,xPosition,yPosition)
+				[ ] sleep(1)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").TypeKeys("<ctrl-a><Delete>")
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").SetText(sProperty)
+				[ ] sleep(1)
+				[ ] this.Find("//WPFTextBox[@automationId='TextBoxPresenter'][2]").TypeKeys("<Enter>")
+				[ ] sleep(1)
+				[+] if(sMethod!=null)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").TypeKeys("<ctrl-a><Delete>")
+					[ ] sleep(1)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").SetText(sMethod)
+					[ ] sleep(1)
+					[ ] this.Find("//WPFControl[@automationId='MethodComboBox']/WPFTextBox[@automationId='TextBoxPresenter']").TypeKeys("<Enter>")
+					[ ] sleep(1)
+				[ ] this.Find("//WPFButton[@automationId='ApplyButton']").Click()
+				[ ] sleep(2)
+				[+] if(dlgAspenAssayManagement.Exists(2))
+					[ ] String StrMessage =dlgAspenAssayManagement.TextCapture()
+					[ ] Log.Warning("The popup window shows that '{StrMessage}'")
+					[ ] dlgAspenAssayManagement.SetActive()
+					[ ] dlgAspenAssayManagement.btnOK.Click()
+				[+] else
+					[ ] this.dg1.Click()
+					[ ] Desktop.TypeKeys("<Ctrl-End>")
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Up>")
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Home>")
+					[ ] Clipboard.SetText()
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("<Ctrl-c>")
+					[ ] lstString=Clipboard.GetText()
+					[+] if(glFindStringInList(sProperty,lstString))
+						[ ] Log.Message("Add New Property {sProperty} Success.")
+					[+] else
+						[ ] Log.Warning("Add New Property {sProperty} UnSuccess")
+			[ ] 
+			[ ] 
+			[ ] 
+		[+] //---------------------------------------Objects for EE -----------------------------------------------------
+			[+] StaticText stcEERun
+				[ ] locator "//StaticText[@caption='Evaluate Project - Capital Cost / Schedule']"
+			[+] WPFButtonBase btnSetupEA
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisSetupButton']"
+			[+] WPFButtonBase btnAnalyzeEA
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisAnalyzeButton']"
+			[+] WPFButtonBase btnSavingsPotential
+				[ ] locator "//WPFButtonBase[@caption='Saving']"
+			[+] WPFButtonBase btnAddScenario
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisAddScenarioButton']"
+			[+] WPFButtonBase btnRemoveScenario
+				[ ] locator "//WPFButtonBase[@caption='Remove']"
+			[+] WPFButtonBase btnCompareScenario
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisCompareScenariosButton']"
+			[+] WPFButtonBase btnModifyExchanger
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisModifyHXButton']"
+			[+] WPFButtonBase btnRelocateExchanger
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisRelocateHXButton']"
+			[+] WPFButtonBase btnAddExchanger
+				[ ] locator "//WPFButtonBase[@automationId='EnergyAnalysisAddHXButton']"
+			[+] WPFControl dgSummaryEA
+				[ ] locator "//WPFControl[@automationId='xdgSummary']"
+			[+] WPFButton btnUpdate
+				[ ] locator "//WPFButton[@caption='Update']"
+			[+] WPFMenuItem miShowAllHeatExchangers
+				[ ] locator "//WPFMenuItem[@caption='Show all heat exchangers']"
+			[+] WPFTextBox txbMimimumLMTDCorrectionFactor
+				[ ] locator "//WPFTextBox[@className='MMTextBox'][1]"
+			[+] WPFToggleButton btnProgressBar
+				[ ] locator "//WPFToggleButton[@caption='Progress']"
+			[+] WPFControl dgUtilities
+				[ ] locator "//WPFControl[@automationId='xdg']"
+				[ ] 
+			[ ] 
+			[ ] 
+		[+] //---------------------------------------Activated Analysis Dashboard---------------------------------
+			[+] WPFContentControl grpDashboard
+				[ ] locator "//WPFContentControl[@className='DashboardScreen']"
+				[+] WPFButton btnClose
+					[ ] locator "//WPFButton[@automationId='closeBtn'][1]"
+				[+] WPFButton btnEnergyAnalysis
+					[ ] locator "//WPFControl[@className='EnergyAnalysisDashboardItem']"
+				[+] WPFButton btnEconomicAnalysis
+					[ ] locator "//WPFControl[@className='EconomicsAnalysisDashboardItem']"
+				[+] WPFButton	btnOpenSlider
+					[ ] locator "//WPFButton[@automationId='btnOpenSliderHor']"
+			[+] WPFUserControl	grpslider
+				[ ] locator "//WPFUserControl[@automationId='slider']"
+				[+] WPFButton	btnGenerate
+					[ ] locator "//WPFButton[@caption='Generate']"
+				[+] WPFDataGrid	dgSolutions
+					[ ] locator "//WPFDataGrid[@automationId='DataGrid_1']"
+				[ ] 
+			[+] WPFContentControl grpEnergy
+				[ ] locator "//WPFContentControl[@className='DashboardScreen']//WPFContentControl[@name='dashboardContent' ][1]"
+				[+] close()
+					[ ] this.Click(1,290,5) //Button Not Recognizeable
+				[+] minimize()
+					[ ] this.Click(1,275,5) // Button Not Recognizable
+				[+] expand()
+					[ ] this.Click(1,5,5) // Button Not Recognizable
+				[+] boolean isCostMode()
+					[ ] print( this.txtGHGCost.Text )
+					[+] if( this.find("//WPFTextBlock[10]").text == "GHG Cost")
+						[ ] return TRUE
+					[+] else
+						[ ] return FALSE
+					[ ] 
+				[ ] //When in Cost View
+				[+] WPFTextBlock txtUtilityCost
+					[ ] locator "//WPFTextBlock[1]"
+				[+] WPFTextBlock txtUtilityCostTarget
+					[ ] locator "//WPFTextBlock[2]"
+				[+] WPFTextBlock txtUtilityCostUnit
+					[ ] locator "//WPFTextBlock[3]"
+				[+] WPFTextBlock txtUtilityCostPercent
+					[ ] locator "//WPFTextBlock[4]"
+				[+] WPFTextBlock txtGHGCost
+					[ ] locator "//WPFTextBlock[5]"
+				[+] WPFTextBlock txtGHGCostTarget
+					[ ] locator "//WPFTextBlock[6]"
+				[+] WPFTextBlock txtGHGCostUnit
+					[ ] locator "//WPFTextBlock[7]"
+				[+] WPFTextBlock txtGHGUtilityCostPercent
+					[ ] locator "//WPFTextBlock[8]"
+				[+] WPFToggleButton btnArrow
+					[ ] locator "//WPFToggleButton[@automationId='arrow']"
+				[ ] //When in Emissions View
+				[+] WPFTextBlock txtHeatingPower
+					[ ] locator "//WPFTextBlock[1]"
+				[+] WPFTextBlock txtHeatingPowerTarget
+					[ ] locator "//WPFTextBlock[2]"
+				[+] WPFTextBlock txtHeatingPowerUnit
+					[ ] locator "//WPFTextBlock[3]"
+				[+] WPFTextBlock txtCoolingPower
+					[ ] locator "//WPFTextBlock[4]"
+				[+] WPFTextBlock txtCoolingPowerTarget
+					[ ] locator "//WPFTextBlock[5]"
+				[+] WPFTextBlock txtCoolingPowerUnit
+					[ ] locator "//WPFTextBlock[6]"
+				[+] WPFTextBlock txtGHGPower
+					[ ] locator "//WPFTextBlock[7]"
+				[+] WPFTextBlock txtGHGPowerTarget
+					[ ] locator "//WPFTextBlock[8]"
+				[+] WPFTextBlock txtGHGPowerUnit
+					[ ] locator "//WPFTextBlock[9]"
+				[+] WPFImage btnSwitchToEmissions
+					[ ] locator "//WPFImage[1]"
+				[+] WPFImage btnEditOptions
+					[ ] locator "//WPFImage[2]"
+				[+] WPFImage btnViewUtilityDetails
+					[ ] locator "//WPFImage[3]"
+				[ ] 
+				[ ] 
+			[+] WPFContentControl grpEconomics
+				[ ] locator "//WPFContentControl[@className='DashboardScreen']//WPFContentControl[@name='dashboardContent' ][2]"
+				[+] close()
+					[ ] this.Click(1,190,7) //Button Not Recognizeable
+				[+] minimize()
+					[ ] this.Click(1,172,7) // Button Not Recognizable
+				[+] expand()
+					[ ] this.Click(1,5,7) // Button Not Recognizable
+				[+] WPFButton btnCapitalViewSheet
+					[ ] locator "//WPFButton[1]"
+					[+] ClickButton()
+						[ ] this.Click(1,73,15)
+				[+] WPFButton btnUtilityViewSheet
+					[ ] locator "//WPFButton[2]"
+					[+] ClickButton()
+						[ ] this.Click(1,73,15)
+					[ ] 
+				[+] WPFTextBlock txbCapitalCost
+					[ ] locator "//WPFTextBlock[1]"
+				[+] WPFTextBlock txbCapitalCostUnit
+					[ ] locator "//WPFTextBlock[2]"
+				[+] WPFTextBlock txbUtilityCost
+					[ ] locator "//WPFTextBlock[3]"
+				[+] WPFTextBlock txvUtilityCostUnit
+					[ ] locator "//WPFTextBlock[4]"
+				[+] WPFControl stsbWaiting
+					[ ] locator "//WPFControl[@className='WaitingBoard']"
+				[ ] 
+				[ ] 
+			[+] WPFControl grpPotentialDesignChanges
+				[ ] locator "//WPFControl[@className='EnergySlider']"
+				[+] WPFButton btnGenerate
+					[ ] locator "/WPFButton[@automationId='generateBtn']"
+				[+] WPFButton btnStop
+					[ ] locator "//WPFButton[@automationId='stopBtn']"
+				[+] WPFToggleButton btnExpandGrid
+					[ ] locator "//WPFToggleButton[@automationId='gridToggleButton']"
+				[+] WPFProgressBar pbProgressBar
+					[ ] locator "//WPFProgressBar[@automationId='progressBar']"
+				[+] WPFDataGrid dgDesignChanges
+					[ ] locator "//WPFDataGrid[@automationId='dataGrid']"
+			[ ] 
+		[+] //---------------------------------------Objects in Start Page-------------------------------------------
+			[+] WPFButton btnNew
+				[ ] locator "//WPFButton[@automationId='newBtn']"
+			[+] WPFTextBlock tblkNew
+				[ ] locator "//WPFTextBlock[@caption='New...']"
+			[+] WPFTextBlock tblkExchange
+				[ ] locator "//WPFTextBlock[@caption='aspenONE Exchange'][1]"
+			[ ] 
+			[+] WPFTabItem tabiSearch
+				[ ] locator "//WPFTabItem[@caption='Search Search']"
+			[+] WPFButton btnCloseTab2
+				[ ] locator "//WPFButton[@automationId='closeBtn'][3]"
+			[+] WPFButton btnCloseTab
+				[ ] locator "//WPFButton[@automationId='closeBtn'][2]"
+			[ ] 
+			[ ] 
+			[+] WPFTabItem tabiLinkedIn
+				[ ] locator "//WPFTabItem[@caption='Hysys Users | LinkedIn Hysys Users | LinkedIn']"
+			[+] WPFTabItem tabiSupport
+				[ ] locator "//WPFTabItem[@caption='AspenTech Support AspenTech Support']"
+			[+] WPFTabItem tabiHomePage
+				[ ] locator "//WPFTabItem[@caption='AspenTech Support AspenTech Support']"
+			[ ] 
+			[+] wcHysysTabBase tpgExchange
+				[+] WPFTextBox txbSearchExchange
+					[ ] locator "//WPFUserControl[@automationId='searchControl1']/WPFUserControl[@automationId='SearchBox']/WPFTextBox[@automationId='searchBox']"
+				[+] WPFButton btnSearch
+					[ ] locator "//WPFUserControl[@automationId='searchControl1']/WPFButton[@automationId='SearchButton']"
+			[ ] 
+			[ ] //Start Menu Items
+			[+] WPFButton btnOpen
+				[ ] locator "//WPFButton[@automationId='openBtn']"
+			[+] WPFListBox lstRecentModels
+				[ ] locator "//WPFListBox[@automationId='recentList']"
+			[ ] 
+			[ ] 
+		[+] //---------------------------------------Objects in Properties Environment-------------------------------
+			[ ] //Objects in Component Lists
+			[+] WPFComboBox cboSelect
+				[ ] locator "//WPFComboBox[@automationId='enumComponents']"
+				[+] WPFComboBoxItem cbiHypothetical
+					[ ] locator "//WPFComboBoxItem[@caption='Hypothetical']"
+			[+] WPFComboBox cboMethod
+				[ ] locator "//WPFComboBox[@automationId='HypoMethodEnum']"
+				[+] WPFComboBoxItem cbiCreateEditHypos
+					[ ] locator "//WPFComboBoxItem[@caption='Create and Edit Hypos']"
+			[+] WPFComboBox cboHypoGroup
+				[ ] locator "//WPFComboBox[@automationId='HypoGroups']"
+				[+] WPFComboBoxItem cbiHypoGroup1
+					[ ] locator "//WPFComboBoxItem[@caption='HypoGroup1']"
+				[+] WPFComboBoxItem cbiHypoGroup3
+					[ ] locator "//WPFComboBoxItem[@caption='HypoGroup3']"
+				[+] WPFComboBoxItem cbiHypoGroup4Duplicates
+					[ ] locator "//WPFComboBoxItem[@caption='HypoGroup4 Duplicates']"
+			[ ] 
+			[+] WPFButton btnNewHypo
+				[ ] locator "//WPFButton[@automationId='AddNewHypo']"
+			[+] WPFButton btnNewHypoGroup
+				[ ] locator "//WPFButton[@automationId='AddNewHypoGroupButton']"
+			[+] WPFButton btnEstimateUnknown
+				[ ] locator "//WPFButton[@automationId='EstimateButton']"
+			[+] WPFButton btnDeleteHypos
+				[ ] locator "//WPFButton[@automationId='DeleteHypoButton']"
+			[+] WPFButtonBase btnAddPure
+				[ ] locator "//WPFButton[@automationId='AddPureB']"
+			[+] WPFButtonBase btnAddComponentList
+				[ ] locator "//WPFButton[@caption='Add']"
+			[+] WPFButton btnRemoveComponent
+				[ ] locator "//WPFButton[@automationId='RemoveB']"
+			[+] WPFButton btnCopyComponent
+				[ ] locator "//WPFButton[@automationId='CopyCL']"
+			[+] WPFButton btnNewSolid
+				[ ] locator "//WPFButton[@automationId='AddNewSolid']"
+			[ ] 
+			[ ] 
+			[+] WPFTextBlock tblkListName
+				[ ] locator "//WPFTextBlock[@caption='List Name']"
+			[ ] 
+			[+] WPFTabItem tabiComponentList
+				[ ] locator "//WPFTabItem[@caption='Component Lists Component Lists']"
+			[+] WPFTabItem tabiReactions
+				[+] WPFComboBox cboAddReactions
+					[ ] locator "//WPFComboBox"
+				[+] wcHysysDataGridSimple dgStoichiometry
+					[ ] locator "//WPFContentControl[@automationId='Components']//WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgBasis
+					[ ] locator "//WPFContentControl[@automationId='MatrixWidget3']/WPFDataGrid[@className='OdfDataGrid']"
+			[+] WPFTabItem tabiComponentList1
+				[ ] locator "//WPFTabItem[@caption='Component List - 1 Component List - 1']"
+			[+] WPFTabItem	tabiExchange
+				[ ] locator "//WPFTabItem[@caption='Exchange Exchange']"
+			[+] WPFTabItem	tabiNews
+				[ ] locator "//WPFTabItem[@caption='News News']"
+			[ ] 
+			[ ] 
+			[+] WPFDataGrid dgNewHypotheticals
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] WPFDataGridCell dgcFirstCell
+					[ ] locator "//WPFDataGridCell[@caption='A1*']"
+			[+] WPFDataGrid dgAvailableComponents
+				[ ] locator "//WPFContentControl[@automationId='mtxAvailCompsList']/WPFDataGrid[@className='OdfDataGrid']"
+			[+] WPFDataGrid dgCurrentComponents
+				[ ] locator "//WPFContentControl[@automationId='mtrxCurrentAtt']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] 
+			[+] WPFDataGridCell dgcMethane
+				[ ] locator "//WPFDataGridCell[@caption='Methane']"
+			[+] WPFDataGridCell dgcEthane
+				[ ] locator "//WPFDataGridCell[@caption='Ethane']"
+			[+] WPFDataGridCell dgcPropane
+				[ ] locator "//WPFDataGridCell[@caption='Propane']"
+			[+] WPFDataGridCell dgciButane
+				[ ] locator "//WPFDataGridCell[@caption='i-Butane']"
+			[+] WPFDataGridCell dgcnButane
+				[ ] locator "//WPFDataGridCell[@caption='n-Butane']"
+			[+] WPFDataGridCell dgcH2O
+				[ ] locator "//WPFDataGridCell[@caption='H2O']"
+			[ ] 
+			[+] WPFListBox lstStatus
+				[ ] locator "//WPFListBox[@automationId='listStatus']"
+				[+] WPFListBoxItem lbiFluidPackagesStatus
+					[ ] locator "/WPFListBoxItem[@caption='Required Info  : Fluid Packages -- Select property package']"
+				[+] WPFListBoxItem lbiComponentListsStatus
+					[ ] locator "/WPFListBoxItem[@caption='Required Info  : Components -- Empty component list']"
+			[ ] 
+			[+] WPFTextBox tbxSearchForComponent
+				[ ] locator "//WPFTextBox[@automationId='NameText']"
+			[ ] 
+			[ ] //Objects in Fluid Packages
+			[+] WPFComboBox cboAdd
+				[ ] locator "//WPFComboBox"
+				[+] WPFComboBoxItem cbiHysys
+					[ ] locator "//WPFComboBoxItem[@caption='HYSYS']"
+				[+] WPFComboBoxItem cbiAspenProperties
+					[ ] locator "//WPFComboBoxItem[@caption='Aspen Properties']"
+				[+] WPFComboBoxItem cbiCOMThermo
+					[ ] locator "//WPFComboBoxItem[@caption='COMThermo']"
+				[ ] 
+			[+] WPFListBox lbPropertyPackageSelection
+				[ ] locator "//WPFListBox[@automationId='EnumerationList1' or @automationId='APropPropertyMethodEnum']"
+				[+] WPFListBoxItem lbiNone
+					[ ] locator "/WPFListBoxItem[@caption='<none>']"
+				[+] WPFListBoxItem lbiPengRobinson
+					[ ] locator "/WPFListBoxItem[@caption='Peng-Robinson']"
+			[+] WPFButton btnViewComponentList
+				[ ] locator "//WPFButton[@automationId='ViewCLButton']"
+			[+] WPFButton btnDeleteBasis
+				[ ] locator "//WPFButton[@automationId='DeleteBasisButton']"
+			[ ] 
+			[ ] //objects in Phase Handling tab of Fluid Packages
+			[+] AnyWin tpgPhaseHandling
+				[+] WPFComboBox cboValidPhases
+					[ ] locator "//WPFComboBox[@automationId='eValidPhases']"
+				[+] WPFComboBox cboFlashConvergenceAlgorithm
+					[ ] locator "//WPFComboBox[@automationId='eFlashConvAlgorithm']"
+				[+] WPFTextBox		txtMaximumNumberIterations
+					[ ] locator "//WPFTextBox[@automationId='MaxNumIterations']"
+			[+] AnyWin tpgDiagnostics
+				[+] WPFButton btnViewHistoryFile
+					[ ] locator "//WPFButton[@automationId='btnViewHistory']"
+			[ ] 
+			[ ] 
+			[ ] //Objects in Oil
+			[+] WPFButtonBase btnConvertToRefiningAssay
+				[ ] locator "//WPFButtonBase[@caption='Convert to Refining Assay']"
+			[ ] //Objects in Oil Manager
+			[+] WPFButton btnAddAssay
+				[ ] locator "//WPFButton[@automationId='AddAssayButton']"
+			[+] WPFButton btnEditAssay
+				[ ] locator "//WPFButton[@automationId='ModalAssayInputButton']"
+			[+] WPFButton btnCalculate
+				[ ] locator "//WPFButton[@automationId='ExecuteButton']"
+			[+] WPFButton btnAddBlend
+				[ ] locator "//WPFButton[@automationId='AddBlendButton']"
+			[ ] 
+			[+] WPFDataGridCell dgcReady
+				[ ] locator "//WPFDataGridCell[@caption='Ready']"
+			[+] WPFDataGridCell dgcAssay1
+				[ ] locator "//WPFDataGridCell[@caption='Assay-1']"
+			[+] WPFDataGridCell dgcBlend1
+				[ ] locator "//WPFDataGridCell[@caption='Blend-1']"
+			[ ] 
+			[+] WPFContentControl BulkMatrix
+				[ ] locator "//WPFContentControl[@automationId='BulkMatrix']"
+				[+] wcHysysDataGridSimple dgBulkProps
+					[ ] locator "/WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFDataGridCell dgcMolecularWeight
+						[ ] locator "//WPFDataGridCell[@caption='Molecular Weight']"
+					[+] WPFDataGridCell dgcStandardDensity
+						[ ] locator "//WPFDataGridCell[@caption='Standard Density']"
+					[+] WPFDataGridCell dgcWatsonUOPK
+						[ ] locator "//WPFDataGridCell[@caption='Watson UOPK']"
+					[+] WPFDataGridCell dgcViscosityType
+						[ ] locator "//WPFDataGridCell[@caption='Viscosity Type']"
+					[+] WPFDataGridCell dgcViscosity1Temp
+						[ ] locator "//WPFDataGridCell[@caption='Viscosity 1 Temp']"
+					[+] WPFDataGridCell dgcViscosity1
+						[ ] locator "//WPFDataGridCell[@caption='Viscosity 1']"
+					[+] WPFDataGridCell dgcViscosity2Temp
+						[ ] locator "//WPFDataGridCell[@caption='Viscosity 2 Temp']"
+					[+] WPFDataGridCell dgcViscosity2
+						[ ] locator "//WPFDataGridCell[@caption='Viscosity 2']"
+			[ ] 
+			[+] WPFListBox lbAssayStatus
+				[ ] locator "//WPFListBox[@automationId='listStatus']"
+				[+] WPFListBoxItem lbiAssays
+					[ ] locator "/WPFListBoxItem[@caption='Warning  : Assays -- Assay Was Not Calculated']"
+				[+] WPFListBoxItem lbiAssays1
+					[ ] locator "/WPFListBoxItem[@caption='Warning  : Assay-1 -- Assay Was Not Calculated']"
+			[+] WPFListBox lbBlendStatus
+				[ ] locator "//WPFListBox[@automationId='listStatus']"
+				[+] WPFListBoxItem lbiBlends
+					[ ] locator "/WPFListBoxItem[@caption='Warning  : Blends -- Blend Was Not Calculated']"
+				[+] WPFListBoxItem lbiBlend1
+					[ ] locator "/WPFListBoxItem[@caption='Warning  : Blend-1 -- Blend Was Not Calculated']"
+			[ ] 
+			[+] WPFComboBox cboBulkProperties
+				[ ] locator "//WPFComboBox[@automationId='BulkPropsEnum']"
+				[+] WPFComboBoxItem cbiUsed
+					[ ] locator "/WPFComboBoxItem[@caption='Used']"
+			[+] WPFComboBox cboAssayDataType
+				[ ] locator "//WPFComboBox[@automationId='DataTypeEnumeration']"
+				[+] WPFComboBoxItem cbiTBP
+					[ ] locator "/WPFComboBoxItem[@caption='TBP']"
+			[+] WPFComboBox cboLightEnds
+				[ ] locator "//WPFComboBox[@automationId='LightEndsEnum']"
+				[+] WPFComboBoxItem cbiInputComposition
+					[ ] locator "/WPFComboBoxItem[@caption='Input Composition']"
+			[+] WPFComboBox cboLightEndsBasis
+				[ ] locator "//WPFComboBox[@automationId='CompBasisEnumeration']"
+				[+] WPFComboBoxItem cbiLiquidVolume
+					[ ] locator "/WPFComboBoxItem[@caption='Liquid Volume %']"
+			[+] WPFComboBox cboStandardDensityUnits
+				[ ] locator "//WPFComboBox[7]"
+				[+] WPFComboBoxItem cbiKGM3
+					[ ] locator "//WPFComboBoxItem[@caption='kg/m3']"
+			[ ] 
+			[+] WPFRadioButton btnLightEnds
+				[ ] locator "WPFRadioButton[@caption='Light Ends']"
+			[+] WPFRadioButton btnBulkProps
+				[ ] locator "WPFRadioButton[@caption='Bulk Props']"
+			[+] WPFRadioButton btnDistillation
+				[ ] locator "WPFRadioButton[@caption='Distillation']"
+			[ ] 
+			[ ] //Objects in Reactions
+			[+] AnyWin	tpgStoichiometry
+				[ ] 
+				[+] wcHysysDataGridSimple dgStoichiometry
+					[ ] locator "//WPFContentControl[@automationId='Components']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] 
+			[ ] 
+		[-] //---------------------------------------Objects in Workbook -----------------------------------------------------
+			[+] wcHysysDataGridSimple dgOdfDataGrid
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+			[+] WPFCheckBox chkIgnore
+				[ ] locator "//WPFCheckBox[@automationId='IgnoreCheck' or @automationId='IgnoreRestoreChkBox']" //Modified by Juan on 4/3/2013
+			[+] WPFButton btnEditComposition
+				[ ] //Added by Justin Watanasiri for CQ00201106
+				[ ] locator "//WPFButton[@automationId='btnFeedEdit']"
+			[+] wcHysysDataGridSimple dgAllocationMatrix
+				[ ] locator "//WPFContentControl[@automationId='*AllocationMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] 
+			[ ] 
+			[ ] 
+			[ ] //----------Separator----------//
+			[+] WPFListBox lstPlyPicker
+				[ ] locator "//WPFListBox[@automationId='plypicker_listbox']"
+			[+] WPFTextBox txbVolume
+				[ ] locator "//WPFTextBox[@automationId='RxnVolumeInput']"
+			[+] WPFTextBox txbName
+				[ ] locator "//WPFTextBox[@automationId='Name']"
+			[+] WPFDataGridCell dgcSepIntletStream
+				[ ] locator "//WPFDataGridCell[@caption='<< Stream >>']"
+			[+] WPFComboBox cboSepVapourProd
+				[ ] locator "//WPFComboBox[@automationId='VapourProd']"
+			[+] WPFComboBox cboSepLiquidProd
+				[ ] locator "//WPFComboBox[@automationId='LiquidProd']"
+			[ ] 
+			[ ] //----------Heater----------//
+			[+] WPFTextBox txbDeltaP
+				[ ] locator "//WPFTextBox[@automationId='PressDropInput']"
+			[+] WPFDataGrid dgConditions
+				[ ] locator "/WPFDataGrid[@className='OdfDataGrid']"
+			[+] WPFDataGridCell dgcTemperature
+				[ ] locator "//WPFDataGridCell[@caption='Temperature [C]']"
+			[+] WPFTextBox txtDeltaP
+				[ ] locator "//WPFTextBox[@automationId='PressDropInput']"
+			[+] WPFTextBox txtDeltaT
+				[ ] locator "//WPFTextBox[@automationId='DeltaTempInput']"
+			[ ] 
+			[+] WPFComboBox cboHeatInlet
+				[ ] locator "//WPFComboBox[@automationId='Feed']"
+			[+] WPFComboBox cboHeatEnergy
+				[ ] locator "//WPFComboBox[@automationId='Energy']"
+			[+] WPFComboBox cboHeatOutlet
+				[ ] locator "//WPFComboBox[@automationId='Product']"
+			[ ] 
+			[ ] //----------Mixer----------//
+			[+] WPFDataGridCell dgcMixInlets
+				[ ] locator "//WPFDataGridCell[@caption='<< Stream >>']"
+			[+] WPFTextBox txbMixName
+				[ ] locator "//WPFTextBox[@automationId='NameValue']"
+			[+] WPFComboBox cboMixOutlet
+				[ ] locator "//WPFComboBox[@automationId='ProductValue']"
+			[ ] 
+			[ ] //---------Cutter----------//
+			[+] WPFComboBox cboOutlet
+				[ ] //Added by Justin Watanasiri for CQ00231918
+				[ ] locator "//WPFComboBox[@automationId='attOutlet']"
+			[ ] 
+			[ ] //---------Hydraulics----------//
+			[+] WPFListBox lbSolver
+				[ ] locator "//WPFListBox[@automationId='tlDynamicsList']"
+				[ ] 
+				[+] WPFListBoxItem lbiCompositionSolver
+					[ ] locator "//WPFListBoxItem[@caption='AspenTech.Hydraulics.Composition.CompositionSolver']"
+				[+] WPFListBoxItem	lbiDynamicSolver3p
+					[ ] locator "//WPFListBoxItem[@caption='AspenTech.Hydraulics.Dynamic3p.DynamicSolver3p']"
+				[ ] 
+				[ ] 
+			[+] WPFTabItem	tabiNotes
+				[ ] locator "//WPFTabItem[@caption='Notes']"
+			[+] WPFButton	btnShowFlowsheet
+				[ ] locator "//WPFButton[@automationId='FlowsheetButton']"
+			[+] WPFButton	btnDynamicsInitialisation
+				[ ] locator "//WPFButton[@automationId='btnDynamicsInitialisation']"
+			[ ] 
+			[ ] //-----------Calibration---------//
+			[+] wcHysysDataGridSimple dgFeedHeatBalance
+				[ ] locator "//WPFContentControl[@automationId='mtxFeedHeatBalance']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] 
+			[ ] 
+			[ ] 
+		[+] //---------------------------------------Winclass Extensions---------------------------------------------------
+			[ ] wcManipulator tpgManipulator
+			[ ] wcSeparator tpgSeparator
+			[ ] wcLiquidLiquidHydrocyclone tpgLiquidLiquidHydrocyclone
+			[ ] wcContinuousReactor tpgContinuousReactor
+			[ ] wcProcessUtilitiesManager tpgProcessUtilityManager
+			[ ] 
+			[ ] 
+		[+] //---------------------------------------Objects in Safety Analysis Environment------------------------------
+			[+] AnyWin tpgSafetyAnalysis
+				[ ] 
+				[+] WPFControl txtSetPressure
+					[ ] locator "//WPFUserControl[@automationId='psvboxsetpress']/WPFControl[@automationId='displayBox']"
+				[ ] 
+				[+] WPFButton	btnCreateScenario
+					[ ] locator "//WPFButton[@automationId='create']"
+				[ ] 
+				[+] WPFTextBlock stcOK
+					[ ] locator "//WPFUserControl[@automationId='PSVScenarioControl']/WPFTextBlock[@caption='OK']"
+				[ ] 
+				[+] WPFControl ctrlTextBlock11
+					[ ] locator "//WPFFrameworkElement[@automationId='TextBlock'][11]"
+				[+] WPFControl ctrlTextBlock12
+					[ ] locator "//WPFFrameworkElement[@automationId='TextBlock'][12]"
+				[ ] 
+				[+] WPFControl ctrlTextBlock19
+					[ ] locator "//WPFFrameworkElement[@automationId='TextBlock'][19]"
+				[+] WPFControl ctrlTextBlock20
+					[ ] locator "//WPFFrameworkElement[@automationId='TextBlock'][20]"
+				[ ] 
+				[+] WPFTextBlock	txtReferenceStream
+					[ ] locator "//WPFTextBlock[@caption='Reference Stream']"
+				[ ] 
+				[ ] 
+				[+] AnyWin tpgScenarioSetup
+					[+] AnyWin tpgReliefLoad
+						[+] WPFRadioButton rdbReference
+							[ ] locator "//WPFRadioButton[@automationId='radioRelFlowRef']"
+						[ ] 
+						[+] WPFControl	txtRelievingFlow
+							[ ] locator "//WPFUserControl[@automationId='psvboxflow']/WPFControl[@automationId='displayBox']"
+					[+] WPFControl		dgValveResults
+						[ ] locator "//WPFControl[@automationId='ValveResult_Grid']"
+						[ ] 
+				[ ] 
+				[ ] 
+				[ ] 
+		[-] //---------------------------------------Objects for EDR------------------------------------------------
+			[+] WPFImage	imgActivatedExchangerAnalysis
+				[ ] locator "//WPFImage[@caption='Activated Exchanger Analysis']"
+			[+] WPFUserControl grpModelStatus
+				[ ] locator "//WPFUserControl[@caption='Model Status']"
+			[+] WPFUserControl grpOperationalRisk
+				[ ] locator "//WPFUserControl[@caption='Operational Risk']"
+			[+] WPFButton	btnMinimizeEAPane
+				[ ] locator "//WPFButton[@caption='Minimize the Exchanger Analysis pane. Aspen Process Exchanger Analysis remains active.']"
+			[+] WPFButton	btnMaximizeEAPane
+				[ ] locator "//WPFButton[@caption='Click here to expand the Exchanger Analysis pane.']"
+			[+] WPFButton	btnDeactivateEAPane
+				[ ] locator "//WPFButton[@caption='Deactivate Exchanger Analysis. Aspen Process Exchanger Analysis license key will be released.']"
+			[+] WPFButton	btnShoworHideSummary
+				[ ] locator "//WPFControl[@className='EdrActivationDashboardItem']//WPFButton[3]" 
+			[+] DialogBox dlgNoHeatExchangerModels
+				[ ] locator "/Dialog[@caption='No Heat Exchanger Models']"
+				[+] PushButton btnOK
+					[ ] locator "//PushButton[@caption='OK']"
+			[+] WPFHeaderedContentControl hccAnonymousScreen
+				[ ] locator "//WPFHeaderedContentControl[@automationId='_AnonymousScreen*']/WPFContentControl[@caption='Analysis']"
+			[+] WPFHeaderedContentControl grpModelPalette
+				[ ] locator "//WPFHeaderedContentControl[@automationId='ModelLibraryScreenFactoryKey']"
+				[+] WPFContentControl grpPanelHeader
+					[ ] locator "//WPFContentControl[@className='PaneHeaderPresenter']"
+					[+] WPFTextBlock txtModelPalette
+						[ ] locator "//WPFTextBlock[@caption='Model Palette']"
+					[+] WPFMenu mnPosition
+						[ ] locator "//WPFMenu[@automationId='positionMenu']"
+					[+] WPFButton btnPin
+						[ ] locator "//WPFButton[@automationId='unpinBtn']"
+					[+] WPFButton btnClose
+						[ ] locator "//WPFButton[@automationId='closeBtn'][1]"
+				[+] WPFControl grpLibraryControl
+					[ ] locator "//WPFControl[@name='theLibraryControl']"
+					[+] WPFContentControl btnCancelInsertMode
+						[ ] locator "//WPFContentControl[@name='PART_SelectorButton']"
+					[+] WPFSelector grpStreamsSelector
+						[ ] locator "//WPFSelector[@name='PART_StreamsDropdownButton']"
+						[+] WPFExpander weStreamExpander
+							[ ] locator "//WPFExpander[@automationId='PART_Expander'][1]"
+						[+] WPFContentControl btnMaterial
+							[ ] locator "//WPFContentControl[(@name='PART_OptionButton' and @caption='Material')]"
+					[+] WPFControl grpBlockTable
+						[ ] locator "//WPFControl[@name='PART_BlockTableControl']"
+						[+] WPFTabItem tbMixersSplitters
+							[ ] locator "//WPFTabItem[@caption='Mixers/Splitters']"
+						[+] WPFTabItem tbSeparators
+							[ ] locator "//WPFTabItem[@caption='Separators']"
+						[+] WPFTabItem tbExchangers
+							[ ] locator "//WPFTabItem[@caption='Exchangers']"
+						[+] WPFTabItem tbColumns
+							[ ] locator "//WPFTabItem[@caption='Columns']"
+						[+] WPFTabItem tbReactors
+							[ ] locator "//WPFTabItem[@caption='Reactors']"
+						[+] WPFTabItem tbPressureChanges
+							[ ] locator "//WPFTabItem[@caption='Pressure Changers']"
+						[+] WPFTabItem tbManipulators
+							[ ] locator "//WPFTabItem[@caption='Manipulators']"
+						[+] WPFTabItem tbSolids
+							[ ] locator "//WPFTabItem[@caption='Solids']"
+						[+] WPFTabItem tbSolidsSeparators
+							[ ] locator "//WPFTabItem[@caption='Solids Separators']"
+						[+] WPFTabItem tbUserModels
+							[ ] locator "//WPFTabItem[@caption='User Models']"
+						[+] WPFContentControl grpBlocks
+							[ ] locator "//WPFContentControl[@name='PART_SlideBox']"
+							[+] WPFButton btnUser
+								[ ] locator "//WPFButton[@caption='User']"
+							[+] WPFButton btnUser2
+								[ ] locator "//WPFButton[@caption='User2']"
+							[+] WPFButton btnUser3
+								[ ] locator "//WPFButton[@caption='User3']"
+							[+] WPFButton btnHierarchy
+								[ ] locator "//WPFButton[@caption='Hierarchy']"
+						[+] WPFRepeatButton btnScrollLeft
+							[ ] locator "//WPFRepeatButton[@automationId='PART_ScrollLeft']"
+						[+] WPFRepeatButton btnScrollRight
+							[ ] locator "//WPFRepeatButton[@automationId='PART_ScrollRight']"
+			[+] WPFControl grpZoomControl
+				[ ] locator "//WPFControl[@automationId='PART_ZoomControl']"
+				[+] WPFButton btnZoomToFit
+					[ ] locator "//WPFButton[@automationId='PART_ZoomToFitButton']"
+			[+] WPFButton	btnUnpin
+				[ ] locator "//WPFButton[@automationId='unpinBtn']"
+			[+] DialogBox	dlgImport
+				[ ] locator "//Dialog[@caption='Import*From File']"
+				[+] ComboBox	cboFileName
+					[ ] locator "//ComboBox[@caption='File name:']"
+				[+] PushButton	btnOpen
+					[ ] locator "//PushButton[@caption='Open']"
+			[+] WPFButton	btnTransferUAtoEndPoint
+				[ ] locator "//WPFButton[@automationId='UAButton']"
+			[-] WPFButton	btnTransferUAtoSimpleDesign
+				[ ] locator "//WPFButton[@caption='Transfer UA to simple design']"
+			[+] WPFButton	btnImport
+				[ ] locator "//WPFButton[@automationId='EDRImportButton']"
+			[+] WPFTabItem	tbiDHE
+				[ ] locator "//WPFTabControl[@automationId='_tabControl']/WPFTabItem[@caption='DHE TEMA EXCH']"
+			[+] WPFControl	ctlContent
+				[ ] locator "//WPFControl[@automationId='_summaryGrid']/WPFItemsControl[@className='RecordListControl']"
+			[ ] // added newly 4/21/2015
+			[-] WPFToggleButton	btnActivateEDR
+				[ ] locator "//WPFToggleButton[@automationId='btnEdr*Setting']"
+			[ ] 
+			[-] WPFButtonBase ExpandTheDashboardButton
+				[ ] locator "//WPFButtonBase[@caption='Expand the dashboard*']"
+			[ ] //wanyu: locators changed in V15
+			[+] // WPFControl		ctrlEDRDashboard
+				[ ] // locator "//WPFControl[@automationId='edrDashboardItem']"
+				[-] // WPFTextBox 	ctrlUnKnown
+					[ ] // locator "//WPFControl[@automationId='expandedSimpleCount' or @automationId='simpleCount']/WPFControl[@automationId='*DisplayText']/WPFTextBox[@automationId='PART_TextBox']"
+				[-] // WPFTextBox		ctrlOK
+					[ ] // locator "//WPFControl[@automationId='expandedOKCount' or @automationId='okCount']/WPFControl[@automationId='*DisplayText']/WPFTextBox[@automationId='PART_TextBox']"
+				[-] // WPFTextBox		ctrlAtRisk
+					[ ] // locator "//WPFControl[@automationId='expandedRiskCount' or @automationId='riskCount']/WPFControl[@automationId='*DisplayText']/WPFTextBox[@automationId='PART_TextBox']"
+					[ ] 
+			[ ] //wanyu: added new locators in V15
+			[-] WPFControl		ctrlEDRDashboard
+				[ ] locator "//WPFControl[@automationId='edrDashboardItem']"
+				[-] WPFTextBox 	ctrlUnKnown
+					[ ] locator "//WPFControl[@automationId='expandedSimpleCount' or @automationId='simpleCount']/WPFControl[@automationId='*DisplayText']/WPFControl[@automationId='PART_TextBox']/WPFFrameworkElement[@automationId='TextBlock']"
+				[-] WPFTextBox		ctrlOK
+					[ ] locator "//WPFControl[@automationId='expandedOKCount' or @automationId='okCount']/WPFControl[@automationId='*DisplayText']/WPFControl[@automationId='PART_TextBox']/WPFFrameworkElement[@automationId='TextBlock']"
+				[-] WPFTextBox		ctrlAtRisk
+					[ ] locator "//WPFControl[@automationId='expandedRiskCount' or @automationId='riskCount']/WPFControl[@automationId='*DisplayText']/WPFControl[@automationId='PART_TextBox']/WPFFrameworkElement[@automationId='TextBlock']"
+					[ ] 
+			[+] WPFToggleButton	btnExchanger
+				[ ] locator "//WPFToggleButton[@automationId='btnEdrExpandSetting']"
+				[-] WPFImage          Image
+					[ ] locator "/WPFImage[@automationId='PART_Image']"
+			[+] WPFCheckBox		chkShowRiskStatus
+				[ ] locator "//WPFCheckBox[@automationId='chkShowRiskStatus']"
+			[+] WPFCheckBox		chkShowModelStatus
+				[ ] locator "//WPFCheckBox[@automationId='chkShowModelStatus']"
+			[+] WPFCheckBox		chkShowLegend
+				[ ] locator "//WPFCheckBox[@automationId='chkShowLegend']"
+				[ ] 
+				[ ] 
+			[+] WPFUserControl	ctrlDashboard
+				[ ] locator "//WPFUserControl[@caption='Economics']"
+			[+] WPFTabItem	tbiExchangerSummary
+				[ ] locator "//WPFTabItem[@caption='Exchanger Summary Table Exchanger Summary Table']"
+			[+] WPFDataGrid	dgGeneralTable
+				[ ] locator "//WPFDataGrid[@automationId='datagrid']"
+			[+] WPFComboBox	cboHeatExchangerModel
+				[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+			[-] WPFComboBox cboAirCoolerModel
+				[ ] locator "//WPFComboBox[@automationId='AirCoolerModelTypeDataSet']"
+			[+] wcHysysDataGridSimple		dgDataGridEDR
+				[ ] locator "//WPFDataGrid[@automationId='grd_BankMatrix']"
+			[+] WPFToggleButton	btnFilterHierarchy
+				[ ] locator "//WPFToggleButton[@automationId='filterContainer']"
+			[+] WPFToggleButton	btnFilterStatus
+				[ ] locator "//WPFToggleButton[@automationId='filterStatus']"
+			[+] WPFListBox	lstGeneral
+				[ ] locator "//WPFListBox[@automationId='listbox']"
+			[+] WPFCheckBox	chkSelectAll
+				[ ] locator "//WPFCheckBox[@caption='(Select All)']"
+			[+] WPFCheckBox	chkRIG
+				[ ] locator "//WPFCheckBox[@caption='RIG (TPL3)']"
+			[+] WPFButton		btnPopupOK
+				[ ] locator "//WPFButton[@caption='OK']"
+				[ ] 
+			[+] WPFCheckBox	chkConvertToRigorous
+				[ ] locator "//WPFCheckBox[@caption='Convert to Rigorous']"
+			[ ] 
+			[ ] 
+		[-] //---------------------------------------Methods for EDR------------------------------------------------
+			[+] void VerifySimpleModelsNumber(integer iSimpleModels)
+				[ ] //integer inumshown=Val(this.Find("//WPFTextBlock[7]").sCaption)
+				[ ] integer inumshown=Val(this.grpModelStatus.Find("//WPFTextBlock[5]").sCaption)
+				[ ] print(inumshown)
+				[ ] //integer tablerow=ListCount(wExchangerSummaryTable.dgTable.FindAll("/WPFDataGridRow"))
+				[ ] //print(tablerow)
+				[+] if(inumshown==iSimpleModels)
+					[ ] Log.Pass("The number shown for the sample models is same as the Aspen Plus contain.")
+				[+] else
+					[ ] Log.Fail("The number shown for the sample models is{inumshown} and Aspen Plus contains {iSimpleModels}. They're not the same.")
+				[ ] 
+			[+] int GetRigorousModelsNumber()
+				[ ] integer inumshown=Val(this.grpModelStatus.Find("//WPFTextBlock[3]").sCaption)
+				[ ] return inumshown
+			[-] list of string GetHeatResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(5)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.cboHeatExchangerModel.TextCapture())
+				[ ] //2) get Tube Side Temperature
+				[ ] this.SetTab("Worksheet")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Conditions")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,3))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,2)),null,3))
+				[ ] //3) get Unit of Tube Side Temperature
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Shell Side Temperature
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,5))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,4)),null,3))
+				[ ] //5) get Unit of Shell Side Temperature
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] 
+				[ ] 
+				[ ] //6) get Tube Side Pressure
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,2))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,3)),null,3))
+				[ ] //7) get Unit of Tube Side Pressure
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //8) get Shell Side Pressure
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,4))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,5)),null,3))
+				[ ] //9) get Unit of Shell Side Pressure
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //10) get Duty
+				[ ] this.SetTab("Performance")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Details")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgPerformance.dgTop.GetCellValue(1,2))
+				[ ] //11) get Duty Unit
+				[ ] temp=this.tpgHeatExchanger.tpgPerformance.dgTop.Find("/WPFDataGridRow[1]//WPFDataGridCell[2]").sCaption
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos(" ",temp)+1))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetLNGResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters (SS)")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.dgBottom.GetCellValue(1,2))
+				[ ] //2) get LMTD
+				[ ] this.SetTab("Performance")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Results (SS)")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgPerformance.dgTopLeft.GetCellValue(6,2))
+				[ ] //3) get unit of LMTD
+				[ ] temp=this.tpgHeatExchanger.tpgPerformance.dgTopLeft.Find("/WPFDataGridRow[6]//WPFDataGridCell[2]").sCaption
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos(" ",temp)+1))
+				[ ] //4) get UA
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgPerformance.dgTopLeft.GetCellValue(4,2))
+				[ ] //5) get unit of UA
+				[ ] temp=this.tpgHeatExchanger.tpgPerformance.dgTopLeft.Find("/WPFDataGridRow[4]//WPFDataGridCell[2]").sCaption
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos(" ",temp)+1))
+				[ ] //6) get Exchanger Cold Duty
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgPerformance.dgTopLeft.GetCellValue(1,2))
+				[ ] //7) get Unit of Exchanger Cold Duty
+				[ ] temp=this.tpgHeatExchanger.tpgPerformance.dgTopLeft.Find("/WPFDataGridRow[1]//WPFDataGridCell[2]").sCaption
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos(" ",temp)+1))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetACToBeConvertResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.cboAirCoolerModel.TextCapture())
+				[ ] //2) get Process Stream Delta P
+				[ ] temp=AH.tpgHeatExchanger.tpgDesign.txtDeltaP.TextCapture()
+				[ ] ListAppend(lsResults,SubStr(temp,1,StrPos(" ",temp)-1))
+				[ ] //3) get unit of Process Stream Delta P
+				[ ] ListAppend(lsResults,SubStr(temp,StrPos(" ",temp)+1))
+				[ ] //4) get Molar Flow
+				[ ] this.SetTab("Worksheet")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Conditions")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults,this.tpgHeatExchanger.dgDataGrid.GetCellValue(5,2))
+				[ ] //5) get unit of Molar Flow
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(5,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetFHToBeConvertedResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.cboSteadyStateModel.TextCapture())
+				[ ] //2) get Process Stream Delta T
+				[ ] this.SetTab("Worksheet")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Conditions")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,5))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,2)),null,3))
+				[ ] //3) get Unit of Process Stream Delta T
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Pressure Drop
+				[ ] ListAppend(lsResults, Str(Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,5))-Val(this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,2)),null,3))
+				[ ] //5) get Unit of Pressure Drop
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(4,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //6) get Duty
+				[ ] this.SetTab("Performance")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Details")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(1,2))
+				[ ] //7) get Unit of Duty
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(1,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetShellTubeResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, SubStr(AH.tpgHeatExchanger.tpgDesign.cboHeatExchangerModel.TextCapture(),10))
+				[ ] //2) get Surface Area
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.dgMiddle.GetCellValue(1,2))
+				[ ] //3) get Unit of Surface Area
+				[ ] temp=this.tpgHeatExchanger.tpgDesign.dgMiddle.GetCellValue(1,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Total Heat Load
+				[ ] this.SetTab("Rigorous Shell&Tube")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Results Summary")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgRigorousShell.dgTop.GetCellValue(1,2))
+				[ ] //5) get Unit of Total Heat Load
+				[ ] temp=this.tpgHeatExchanger.tpgRigorousShell.dgTop.GetCellValue(1,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //6) get TEMA Type
+				[ ] AH.lstPlyPicker.Select("Exchanger")
+				[ ] sleep(1)
+				[ ] temp=SubStr(this.tpgHeatExchanger.tpgRigorousShell.dgExchangerTop.GetCellValue(1,2),1,1)
+				[ ] temp=temp+SubStr(this.tpgHeatExchanger.tpgRigorousShell.dgExchangerTop.GetCellValue(2,2),1,1)
+				[ ] temp=temp+SubStr(this.tpgHeatExchanger.tpgRigorousShell.dgExchangerTop.GetCellValue(3,2),1,1)
+				[ ] ListAppend(lsResults, temp)
+				[ ] //7) get Shells in Series
+				[ ] this.SetTab("Rigorous Shell&Tube")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Exchanger")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgRigorousShell.dgBottom.GetCellValue(3,2))
+				[ ] //8) get Shells in Parallel
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgRigorousShell.dgBottom.GetCellValue(2,2))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetPlateFinResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters (SS)")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] //ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.dgBottom.GetCellValue(1,2))
+				[ ] ListAppend(lsResults, SubStr(this.tpgHeatExchanger.tpgDesign.dgBottom.GetCellValue(1,2),7))
+				[ ] //2) get Total Heat Load
+				[ ] this.SetTab("EDR PlateFin")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Results Summary")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(7,3))    //2
+				[ ] //3) get unit of Total Heat Load
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(7,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Streams
+				[ ] ListAppend(lsResults, Str(ListCount(this.tpgHeatExchanger.dgDataGrid.FindAll("/WPFDataGridRow[1]//WPFDataGridCell"))-1))
+				[ ] //5) get Exchangers in Parallel
+				[ ] AH.lstPlyPicker.Select("Results Geometry")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgEDRPlateFin.dgLeft.GetCellValue(1,2))
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetACResults(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] 
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Model Type
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.cboAirCoolerModel.TextCapture())
+				[ ] //2) get Surface Area
+				[ ] this.SetTab("Rigorous Air Cooler")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Result Summary")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgRigorousAirCooler.dgTop.GetCellValue(2,2))
+				[ ] //3) get unit of  Surface Area
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(2,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Total Heat Load
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgRigorousAirCooler.dgTop.GetCellValue(1,2))
+				[ ] //5) get unit of Total Heat Load
+				[ ] temp=this.tpgHeatExchanger.dgDataGrid.GetCellValue(1,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //6) get Fan Configuration
+				[ ] AH.lstPlyPicker.Select("Exchanger")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(6,2))
+				[ ] //7) get Bays per Unit
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(1,2))
+				[ ] //8) get Bundles per Bay
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(2,2))
+				[ ] //9) get Fans per Bay
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.dgDataGrid.GetCellValue(3,2))
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[-] list of string GetFiredHeater(string sModel)
+				[ ] integer i
+				[ ] string temp
+				[ ] list of string lsResults
+				[ ] list of window lw
+				[ ] this.SetActive()
+				[ ] this.trvPartTree.Expand("/UnitOps/")
+				[ ] this.trvPartTree.Click("/UnitOps/{sModel}/")
+				[ ] sleep(2)
+				[ ] this.SetTab("Design")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Parameters")
+				[ ] sleep(1)
+				[ ] //1) get Rigorous Model
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgDesign.cboSteadyStateModel.TextCapture())
+				[ ] //2) get Total Heat Load
+				[ ] this.SetTab("EDR FiredHeater")
+				[ ] sleep(1)
+				[ ] AH.lstPlyPicker.Select("Summary")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgEDRFiredHeater.dgTopLeft.GetCellValue(1,2))
+				[ ] //3) get unit of Total Heat Load
+				[ ] temp=this.tpgHeatExchanger.tpgEDRFiredHeater.dgTopLeft.GetCellValue(1,1)
+				[ ] ListAppend(lsResults, SubStr(temp,StrPos("[",temp)+1,StrPos("]",temp)-StrPos("[",temp)-1))
+				[ ] //4) get Overall Efficiency
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgEDRFiredHeater.dgTopLeft.GetCellValue(2,2))
+				[ ] //5) get Streams
+				[ ] AH.lstPlyPicker.Select("Streams")
+				[ ] sleep(1)
+				[ ] ListAppend(lsResults, Str(ListCount(this.tpgHeatExchanger.dgDataGrid.FindAll("/WPFDataGridRow[1]//WPFDataGridCell"))-1))
+				[ ] //6) get Firebox in Unit
+				[ ] AH.lstPlyPicker.Select("Tube Banks")
+				[ ] sleep(1)
+				[ ] lw=AH.dgDataGridEDR.FindAll("//WPFDataGridCell")
+				[+] for(i=1;i<=ListCount(lw);i++)
+					[+] if(lw[i].TextCapture()=="Firebox")
+						[ ] ListAppend(lsResults, "Yes")
+						[ ] break
+				[+] if(i>ListCount(lw))
+					[ ] ListAppend(lsResults, "No")
+				[ ] //7) get Convection Banks
+				[ ] ListAppend(lsResults, this.tpgHeatExchanger.tpgEDRFiredHeater.txtNumOfBanks.TextCapture())
+				[ ] 
+				[ ] return lsResults
+				[ ] 
+			[ ] //newly added
+			[-] boolean IsSimpleModel(integer irow)
+				[ ] integer k=0,f=1
+				[ ] sleep(5)
+				[-] while(!wHeatExchanger.Exists(3) && !wAirCoolerEDR.Exists(3) && !wLNG.Exists(3) && !wFiredHeater.Exists(3) && f<5)
+					[ ] this.SetActive()
+					[ ] this.dgGeneralTable.Find("//WPFTextBlock[@automationId='hyperlink'][{irow}]/WPFTextBlock").Click()
+					[ ] f++
+				[+] if(wHeatExchanger.Exists(3))
+					[ ] wHeatExchanger.SetActive()
+					[-] if(wHeatExchanger.tpgRigorousShell.btnExport.Exists(3))
+						[ ] k=1
+					[ ] wHeatExchanger.tabiDesign.Click()
+					[ ] sleep(1)
+					[ ] wHeatExchanger.tpgDesign.lstPlyPicker.Select("Parameters")
+					[ ] sleep(1)
+					[-] if(MatchStr("Rigorous *",wHeatExchanger.tpgDesign.cboHeatExchangerModel.TextCapture()))
+						[-] if(k==1)
+							[ ] Log.Pass("For the rigorous models, it is linked to the rigorous model tab.")
+						[-] else
+							[ ] Log.Fail("For the rigorous models, it is not linked to the rigorous model tab.")
+						[ ] wHeatExchanger.Close()
+						[ ] return false
+					[-] else		//Simple
+						[-] if(k==0)
+							[ ] Log.Pass("For the simple models, it is linked to the Design>Parameters ply.")
+						[-] else
+							[ ] Log.Fail("For the simple models, it is not linked to the Design>Parameters ply.")
+						[ ] wHeatExchanger.Close()
+						[ ] return true
+				[+] else if(wAirCoolerEDR.Exists(3))
+					[ ] wAirCoolerEDR.SetActive()
+					[ ] wAirCoolerEDR.tbiRigorousAirCooler.Click()
+					[ ] sleep(5)
+					[-] if (wAirCoolerEDR.tpgRigorousAirCooler.lstPlyPicker.Exists(4))
+						[ ] sleep(5)
+						[ ] wAirCoolerEDR.tpgRigorousAirCooler.lstPlyPicker.Select("Exchanger")
+					[-] if(wAirCoolerEDR.tpgRigorousAirCooler.btnTransferUAtoSimpleDesign.Exists(3))
+						[ ] k=1
+					[ ] wAirCoolerEDR.tabiDesign.Click()
+					[ ] sleep(1)
+					[ ] wAirCoolerEDR.tpgDesign.lstPlyPicker.Select("Parameters")
+					[ ] sleep(1)
+					[-] if(MatchStr("*Rigorous*",wAirCoolerEDR.tpgDesign.cboAirCoolerModel.TextCapture()))
+						[-] if(k==1)
+							[ ] Log.Pass("For the rigorous models, it is linked to the rigorous model tab.")
+						[-] else
+							[ ] Log.Fail("For the rigorous models, it is not linked to the rigorous model tab.")
+						[ ] wAirCoolerEDR.Close()
+						[ ] return false
+					[-] else		//Simple
+						[-] if(k==0)
+							[ ] Log.Pass("For the simple models, it is linked to the Design>Parameters ply.")
+						[-] else
+							[ ] Log.Fail("For the simple models, it is not linked to the Design>Parameters ply.")
+						[ ] wAirCoolerEDR.Close()
+						[ ] return true
+				[-] else if(wLNG.Exists(3))
+					[ ] wLNG.SetActive()
+					[-] if(wLNG.tpgEDRPlateFin.btnExport.Exists(3))
+						[ ] k=1
+					[ ] wLNG.tabiDesign.Click()
+					[ ] sleep(1)
+					[ ] wLNG.lstPlyPicker.Select("Parameters (SS)")
+					[ ] sleep(1)
+					[-] do
+						[ ] wLNG.tpgDesign.dgRatingMethod.Find("//WPFDataGridCell[@caption='EDR - PlateFin']")
+						[-] if(k==1)
+							[ ] Log.Pass("For the rigorous models, it is linked to the rigorous model tab.")
+						[+] else
+							[ ] Log.Fail("For the rigorous models, it is not linked to the rigorous model tab.")
+						[ ] wLNG.Close()
+						[ ] return false
+					[-] except
+						[ ] ExceptClear()
+						[-] if(k==0)
+							[ ] Log.Pass("For the simple models, it is linked to the Design>Parameters ply.")
+						[+] else
+							[ ] Log.Fail("For the simple models, it is not linked to the Design>Parameters ply.")
+						[ ] wLNG.Close()
+						[ ] return true
+				[+] else if(wFiredHeater.Exists(3))
+					[ ] wFiredHeater.SetActive()
+					[-] if(wFiredHeater.btnImport.Exists(3))
+						[ ] k=1
+					[ ] wFiredHeater.tabiDesign.Click()
+					[ ] sleep(1)
+					[ ] wFiredHeater.lstPlyPicker.Select("Parameters")
+					[ ] sleep(1)
+					[+] if(wFiredHeater.cboSteadyStateModel.TextCapture()=="EDR	-	FiredHeater")
+						[+] if(k==1)
+							[ ] Log.Pass("For the rigorous models, it is linked to the rigorous model tab.")
+						[+] else
+							[ ] Log.Fail("For the rigorous models, it is not linked to the rigorous model tab.")
+						[ ] wFiredHeater.Close()
+						[ ] return false
+					[+] else
+						[+] if(k==0)
+							[ ] Log.Pass("For the simple models, it is linked to the Design>Parameters ply.")
+						[+] else
+							[ ] Log.Fail("For the simple models, it is not linked to the Design>Parameters ply.")
+						[ ] wFiredHeater.Close()
+						[ ] return true
+				[+] else 
+					[ ] Log.Fail("No window pops up.")
+			[+] list of string GetModelsInSummaryTable()		//OLD
+				[ ] list of window lw
+				[ ] integer i
+				[ ] list of string lsModels
+				[ ] string sTemp1,sTemp2
+				[ ] AH.SetActive()
+				[ ] lw=AH.dgGeneralTable.FindAll("/WPFDataGridRow")
+				[+] for(i=1;i<=ListCount(lw);i++)
+					[+] if(i/15==0)
+						[ ] AH.dgGeneralTable.Find("/WPFDataGridRow[{i}]//WPFDataGridCell[2]").Click()
+						[ ] AH.TypeKeys("<Down 15>,1")
+					[ ] sTemp1=AH.dgGeneralTable.Find("/WPFDataGridRow[{i}]//WPFDataGridCell[1]").TextCapture()
+					[ ] sTemp2=AH.dgGeneralTable.Find("/WPFDataGridRow[{i}]//WPFDataGridCell[2]").TextCapture()
+					[ ] //ListAppend(lsModels,sTemp2+"."+sTemp1)
+					[ ] ListAppend(lsModels,SubStr(sTemp2,1,StrPos("(",sTemp2)-2)+"."+sTemp1)
+				[ ] return lsModels
+			[+] // boolean GetModelType(string sModelName)
+				[ ] // // Status of 'Shortcut' & 'Detailed', returns true
+				[ ] // integer i,iCount
+				[ ] // string stree=""
+				[ ] // this.SetActive()
+				[+] // if(StrPos(".",sModelName)==0)
+					[ ] // this.trvPartTree.Expand("/UnitOps")
+					[ ] // this.trvPartTree.Click("/UnitOps/{sModelName}")
+				[+] // else
+					[ ] // list of string lsModel=SplitStringToList(sModelName)
+					[ ] // iCount=ListCount(lsModel)
+					[+] // for(i=1;i<iCount;i++)
+						[ ] // stree=stree+"/UnitOps/"+lsModel[i]
+					[ ] // stree=stree+"/UnitOps"
+					[ ] // this.trvPartTree.Expand("{stree}")
+					[ ] // stree=stree+"/"+lsModel[iCount]
+					[ ] // print("The hierarchy is: "+stree)
+					[ ] // this.trvPartTree.Click("{stree}")
+				[ ] // sleep(5)
+				[ ] // 
+				[ ] // 
+				[ ] // 
+				[ ] // 
+				[ ] // // this.SetTab("Specifications")
+				[ ] // // sleep(1)
+				[+] // // if(this.rdbDetailed.IsChecked || this.rdbShortcut.IsChecked)
+					[ ] // // return true
+				[+] // // else
+					[ ] // // return false
+				[ ] // 
+			[+] list of string GetModelsInABlock(string spath)
+				[ ] list of window lwModels
+				[ ] list of string lsModels
+				[ ] window wModel
+				[ ] RECT r
+				[ ] integer i,j
+				[ ] this.SetActive()
+				[ ] // this.trvPartTree.ScrollToPosition(0,O_HORIZONTAL)
+				[ ] // sleep(1)
+				[ ] this.trvPartTree.ScrollToPosition(0,O_VERTICAL)
+				[ ] sleep(1)
+				[ ] this.trvPartTree.ScrollToPosition(0,O_HORIZONTAL)
+				[ ] sleep(1)
+				[ ] this.trvPartTree.Expand("{spath}")
+				[ ] sleep(3)
+				[+] for(i=1;i<=100;i++)
+					[ ] this.trvPartTree.ScrollToPosition(10*i,O_VERTICAL)
+					[ ] sleep(1)
+					[+] do
+						[ ] this.trvPartTree.Click("{spath}")
+						[ ] sleep(3)
+						[ ] this.trvPartTree.Click("{spath}")
+						[ ] break
+					[+] except
+						[ ] ExceptClear()
+				[ ] // Print(this.trvPartTree.SelectedItemPath)
+				[ ] // print("***********")
+				[ ] lwModels=(this.trvPartTree.SelectedItem).Items
+				[ ] sleep(1)
+				[ ] this.trvPartTree.Collapse("/UnitOps/")
+				[+] for each wModel in lwModels
+					[ ] //print(wModel.sCaption)
+					[ ] ListAppend(lsModels,wModel.sCaption)
+				[ ] return lsModels
+			[-] ClickExchanger()
+				[-] //for (int i =0;i<5;i++)
+					[ ] //if ()
+				[ ] this.SetActive()
+				[ ] sleep(3)
+				[ ] 
+				[ ] RECT rect = btnExchanger.GetRect ()
+				[ ] this.MOVEMOUSE (1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+				[ ] sleep(5)
+				[ ] // 
+				[ ] // AH.btnExchanger.Image.Click()
+				[-] do
+					[ ] this.pressmouse(1,rect.xPos+25,rect.yPos+15)
+					[ ] this.releasemouse(1,rect.xPos+25,rect.yPos+15)
+					[ ] this.chkShowModelStatus.SetFocus()
+				[-] except
+					[ ] this.pressmouse(1,rect.xPos+25,rect.yPos+15)
+					[ ] this.releasemouse(1,rect.xPos+25,rect.yPos+15)
+					[ ] this.chkShowModelStatus.SetFocus()
+					[ ] 
+		[ ] 
+		[+] //---------------------------------------Objects for AE------------------------------------------------
+			[+] WPFImage	imgActivatedEconomicAnalysis
+				[ ] locator "//WPFImage[@caption='Activated Economics Analysis']"
+			[+] WPFButton	btnDeactiveEEPane
+				[ ] locator "//WPFButton[@caption='Deactivate Economic Analysis.*']"
+			[+] WPFButton	btnMinimizeEEPane
+				[ ] locator "//WPFButton[@caption='Minimize the Economics pane. Aspen Process Economic Analyzer remains active.']"
+			[+] WPFButton	btnMaximizeEEPane
+				[ ] locator "//WPFButton[@caption='Click here to expand the Economic Evaluation pane.']"
+			[+] WPFUserControl grpCaptialCost
+				[ ] locator "//WPFControl[@name='eICapitalHorizontal']"
+				[+] WPFTextBlock	txtCaptialCostValue
+					[ ] locator "//WPFTextBlock[1]"
+				[+] WPFTextBlock	txtCaptialCostUnit
+					[ ] locator "//WPFTextBlock[2]"
+			[+] WPFUserControl	grpUtilityCost
+				[ ] locator "//WPFControl[@name='eIUtilityHorizontal']"
+				[+] WPFTextBlock	txtUtilityCosttValue
+					[ ] locator "//WPFTextBlock[1]"
+				[+] WPFTextBlock	txtUtilityCostUnit
+					[ ] locator "//WPFTextBlock[2]"
+			[+] WPFControl		ctlWaiting
+				[ ] locator "//WPFControl[@className='WaitingBoard']"
+			[+] WPFButton	btnCaptialCostView
+				[ ] locator "//WPFButton[@caption='View a summary of equipment direct and installed costs and equipment weights.']"
+			[+] WPFButton	btnUtilityCostView
+				[ ] locator "//WPFButton[@caption='View a summary of the operating cost for each type of process utility.']"
+			[+] WPFComboBox	cboACombobox
+				[ ] locator "//WPFComboBox[@automationId='PART_FocusSite']"
+			[+] wcHysysTabBase	tpgEconomicEquipmentDataSummary
+				[+] WPFButton	btnEvaluate
+					[ ] locator "//WPFButton[@automationId='Button_2']"
+				[+] WPFButton	btnSize
+					[ ] locator "//WPFButton[@automationId='Button_1']"
+				[+] WPFTabControl	tbcEEDS
+					[ ] locator "//WPFTabControl[@automationId='_tabControl']"
+				[+] WPFTextBlock	txtChangeGridOrientation
+					[ ] locator "//WPFTextBlock[@automationId='OrientationLabel']"
+			[ ] wcHysysTabBase	tpgProcessUtilitiesManager
+			[+] wcHysysTabBase	tpgModelSummaryGrid
+				[+] WPFButton	btnMapUnit
+					[ ] locator "//WPFButton[@caption='Map Unit']"
+				[+] WPFButton	btnUnmapUnit
+					[ ] locator "//WPFButton[@caption='Unmap Unit']"
+				[+] WPFButton	btnOpenInput
+					[ ] locator "//WPFButton[@caption='Open Input']"
+				[ ] 
+				[ ] 
+			[+] DialogBox	dlgWarning
+				[ ] locator "//DialogBox[@caption='Warning']"
+				[+] PushButton	btnOK
+					[ ] locator "//PushButton[@caption='OK']"
+			[+] DialogBox	dlgOpenCostingTemplateFile
+				[ ] locator "//DialogBox[@caption='Open Costing Template File']"
+				[+] ComboBox	cboFileName
+					[ ] locator "//ComboBox[@caption='File name:']"
+				[+] PushButton	btnOpen
+					[ ] locator "//PushButton[@caption='Open']"
+				[+] PushButton	btnCancel
+					[ ] locator "//PushButton[@caption='Cancel']"
+			[+] WPFContextMenu	cmuMenu
+				[ ] locator "//WPFContextMenu"
+		[ ] //---------------------------------------Methods for AE------------------------------------------------
+		[ ] 
+		[ ] 
+		[+] // DialogBox
+			[+] DialogBox dlgAH
+				[ ] locator "//DialogBox[@caption='Aspen HYSYS']"
+				[+] PushButton btnYes
+					[ ] locator "//PushButton[@caption='Yes']"
+				[+] PushButton btnNo
+					[ ] locator "//PushButton[@caption='No']"
+				[+] PushButton btnOK
+					[ ] locator "//PushButton[@caption='OK']"
+			[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+	[-] winclass  wcHysysTabBase							:	WPFWindow							// This is the top levlel class for all of the control property area in tab page.
+		[+] WPFListBox	lstPlyPicker
+			[ ] locator "//WPFListBox[@automationId='plypicker_listbox']"
+		[+] WPFListBox	lstTabPlyPicker
+			[ ] locator "//WPFListBox[@automationId='*PlyPicker']"
+		[+] wcHysysTreeView		trvPlyPicker
+			[ ] locator "//WPFTreeView[1]"
+		[+] SetTab(string sTabName)
+			[ ] // SetTab ( string )  - Sets the active tab
+			[ ] //  Arguments:
+			[ ] //  1.  tabName  - string, name of tab to make active
+			[ ] //  Usage: AP.SetTab('Global')
+			[ ] //window wTab = this.ctlTabs.Find("//WPFTabItem[@caption='{sTabName}*']")
+			[ ] window wTab = this.FindWPFTabItem("//WPFTabItem[@caption='{sTabName}*']")
+			[ ] wTab.Select()
+		[+] wcHysysDataGridDoubleCell		dgDataGridDoubleCell
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+		[+] wcHysysDataGridSimple		dgDataGridSimple
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd_*'][1]"
+		[+] wcHysysDataGridSimple		dgDataGridSimple2
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd*'][2]"
+		[+] wcHysysDataGridSimple		dgDataGridSimple3
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd*'][3]"
+		[+] wcHysysDataGridSimple		dgDataGridSimple4
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd*'][4]"
+		[+] wcHysysDataGridSimple		dgDataGridSimple5
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd*'][5]"
+		[+] wcHysysDataGridSimple		dgDataGridSimple6
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid' or @automationId='grd*'][6]"
+		[ ] 
+		[+] WPFButton	btnDelete
+			[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeleteButton']"
+		[+] WPFCheckBox	chkIgnored
+			[ ] locator "//WPFCheckBox[@caption='*Ignored' or @automationId='*Ignore*']"  
+		[+] WPFLabel		stcConverged
+			[ ] locator "//WPFLabel[@caption='Converged']"
+		[+] WPFLabel		stcUnconverged
+			[ ] locator "//WPFLabel[@caption='Unconverged']"
+		[+] WPFLabel		stcOK
+			[ ] locator "//WPFLabel[@caption='OK']"
+		[+] WPFLabel	 	stcIgnored
+			[ ] locator "//WPFLabel[@caption='Ignored']"
+		[+] WPFLabel 	stcPressureRise
+			[ ] locator "//WPFLabel[@caption='Pressure Rise in Vessel']"
+		[+] WPFLabel		lbStatusText
+			[ ] locator "//WPFLabel[@automationId='lb_StatusText']"
+		[ ] 
+		[ ] //Append by Susan
+		[+] WPFLabel		stcRequiresAStream
+			[ ] locator "//WPFLabel[@caption='Requires a Stream']"
+		[+] WPFLabel 	stcNotSolved
+			[ ] locator "//WPFLabel[@caption='Not Solved']"
+			[+] SelectCbiInGridBox( int row, int column, string caption, window dataGrid)
+				[ ] dataGrid.selectCell( row, column )
+				[ ] sleep(0.5)
+				[ ] Desktop.TypeKeys(substr(caption,1,1))
+				[ ] sleep(0.5)
+				[+] do
+					[ ] dataGrid.SelectedCell.find("//WPFComboBox").Select(caption)
+				[+] except
+					[ ] exceptClear()
+					[ ] dataGrid.find("//WPFComboBoxItem[@caption='{caption}']").Click()
+				[ ] sleep(0.5)
+				[ ] 
+		[+] WPFButton 	btnEOVariables
+			[ ] locator "//WPFButton[@automationId='EOVarInfoPersButton']"
+		[+] ActiveTab(string sTabNameOrID)
+			[+] //Description
+				[ ] // Make the tab active
+				[ ] // Arguments:
+				[ ] // 1.  sTabNameOrID  - string, automationId or caption of tab
+				[ ] // Usage: AH.ActiveTab('Global')
+				[ ] //Created by Eric Lu on July 31, 2012
+			[ ] window wTab
+			[+] do
+				[ ] wTab = this.Find("//WPFTabItem[@automationId='{sTabNameOrID}*']")
+			[+] except
+				[ ] wTab = this.Find("//WPFTabItem[@caption='{sTabNameOrID}*']")
+			[ ] wTab.SetFocus()
+			[ ] //wTab.Select()
+			[ ] wTab.Click()
+			[ ] glWaitForMouseIdle(10)
+		[+] CloseTab(string sTabNameOrID)
+			[+] //Description
+				[ ] // Make the tab closed, make sure tabitem can be closed
+				[ ] // Arguments:
+				[ ] // 1.  sTabNameOrID  - string, automationId or caption of tab
+				[ ] // Usage: wParentWindow.CloseTab('Global')
+				[ ] //Created by Eric Lu on April 10, 2012
+			[ ] window wTab
+			[+] do
+				[ ] wTab = this.Find("//WPFTabItem[@automationId='*{sTabNameOrID}*']")
+			[+] except
+				[ ] wTab = this.Find("//WPFTabItem[@caption='*{sTabNameOrID}*']")
+			[ ] wTab.SetFocus()
+			[ ] wTab.Find("//WPFButton").Click()
+			[ ] glWaitForMouseIdle(10)
+			[ ] 
+		[+] SelectCbiInGridBox( int row, int column, string caption, window dataGrid)
+			[ ] dataGrid.selectCell( row, column )
+			[ ] sleep(0.5)
+			[ ] Desktop.TypeKeys(substr(caption,1,1))
+			[ ] sleep(0.5)
+			[+] do
+				[ ] dataGrid.SelectedCell.find("//WPFComboBox").Select(caption)
+			[+] except
+				[ ] exceptClear()
+				[ ] dataGrid.find("//WPFComboBoxItem[@caption='{caption}']").Click()
+			[ ] sleep(0.5)
+			[ ] 
+		[-] void verifyStatus(string status, int timeout optional)
+			[ ] //Specify a status message such as "OK" and a timeout
+			[ ] //Check for a WPFLabel with the caption of specified status
+			[+] if( timeout == NULL)
+				[ ] timeout = 30
+			[ ] FINDOPTIONS options
+			[ ] options.throwWindowNotFoundException= TRUE
+			[ ] options.timeout = timeout
+			[-] do
+				[ ] this.find("//WPFLabel[@caption='{status}']", options)
+				[ ] Log.Pass("Status for window {this.GetCaption()} reads {chr(34)}{status}{chr(34)}")
+			[-] except
+				[ ] exceptClear()
+				[ ] Log.Error("ERROR: Status for window {this.GetCaption()} is not {chr(34)}{status}{chr(34)}")
+			[ ] 
+			[ ] 
+		[+] WPFButton btnCloneUtility
+			[ ] locator "//WPFButton[@automationId='CloneUtilityButton']"
+		[+] WPFButton btnDeleteUtility
+			[ ] locator "//WPFButton[@automationId='DeleteUtilityButton']"
+		[+] WPFButton btnHUDSave
+			[ ]  locator "//WPFButton[@automationId='HUDSavePrefSetButton']"
+		[+] WPFButton btnHUDOpen
+			[ ] locator "//WPFButton[@automationId='HUDLoadUtilitySetButton']"
+		[+] WPFComboBox	cboComboBox
+			[ ] locator "//WPFComboBox"
+		[ ] 
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "//WPFTabItem[@caption='Design']"
+		[+] WPFTabItem	tabiReactions
+			[ ] locator "//WPFTabItem[@caption='Reactions']"
+		[+] WPFTabItem	tabiRating
+			[ ] locator "//WPFTabItem[@caption='Rating']"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "//WPFTabItem[@caption='Worksheet']"
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "//WPFTabItem[@caption='Dynamics']"
+		[+] WPFTabItem	tabiPerformance
+			[ ] locator "//WPFTabItem[@caption='Performance']"
+		[+] WPFTabItem	tabiInput
+			[ ] locator "//WPFTabItem[@caption='Input']"
+		[+] WPFTabItem	tabiResults
+			[ ] locator "//WPFTabItem[@caption='Results']"
+			[ ] 
+		[ ] //newly moved
+		[+] wcImportExport wImportGeometryFromFile
+			[ ] locator "//DialogBox[@caption='Import * Geometry From File']"
+		[+] wcImportExport wExportGeometryFromFile
+			[ ] locator "//DialogBox[@caption='Export * Geometry From File']"
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] //Appended by Weiwei Wu 12/12/2013
+		[+] wcStatusBase stbStatus
+			[ ] locator "//WPFLabel[@automationId='lb_StaticText1' or @automationId='lb_stStatus' or @automationId='lb_StatusMessage' or @automationId='lb_CaseStdyStatusStaticText']"
+		[+] wcStatusBase stbCalibrationStatus
+			[ ] locator "//WPFLabel[@automationId='lb_CalibrationStatusText']"
+		[ ] 
+		[ ] //Right Mouse Button Menu
+		[+] WPFMenuItem miCopy
+			[ ] locator "//WPFMenuItem[@caption='Copy']"
+		[ ] 
+		[ ] 
+	[+] winclass  wcADJTab									:	wcHysysTabBase						// This can be ADJ's parent class.
+		[+] //Common Object
+			[+] WPFButton	btnReset
+				[ ] locator "//WPFButton[@caption='Reset']"
+		[+] //Connections Tab
+			[+] WPFTabItem	tabiConnections
+				[ ] locator "//WPFTabItem[@caption='Connections']"
+		[+] //Parameters Tab
+			[+] WPFTabItem	tabiParameters
+				[ ] locator "//WPFTabItem[@caption='Parameters']"
+		[+] //Monitor Tab
+			[+] WPFTabItem	tabiMonitor
+				[ ] locator "//WPFTabItem[@caption='Monitor']"
+		[+] //User Variables Tab
+			[+] WPFTabItem	tabiUserVariables
+				[ ] locator "//WPFTabItem[@caption='User Variables']"
+	[+] winclass  wcNoneADJUnitOpsTPG					:	wcHysysTabBase						// This can be MIX, LTS, Chiller, Dew Point or DePropanizer's parent class.
+		[+] //Common Object
+			[+] WPFTabItem	tabiConnections
+				[ ] locator "//WPFTabItem[@caption='Connections']"
+			[+] AnyWin tpgConnections
+				[+] WPFComboBox cboOutlet
+					[ ] locator "//WPFComboBox[@automationId='ProductValue']"
+				[ ] //Connections
+				[+] wcHysysDataGridSimple dgInletStreams	
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+				[+] wcHysysDataGridSimple dgOutletStreams	
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+			[ ] 
+			[+] WPFTabItem	tabiParameters
+				[ ] locator "//WPFTabItem[@caption='Parameters']"
+				[+] WPFRadioButton	rdbMassFlow
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Mass Flow')]"
+					[ ] 
+			[+] AnyWin tpgParameters
+				[ ] //Parameters
+				[+] WPFRadioButton	rdbMassFlow
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Mass Flow')]"
+		[+] //Design Tab
+			[+] WPFTabItem	tabiDesign
+				[ ] locator "//WPFTabItem[@caption='Design']"
+			[+] AnyWin	tpgDesign
+				[ ] //Parameters
+				[+] WPFRadioButton rdbEqualizeAll
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Equalize All')]"
+					[ ] 
+				[+] WPFRadioButton rdbSetOutletLowestInlet
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Set Outlet to Lowest Inlet')]"
+		[+] //Rating Tab
+			[+] WPFTabItem	tabiRating
+				[ ] locator "//WPFTabItem[@caption='Rating']"
+			[+] AnyWin	tpgRating
+				[ ] 
+		[+] //WorkSheet Tab
+			[+] WPFTabItem	tabiWorkSheet
+				[ ] locator "//WPFTabItem[@caption='WorkSheet']"
+			[+] AnyWin	tpgWorkSheet
+				[ ] 
+		[+] //Dynamics Tab
+			[+] WPFTabItem	tabiDynamics
+				[ ] locator "//WPFTabItem[@caption='Dynamics']"
+			[+] AnyWin	tpgDynamics
+				[ ] //Specs
+				[+] WPFRadioButton rdbSetOutletLowestInlet
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Set Outlet to Lowest Inlet')]"
+				[ ] 
+				[ ] 
+	[+] winclass  wcStreams									:	wcHysysTabBase						// This can be all of the Streams' relevant objets' parent class.
+		[+] //Common Object
+			[+] WPFButton	btnDefineFromOtherStream
+				[ ] locator "//WPFButton[@caption='Define from*Stream...']"//Update by Juan on 8/2/2013
+			[+] WPFButton	btnViewAssay               //Added by Juan on 8/7/2013
+				[ ] locator "//WPFButton[@automationId='Button1']"
+			[+] WPFButton	 btnEdit
+				[ ] locator "//WPFButton[@automationId='btnFeedEdit' or @automationId='EditComps']"
+			[ ] 
+			[+] WPFLabel		stcOK
+				[ ] locator "//WPFLabel[@caption='OK']"
+			[+] WPFLabel		stcUnknownFlowRate  //Added by Juan on 8/26/2013
+				[ ] locator "//WPFLabel[@caption='Unknown Flow Rate']"
+			[+] wcHysysDataGridSimple dgDatagrid
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[+] WPFLabel stcUnknown	//added by Weiwei W 9/30/2013
+				[ ] locator "//WPFLabel[@caption='*Unknown*']"
+			[ ] 
+		[+] //WorkSheet Tab
+			[+] WPFTabItem	tabiWorkSheet
+				[ ] locator "//WPFTabItem[@caption='WorkSheet']"
+			[+] wcHysysTreeView	trvWorksheet
+				[ ] locator "//WPFTreeView[1]"
+			[+] AnyWin	tpgWorksheet
+				[+] //Conditions
+					[+] WPFButton btnViscosityMethod
+						[ ] locator "//WPFButton[@automationId='ViscMethodButton']"
+				[+] //Common Objects
+					[+] WPFButton btnPrevUnitOp
+						[ ] locator "@automationId='PrevUnitOpButton'"
+					[+] WPFButton btnNextUnitOp
+						[ ] locator "@automationId='NextUnitOpButton'"
+					[+] WPFButton btnCopyStreamSpecs
+						[ ] locator "@automationId='CopyStreamSpecsButton'"
+					[+] WPFButton btnDelete
+						[ ] locator "@automationId='DeleteButton'"
+					[+] WPFButton btnCreatStreamSpec
+						[ ] locator "@automationId='CreatStreamSpecButton'"
+				[+] //Petroleum Assay
+					[+] WPFComboBox cboEnumeration3
+						[ ] locator "//WPFComboBox[@automationId='Enumeration3']"
+					[+] WPFComboBox cboattachAssay
+						[ ] locator "//WPFComboBox[@automationId='attachAssay']"
+					[+] WPFButton btnExportStreamAsAssay
+						[ ] locator "//WPFButton[@caption='Export Stream As Assay']"
+					[+] WPFButton btnSaveStreamAsAssay   //This needs to replace the above. Delete above when ready...
+						[ ] locator "//WPFButton[@automationId='Button8']"
+					[ ] 
+					[+] WPFButton btnCreateAssay
+						[ ] locator "//WPFButton[@automationId='createAssay']"
+					[+] WPFButton btnDeleteAssay
+						[ ] locator  "//WPFButton[@automationId='deleteAssay']"
+					[+] WPFRadioButton rdbAttachExisting
+						[ ] //locator "//WPFRadioButton[@caption='Attach Existing'][1]"
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Attach Existing']"
+					[+] WPFRadioButton rdbImportFromFile
+						[ ] //locator "//WPFRadioButton[@caption='Import From File'][1]"
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Import From File']"
+					[+] WPFRadioButton rdbImportFromLibrary
+						[ ] //locator "//WPFRadioButton[@caption='Import From Library'][1]"
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Import From Library']"
+					[+] WPFButton btnFindAssayInLibrary
+						[ ] locator "//WPFButton[@automationId='importLibraryAssay']"
+					[+] WPFButton btnFindAssayFile
+						[ ] locator "//WPFButton[@automationId='importFileAssay']"
+					[+] WPFComboBox cboAttachExistingAssay
+						[ ] locator "//WPFComboBox[@automationId='attachAssay']"
+					[ ] 
+					[ ] 
+				[+] //Composition
+					[+] WPFButton	btnEdit
+						[ ] locator "//WPFButton[@automationId='EditComps' or @automationId='btnFeedEdit']"
+					[+] WPFButton	btnViewProperty
+						[ ] locator "//WPFButton[@automationId='ViewPropsButton']"
+					[+] WPFButton	btnBasis
+						[ ] locator "//WPFButton[@automationId='SettingsButton']"
+					[ ] //Added by Juan on 4/8/2013
+					[+] WPFTextBox txtTotal
+						[ ] locator "//WPFTextBox[@automationId='MassFractionSum' or @automationId='CompMassFlowSum']"
+					[ ] 
+					[ ] //Reservoir Fluid
+					[+] WPFButton btnApplyToStream
+						[ ] locator "//WPFButton[@automationId='ApplyResFluidToCompButton']"
+					[ ] 
+				[+] //Properties
+					[+] WPFButton	btnViewCorrelationSetList
+						[ ] locator "//WPFButton[@automationId='OpenCorrSetGraphicButton']"
+					[+] WPFButton	btnAppend
+						[ ] locator "//WPFButton[@automationId='CorrPickerGraphicButton']"
+					[+] WPFButton btnRemoveAllCorrelations
+						[ ] locator "//WPFButton[@automationId='RemoveAllCorrsGraphicButton']"
+					[+] WPFButton	btnSaveCorrelationSet
+						[ ] locator "//WPFButton[@automationId='SaveCorrSetGraphicButton']"
+					[ ] 
+				[+] //User Variables
+					[+] WPFButton	btnCreateNewVariable //Added by Juan on 3/14/2014
+						[ ] locator "//WPFButton[@automationId='UserVar_NewUserVarButton']"
+					[+] WPFButton	btnShowHideVariableEnablingCheckboxes          //Added by Juan on 3/14/2014
+						[ ] locator "//WPFButton[@automationId='UserVar_ToggleEnableColumnButton']"
+				[+] //Electrolytes   //Added by Juan on 12/4/2013
+					[+] WPFRadioButton rdoComposition
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Composition')]"
+					[+] WPFRadioButton rdoSolid
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Solid')]"
+					[+] WPFRadioButton rdoMass
+						[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Mass')]"
+				[+] //Oil&Gas
+					[+] WPFButton	btnViewDetails
+						[ ] locator "//WPFButton[@caption='View Details' or @automationId='Button5']"
+					[+] WPFButton	btnSelectAssay
+						[ ] locator "//WPFButton[@caption='Select Assay' or @automationId='btnSelectBlackOilAssay']"
+					[ ] 
+				[+] //Options
+					[+] WPFComboBox cboValidPhases
+						[ ] locator "//WPFComboBox[@automationId='eValidPhases']"
+					[+] WPFComboBox cboModelComponents
+						[ ] locator "//WPFComboBox[@automationId='CompModel']"
+					[+] WPFComboBox cboRemoveComponents
+						[ ] locator "//WPFComboBox[@automationId='eAutoComps']"
+					[+] WPFTextBox txtComponentTolerance
+						[ ] locator "//WPFTextBox[@automationId='ModelCompXTol']"
+					[+] WPFButton btnAdditionalOptions
+						[ ] locator "//WPFButton[@automationId='AdditionalOptions']"
+					[ ] 
+		[+] //Attachments Tab
+			[+] WPFTabItem	tabiAttachments
+				[ ] locator "//WPFTabItem[@caption='Attachments']"
+			[+] WPFButton btnCreate
+				[ ] locator "//WPFButton[@automationId='CreateUtilityButton']"
+			[+] WPFButton btnView
+				[ ] locator "//WPFButton[@automationId='ViewUtilityButton']"
+		[+] //Dynamics Tab
+			[+] WPFTabItem	tabiDynamics
+				[ ] locator "//WPFTabControl[2]//WPFTabItem[@caption='Dynamics']"
+			[+] WPFButton btnFeederBlock
+				[ ] locator "//WPFButton[@automationId='ViewFeederBlockBtn']"
+			[ ] //Added by Juan at 5/8/2013
+			[+] wcHysysDataGridSimple dgDynSpecPressure
+				[ ] locator "//WPFContentControl[@automationId='DynSpecPressureMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+			[+] wcHysysDataGridSimple dgMolarFlowSpec
+				[ ] locator "//WPFContentControl[@automationId='MolarFlowSpecMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+			[ ] //Add end
+		[+] //Reference tab page
+			[+] WPFTabItem tabiReference
+				[ ] locator "//WPFTabItem[@caption='Reference']"
+		[ ] 
+		[+] void attachAssay(string assayType, string assayName)
+			[ ] assayType = lower(assayType)
+			[ ] 
+			[+] if( !this.tpgWorksheet.btnCreateAssay.Exists(5))
+				[ ] this.SetTab("Worksheet")
+				[ ] this.trvWorksheet.Exists(5)
+				[ ] this.trvWorksheet.Select("Petroleum Assay")
+				[ ] sleep(0.5)
+			[ ] 
+			[+] if( assayType == "existing"  )
+				[ ] this.tpgWorksheet.rdbAttachExisting.Check()
+				[ ] this.tpgWorksheet.cboAttachExistingAssay.Exists(5)
+				[ ] this.tpgWorksheet.cboAttachExistingAssay.Select(assayName)
+				[ ] sleep(1)
+			[+] else if (assayType == "library"  )
+				[ ] this.tpgWorksheet.rdbImportFromLibrary.Exists(5)
+				[ ] this.tpgWorksheet.rdbImportFromLibrary.Click()
+				[ ] this.tpgWorksheet.btnFindAssayInLibrary.Exists(5)
+				[ ] this.tpgWorksheet.btnFindAssayInLibrary.Click()
+				[ ] wAddAssay.exists(5)
+				[ ] wAddAssay.cboAssayFilter.Exists(5)
+				[ ] wAddAssay.cboAssayFilter.TypeKeys("{assayName}<Enter>")
+				[ ] sleep(0.25)
+				[ ] wAddAssay.find("//WPFDataGrid[@automationId='PART_DataGrid'][2]//WPFDataGridCell[1]").Click()
+				[ ] sleep(0.25)
+				[ ] wAddAssay.btnOK.Click()
+				[ ] glWaitForMouseIdle()
+				[+] if( wAssayCreatedOnStream.Exists(2))
+					[ ] wAssayCreatedOnStream.Close()
+				[ ] 
+			[+] else
+				[ ] this.tpgWorksheet.rdbImportFromFile.Exists(5)
+				[ ] this.tpgWorksheet.rdbImportFromFile.Check()
+				[ ] this.tpgWorksheet.btnFindAssayFile.Exists(5)
+				[ ] this.tpgWorksheet.btnFindAssayFile.Click()
+				[ ] wImportAssayDataFromFiles.Exists(5)
+				[ ] wImportAssayDataFromFiles.cboAssayDataFormat.Exists(5)
+				[ ] wImportAssayDataFromFiles.cboAssayDataFormat.Select(assayType)
+				[ ] sleep(0.25)
+				[ ] wImportAssayDataFromFiles.btnAdd.Click()
+				[ ] dlgOpen.Exists(5)
+				[ ] dlgOpen.OpenFile(assayName)
+				[ ] dlgOpen.WaitForDisappearance()
+				[ ] wImportAssayDataFromFiles.btnImport.Click()
+				[ ] glWaitForMouseIdle()
+				[ ] 
+			[ ] 
+		[ ] 
+	[+] winclass  wcStreamCompositionBasis				:	WPFWindow							// This can be all of the Basis page for Stream composition
+		[+] WPFRadioButton	rdbMoleFractions
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mole Fractions']"
+		[+] WPFRadioButton	rdbMassFractions
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mass Fractions']"
+		[+] WPFRadioButton	rdbLiquidVolumeFractions
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Liquid Volume Fractions']"
+		[+] WPFRadioButton	rdbMoleFlowRatios
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mole Flow Ratios']"
+		[+] WPFRadioButton	rdbMassFlowRatios
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mass Flow Ratios']"
+		[+] WPFRadioButton	rdbMoleFlows
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mole Flows']"
+		[+] WPFRadioButton	rdbMassFlows
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Mass Flows']"
+		[+] WPFRadioButton	rdbLiquidVolumeFlowRatios
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Liquid Volume Flow Ratios']"
+		[+] WPFRadioButton	rdbLiquidVolumeFlows
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Liquid Volume Flows']"
+		[+] WPFRadioButton	rdbPreferenceDefault
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Preferences*Default']"
+	[+] winclass  wcValveTPG								:	wcHysysTabBase						// This can be all of the Valve's parent class.
+		[+] //Common Object
+				[+] WPFCheckBox chkIgnored
+					[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox']"
+		[ ] //Design Tab
+		[+] AnyWin	tpgDesign
+			[ ] //Connections
+			[+] WPFTextBox	txtName
+				[ ] locator "//WPFTextBox[@automationId='Name']"
+			[+] WPFComboBox	cboInlet
+				[ ] locator "//WPFComboBox[@automationId='Inlet']"
+			[+] WPFComboBox	cboOutlet
+				[ ] locator "//WPFComboBox[@automationId='Outlet']"
+			[+] WPFComboBox	cboFluidPackage
+				[ ] locator "//WPFComboBox[@automationId='attFluidPkg']"
+			[ ] //Parameters
+			[ ] //User Variables
+			[ ] //Notes
+		[ ] //Rating Tab
+		[+] WPFTabItem	tabiRating
+			[ ] locator "//WPFTabItem[@caption='Rating']"
+		[+] AnyWin	tpgRating
+			[ ] //Sizing
+			[+] WPFButton	btnSizeValue
+				[ ] locator "//WPFButton[@automationId='SizeButton']"
+			[+] wcHysysDataGridSimple dgSizingMethods						//The index of the datagrid in this tab page is dynamic change, if you found the index here is not the same when you use, please use AH.Find() to use it in your .t file and not change it here
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][3]"
+			[+] wcHysysDataGridSimple dgSizingConditonsAbove				//The index of the datagrid in this tab page is dynamic change, if you found the index here is not the same when you use, please use AH.Find() to use it in your .t file and not change it here
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][1]"
+			[+] wcHysysDataGridSimple dgSizingConditonsBottom			//The index of the datagrid in this tab page is dynamic change, if you found the index here is not the same when you use, please use AH.Find() to use it in your .t file and not change it here
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][2]"
+			[+] WPFRadioButton	rdbCurrent
+				[ ] locator "//WPFRadioButton[@caption='Current'][1]"
+			[+] WPFRadioButton	rdbUserInput
+				[ ] locator "//WPFRadioButton[@caption='User Input'][1]"
+			[+] WPFRadioButton	rdbLinear
+				[ ] locator "//WPFRadioButton[@caption='Linear'][1]"
+			[+] WPFRadioButton	rdbQuickOpening
+				[ ] locator "//WPFRadioButton[@caption='Quick Opening'][1]"
+			[+] WPFRadioButton	rdbEqualPercentage
+				[ ] locator "//WPFRadioButton[@caption='Equal Percentage'][1]"
+			[+] WPFRadioButton	rdbUserTable
+				[ ] locator "//WPFRadioButton[@caption='User Table'][1]"
+			[+] WPFRadioButton	rdbCv
+				[ ] locator "//WPFRadioButton[@caption='Cv'][1]"
+			[+] WPFRadioButton	rdbCg
+				[ ] locator "//WPFRadioButton[@caption='Cg'][1]"
+			[+] WPFRadioButton	rdbFisherUniversa
+				[ ] locator "//WPFRadioButton[@caption='Fisher Universa*'][1]"
+			[+] WPFRadioButton	rdbANSIISA
+				[ ] locator "//WPFRadioButton[@caption='ANSI/ISA'][1]"
+			[+] WPFComboBox	cboValveManufacture
+				[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+			[ ] //Nozzels
+			[ ] //Options
+			[+] WPFCheckBox chkHandleDensitiesRigorously
+				[ ] locator "//WPFCheckBox[@caption='Handle densities for multi-phase systems rigorously.']"
+			[+] WPFCheckBox chkHandleMultiPhaseFlowsRigorously
+				[ ] locator "//WPFCheckBox[@caption='Handle multi-phase flows rigorously.']"
+			[+] WPFCheckBox chkUseUpstreamPhaseFraction
+				[ ] locator "//WPFCheckBox[@caption='Use Upstream Phase Fraction']"
+			[ ] 
+			[ ] //Flow Limits
+		[ ] //WorkSheet Tab
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "//WPFTabItem[@caption='Worksheet']"
+		[+] AnyWin	tpgWorkSheet
+			[ ] 
+		[ ] //Dynamics Tab
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "//WPFTabItem[@caption='Dynamics']"
+		[+] AnyWin	tpgDynamics
+			[ ] //Specs
+			[+] WPFContentControl grpDynamicSpecifications
+				[ ] locator "//WPFContentControl[@automationId='DynActiveSpecsMatrix']"
+				[+] WPFCheckBox chkTotalDeltaP
+					[ ] locator "//WPFCheckBox[@className='ImageCheckBox'][1]"
+			[+] WPFCheckBox chkEnableValveHysteresis
+				[ ] locator "//WPFCheckBox[@automationId='CheckBox1']/WPFCheckBox[@automationId='PART_CheckBox']"
+			[+] WPFButton btnSizeValve
+				[ ] locator "//WPFButton[@automationId='QuickSizeButton']"
+			[ ] 
+			[ ] //Flow Limits
+			[+] WPFCheckBox	chkModelLiquidChoking
+				[ ] locator "//WPFCheckBox[@automationId='ModelLiquidValveChokingStatus']"
+			[ ] 
+	[+] winclass wcReactor									: 	wcHysysTabBase						//For Conversion, Equilibrium Reactor, ...
+		[ ] 
+		[+] AnyWin tpgDesign
+			[+] WPFComboBox cboVapourOutlet
+				[ ] locator "//WPFComboBox[@automationId='VapourProd']"
+			[+] WPFComboBox cboLiquidOutlet
+				[ ] locator "//WPFComboBox[@automationId='LiquidProd']"
+			[+] WPFComboBox cboEnergy
+				[ ] locator "//WPFComboBox[@automationId='EnergyHeating']"
+		[+] AnyWin tpgReactions
+			[+] WPFComboBox cboReaction
+				[ ] locator "//WPFComboBox[@automationId='ReactionEnum']"
+			[+] WPFComboBox cboReactionSet
+				[ ] locator "//WPFComboBox[@automationId='AttachmentName1']"
+			[+] WPFRadioButton rdbConversion
+				[ ] locator "//WPFRadioButton[@caption='Conversion %']"
+				[ ] 
+	[+] winclass wcExpander									:	wcHysysTabBase						// Expander class
+		[ ] //Added by Justin Watanasiri on 3/27/13 for CQ00241841
+		[+] //Common Objects
+			[ ] 
+		[+] //Design Tab
+			[+] WPFTabItem tabiDesign
+				[ ] locator "//WPFTabItem[@caption='Design']"
+			[+] AnyWin	tpgDesign
+				[+] WPFRadioButton	rdbMultipleIGV
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Multiple IGV Curves')]"
+					[ ] 
+				[+] WPFRadioButton	rdbQuasiDimensionless
+					[ ] locator "//WPFRadioButton[@caption='Quasi-Dimensionless']"
+				[+] WPFRadioButton	rdbNonDimensional
+					[ ] locator "//WPFRadioButton[@caption='Non-Dimensional']"
+				[+] WPFRadioButton	rdbSingleCurve
+					[ ] locator "//WPFRadioButton[@caption='Single Curve']"
+				[+] WPFRadioButton	rdbAtlasCopco
+					[ ] locator "//WPFRadioButton[@caption='Atlas Copco/Mafi Trench']"
+				[ ] 
+		[+] //Rating Tab
+			[+] WPFTabItem tabiRating
+				[ ] locator "//WPFTabItem[@caption='Rating']"
+			[+] AnyWin	tpgRating
+				[+] WPFRadioButton		rdbVolume
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Volume')]"
+				[+] WPFRadioButton		rdbHead
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Head')]"
+				[ ] 
+				[+] WPFButton			btnAddCurve
+					[ ] locator "//WPFButton[@automationId='NewCurve']"
+				[+] WPFButton			btnPlotCurves
+					[ ] locator "//WPFButton[@automationId='ViewPlotButton']"
+				[+] WPFButton			btnDeleteCurve
+					[ ] locator "//WPFButton[@automationId='DeleteCurve']"
+				[ ] 
+				[+] WPFButton			btnSetSimpleCurves
+					[ ] locator "//WPFButton[@automationId='ExpIGVSetSimpleCurvesButton']"
+				[+] WPFButton			btnDeleteCurveCollection
+					[ ] locator "//WPFButton[@automationId='ExpIGVDelCurveCollectionButton']"
+				[+] WPFButton			btnAddCurveCollection
+					[ ] locator "//WPFButton[@automationId='ExpIGVAddCurveCollectionButton']"
+				[ ] 
+				[+] WPFLabel				lblVolumeFlow
+					[ ] locator "//WPFLabel[@caption='_Volume Flow']"
+				[+] WPFLabel				lblHead
+					[ ] locator "//WPFLabel[@caption='Head']"
+				[ ] 
+				[+] WPFListBox			lstIGVCurveCollections
+					[ ] locator "//WPFListBox[@automationId='ExpIGVAttList']"
+				[ ] 
+			[ ] 
+		[+] //Worksheet Tab
+			[+] WPFTabItem tabiWorksheet
+				[ ] locator "//WPFTabItem[@caption='Worksheet']"
+			[+] AnyWin	tpgWorksheet
+				[ ] 
+			[ ] 
+		[+] //Performance Tab
+			[+] WPFTabItem tabiPerformance
+				[ ] locator "//WPFTabItem[@caption='Performance']"
+			[+] AnyWin	tpgPerformance
+				[ ] 
+			[ ] 
+		[+] //Dynamics Tab
+			[+] WPFTabItem tabiDynamics
+				[ ] locator "//WPFTabItem[@caption='Dynamics']"
+			[+] AnyWin	tpgDynamics
+				[ ] 
+			[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+	[+] winclass wcSeparator 								:	wcHysysTabBase
+		[ ] //Design-->Parameters
+		[+] WPFTextBox txbVolume
+			[ ] locator "//WPFTextBox[@automationId='RxnVolumeInput']"
+		[+] WPFTextBox txbLiquidVolume
+			[ ] locator "//WPFTextBox[@automationId='LiqVolInput']"
+		[+] WPFTextBox txbPercentLiquid
+			[ ] locator "//WPFTextBox[@automationId='SSLiqLevelInput']"
+		[+] WPFTextBox txbDuty
+			[ ] locator "//WPFTextBox[@automationId='niParamDuty']"
+			[ ] 
+		[+] WPFDataGridCell dgcInletDeltaP
+			[ ] locator "//WPFDataGridCell[2]"
+		[+] WPFLabel	lblState
+			[ ] locator "//WPFLabel[@automationId='lb_ObjStatusText']"
+		[ ] 
+		[ ] //Design-->Connections
+		[+] WPFDataGridCell dgcInlet1
+			[ ] locator "//WPFDataGridCell[@caption='<< Stream >>']"
+		[+] WPFComboBox cboVapourOutlet
+			[ ] locator "//WPFComboBox[@automationId='VapourProd']"
+		[+] WPFComboBox cboLiquidOutlet
+			[ ] locator "//WPFComboBox[@automationId='LiquidProd']"
+		[+] WPFComboBox cboEnergyHeating
+			[ ] locator "//WPFComboBox[@automationId='EnergyHeating']"
+			[ ] 
+		[+] WPFTextBox	txtName
+			[ ] locator "//WPFTextBox[@automationId='Name']"
+		[ ] 
+		[ ] //Rating -->Sizing
+		[+] WPFRadioButton rdFlatCylinder
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Flat Cylinder')]"
+		[+] WPFRadioButton rdSphere
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Sphere')]"
+		[+] WPFRadioButton rdEllipsoidalHead
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Ellipsoidal Head')]"
+		[+] WPFRadioButton rdHemisphericalHead
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Hemispherical Head')]"
+		[+] WPFRadioButton rdCylinder
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Cylinder')]"
+		[ ] 
+		[ ] //Added by Juan on 5/16/2013
+		[ ] //Rating -->Heat Loss
+		[+] WPFRadioButton rdTemperatureProfile
+			[ ] locator "//WPFRadioButton[@caption='Temperature Profile'][1]"
+		[ ] 
+		[+] WPFRadioButton rdVertical
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Hemispherical Head')]"
+		[+] WPFRadioButton rdHorizontal
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Horizontal')]"
+		[ ] 
+		[ ] //Rating -->C.Over Setup
+		[+] WPFRadioButton rdFeedBasis
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Feed Basis')]"
+			[ ] 
+	[+] winclass  wcTabPageWithDatagridAndButton		:	wcHysysTabBase						// The page contains a datagrid and buttons and two ComboBox buttons
+		[+] wcHysysDataGridSimple		dgDataGrid
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+		[+] WPFButton	btnAdd
+			[ ] locator "//WPFButton[@caption='Add']"
+		[+] WPFButton 	btnDelete
+			[ ] locator "//WPFButton[@caption='Delete' or @automationId='DeleteButton']"
+		[+] WPFButton	btnEdit
+			[ ] locator "//WPFButton[@caption='Edit' or @automationId='ViewButton']"
+			[ ] 
+		[+] WPFButton 	btnCopy
+			[ ] locator "//WPFButton[@caption='Copy']"
+		[+] WPFButton 	btnImport
+			[ ] locator "//WPFButton[@caption='Import']"
+		[+] WPFButton 	btnExport
+			[ ] locator "//WPFButton[@caption='Export...']"
+		[+] WPFTextBox	txtSearchFor
+			[ ] locator "//WPFTextBox[@automationId='NameText']"
+		[+] WPFComboBox	cboAdd
+			[ ] locator "//WPFComboBox[1]"
+			[ ] 
+			[+] WPFComboBoxItem	cbiAspenProperties
+				[ ] locator "/WPFComboBoxItem[@caption='Aspen Properties']"
+		[+] WPFComboBox	cboImport
+			[ ] locator "//WPFComboBox[2]"
+	[+] winclass  wcFilterVariableWindow					:	WPFWindow
+		[+] WPFButton btnOK
+			[ ] locator "@automationId='OKButton'"
+		[+] WPFButton btnAdd
+			[ ] locator "@automationId='ADDButton'"
+		[+] WPFButton btnCancel
+			[ ] locator "@automationId='CancelButton'"
+		[+] WPFButton btnClose
+			[ ] locator "@automationId='CloseButton'"
+		[+] AnyWin	grpNavigatorScope
+			[+] WPFRadioButton rdbFlowsheet
+				[ ] locator "[@caption='Flowsheet'][1]"
+			[+] WPFRadioButton rdbCase
+				[ ] locator "[@caption='Case'][1]"
+			[+] WPFRadioButton rdbBasis
+				[ ] locator "[@caption='Basis'][1]"
+			[+] WPFRadioButton rdbUtility
+				[ ] locator "[@caption='Utility'][1]"
+		[+] AnyWin	grpObjectFilter
+			[+] WPFRadioButton rdbAll
+				[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='All']"
+			[+] WPFRadioButton rdbStreams
+				[ ] locator "[@caption='Streams'][1]"
+			[+] WPFRadioButton rdbUnitOps
+				[ ] locator "[@caption='UnitOps'][1]"
+			[+] WPFRadioButton rdbLogicals
+				[ ] locator "[@caption='Logicals'][1]"
+			[+] WPFRadioButton rdbColumnOps
+				[ ] locator "[@caption='ColumnOps'][1]"
+			[+] WPFRadioButton rdbCustom
+				[ ] locator "[@caption='Custom'][1]"
+		[+] WPFButton btnCustomFilter
+			[ ] locator "@automationId='CustomFilterButton' or @automationId='CustomObjectFilterButton'"
+		[+] wcHysysTreeView	trvFlowSheet
+			[ ] locator "@automationId='FlowSheetTree'"
+		[+] WPFTreeViewItem trviCaseMain
+			[ ] locator "Case (Main)"
+		[+] WPFListBox lstObject
+			[ ] locator "@automationId='ObjectList'"
+		[+] WPFListBox lstVariable
+			[ ] locator "@automationId='VariableList'"
+		[+] WPFListBox lstVariableSpecific
+			[ ] locator "//WPFListBox[@automationId='VariableSpecificList' or @automationId='VariableSpecificListSplit1']"
+		[+] WPFListBox lstMoreSpecific
+			[ ] locator "@automationId='VariableSpecificSpecificListSplit1'"
+		[+] WPFTextBox	txtVariableDescription
+			[ ] locator "//WPFTextBox[@automationId='teVariableDescription']"
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+	[+] winclass  wcColumnSpecifications					:	WPFWindow
+		[+] //Common Objects
+			[+] WPFButton btnDelete
+				[ ] locator "@automationId='Delete'"
+			[+] WPFDataGrid dgDataGrid
+				[ ] locator "[@className='OdfDataGrid'][1]"
+		[+] //Parameters tab
+			[+] WPFTabItem tabiParameters
+				[ ] locator "Parameters"
+		[+] //Summary tab
+			[+] WPFTabItem tabiSummary
+				[ ] locator "Summary"
+		[+] //Spec Type tab
+			[+] WPFTabItem tabiSpecType
+				[ ] locator "Spec Type"
+		[ ] 
+	[+] winclass  wcInputCompositionMaterialStream		:	WPFWindow
+		[ ] locator "/WPFWindow[@caption='Input Composition*Material Stream:*']"
+		[+] WPFButton	btnOk
+			[ ] locator "//WPFButton[@automationId='Accept']"
+		[ ] //Append by Susan
+		[+] wcHysysDataGridSimple		dgDataGrid
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+		[+] WPFRadioButton	rdbMoleFlow
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton'][9]"
+		[ ] 
+		[ ] //Append done
+	[+] winclass  wcProcDataData							:	WPFWindow 
+		[+] wcHysysDataGridSimple dgDataGrid
+			[ ] locator "@className='OdfDataGrid'"
+		[+] WPFButton btnEdit
+			[ ] locator "@automationId='EditButton3'"
+		[+] WPFButton btnDelete
+			[ ] locator "@automationId='DeleteButton'"
+		[+] WPFButton btnAdd
+			[ ] locator "@automationId='AddButton1'"
+	[+] winclass  wcStreamAnalysisChild					:	wcHysysTabBase	 					// This can be the parent class for window Cold Properties, Boiling Point Curves, Envelope and so on which can be added from Analysis Stream
+		[+] //Common Objects
+			[+] wcHysysDataGridSimple dgDataGrid
+				[ ] locator "@className='OdfDataGrid'"
+			[+] WPFButton btnDelete
+				[ ] locator "@automationId='Delete'"
+			[+] WPFTabItem	tabiDesign
+				[ ] locator "//WPFTabItem[@caption='Design']"
+			[+] WPFTabItem	tabiPerformance
+				[ ] locator "//WPFTabItem[@caption='Performance']"
+			[+] WPFTabItem	tabiDynamic
+				[ ] locator "//WPFTabItem[@caption='Dynamic']"
+			[+] WPFLabel		stcOK
+				[ ] locator "//WPFLabel[@caption='OK']"
+	[+] winclass  wcSolidProperty							:	wcHysysTabBase
+		[ ] locator "/WPFWindow[@caption='Solid - *']"
+		[ ] //Common Objects
+		[+] WPFButton btnEditProp
+			[ ] locator "@automationId='EditPropButton'"
+		[+] WPFButton btnEstimate
+			[ ] locator "@automationId='Estimate'"
+		[+] WPFTabItem tabiProps
+			[ ] locator "Props"
+		[+] WPFTabItem tabiPoint
+			[ ] locator "Point"
+		[+] WPFTabItem tabiTDep
+			[ ] locator "TDep"
+		[+] WPFTabItem tabiPSD
+			[ ] locator "PSD"
+		[+] WPFTabItem tabiID
+			[ ] locator "ID"
+		[+] wcHysysDataGridSimple dgDataGrid1
+			[ ] locator "[@className='OdfDataGrid'][1]"
+		[+] wcHysysDataGridSimple dgDataGrid2
+			[ ] locator "[@className='OdfDataGrid'][2]"
+		[ ] 
+		[+] AnyWin	tpgID
+			[ ] 
+		[+] AnyWin	tpgProps
+			[ ] 
+		[+] AnyWin	tpgPoint
+			[ ] 
+		[+] AnyWin	tpgTDep
+			[ ] 
+		[+] AnyWin	tpgPSD
+			[ ] 
+	[+] winclass  wcStripChartChild							:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFTabItem tabiHistorical
+			[ ] locator "Historical"
+		[+] WPFTabItem tabiCurrent
+			[ ] locator "Current"
+		[+] WPFTabItem tabiSetUp
+			[ ] locator "Set up"
+		[+] wcHysysDataGridSimple dgDataGrid
+			[ ] locator "@className='OdfDataGrid' or @automationId='PART_DataGrid'"
+		[+] AnyWin	tpgSetup
+			[+] WPFButton btnDisplay
+				[ ] locator "@automationId='DisplayButton'"
+			[+] WPFButton btnEdit
+				[ ] locator "@automationId='EditButton3'"
+			[+] WPFButton btnDelete
+				[ ] locator "@automationId='DeleteButton2'"
+			[+] WPFButton btnAdd
+				[ ] locator "@automationId='AddButton1'"
+		[+] AnyWin	tpgHistorical
+				[ ] 
+		[+] AnyWin	tpgCurrent
+				[ ] 
+		[ ] 
+	[+] winclass  wcCutter									:	wcHysysTabBase
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "//WPFTabItem[@caption='Design']"
+		[+] WPFTabItem	tabiTransition
+			[ ] locator "//WPFTabItem[@caption='Transition']"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "//WPFTabItem[@caption='Worksheet']"
+			[ ] 
+		[+] AnyWin	tpgDesign
+			[+] //Connections
+				[+] WPFTextBox	txtName
+					[ ] locator "//WPFTextBox[@automationId='teName']"
+				[+] WPFComboBox	cboInlet
+					[ ] locator "//WPFComboBox[@automationId='attInlet']"
+				[+] WPFComboBox	cboOutlet
+					[ ] locator "//WPFComboBox[@automationId='attOutlet']"
+					[ ] 
+				[+] WPFButton	btnRemoveCutter
+					[ ] locator "//WPFButton[@automationId='btmRemoveCutter']"
+			[ ] //
+		[+] AnyWin	tpgTransition
+				[+] WPFComboBox	cboTransitionType
+					[ ] locator "//WPFComboBox[@automationId='TransitionTypeEnum']"
+				[+] WPFComboBox cboType
+					[ ] locator "//WPFComboBox[@automationId='eTransCalcType']"
+				[+] WPFListBox lstPlyPicker
+					[ ] locator "//WPFListBox[@automationId='*PlyPicker*']"
+				[+] WPFCheckBox chkUseGCData
+					[ ] locator "//WPFCheckBox[@automationId='cbUnitOpUseGCData']"
+				[ ] 
+		[+] AnyWin	tpgWorksheet
+			[+] //Conditions
+				[ ] 
+			[+] //Properties
+				[ ] 
+	[+] winclass  wcColumn									:	wcHysysTabBase
+		[+] WPFRadioButton	rdbTopDown
+			[ ] locator "//WPFRadioButton[@caption='Top Down'][1]"
+		[+] WPFRadioButton	rdbBottomUp
+			[ ] locator "//WPFRadioButton[@caption='Bottom Up'][1]"
+		[+] WPFRadioButton	rdbTotal
+			[ ] locator "//WPFRadioButton[@caption='Total'][1]"
+		[+] WPFRadioButton	rdbPartial
+			[ ] locator "//WPFRadioButton[@caption='Partial'][1]"
+		[+] WPFRadioButton	rdbFullRflx
+			[ ] locator "//WPFRadioButton[@caption='Full Rflx'][1]"
+		[+] WPFRadioButton	rdbLiquidInlet
+			[ ] locator "//WPFRadioButton[@caption='Liquid inlet'][1]"
+		[+] WPFRadioButton	rdbPumpAround
+			[ ] locator "//WPFRadioButton[@caption='Pump-around'][1]"
+		[+] WPFRadioButton	rdbOnceThrough
+			[ ] locator "//WPFRadioButton[@caption='Once-through']"
+		[+] WPFRadioButton	rdbCirculationWithoutBaffle
+			[ ] locator "//WPFRadioButton[@caption='Circulation without baffle']"
+		[+] WPFRadioButton	rdbCirculationWithBaffle
+			[ ] locator "//WPFRadioButton[@caption='Circulation with baffle']"
+		[+] WPFRadioButton	rdbRegularHysysReboiler
+			[ ] locator "//WPFRadioButton[@caption='Regular Hysys reboiler']"
+		[+] WPFRadioButton	rdbHeater
+			[ ] locator "//WPFRadioButton[@caption='Heater']"
+		[+] WPFRadioButton	rdbHeatExchanger
+			[ ] locator "//WPFRadioButton[@caption='Heat exchanger']"
+		[ ] 
+		[+] wcHysysDataGridSimple	dgInletStream
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][1]"
+		[+] wcHysysDataGridSimple	dgOptionalSideDraw
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][2]"
+		[ ] 
+		[+] WPFComboBox	cboCondenserEnergyStream
+			[ ] locator "//WPFComboBox[@automationId='CondEnergyAttach']"
+		[+] WPFComboBox	cboReboilerEnergyStream
+			[ ] locator "//WPFComboBox[@automationId='RebEnergyAttach']"
+		[+] WPFComboBox	cboBottomsLiquidOutlet
+			[ ] locator "//WPFComboBox[@automationId='BtmsLiquidAttach']"
+		[+] WPFComboBox	cboOvhdLiquidOutlet
+			[ ] locator "//WPFComboBox[@automationId='OvhdLiqAttach']"
+		[+] WPFComboBox	cboOvhdVapourOutlet
+			[ ] locator "//WPFComboBox[@automationId='OvhdVapourAttach' or @automationId='NoCondOvhdVapourAttach']"
+		[+] WPFComboBox	cboTopStageInlet
+			[ ] locator "//WPFComboBox[@automationId='LiquidFeedAttach']"
+		[+] WPFComboBox	cboDrawStage
+			[ ] locator "//WPFComboBox[@automationId='TopStgPADrawStage']"
+		[+] WPFComboBox	cboFlowBasis
+			[ ] locator "//WPFComboBox[@automationId='EnumSpecFlowBasis']"
+		[+] WPFComboBox	cboBottomStageInlet
+			[ ] locator "//WPFComboBox[@automationId='VapourFeedAttach']"
+		[ ] 
+		[ ] 
+		[+] wcHysysTextBox	txtStages
+			[ ] locator "//WPFTextBox[@automationId='NumStagesNum']"
+		[+] wcHysysTextBox	txtCondenserPressure
+			[ ] locator "//WPFTextBox[@automationId='CondPressureNum']"
+		[+] wcHysysTextBox	txtCondenserPressureDrop
+			[ ] locator "//WPFTextBox[@automationId='CondenserDeltaPNum']"
+		[+] wcHysysTextBox	txtReboilerPressure
+			[ ] locator "//WPFTextBox[@automationId='ReboilerPressureNum']"
+		[+] wcHysysTextBox	txtReboilerPressureDrop
+			[ ] locator "//WPFTextBox[@automationId='ReboilerDPNum']"
+		[+] wcHysysTextBox	txtName
+			[ ] locator "//WPFTextBox[@automationId='Name']"
+		[+] wcHysysTextBox	txtRefluxRatio
+			[ ] locator "//WPFTextBox[@automationId='NIRefluxRatio']"
+		[+] wcHysysTextBox	txtLastStatePressure
+			[ ] locator "//WPFTextBox[@automationId='LastStagePressureNum']"
+		[ ] 
+		[ ] //Append by Susan
+		[+] wcHysysTextBox	txtTopStagePressure
+			[ ] locator "//WPFTextBox[@automationId='TopStagePressureNum']"
+		[+] wcHysysTextBox	txtBottomStagePressure
+			[ ] locator "//WPFTextBox[@automationId='BottomStagePressureNum']"
+		[+] wcHysysTextBox	txtTopStageTemp
+			[ ] locator "//WPFTextBox[@automationId='TopStageTempNum']"
+		[+] wcHysysTextBox	txtBottomStageTemp
+			[ ] locator "//WPFTextBox[@automationId='BottomStageTempNum']"
+		[+] wcHysysTextBox	txtLiquidRate
+			[ ] locator "//WPFTextBox[@automationId='OvhdLiqRateSpecNI' or @automationId='NIDistillateRate']"
+		[+] wcHysysTextBox	txtLiquidRatio
+			[ ] locator "//WPFTextBox[@automationId='RefAbsNIRefluxRatio']"
+		[ ] //Append done
+		[ ] 
+		[ ] 
+		[ ] 
+		[+] WPFButton	btnNext
+			[ ] locator "//WPFButton[@automationId='NextButton' or @automationId='LastPageNextButton']"
+		[+] WPFButton	btnPrev
+			[ ] locator "//WPFButton[@automationId='PreviousButton']"
+		[+] WPFButton	btnDone
+			[ ] locator "//WPFButton[@automationId='DoneButton']"
+		[+] WPFButton	btnReset
+			[ ] locator"//WPFButton[@automationId='ResetButton']"
+		[+] WPFButton	btnRun
+			[ ] locator"//WPFButton[@automationId='RunButton']"
+		[+] WPFButton btnColumnEnvironment
+			[ ] locator "//WPFButton[@automationId='ReturnButton']"
+	[+] winclass  wctpgModelAnalysis						:	wcHysysTabBase
+		[+]  //Variables Tab Page
+			[+] WPFButton	btnScopeObject
+				[ ] locator "//WPFButton[@automationId='AttachPopUpButton']"
+			[+] WPFButton	btnCreateDuplicateUtility
+				[ ] locator "//WPFButton[@automationId='DuplicateBtn']"
+			[+] WPFButton	btnIndAdd
+				[ ] locator "//WPFButton[@automationId='IndAddButton']"
+			[+] WPFButton	btnIndIns
+				[ ] locator "//WPFButton[@automationId='IndInsButton']"
+			[+] WPFButton	btnIndEdit
+				[ ] locator "//WPFButton[@automationId='IndEditButton']"
+			[+] WPFButton	btnDeleteIndVar
+				[ ] locator "//WPFButton[@automationId='DeleteIndVarButton']"
+			[+] WPFButton	btnRefreshInd
+				[ ] locator "//WPFButton[@automationId='RefreshIndButton']"
+			[+] WPFButton	btnDepAdd
+				[ ] locator "//WPFButton[@automationId='DepAddButton']"
+			[+] WPFButton	btnDepIns
+				[ ] locator "//WPFButton[@automationId='DepInsButton']"
+			[+] WPFButton	btnDepEdit
+				[ ] locator "//WPFButton[@automationId='DepEditButton']"
+			[+] WPFButton	btnDeleteDepVar
+				[ ] locator "//WPFButton[@automationId='DeleteDepVarButton']"
+			[+] WPFButton	btnRefreshDep
+				[ ] locator "//WPFButton[@automationId='RefreshDepButton']"
+			[+] WPFButton	btnCancelDep
+				[ ] locator "//WPFButton[@automationId='CancelDepButton']"
+		[+] //Base Vectors Tab Page
+			[+] WPFButton	btnInsSelectPar
+				[ ] locator "//WPFButton[@automationId='Button1']"
+			[+] WPFButton	btnEditSelectPar
+				[ ] locator "//WPFButton[@automationId='Button2']"
+			[+] WPFButton	btnDelSelectPar
+				[ ] locator "//WPFButton[@automationId='Button3']"
+		[+] //Shift Vectors Tab Page
+			[+] WPFRadioButton	rdbShowDerivatives
+				[ ] locator "//WPFRadioButton[@caption='Show Derivatives']"
+			[+] WPFRadioButton	rdbShowShiftValuesForward
+				[ ] locator "//WPFRadioButton[@caption='Show Shift Values (Forward)']"
+			[+] WPFRadioButton	rdbShowShiftValuesBackward
+				[ ] locator "//WPFRadioButton[@caption='Show Shift Values (Backward)']"
+			[+] WPFButton	btnExportCSV
+				[ ] locator "//WPFButton[@automationId='ExportCSV']"
+			[+] WPFButton	btnGenerateCommonModel
+				[ ] locator "//WPFButton[@automationId='GenerateCME']"
+			[+] WPFButton	btnCancelSolve
+				[ ] locator "//WPFButton[@automationId='StopSolveButton']"
+			[+] WPFButton	btnGenerateDerivatives
+				[ ] locator "//WPFButton[@automationId='GenerateDerivatives']"
+			[+] wcHysysDataGridSimple	dgDependentVariables
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+			[+] wcHysysDataGridSimple	dgDerivate
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+			[+] wcHysysDataGridSimple	dgIndependentVariables
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+			[+] wcHysysDataGridSimple	dgParameters
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][4]"
+		[+] //Analysis Tab Page
+			[ ] 
+	[+] winclass  wcDataFit									:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFTabItem tabiParameters
+			[ ] locator "Parameters"
+		[+] WPFTabItem tabiSolverOptions
+			[ ] locator "Solver Options"
+		[+] WPFTabItem tabiResults
+			[ ] locator "Results"
+		[+] WPFTabItem tabiDataSets
+			[ ] locator "Data Sets"
+		[+] WPFButton btnStart
+			[ ] locator "@automationId='StartButton'"
+		[+] WPFButton btnFreshAttachments
+			[ ] locator "@automationId='Button4'"
+		[+] WPFButton btnDataSetAnalysis
+			[ ] locator "@automationId='Button7'"
+		[+] WPFButton btnDelete
+			[ ] locator "@automationId='Button2'"
+		[+] WPFButton btnClose
+			[ ] locator "@automationId='CloseButton'"
+		[+] AnyWin	tpgDataSets
+			[+] wcHysysDataGridSimple dgDataGrid
+				[ ] locator "@className='OdfDataGrid' or @automationId='PART_DataGrid'"
+			[+] WPFComboBox cboVariables
+				[ ] locator "@automationId='DCSTagsIOEnumeration'"
+			[+] WPFButton btmDeleteVariable
+				[ ] locator "@automationId='DeleteDCSTagButton'"
+			[+] WPFButton btnAddVariable
+				[ ] locator "WPFButton[@automationId='AddInDCSTagButton' or @automationId='AddOutDCSTagButton' or @automationId='AddDCSTagButton']"
+			[+] WPFButton btnTargetObjects
+				[ ] locator "@automationId='AttachPopUpButton'"
+			[+] WPFButton	btnAddDataSet
+				[ ] locator "//WPFButton[@automationId='AddDataSetButton']"
+			[+] WPFTextBox txtName
+				[ ] locator "@automationId='NameEdit'"
+			[+] WPFTextBox txtTargetObjects
+				[ ] locator "@automationId='TextEntry1'"
+			[ ] 
+		[+] AnyWin	tpgParameters
+			[+] wcHysysDataGridSimple dgDataGrid
+				[ ] locator "@className='OdfDataGrid' or @automationId='PART_DataGrid'"
+			[+] WPFButton	btnAddFitParam
+				[ ] locator "//WPFButton[@automationId='AddFitParamButton']"
+			[+] WPFButton	btnDeleteFitParam
+				[ ] locator "//WPFButton[@automationId='DeleteFitParamButton']"
+			[ ] 
+		[+] AnyWin	tpgSolverOptions
+			[ ] 
+		[+] AnyWin	tpgResuls
+			[ ] //---------------Susan Append------------------------------------------------
+			[+] wcHysysDataGridSimple	dgNumberOf
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+			[+] wcHysysDataGridSimple dgFittedData
+				[ ] locator "//WPFDataGrid[@automationId='PART_DataGrid']"
+			[ ] 
+			[ ] //-------------Append Done---------------------------------------------------
+			[ ] 
+		[+] WPFLabel	stcConverged
+			[ ] locator "//WPFLabel[@caption='Converged']"
+		[ ] 
+	[+] winclass  wcHysysTreeView							:	WPFTreeView							//WPFTreeView with method Click("/Node")
+		[+] void Click(string sItem, int iButton optional, boolean bPressMouse optional)
+			[ ] //Eric add the parameter iButton to support right click on the treeviewitem just set it as 2.
+			[ ] //Eric add the bPressMouse parameter to handle the no action issue when silk click the item.
+			[ ] integer i
+			[ ] window trvItem,trvParentItem
+			[ ] list of string lstr = glCastStrToList(sItem, "/")
+			[ ] trvItem = this.Find("//WPFTreeViewItem[@caption='{lstr[1]}']")
+			[+] for (i=2; i<=ListCount(lstr); i++)
+				[ ] trvParentItem=trvItem
+				[ ] trvItem = trvItem.Find("//WPFTreeViewItem[@caption='{lstr[i]}']")
+			[ ] trvItem.SetFocus()
+			[ ] trvItem.Select()
+			[ ] 
+			[ ] RECT rect = trvItem.GetRect()
+			[+] while(rect.xPos<0)
+				[+] for(i=1; i<1500; i+=75)
+					[ ] this.ScrollToPosition(i,O_VERTICAL)
+					[ ] rect =trvParentItem.Find("//WPFTreeViewItem[@caption='{trvItem.GetCaption()}']").GetRect()
+					[ ] //print("rect.xPos={rect.xPos}")
+					[+] if(rect.xPos>0)
+						[ ] break
+				[+] if(rect.xPos<0)
+					[ ] Log.Fail("Can't make the item {sItem} viewable.")
+					[ ] break
+			[+] if(iButton==null || iButton==1)
+				[+] if(bPressMouse==null || bPressMouse==false)
+					[ ] trvItem.Click(1, rect.xSize/2, rect.ySize/2)
+					[ ] sleep(2)
+					[ ] glWaitForMouseIdle(5)
+				[+] else
+					[ ] Desktop.PressMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+					[ ] sleep(0.5)
+					[ ] Desktop.ReleaseMouse(1,rect.xPos+rect.xSize/2,rect.yPos+rect.ySize/2)
+			[+] else if(iButton==2)
+				[ ] trvItem.Click(1, rect.xSize/2, rect.ySize/2)
+				[ ] sleep(1)
+				[ ] trvItem.Click(2, rect.xSize/2, rect.ySize/2)
+				[ ] sleep(1)
+				[ ] glWaitForMouseIdle(5)
+			[+] else
+				[ ] Log.Fail("For the click we can only support 1(left click) or 2(right click)")
+	[+] winclass  wcHysysDataGridSimple					:	WPFDataGrid 							//Each datagridcell which is visible by naked eye embeded none cell in it. If the datagrid fromat is not the same as this, you can't use this.
+		[ ] //All the methods below can work only we don't need to scroll down, 
+		[ ] //it means if we need move the scrollbar to locate the data, these method will not work correctlly
+		[ ] //In that case you'd better to use the method glGoToCell() to get and set the value
+		[+] list of STRING GetDropDownList(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method can only apply to the datagrid which contains ComboBox in each datagrid cell.
+				[ ] // Don't try to edit this method if your datagrid's format is not available, this is a top level method, you can define your own in derived object..
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").TypeKeys("<Backspace>")
+				[ ] sleep(1)
+				[ ] window w =this.Find("//WPFComboBox[1]")
+				[ ] list of window lstW = w.Items
+				[ ] int i
+				[ ] list of string lstStr
+				[+] for(i=1;i<=ListCount(lstW);i++)
+					[ ] ListAppend(lstStr,lstW[i].GetCaption())
+				[ ] return lstStr
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while geting dropdown list items.")
+				[ ] ExceptClear()
+		[+] string GetCellCaption(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[ ] string str=""
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").BringIntoView()
+				[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").GetCaption()
+				[+] if(str=="" || str==null)
+					[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").TextCapture()
+					[+] if(str=="" || str==null)
+						[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").GetProperty("Cell").GetProperty("ValueAsString")
+				[ ] return str
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting cell caption.")
+				[ ] ExceptClear()
+				[ ] return str
+		[+] void DoubleClickCell(int iRow, int iColumn)
+			[ ] //Double click the cell in row 'iRow' column 'iColumn'. this method is not suitable for the case if there are much rows and we need to scrow to make it visiable.
+			[+] do
+				[ ] this.SetFocus()
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").DoubleClick()
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while double click cell.")
+				[ ] ExceptClear()
+		[+] void ClickCell(int iRow, int iColumn, int iButton optional)
+			[ ] //Single click the cell in row 'iRow' column 'iColumn', this method is not suitable for the case if there are much rows and we need to scrow to make it visiable.
+			[+] do
+				[ ] this.SetFocus()
+				[+] if(iButton==null || iButton ==1)
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+				[+] else if(iButton==2)
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click(2)
+				[+] else if(iButton==3)
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").DoubleClick()
+				[+] else
+					[ ] Log.Error("Only 1 or 2 is supported for click mouse button.")
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while click cell.")
+				[ ] ExceptClear()
+		[+] list of STRING SelectAll(window wParentWindow optional)
+			[+] //Description 
+				[ ] // This method is used to select and get all of the data in table by typekey Ctrl-a.
+				[ ] // wParentWindow, the parent of the table, this parameter is optional
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	April 18, 2013	
+			[+] do
+				[ ] this.SetFocus()
+				[ ] sleep(0.5)
+				[ ] Clipboard.SetText()
+				[+] if(wParentWindow==null)
+					[ ] this.TypeKeys("<Ctrl-a>")
+					[ ] sleep(0.5)
+					[ ] this.TypeKeys("<Ctrl-c>")
+					[ ] return Clipboard.GetText()
+				[+] else
+					[ ] wParentWindow.TypeKeys("<Ctrl-a>")
+					[ ] sleep(0.5)
+					[ ] wParentWindow.TypeKeys("<Ctrl-c>")
+					[ ] return Clipboard.GetText()
+			[+] except
+				[ ] ExceptLog()
+				[ ] ExceptClear()
+		[+] string GetCellValue(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").BringIntoView()
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").TypeKeys("<Ctrl-C>")
+				[ ] string str=Clipboard.GetText()[1]
+				[+] if(str=="")
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").BringIntoView()
+					[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").GetProperty("Text")
+				[ ] return str
+			[+] except
+				[ ] ExceptLog()
+				[ ] ExceptClear()
+				[ ] return "There is error"
+			[ ] 
+		[+] void SetCellValue(int iRow, int iColumn, string sValue,string sUnit optional, window wParentWindow optional)
+			[+] //Description 
+				[ ] // This method is used to the set the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // sValue: the value you want set to the cell.
+				[ ] // sUnit: the unit to the value, this is optionnal.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[+] do
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+				[+] except
+					[+] exceptClear()
+						[+] do
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").ScrollIntoView()
+							[ ] sleep(0.5)
+						[+] except
+							[ ] ExceptClear()
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").SetFocus()
+							[ ] sleep(0.5)
+				[ ] sleep(0.2)
+				[+] if sVersion>="V8.3"
+					[ ] wParentWindow=Desktop //AH can not work from Hysys V8.3
+				[+] do
+					[ ] this.CurrentCell.TypeKeys(sValue)
+					[ ] FINDOPTIONS options
+					[ ] options.throwWindowNotFoundException = FALSE
+					[ ] options.timeout = 0
+					[ ] 
+					[+] if( this.find("//WPFComboBoxItem[@caption='{sValue}']", options) != NULL)
+						[ ]  this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]//WPFComboBox").Select(sValue)
+						[ ] 
+						[ ] 
+				[+] except
+					[ ] ExceptClear()
+					[+] do
+						[ ] wParentWindow.TypeKeys("{sValue}")
+					[+] except
+						[ ] ExceptClear()
+						[ ] wParentWindow.TypeKeys("<ctrl-a><delete>{sValue}")
+				[ ] sleep(0.2)
+				[+] if(sUnit != null && sUnit != "default")
+					[+] do
+						[ ] this.Find("//WPFComboBox",{3}).Select(sUnit)
+						[ ] sleep(0.5)
+						[+] if(this.Find("//WPFComboBox",{3,false})!=null)
+							[ ] this.Find("//WPFComboBox",{3,false}).Close()
+						[ ] sleep(1)
+					[+] except
+						[ ] ExceptClear()
+						[ ] sleep(3)
+						[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+						[ ] sleep(0.5)
+						[ ] wParentWindow.TypeKeys("<BackSpace>")
+						[ ] sleep(1.5)
+						[+] if(this.Find("//WPFComboBox",{3,false})==null)
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").MoveMouse()
+							[ ] sleep(0.5)
+						[ ] this.Find("//WPFComboBox",{3}).Select(sUnit)
+						[ ] sleep(0.5)
+						[+] if(this.Find("//WPFComboBox",{3,false})!=null)
+							[ ] this.Find("//WPFComboBox",{3,false}).Close()
+						[ ] sleep(1)
+				[+] else
+					[ ] wParentWindow.TypeKeys("<Enter>")
+				[ ] glWaitForMouseIdle(10,2)
+			[+] except
+				[+] if(ExceptData()!="The object is not ready for user interaction because it is not enabled.")
+					[ ] ExceptLog()
+					[ ] Log.Fail("There is error while setting cell value.")
+					[ ] CaptureCurrentBitmap("{sDataout}\SetCellError.bmp")
+				[ ] ExceptClear()
+		[+] void SetCellValue_Performance(int iRow, int iColumn, string sValue,string sUnit optional, window wParentWindow optional)
+			[+] //Description 
+				[ ] // This method is used to the set the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // sValue: the value you want set to the cell.
+				[ ] // sUnit: the unit to the value, this is optionnal.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+				[+] if sValue=="<Delete>"
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").SetFocus()
+					[ ] sleep(1)
+					[ ] Desktop.TypeKeys("{sValue}")
+					[ ] sleep(2)
+					[ ] Desktop.TypeKeys("{sValue}")
+					[ ] sleep(2)
+			[+] do
+				[+] do
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+				[+] except
+					[+] exceptClear()
+						[+] do
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").ScrollIntoView()
+							[ ] sleep(0.5)
+						[+] except
+							[ ] ExceptClear()
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").SetFocus()
+							[ ] sleep(0.5)
+				[ ] sleep(0.2)
+				[+] if sVersion>="V8.3"
+					[ ] wParentWindow=Desktop //AH can not work from Hysys V8.3
+				[+] do
+					[ ] this.CurrentCell.Typekeys("<Backspace>")
+					[ ] this.CurrentCell.TypeKeys(sValue)
+					[ ] FINDOPTIONS options
+					[ ] options.throwWindowNotFoundException = FALSE
+					[ ] options.timeout = 0
+					[ ] 
+					[+] if( this.find("//WPFComboBoxItem[@caption='{sValue}']", options) != NULL)
+						[ ]  this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]//WPFComboBox").Select(sValue)
+						[ ] 
+						[ ] 
+				[+] except
+					[ ] ExceptClear()
+					[+] do
+						[ ] wParentWindow.TypeKeys("{sValue}")
+					[+] except
+						[ ] ExceptClear()
+						[ ] wParentWindow.TypeKeys("<ctrl-a><delete>{sValue}")
+				[ ] sleep(0.2)
+				[+] if(sUnit != null && sUnit != "default")
+					[+] do
+						[ ] this.Find("//WPFComboBox",{3}).Select(sUnit)
+					[+] except
+						[ ] ExceptClear()
+						[ ] sleep(3)
+						[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").Click()
+						[ ] sleep(0.5)
+						[ ] wParentWindow.TypeKeys("<BackSpace>")
+						[ ] sleep(1.5)
+						[+] if(this.Find("//WPFComboBox",{3,false})==null)
+							[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").MoveMouse()
+							[ ] sleep(0.5)
+						[ ] this.Find("//WPFComboBox",{3}).Select(sUnit)
+						[ ] sleep(0.5)
+						[+] if(this.Find("//WPFComboBox",{3,false})!=null)
+							[ ] this.Find("//WPFComboBox",{3,false}).Close()
+				[ ] 
+				[ ] 
+			[+] except
+				[+] if(ExceptData()!="The object is not ready for user interaction because it is not enabled.")
+					[ ] ExceptLog()
+					[ ] Log.Fail("There is error while setting cell value.")
+					[ ] CaptureCurrentBitmap("{sDataout}\SetCellError.bmp")
+				[ ] ExceptClear()
+		[+] void InputColumn(int iRow,int iColumn,list of STRING lsNumber,list of string lsUnit optional )
+			[ ] int i,j
+			[ ] j=1
+			[ ] list of string lsTable=lsNumber
+			[+] if lsUnit==null
+				[ ] lsUnit=<text>
+				[+] for (i=1;i<=ListCount(lsTable);i++)
+					[ ] ListAppend(lsUnit,"")
+			[+] for(i=1;i<=ListCount(lsTable);i++)
+				[+] if MatchStr("*empty*",lower(lsTable[i]))
+					[ ] continue
+				[+] if wInputComposition.Exists(5)
+					[ ] j++
+					[ ] sleep(3)
+					[ ] wInputComposition.dgDataGridSimple.SetCellValue(j,2,"{lsTable[i]}")
+				[+] else
+					[+] if lsUnit[i]==""
+						[ ] this.dgDataGridSimple.SetCellValue(iRow-1+i,iColumn,"{lsTable[i]}")
+					[+] else
+						[ ] this.dgDataGridSimple.SetCellValue(iRow-1+i,iColumn,"{lsTable[i]}","{lsUnit[i]}")
+			[+] if wInputComposition.Exists()
+				[ ] sleep(1)
+				[ ] wInputComposition.Close()
+			[ ] 
+		[ ] 
+		[ ] 
+		[+] void verifyCell(int iRow, int iColumn, string sValue, real tolerance optional)
+			[ ] //To check the value of a cell of an individual cell in a datagrid
+			[+] if( tolerance == NULL )
+				[ ] tolerance = 0.01
+			[+] if( !checkTolerance( val(sValue), val( getCellValue(iRow, iColumn)), tolerance) )
+				[ ] Log.Error("Value at ({iRow},{iColumn}) is not as expected. See Above Comparision")
+			[+] else
+				[ ] Log.Pass("Value at ({iRow},{iColumn}) is within acceptable tolerance")
+			[ ] 
+			[ ] 
+		[ ] 
+		[+] void CheckBox(int iRow,int iColumn,int iOption optional) //Weiwei 9/30/2013
+			[ ] int iTime=0
+			[ ] window wCell=this.FindWPFDataGridCell("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn}]").FindWPFCheckBox("//WPFCheckBox")
+			[ ] //Check whether the checkbox exist or not
+			[+] if !wCell.Exists()
+				[ ] Log.Fail("Fail to find checkbox in row {iRow}, Column {iColumn} in table {this} ")
+				[ ] return
+			[ ] 
+			[+] if iOption==2
+				[ ] //uncheck box
+				[+] while iTime<=10
+					[+] if wCell.State!=BS_UNCHECKED
+						[ ] wCell.Click()
+					[ ] sleep(0.5)
+					[ ] iTime++
+			[+] else
+				[ ] //checkbox
+				[ ] wCell.Check()
+			[ ] 
+		[+] void UnCheckBox(int iRow,int iColumn)	//weiwei 9/30/2013
+			[ ] this.CheckBox(iRow,iColumn,2)
+		[ ] 
+	[+] winclass  wcHysysDataGridDoubleCell				:	WPFDataGrid							//Each datagridcell which is visible by naked eye embeded one cell in it. If the datagrid fromat is not the same as this, you can't use this.
+		[ ] //All the methods below can work only we don't need to scroll down, 
+		[ ] //it means if we need move the scrollbar to locate the data, these method will not work correctlly
+		[ ] //In that case you'd better to use the method glGoToCell() to get and set the value
+		[+] list of STRING GetDropDownList(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method can only apply to the datagrid which contains ComboBox in each datagrid cell.
+				[ ] // Don't try to edit this method if your datagrid's format is not available, this is a top level method, you can define your own in derived object..
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").TypeKeys("<Backspace>")
+				[ ] sleep(1)
+				[ ] window w =this.Find("//WPFComboBox[1]")
+				[ ] list of window lstW = w.Items
+				[ ] int i
+				[ ] list of string lstStr
+				[+] for(i=1;i<=ListCount(lstW);i++)
+					[ ] ListAppend(lstStr,lstW[i].GetCaption())
+				[ ] return lstStr
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while geting dropdown list items.")
+				[ ] ExceptClear()
+		[+] string GetCellCaption(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the caption of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").BringIntoView()
+				[ ] return this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").GetCaption()
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting cell caption")
+				[ ] ExceptClear()
+		[+] void SetCellValue(int iRow, int iColumn, string sValue,string sUnit optional, window wParentWindow optional)
+			[+] //Description 
+				[ ] // This method is used to the set the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // sValue: the value you want set to the cell.
+				[ ] // sUnit: the unit to the value, this is optionnal.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").Click()
+				[ ] sleep(0.5)
+				[+] if(wParentWindow!=null)
+					[ ] wParentWindow.TypeKeys(sValue)
+				[+] else
+					[ ] AH.TypeKeys(sValue)
+				[ ] sleep(0.5)
+				[+] if(sUnit != null && sUnit != "default")
+					[ ] this.Find("//WPFComboBox").Select(sUnit)
+					[ ] sleep(1)
+				[+] else
+					[+] do
+						[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").TypeKeys("<Enter>")
+						[ ] sleep(1)
+					[+] except
+						[ ] ExceptClear()
+						[ ] this.TypeKeys("<Enter>")
+						[ ] sleep(1)
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while setting cell value.")
+				[ ] ExceptClear()
+		[+] string GetCellValue(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").BringIntoView()
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").TypeKeys("<Ctrl-C>")
+				[ ] string str=Clipboard.GetText()[1]
+				[+] if(str=="")
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").BringIntoView()
+					[ ] sleep(0.5)
+					[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").GetProperty("Text")
+				[ ] return str
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting cell value")
+				[ ] ExceptClear()
+		[+] void DoubleClickCell(int iRow, int iColumn)
+			[ ] //Double click the cell in row 'iRow' column 'iColumn'.
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2}]").DoubleClick()
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while double click cell.")
+				[ ] ExceptClear()
+	[+] winclass  wcHysysDataGridDoubleCellExceptFirst	:	WPFDataGrid							//Each datagridcell which is visible by naked eye embeded one cell in it, except the first cell. If the datagrid fromat is not the same as this, you can't use this.
+		[ ] //All the methods below can work only we don't need to scroll down, 
+		[ ] //it means if we need move the scrollbar to locate the data, these method will not work correctlly
+		[ ] //In that case you'd better to use the method glGoToCell() to get and set the value
+		[+] list of STRING GetDropDownList(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method can only apply to the datagrid which contains ComboBox in each datagrid cell.
+				[ ] // Don't try to edit this method if your datagrid's format is not available, this is a top level method, you can define your own in derived object..
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").TypeKeys("<Backspace>")
+				[ ] sleep(1)
+				[ ] window w =this.Find("//WPFComboBox[1]")
+				[ ] list of window lstW = w.Items
+				[ ] int i
+				[ ] list of string lstStr
+				[+] for(i=1;i<=ListCount(lstW);i++)
+					[ ] ListAppend(lstStr,lstW[i].GetCaption())
+				[ ] return lstStr
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting dropdown list items.")
+				[ ] ExceptClear()
+		[+] string GetCellCaption(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the caption of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").BringIntoView()
+				[ ] return this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").GetCaption()
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting cell caption")
+				[ ] ExceptClear()
+		[+] void SetCellValue(int iRow, int iColumn, string sValue)
+			[+] //Description 
+				[ ] // This method is used to the set the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").Click()
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").TypeKeys("<Backspace>")
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").TypeKeys("{sValue}<Enter>")
+				[ ] sleep(1)
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while setting cell value")
+				[ ] ExceptClear()
+		[+] string GetCellValue(int iRow, int iColumn)
+			[+] //Description 
+				[ ] // This method is used to the get the value of the  cell.
+				[ ] // iRow: the row number to locate the cell.
+				[ ] // iColumn: the column number to locate the cell.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	August 03, 2012	
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").BringIntoView()
+				[ ] sleep(0.5)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").Click()
+				[ ] sleep(1)
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").TypeKeys("<Ctrl-C>")
+				[ ] string str=Clipboard.GetText()[1]
+				[+] if(str=="")
+					[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").BringIntoView()
+					[ ] str=this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").GetProperty("Text")
+				[ ] return str
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while getting cell value")
+				[ ] ExceptClear()
+		[+] void DoubleClickCell(int iRow, int iColumn)
+			[ ] //Double click the cell in row 'iRow' column 'iColumn'.
+			[+] do
+				[ ] this.Find("//WPFDataGridRow[{iRow}]//WPFDataGridCell[{iColumn*2-1}]").DoubleClick()
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while double click cell.")
+				[ ] ExceptClear()
+		[ ] 
+	[+] winclass  wcComponentListView						:	wcHysysTabBase
+		[ ] locator "/WPFWindow[@caption='Component List View:*']"
+		[+] WPFComboBox	cboSelect
+			[ ] locator "//WPFComboBox[@automationId='enumComponents']"
+		[+] WPFTextBox	txtSearchFor
+			[ ] locator "//WPFTextBox[@automationId='NameText']"
+		[+] WPFComboBox	cboFilter
+			[ ] locator "//WPFComboBox[@automationId='enumFamilyFilter']"
+		[+] WPFComboBox	cboSearchBy
+			[ ] locator "//WPFComboBox[@automationId='NameEnum']"
+		[+] wcHysysDataGridSimple		dgComponent
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+		[+] wcHysysDataGridSimple		dgSearchFor
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+		[+] WPFButton	btnGenerateHypos
+			[ ] locator "//WPFButton[@automationId='AddBatchB']"
+		[+] WPFButton	btnEstimateUnknow
+			[ ] locator "//WPFButton[@automationId='EstimateSolidButton']"
+		[+] WPFButton	btnNewSolid
+			[ ] locator "//WPFButton[@automationId='AddNewSolid']"
+		[+] WPFButton	btnAddToLeft
+			[ ] locator "//WPFButton[@caption='< Add' or@automationId='AddPureB']"
+		[+] WPFButton	btnReplace
+			[ ] locator "//WPFButton[@automationId='SubsB']"
+		[+] WPFButton	btnFind
+			[ ] locator "//WPFButton[@automationId='AddPureB']"
+		[+] WPFButton	btnRemove
+			[ ] locator "//WPFButton[@automationId='RemoveB']"
+		[+] void AddComponent(string sComponentName, string sSearchBy optional)
+			[+] if sSearchBy!=null
+				[ ] sValue=this.cboSearchBy.SelectedItemText
+				[+] if(!MatchStr("*{sSearchBy}*",sValue))
+					[ ] this.cboSearchBy.Select("*{sSearchBy}*")
+					[ ] sleep(1)
+			[ ] this.SetActive()
+			[ ] this.txtSearchFor.Clear()
+			[ ] sleep(0.5)
+			[ ] this.txtSearchFor.TypeKeys(sComponentName)
+			[ ] sleep(1.5)
+			[+] if(this.dgSearchFor.Exists(3))
+				[ ] this.dgSearchFor.SetFocus()
+				[ ] sleep(0.5)
+				[ ] this.TypeKeys("<Ctrl-C>")
+				[ ] sValue=Clipboard.GetText()[1]
+				[ ] string sValue2=sValue
+				[ ] bValue=false
+				[ ] int i=0
+				[+] while(i<150)
+					[+] if(sValue!=sComponentName)
+						[ ] this.TypeKeys("<Down>")
+						[ ] sleep(0.5)
+						[ ] this.TypeKeys("<Ctrl-C>")
+						[ ] sValue=Clipboard.GetText()[1]
+						[ ] sValue2=sValue
+						[ ] i+=0.5
+						[ ] sleep(0.5)
+					[+] else
+						[ ] print("Found {sValue}.")
+						[ ] bValue=true
+						[ ] break
+				[+] if(!bValue)
+					[ ] Log.Fail("Didn't find the component.{sComponentName}")
+				[+] else
+					[ ] this.btnAddToLeft.SetFocus()
+					[ ] this.btnAddToLeft.Click()
+					[ ] sleep(1)
+					[ ] glWaitForMouseIdle(5)
+			[+] else
+				[ ] this.TypeKeys("<Enter>")
+		[ ] 
+		[ ] 
+		[ ] 
+		[ ] 
+	[+] winclass  wcHysysTextBox							:	WPFTextBox
+		[+] void SetValue(string sValue, string sUnit optional)
+			[+] //Description 
+				[ ] // This method is used to the set the value of the  text box, especially with unit.
+				[ ] // sValue: the value you want set to the text box.
+				[ ] // sUnit: the unit to the value, this is optional.
+				[ ] // Author		:	Eric Lu
+				[ ] // Date			:	November 15, 2012	
+			[+] do
+				[ ] this.Click()
+				[ ] sleep(0.5)
+				[ ] this.TypeKeys(sValue)
+				[ ] sleep(0.5)
+				[+] if(sUnit != null)
+					[ ] this.Find("//WPFComboBox").Select(sUnit)
+					[ ] sleep(1)
+				[+] else
+					[+] do
+						[ ] this.TypeKeys("<Enter>")
+						[ ] sleep(1)
+					[+] except
+						[ ] ExceptClear()
+						[ ] this.TypeKeys("<Enter>")
+						[ ] sleep(1)
+			[+] except
+				[ ] ExceptLog()
+				[ ] Log.Fail("There is error while setting text box value.")
+				[ ] ExceptClear()
+		[ ] 
+	[+] winclass  wcOpenFile									:	DialogBox
+		[+] TextField txtFileName
+			[ ] //locator "File name:"
+			[ ] locator "//TextField"
+		[+] ComboBox cboFileNameExtention
+			[ ] locator "//ComboBox[@caption='Files of type:']"
+		[+] PushButton btnOpen
+			[ ] locator "Open"
+		[+] PushButton btnCancel
+			[ ] locator "Cancel"
+		[+] PushButton btnSave    //Added by Juan on 3/14/2014
+			[ ] locator "Save"
+		[+] ToolBar tlbAddressBar
+			[ ] locator "//ToolBar[@caption='Address:*']"
+		[+] MenuItem miCopyAddressAsText
+			[ ] locator "//MenuItem[@caption='Copy address as text']"
+		[+] OpenFile(string sFileNameWithPath)
+			[ ] this.SetActive()
+			[ ] this.txtFileName.TypeKeys(sFileNameWithPath)
+			[ ] sleep(0.5)
+			[ ] this.btnOpen.SetFocus()
+			[ ] sleep(0.5)
+			[ ] this.btnOpen.Click()
+			[ ] glWaitForMouseIdle()
+	[+] winclass  wcImportExport								:	DialogBox
+		[+] TextField txtFileName
+			[ ] //locator "File name:"
+			[ ] locator "//TextField"
+		[+] PushButton btnOpen
+			[ ] locator "Open"
+		[+] PushButton btnSave
+			[ ] locator "Save"
+		[+] PushButton btnCancel
+			[ ] locator "Cancel"
+		[+] ComboBox	cboType
+			[ ] locator  "//ComboBox[2]"
+		[+] void Import(string sFileNameWithFullPath)
+			[ ] this.SetActive()
+			[ ] sleep(1)
+			[ ] this.txtFileName.TypeKeys(sFileNameWithFullPath)
+			[ ] sleep(0.5)
+			[ ] this.btnOpen.SetFocus()
+			[ ] this.btnOpen.Click()
+			[ ] glWaitForMouseIdle(30)
+			[ ] this.WaitForDisappearance(5)
+			[+] while(dlgAspenHysys.Exists(3))
+				[ ] dlgAspenHysys.SetActive()
+				[ ] dlgAspenHysys.btnYes.Click()
+		[+] void Export(string sFileNameWithFullPath,string sType optional)
+			[ ] this.SetActive()
+			[ ] sleep(1)
+			[+] if(sType!=null)
+				[ ] this.cboType.Select("*{sType}*")
+			[ ] this.txtFileName.TypeKeys(sFileNameWithFullPath)
+			[ ] sleep(0.5)
+			[ ] this.btnSave.SetFocus()
+			[ ] this.btnSave.Click()
+			[+] if(dlgConfirmSaveAs.Exists(3))
+				[ ] dlgConfirmSaveAs.SetActive()
+				[ ] dlgConfirmSaveAs.btnYes.Click()
+	[+] winclass  wcProfile									:	WPFWindow
+		[+] WPFUserControl PlotWidget									//For Graph
+			[ ] locator "@className='PlotWidget'"
+		[+] wcHysysDataGridSimple dgDataGrid						//For Table
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][1]"
+		[+] WPFButton	btnProperties
+			[ ] locator "//WPFButton[@automationId='Properties*']"
+		[+] WPFButton btnProfileDataControl
+			[ ] locator "@automationId='CurveTableControlButton'"
+		[ ] 
+	[+] winclass  wcSpec										:	wcHysysTabBase 
+		[+] wcHysysDataGridSimple		dgDataGrid
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+		[+] WPFButton	btnDelete
+			[ ] locator "//WPFButton[@automationId='Delete']"
+		[+] WPFTabItem tabiDrawSpec
+			[ ] locator "//WPFTabItem[@caption='Summary']"
+		[+] WPFCheckBox chkActive
+			[ ] locator "//WPFCheckBox[@className='ImageCheckBox'][1]"
+		[+] WPFCheckBox chkEstimate
+			[ ] locator "//WPFCheckBox[@className='ImageCheckBox'][2]"
+		[ ] 
+	[+] winclass  wcCompressor								:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "Design"
+		[+] WPFTabItem	tabiRating
+			[ ] locator "Rating"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "Worksheet"
+		[+] WPFTabItem	tabiPerformance
+			[ ] locator "Performance"
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "Dynamics"
+		[ ] 
+		[+] AnyWin	tpgDesign
+			[+] //Connections
+				[ ] 
+			[+] //Parameters
+				[+] WPFRadioButton	rdbCentrifugal
+					[ ] locator "//WPFRadioButton[@caption='Centrifugal'][1]"
+				[+] WPFRadioButton	rdbReciprocating
+					[ ] locator "//WPFRadioButton[@caption='Reciprocating'][1]"
+				[+] WPFRadioButton	rdbSingleMW
+					[ ] locator "//WPFRadioButton[@caption='Single-MW'][1]"
+				[+] WPFRadioButton	rdbMultipleMW
+					[ ] locator "//WPFRadioButton[@caption='Multiple MW'][1]"
+				[+] WPFRadioButton	rdbMultipleIGV
+					[ ] locator "//WPFRadioButton[@caption='Multiple IGV'][1]"
+				[+] WPFRadioButton	rdbNonDimensional
+					[ ] locator "//WPFRadioButton[@caption='Non-Dimensional'][1]"
+				[+] WPFRadioButton	rdbQuasiDimensionless
+					[ ] locator "//WPFRadioButton[@caption='Quasi-Dimensionless'][1]"
+				[+] WPFRadioButton	rdbSchultz
+					[ ] locator "//WPFRadioButton[@caption='Schultz'][1]"
+				[+] WPFRadioButton	rdbHuntington
+					[ ] locator "//WPFRadioButton[@caption='Huntington'][1]"
+				[+] WPFRadioButton	rdbReference
+					[ ] locator "//WPFRadioButton[@caption='Reference'][1]"
+				[+] WPFButton	btnExchangeEquipment
+					[ ] locator "//WPFButton[@automationId='ImportFromExchange']"
+				[+] WPFTextBox	txtDuty
+					[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+				[+] WPFTextBox	txtDeltaP
+					[ ] locator "//WPFTextBox[@automationId='DeltaPNumericalInput']"
+				[+] WPFTextBox	txtPressureRatio
+					[ ] locator "//WPFTextBox[@automationId='PressureRatioNumericalInput']"
+			[+] //Links
+				[ ] 
+			[+] //User Variables
+				[ ] 
+			[+] //Notes
+				[ ] 
+		[+] AnyWin	tpgRating
+			[+] //Curves
+				[+] WPFButton			btnAddCurve
+					[ ] locator "//WPFButton[@automationId='NewCurve']"
+				[+] WPFButton			btnPlotCurves
+					[ ] locator "//WPFButton[@automationId='ViewPlotButton']"
+				[+] WPFButton			btnDeleteCurve
+					[ ] locator "//WPFButton[@automationId='DeleteCurve']"
+				[+] WPFButton			btnCloneCurve
+					[ ] locator "//WPFButton[@automationId='CompressorCloneCurveButton']"
+				[+] WPFButton			btnViewCurve
+					[ ] locator "//WPFButton[@automationId='ViewCurve']"
+				[+] WPFTextBox txtCompressorSpeed
+					[ ] locator "//WPFTextBox[@automationId='SpeedInput']"
+				[+] WPFRadioButton	rdbAdiabatic
+					[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Adiabatic']"
+				[+] WPFRadioButton	rdbPolytropic
+					[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Polytropic']"
+				[+] WPFCheckBox	chkEnableCurves
+					[ ] locator "//WPFCheckBox[@automationId='ActivateCurvesCheckBox']"
+				[ ] 
+				[+] wcHysysDataGridSimple dgIGVSettings
+					[ ] locator "//WPFContentControl[@automationId='MatrixWidget3']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] 
+				[+] wcHysysDataGridSimple dgCurves
+					[ ] locator "//WPFContentControl[@automationId='HeadCurvesMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+				[ ] 
+			[+] //Flow Limits
+				[ ] 
+			[+] //Nozzles
+				[ ] 
+			[+] //Inertia
+				[ ] 
+			[+] //Electric Motor
+				[+] WPFRadioButton rdbSimple
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Simple')]"
+				[+] WPFRadioButton rdbBreakdown
+					[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Breakdown')]"
+				[+] WPFCheckBox chkBrake
+					[ ] locator "//WPFCheckBox[@automationId='BrakeCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+				[+] WPFCheckBox chkGearing
+					[ ] locator "//WPFCheckBox[@automationId='GearingCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+				[+] WPFCheckBox chkEMotorCB2
+					[ ] locator "//WPFCheckBox[@automationId='EMotorCB2']/WPFCheckBox[@automationId='PART_CheckBox']"
+				[ ] 
+		[+] AnyWin	tpgWorksheet
+			[ ] 
+		[+] AnyWin	tpgPerformance
+			[+] //Results
+				[ ] 
+			[+] //Power
+				[+] wcHysysDataGridSimple		dgCompressorRotorPower
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid'][1]"
+		[+] AnyWin	tpgDynamics
+			[ ] 
+		[ ] 
+	[+] winclass  wcHydrocracker							:	wcHysysTabBase
+		[+] //Common Objects
+			[+] WPFButton	btnHCREnvironment
+				[ ] locator "//WPFButton[@automationId='btnHCREnvironment']"
+		[+] //Design Page
+			[+] AnyWin	tpgDesign
+				[ ] //Connections 
+				[+] wcHysysDataGridSimple		dgFeeds
+					[ ] locator "//WPFContentControl[@automationId='mFeeds']//WPFDataGrid[@className='OdfDataGrid']"
+		[+] //Reactor Section
+			[+] AnyWin	tpgReactorSection
+				[ ] 
+		[+] //Fractionator
+			[+] AnyWin	tpgFractionator
+				[ ] 
+		[+] //Results
+			[+] AnyWin	tpgResults
+				[ ] 
+	[+] winclass  wcReformer								:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFButton btnReformerEnvironment
+			[ ] locator "//WPFButton[@automationId='btnCatRefEnvironment']"
+		[+] //Design Page
+			[+] AnyWin	tpgDesign
+				[ ] //Connections 
+				[+] wcHysysDataGridSimple		dgReformerFeeds
+					[ ] locator "//WPFContentControl[@automationId='mtxRXRFeeds']//WPFDataGrid[@className='OdfDataGrid']"
+		[+] //Reactor Section
+			[+] AnyWin	tpgReactorSection
+				[ ] 
+		[+] //Stabilizer
+			[+] AnyWin	tpgStabilizer
+				[ ] 
+		[+] //Results
+			[+] AnyWin	tpgResults
+				[ ] 
+	[+] winclass  wcPetroleumDistillationColumn			:	wcHysysTabBase
+		[+] //Design tab
+			[+] AnyWin	tpgDesign
+				[+] WPFRadioButton rdECP
+					[ ] locator "//WPFRadioButton[@caption='ECP'][1]"
+				[+] WPFRadioButton rdYield
+					[ ] locator "//WPFRadioButton[@caption='Yield'][1]"
+				[+] WPFRadioButton rdMolar
+					[ ] locator "//WPFRadioButton[@caption='Molar'][1]"
+				[+] WPFRadioButton rdMass
+					[ ] locator "//WPFRadioButton[@caption='Mass'][1]"
+				[+] WPFRadioButton rdLiqVol
+					[ ] locator "//WPFRadioButton[@caption='Liq Vol'][1]"
+				[ ] //Added by Weiwei Wu 12/17/2013
+				[+] WPFButton btnImportSCD
+					[ ] locator "//WPFButton[@automationId='btnImportSCD']"
+				[+] WPFButton btnAddProduct
+					[ ] locator "//WPFButton[@automationId='Button5']"
+				[+] WPFButton btnRemoveProduct
+					[ ] locator "//WPFButton[@automationId='Button6']"
+				[+] WPFButton btnSaveSCD
+					[ ] locator "//WPFButton[@automationId='btnSaveSCD']"
+		[+] //Worksheet tab
+			[+] AnyWin	tpgWorksheet
+				[ ] 
+		[+] //Performance tab
+			[+] AnyWin	tpgPerformance
+				[ ] 
+		[+] //Calibration tab
+			[+] AnyWin	tpgCalibration
+				[+] WPFComboBox cboCalibrationProduct
+					[ ] locator "//WPFComboBox[@automationId='ProductEnumeration1']"
+				[+] WPFButton btnGenerateCalibrationData
+					[ ] locator "//WPFButton[@automationId='btnGenerateCalibData']"
+				[+] WPFButton btnCalibrate
+					[ ] locator "//WPFButton[@automationId='CalculateCalibrationsButton']"
+				[+] WPFButton btnResults
+					[ ] locator "//WPFButton[@automationId='Button3']"
+				[+] WPFButton btnTransferTuningParameters
+					[ ] locator "//WPFButton[@automationId='btnGetTuningParam']"
+				[+] WPFRadioButton rdbShortcut
+					[ ] locator "//WPFRadioButton[@automationId='rdb_RadioButtons1_0']"
+				[+] WPFRadioButton rdbSlopeResults
+					[ ] locator "//WPFRadioButton[@automationId='rdb_PlotResultsRadioButtons2_0']"
+				[+] WPFButton btnManualTuning
+					[ ] locator "//WPFButton[@automationId='ManualTuningButton']"
+				[ ] 
+			[ ] 
+	[+] winclass  wcPIDController							:	wcHysysTabBase
+		[+] //Common Obj
+			[+] WPFButton	btnFacePlate
+				[ ] locator "//WPFButton[@automationId='FacePlateButton']"
+			[+] WPFTabItem tabiConnections
+				[ ] locator "//WPFTabItem[@caption='Connections']"
+			[ ] 
+		[+] //Connections tab
+			[+] AnyWin	tpgConnections
+				[+] WPFTextBox	txtName
+					[ ] locator "//WPFTextBox[@automationId='Name']"
+				[+] WPFButton	btnSelectPV
+					[ ] locator "//WPFButton[@automationId='PVButton']"
+				[+] WPFButton	btnSelectOP
+					[ ] locator "//WPFButton[@automationId='OPButton']"
+		[+] //Parameters tab
+			[+] AnyWin	tpgParameters
+				[+] //Configuration
+					[+] WPFRadioButton	rdbReverse
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Reverse']"
+					[+] WPFRadioButton	rdbDirect
+						[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Direct']"
+						[ ] 
+					[+] wcHysysDataGridSimple	dgOP
+						[ ] locator "//WPFContentControl[@automationId='ConfigOpMatrix']//WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgRange
+						[ ] locator "//WPFContentControl[@automationId='ConfigParamMatrix_Hysys']//WPFDataGrid[@className='OdfDataGrid']"
+					[+] wcHysysDataGridSimple	dgTuningParam
+						[ ] locator "//WPFContentControl[@automationId='TuningData']//WPFDataGrid[@className='OdfDataGrid']"
+					[+] WPFComboBox	cboAlgoType                           //Added by Juan on 9/3/2013
+						[ ] locator "//WPFComboBox[@automationId='ComPidAlgoType']"
+					[+] WPFComboBox	cboAlgorSubtype                   //Added by Juan on 9/3/2013
+						[ ] locator "//WPFComboBox[@automationId='Hysys_AlgorSubtype']"
+		[ ] 
+	[+] winclass  wcRotaryVacuum							:	wcHysysTabBase
+		[ ] //Added by Justin Watanasiri on 4/10/2013 for CQ00261905
+		[+] //Common Objects
+			[+] WPFTabItem		tabiDesign
+				[ ] locator "//WPFTabItem[@caption='Design']"
+			[+] WPFTabItem		tabiRating
+				[ ] locator "//WPFTabItem[@caption='Rating']"
+			[+] WPFTabItem		tabiWorksheet
+				[ ] locator "//WPFTabItem[@caption='Worksheet']"
+			[+] WPFTabItem		tabiDynamics
+				[ ] locator "//WPFTabItem[@caption='Dynamics']"
+			[ ] 
+		[+] //Design tab
+			[+] AnyWin	tpgDesign
+				[+] WPFComboBox	cboInlet
+					[ ] locator "//WPFComboBox[@automationId='FeedStream']"
+				[+] WPFComboBox	cboLiquidProduct
+					[ ] locator "//WPFComboBox[@automationId='LiqProd']"
+				[+] WPFComboBox	cboSolidProduct
+					[ ] locator "//WPFComboBox[@automationId='SolidProd']"
+				[ ] 
+				[+] WPFTextBox		txbDeltaP
+					[ ] locator "//WPFTextBox[@automationId='dPInput']"
+				[ ] 
+				[ ] 
+		[+] //Rating tab
+			[+] AnyWin tpgRating
+				[+] wcHysysDataGridSimple	dgCakeProperties
+					[ ] locator "//WPFContentControl[@automationId='CakeProp']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgResistanceGrid1
+					[ ] locator "//WPFContentControl[@automationId='CakeLoadMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgResistanceGrid2
+					[ ] locator "//WPFContentControl[@automationId='ResistMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+		[+] //Worksheet tab
+			[+] AnyWin	tpgWorksheet
+				[ ] 
+		[+] //Performance tab
+			[+] AnyWin	tpgPerformance
+				[ ] 
+		[+] //Calibration tab
+			[+] AnyWin	tpgCalibration
+				[ ] 
+	[+] winclass  wcGasPipe									:	wcHysysTabBase
+		[ ] //Added by Justin Watanasiri on 4/12/2013 for CQ00261986
+		[-] //Common Objects
+			[+] WPFTabItem		tabiDesign
+				[ ] locator "//WPFTabItem[@caption='Design']"
+			[+] WPFTabItem		tabiRating
+				[ ] locator "//WPFTabItem[@caption='Rating']"
+			[+] WPFTabItem		tabiWorksheet
+				[ ] locator "//WPFTabItem[@caption='Worksheet']"
+			[+] WPFTabItem		tabiPerformance
+				[ ] locator "//WPFTabItem[@caption='Performance']"
+			[+] WPFTabItem		tabiProperties
+				[ ] locator "//WPFTabItem[@caption='Properties']"
+			[+] WPFTabItem		tabiDynamics
+				[ ] locator "//WPFTabItem[@caption='Dynamics']"
+			[+] wcHysysDataGridSimple		dgDataGrid
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+			[+] WPFLabel		stcOK
+				[ ] locator "//WPFLabel[@caption='OK']"
+		[+] //Design tab
+			[+] AnyWin	tpgDesign
+				[+] WPFComboBox	cboInlet
+					[ ] locator "//WPFComboBox[@automationId='Feed']"
+				[+] WPFComboBox	cboOutlet
+					[ ] locator "//WPFComboBox[@automationId='Product']"
+		[+] //Rating tab
+			[+] AnyWin tpgRating
+				[+] wcHysysDataGridSimple dgLength
+					[ ] locator "//WPFContentControl[@automationId='SegmentSizeMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgOverallDimensions
+					[ ] locator "//WPFContentControl[@automationId='GlobalSizeMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] wcHysysDataGridSimple dgPipeSizeSelection
+					[ ] locator "//WPFContentControl[@automationId='NomDiamMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+					[ ] 
+				[+] WPFButton btnSpecify
+					[ ] locator "//WPFButton[@automationId='NomDiamSelectButton']"
+				[ ] //Sizing //added by Jerry 5/16/
+				[+] wcHysysDataGridSimple	dgUserSpecified
+					[ ] locator "//WPFContentControl[@automationId='User Specified']"
+					[ ] //locator "//WPFContentControl[@automationId='User Specified']/WPFDataGrid[@className='OdfDataGrid']"
+				[+] WPFComboBox	cboUserSpecified
+					[ ] locator "//WPFComboBox[@caption='User Specified']"
+				[+] WPFComboBox	cboSmooth
+					[ ] locator "//WPFComboBox[@caption='Smooth']"
+				[+] WPFComboBox	cboDrawnTube
+					[ ] locator "/WPFDataGridCell[@caption='Drawn Tube']"
+				[+] WPFComboBox	cboMildSteel
+					[ ] locator "/WPFDataGridCell[@caption='Mild Steel']"
+				[+] WPFComboBox	cboAsphaltedIron
+					[ ] locator "/WPFDataGridCell[@caption='Asphalted Iron']"
+				[+] WPFComboBox	cboGalvanizedIron
+					[ ] locator "/WPFDataGridCell[@caption='Galvanized Iron']"
+				[+] WPFComboBox	cboCastIron
+					[ ] locator "/WPFDataGridCell[@caption='Cast Iron']"
+				[+] WPFComboBox	cboSmoothConcrete
+					[ ] locator "/WPFDataGridCell[@caption='Smooth Concrete']"
+				[+] WPFComboBox	cboRoughConcrete
+					[ ] locator "/WPFDataGridCell[@caption='Rough Concrete']"
+				[+] WPFComboBox	cboSmoothRivetedSteel
+					[ ] locator "/WPFDataGridCell[@caption='Smooth Riveted Steel']"
+				[+] WPFComboBox	cboRoughRivetedSteel
+					[ ] locator "/WPFDataGridCell[@caption='Rough Riveted Steel'']"
+				[+] WPFComboBox	cboSmoothWoodStave
+					[ ] locator "/WPFDataGridCell[@caption='Smooth Wood Stave']"
+				[+] WPFComboBox	cboRoughWoodStave
+					[ ] locator "/WPFDataGridCell[@caption='Rough Wood Stave']"
+				[+] WPFComboBox	cboPlasticTubing
+					[ ] locator "/WPFDataGridCell[@caption='Plastic Tubing']"
+				[+] WPFComboBox	cboRubberHose
+					[ ] locator "/WPFDataGridCell[@caption='Rubber Hose]"
+		[+] //Worksheet tab
+			[+] AnyWin	tpgWorksheet
+				[ ] 
+		[+] //Performance tab
+			[+] AnyWin	tpgPerformance
+				[ ] 
+		[+] //Calibration tab
+			[+] AnyWin	tpgCalibration
+				[ ] 
+	[+] winclass  wcManipulator 								:  	wcHysysTabBase
+		[+] //Assay Tab
+			[+] //Shift Props
+				[+] WPFComboBox cboShiftPropertySelect
+					[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+				[+] WPFCheckBox chkUseFeed
+					[ ] locator "//WPFCheckBox[@className='ImageCheckBox']"
+	[+] winclass  wcCondenser								:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "Design"
+		[+] WPFTabItem	tabiRating
+			[ ] locator "Rating"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "Worksheet"
+		[+] WPFTabItem	tabiPerformance
+			[ ] locator "Performance"
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "//WPFTabControl[2]//WPFTabItem[@caption='Dynamics']"
+		[ ] 
+		[+] AnyWin	tpgDesign
+			[+] //Connections
+				[+] WPFComboBox	cboType
+					[ ] locator "//WPFComboBox[@automationId='CondType']"
+				[+] WPFComboBox	cboWater
+					[ ] locator "//WPFComboBox[@automationId='Aqueous']"
+			[+] //Parameters
+				[+] WPFTextBox	txtDuty
+					[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+				[+] WPFTextBox	txtDeltaP
+					[ ] locator "//WPFTextBox[@automationId='dPInput']"
+			[+] //Estimates
+				[ ] 
+			[+] //User Variables
+				[ ] 
+			[+] //Notes
+				[ ] 
+		[+] AnyWin	tpgRating
+			[+] //Sizing
+				[ ] 
+			[+] //Nozzles
+				[ ] 
+			[+] //Heat Loss
+				[ ] 
+			[+] //Electric Motor
+				[ ] 
+		[+] AnyWin	tpgWorksheet
+			[ ] 
+		[+] AnyWin	tpgPerformance
+			[ ] 
+		[+] AnyWin	tpgDynamics
+			[ ] 
+		[ ] 
+	[+] winclass wcViewCurve								:	wcHysysTabBase
+		[ ] //Added by Justin Watanasiri on 5/2/2013 for CQ00285629
+		[ ] 
+		[+] wcHysysDataGridSimple dgDataGrid
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+	[+] winclass wcHeaterCooler								:	wcHysysTabBase
+		[+] WPFComboBox cboHeatInlet
+			[ ] locator "//WPFComboBox[@automationId='Feed']"
+		[+] WPFComboBox cboInlet
+			[ ] locator "//WPFComboBox[@automationId='Feed']"
+			[ ] 
+		[+] WPFComboBox cboOutlet
+			[ ] locator "//WPFComboBox[@automationId='Product']"
+		[+] WPFComboBox cboEnergy
+			[ ] locator "//WPFComboBox[@automationId='Energy']"
+		[ ] 
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "//WPFTabItem[@caption='Design']"
+		[ ] 
+		[+] WPFStatusBarItem	stsbOK
+			[ ] locator "//WPFLabel[@caption='OK']"
+		[ ] 
+		[+] WPFTextBox txtDeltaP
+			[ ] locator "//WPFTextBox[@automationId='PressDropInput']"
+		[+] WPFTextBox txtDeltaT
+			[ ] locator "//WPFTextBox[@automationId='DeltaTempInput']"
+		[+] WPFTextBox txtName
+			[ ] locator "//WPFTextBox[@automationId='Name']"
+		[+] WPFTextBox txtDuty
+			[ ] locator "//WPFTextBox[@automationId='HeatFlowInput']"
+		[ ] 
+	[-] winclass wcHeatExchanger							:	wcNoneADJUnitOpsTPG
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "//WPFTabItem[@caption='Design']"
+		[+] WPFTabItem	tabiRating
+			[ ] locator "//WPFTabItem[@caption='Rating']"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "//WPFTabItem[@caption='Worksheet']"
+		[+] WPFTabItem	tabiPerformance
+			[ ] locator "//WPFTabItem[@caption='Performance']"
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "//WPFTabItem[@caption='Dynamics']"
+		[+] WPFTabItem	tabiRigorousShell
+			[ ] locator "//WPFTabItem[@caption='Rigorous Shell*Tube']"
+			[ ] 
+		[+] WPFLabel	lblStatus
+			[ ] locator "//WPFLabel[@automationId='lb_StatusMessage']"
+		[-] AnyWin	tpgDesign
+			[-] //Connections
+				[+] WPFComboBox	cboTubeSideOutlet
+					[ ] locator "//WPFComboBox[@automationId='TubeOut']"
+				[+] WPFComboBox	cboTubeSideInlet
+					[ ] locator "//WPFComboBox[@automationId='TubeIn']"
+				[+] WPFComboBox	cboShellSideOutlet
+					[ ] locator "//WPFComboBox[@automationId='ShellOut']"
+				[+] WPFComboBox	cboShellSideInlet
+					[ ] locator "//WPFComboBox[@automationId='ShellIn']"
+				[+] WPFComboBox	cboTubeSideFluid
+					[ ] locator "//WPFComboBox[@automationId='attTSFluidPkg']"
+				[+] WPFComboBox	cboShellSideFluid
+					[ ] locator "//WPFComboBox[@automationId='attSSFluidPkg']"
+				[+] WPFComboBox cboRigorousModel
+					[ ] locator "//WPFComboBox[2]"
+				[+] WPFCheckBox chkUseDesignTemplateFile
+					[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox'][2]"
+				[-] WPFListBox	lstPlyPicker
+					[ ] locator "//WPFListBox[@automationId='plypicker_listbox']"
+			[+] //Parameters
+				[+] wcHysysDataGridSimple	dgTop
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] wcHysysDataGridSimple	dgMiddle
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+				[+] wcHysysDataGridSimple	dgBottom
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+				[+] WPFComboBox	cboHeatExchangerModel
+					[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+				[+] WPFTextBox		txtDeltaP
+					[ ] locator "//WPFTextBox[@automationId='dPInput']"
+				[+] WPFComboBox	cboSteadyStateModel
+					[ ] locator "//WPFComboBox[@automationId='SSModelEnum']"
+				[+] WPFComboBox	cboAirCoolerModel
+					[ ] locator "//WPFComboBox[@automationId='AirCoolerModelTypeDataSet']"
+				[+] WPFCheckBox	chkUseDesignTemplate
+					[ ] locator "//WPFCheckBox[@automationId='ChkBoxEDRTemplate']/WPFCheckBox[@automationId='PART_CheckBox']"
+				[+] WPFButton	btnSizeRigorousAirCooler
+					[ ] locator "//WPFButton[@automationId='btn_SpltBtnRigSize']"
+				[+] WPFButton	btnSizeRigorousShellTube
+					[ ] locator "//WPFButton[@automationId='btn_SpltBtnRigSize']"
+			[+] //Specs
+				[ ] 
+		[+] AnyWin	tpgPerformance
+			[+] //Setup
+				[+] WPFListBox	lstAvailableVariables
+					[ ] locator "//WPFListBox[@automationId='AvailableVariableList']"
+				[+] WPFListBox	lstSelectedVariables
+					[ ] locator "//WPFListBox[@automationId='SelectedVarialbleList']"
+				[+] WPFButton	btnAddToRight
+					[ ] locator "//WPFButton[@automationId='AttachVariableButton']"
+				[+] WPFButton	btnRemove
+					[ ] locator "//WPFButton[@automationId='RemoveVariableButton']"
+			[+] //Details
+				[+] wcHysysDataGridSimple	dgTop
+					[ ] locator "//WPFDataGrid[@automationId='grd_SSResultsMatrix2']"
+			[+] //Results
+				[+] wcHysysDataGridSimple	dgTopLeft
+					[ ] locator "//WPFDataGrid[@automationId='grd_Results1Matrix']"
+		[+] AnyWin	tpgRating
+			[ ] 
+		[ ] AnyWin	tpgWorksheet
+		[+] AnyWin	tpgDynamics
+			[ ] 
+		[+] AnyWin	tpgRigorousShell
+			[+] WPFButton btnModelDetails
+				[ ] locator "//WPFButton[@automationId='EDRBrowserButton']"
+			[+] WPFButton btnImport
+				[ ] locator "//WPFButton[@automationId='btnTASCplusImport']"
+			[+] WPFButton btnExport
+				[ ] locator "//WPFButton[@automationId='btnTASCplusExport']"
+			[+] WPFButton btnTransferUAToEndPoint
+				[ ] locator "//WPFButton[@automationId='UAButton']"
+			[+] WPFButton btnTransferGeometryFromHYSYS
+				[ ] locator "//WPFButton[@automationId='GeometryButton']"
+			[+] wcHysysDataGridSimple	dgTop
+				[ ] locator "//WPFDataGrid[@automationId='grd_EDRSTResultsSummary']"
+			[+] wcHysysDataGridSimple	dgExchangerTop
+				[ ] locator "//WPFDataGrid[@automationId='grd_matrixTASCPlusTEMAType']"
+			[+] wcHysysDataGridSimple	dgBottom
+				[ ] locator "//WPFDataGrid[@automationId='grd_MatrixTASCPlusConfiguration']"
+			[ ] 
+		[+] AnyWin	tpgEDRPlateFin
+			[+] wcHysysDataGridSimple	dgLeft
+				[ ] locator "//WPFDataGrid[@automationId='grd_EDRGeometry1Matrix']"
+			[ ] 
+		[-] AnyWin tpgRigorousAirCooler
+			[+] wcHysysDataGridSimple	dgTop
+				[ ] locator "//WPFDataGrid[@automationId='grd_AcolPlusSummaryResults1']"
+			[+] WPFButton	btnTransferUAtoSimpleDesign
+				[ ] locator "//WPFButton[@automationId='Button1']"
+			[-] WPFListBox	lstPlyPicker
+				[ ] locator "//WPFListBox[@automationId='plypicker_listbox']"
+			[ ] 
+		[+] AnyWin tpgEDRFiredHeater
+			[+] wcHysysDataGridSimple	dgTopLeft
+				[ ] locator "//WPFDataGrid[@automationId='grd_ResultsSummary1']"
+			[+] WPFTextBox	txtNumOfBanks
+				[ ] locator "//WPFTextBox[@automationId='NConvBanks']"
+			[+] WPFButton	btnEDRBrowser
+				[ ] locator "//WPFButton[@automationId='EDRBrowser']"
+		[ ] 
+		[+] wcHysysDataGridSimple dgDataGrid
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+	[+] winclass  wcFeeder									:      wcNoneADJUnitOpsTPG
+		[+] AnyWin	tpgWorkSheet
+			[+] wcHysysDataGridSimple	dgPetroleumProps
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+		[+] AnyWin 	tpgParameters
+			[+] WPFComboBox cboBalanceType
+				[ ] locator "//WPFComboBox[@automationId='Enumeration1']"
+			[ ] 
+		[ ] 
+	[+] winclass wcProcessUtilitiesManager					:	wcHysysTabBase
+		[+] WPFButton btnGreenHouseGasEmissionsPreference
+			[ ] locator "//WPFButton[@caption='Green House Gas Emissions Preference']"
+		[ ] 
+		[ ] 
+	[ ] 
+	[+] winclass wcSplitter									:	wcHysysTabBase
+		[+] //Design
+			[ ] //connections
+			[+] wcHysysDataGridSimple	dgInlets
+				[ ] locator "//WPFContentControl[@automationId='MultiFeedMatrix']//WPFDataGrid[@className='OdfDataGrid']"
+			[+] wcHysysDataGridSimple	dgEnergyStreams
+				[ ] locator "//WPFContentControl[@automationId='MultiEnrgyMatrix']//WPFDataGrid[@className='OdfDataGrid']"
+			[+] wcHysysDataGridSimple	dgOverHeadOutLets
+				[ ] locator "//WPFContentControl[@automationId='MultOverheadMatrix']//WPFDataGrid[@className='OdfDataGrid']"
+			[+] WPFComboBox cboBottomsOutLet
+				[ ] locator "//WPFComboBox[@automationId='Btmsprod']"
+			[ ] //Parameters
+			[ ] //Splits
+		[+] //Rating
+			[ ] 
+		[+] //Worksheet
+			[ ] 
+		[+] //Dynamic
+			[ ] 
+	[+] winclass wcSpreadsheet								:	wcHysysTabBase
+		[+] //Common objects
+			[+] WPFTabItem tabiSpreadSheet
+				[ ] locator "//WPFTabItem[@caption='Spreadsheet']"
+			[+] WPFTabItem tabiParameters
+				[ ] locator "//WPFTabItem[@caption='Parameters']"
+			[+] WPFTabItem tabiUserVariables
+				[ ] locator "//WPFTabItem[@caption='User Variables']"
+			[+] WPFButton	btnDelete
+				[ ] locator "//WPFButton[@automationId='DeleteButton']"
+			[+] WPFButton	btnFunctionHelp
+				[ ] locator "//WPFButton[@automationId='FunctionHelpButton']"
+			[+] WPFButton	btnSpreadsheetOnly
+				[ ] locator "//WPFButton[@automationId='MiniSpreadSheetButton']"
+			[+] WPFCheckBox	chkIgnore
+				[ ] locator "//WPFCheckBox[@automationId='IgnoreCheck']"
+			[+] wcHysysDataGridSimple		dgDataGrid
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+			[+] WPFMenuItem miImportVariable
+				[ ] locator "//WPFMenuItem[@caption='Import Variable']"
+			[+] WPFMenuItem miCopy
+				[ ] locator "//WPFMenuItem[@caption='_Copy']"
+			[+] WPFMenuItem miExportFormulaResult
+				[ ] locator "//WPFMenuItem[@caption='Export Formula Result']"
+			[+] WPFMenuItem miDisconnectImportExport
+				[ ] locator "//WPFMenuItem[@caption='Disconnect Import/Export']"
+		[+] //Connections
+			[+] AnyWin	tpgConnections
+				[+] WPFButton btnAddImport
+					[ ] locator "//WPFButton[@automationId='AddImportButton']"
+				[+] WPFButton btnAddExport
+					[ ] locator "//WPFButton[@automationId='AddExportButton']"
+				[ ] 
+		[+] //Parameters
+			[+] AnyWin	tpgParameters
+				[+] wcHysysDataGridSimple	dgSpreadsheetParameters
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+					[+] ChangeUnit(string sUnit)
+						[ ] this.find ("//WPFDataGridRow[3]").Find("//WPFDataGridCell[2]").Click()
+						[ ] sleep(1)
+						[ ] this.find ("//WPFDataGridRow[3]").Find("//WPFDataGridCell[2]").TypeKeys("<Backspace>")
+						[ ] sleep(1)
+						[ ] AH.Find("//WPFComboBox").Select(sUnit)
+						[+] if(dlgAspenHysys.Exists(3))
+							[ ] dlgAspenHysys.SetActive()
+							[ ] dlgAspenHysys.btnYes.Click()
+				[+] wcHysysDataGridSimple	dgDynamicExecution
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][2]"
+				[+] wcHysysDataGridSimple	dgExportableCells
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][3]"
+		[+] //Formulas
+			[ ] AnyWin	tpgFormulas
+		[+] //Spreadsheet
+			[+] AnyWin	tpgSpreadsheet
+				[+] WPFComboBox	cboVariableType
+					[ ] locator "//WPFComboBox[@automationId='CurrentCellVariableType']"
+				[+] WPFComboBox	cboAnglesIn
+					[ ] locator "//WPFComboBox[@automationId='AngTypeEnum']"
+				[+] WPFButton	btnEditRowsColumns
+					[ ] locator "//WPFButton[@automationId='EditRowsColsBtn']"
+				[+] WPFCheckBox	chkExportable
+					[ ] locator "//WPFCheckBox[@automationId='VisibililtyCheckBox']"
+				[+] // wcHysysDataGridSimple		dgDataGrid
+					[ ] // locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[+] WPFLabel	lblVariable
+					[ ] locator "//WPFLabel[@automationId='lb_VarTypeText']"
+				[+] wcHysysDataGridSimple dgSpreadsheet
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+				[ ] 
+				[+] WPFTextBox	txtFormula
+					[ ] //Added by Justin Watanasiri on 5/2/2013 for CQ00285671
+					[ ] locator "//WPFTextBox[@automationId='SpreadSheetTrackFormulaTextEntry']"
+		[+] //Calculation Order
+			[ ] AnyWin	tpgCalculationOrder
+		[+] //User Variables
+			[+] AnyWin	tpgUserVariables
+				[+] WPFButton	btnCreateANewUserVariable
+					[ ] locator "//WPFButton[@automationId='UserVar_NewUserVarButton']"
+				[+] wcHysysDataGridSimple dgUserVariable
+					[ ] locator "//WPFContentControl[@automationId='UserVar_DataMatrix']/WPFDataGrid[@className='OdfDataGrid']"
+				[ ] 
+		[+] //Notes
+			[+] AnyWin	tpgNotes
+				[ ] 
+		[+] //Performance
+			[+] AnyWin	tpgPerformance
+				[+] wcHysysDataGridSimple	dgResults
+					[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+		[ ] 
+		[ ] 
+		[ ] 
+	[ ] 
+	[ ] //Append by Susan 
+	[+] winclass wcFacePlate								:	WPFWindow
+		[ ] //Common objects
+		[+] WPFComboBox cboCtlMode
+			[ ] locator "//WPFComboBox[@automationId='CtlMode']"
+	[+] winclass wcSingleComponentView					:	wcHysysTabBase
+		[ ] //ID Tab
+		[+] AnyWin	tpgID
+			[+] wcHysysDataGridSimple	dgComponentIdentification
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+		[+] AnyWin	tpgCritical
+			[+] wcHysysDataGridSimple	dgBaseProperties
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid'][1]"
+		[+] WPFButton	btnEstimateUnknownProps
+			[ ] locator "//WPFButton[@automationId='Estimate']"
+	[+] winclass wcUserVeriableEditingView				:	WPFWindow
+		[ ] //Added by Juan on 3/14/2014
+		[+] WPFTextBox	txtName
+			[ ] locator "//WPFTextBox[@automationId='NameEntry']"
+		[+] WPFTextBox	txtTag
+			[ ] locator "//WPFTextBox[@automationId='TagEntry']"
+		[+] Control	txtTextArea
+			[ ] locator "//Control[@windowClassName='WinWrapTextArea.10']"
+		[+] WPFButton	btnRun
+			[ ] locator "//WPFButton[@automationId='RunMacro']"
+		[+] WPFButton	btnStop
+			[ ] locator "//WPFButton[@automationId='EndMacro']"
+		[+] WPFButton	btnOK
+			[ ] locator "//WPFButton[@automationId='OK']"
+		[+] WPFButton	btnCancel
+			[ ] locator "//WPFButton[@automationId='CancelButton']"
+		[+] WPFComboBox	cboType
+			[ ] locator "//WPFComboBox[@automationId='DataTypeEnum']"
+		[+] WPFComboBox	cboDimensions
+			[ ] locator "//WPFComboBox[@automationId='DataDimensionEnum']"
+		[+] WPFComboBox	cboUnits
+			[ ] locator "//WPFComboBox[@automationId='VarTypeEnum']"
+		[+] WPFCheckBox	chkPreExecute
+			[ ] locator "//WPFCheckBox[11]"
+		[+] WPFCheckBox	chkPostExecute
+			[ ] locator "//WPFCheckBox[12]"
+		[+] wcHysysDataGridSimple	dgMacro
+			[ ] locator "//WPFDataGrid[@className='OdfDataGrid']"
+		[ ] //Add end
+	[+] winclass wcEnterPassword							:	wcHysysTabBase
+		[+] WPFPasswordBox	txtPassword
+			[ ] locator "//WPFPasswordBox[@automationId='MasterPWTextEntry' or @automationId='Password']"
+		[+] WPFPasswordBox	txtConfirm
+			[ ] locator "//WPFPasswordBox[@automationId='MasterPWCTextEntry']"
+		[+] WPFButton	btnAcceptPassword
+			[ ] locator "//WPFButton[@automationId='AcceptGraphicButton']"
+		[+] WPFButton	btnCancel
+			[ ] locator "//WPFButton[@automationId='CancelGraphicButton']"
+	[ ] winclass  wcImportAssaysStatus						:	DialogBox
+	[+] winclass wcBrowser : MainWin
+		[ ] const string sCmdLine="{SYS_GetEnv("systemdrive")}\Program Files\Internet Explorer\iexplore.exe"
+	[+] winclass wcFlyover									: 	DialogBox
+		[+] list of string GetDataInFlyover(string sUnitType)
+			[ ] //sUnitType: "Heat Exchanger","LNG","Shell&Tube","PlateFin", "Air Cooled", "Fired Heater","AC to be Converted","FH to be Conveted"
+			[ ] list of string lsData
+			[ ] list of int liOrder
+			[ ] integer i
+			[+] switch (sUnitType)
+				[+] case "Heat Exchanger"
+					[ ] liOrder={3,5,6,8,9,11,12,14,15,17,18}
+					[ ] break
+				[+] case "LNG"
+					[ ] liOrder={3,5,6,8,9,11,12}
+					[ ] break
+				[+] case "Shell&Tube"
+					[ ] liOrder={3,5,6,8,9,11,14,17}
+					[ ] break
+				[+] case "PlateFin"
+					[ ] liOrder={3,5,6,8,11}
+					[ ] break
+				[+] case "AC to be Converted"
+					[ ] liOrder={3,5,6,8,9}
+					[ ] break
+				[+] case "Fired Heater"
+					[ ] liOrder={3,5,6,8,11,14,17}
+					[ ] break
+				[+] case "Air Cooled"
+					[ ] liOrder={3,5,6,8,9,11,14,17,20}
+					[ ] break
+				[+] case "FH to be Conveted"
+					[ ] liOrder={3,5,6,8,9,11,12}
+					[ ] break
+			[ ] 
+			[+] for each i in liOrder
+				[ ] ListAppend(lsData, this.Find("//WPFTextBlock[{i}]").sCaption)
+			[ ] return lsData
+		[+] string GetUnitNameInFlyover()
+			[ ] string sTemp
+			[ ] integer i
+			[ ] sTemp=this.Find("//WPFTextBlock[1]").sCaption
+			[ ] i=StrPos(":",sTemp)
+			[ ] return SubStr(sTemp,i+2)
+			[ ] 
+		[ ] 
+	[ ] 
+	[ ] //Append done
+	[ ] //Append by Jerry
+	[+] winclass wcConversionReactor						:	wcHysysTabBase
+		[ ] 
+		[ ] //Rating -->Heat Loss
+		[+] WPFRadioButton rdNone
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='None')]"
+		[+] WPFRadioButton rdSimple
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Simple')]"
+		[+] WPFRadioButton rdDetailed
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Detailed')]"
+		[+] WPFRadioButton rdTempProfile
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Temperature Profile')]"
+		[+] WPFRadioButton rdConduction
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Conduction')]"
+		[+] WPFRadioButton rdConvection
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Convection')]"
+		[ ] 
+		[ ] //Reactions-->Details
+		[+] WPFRadioButton rdConversion
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Conversion %')]"
+		[+] WPFRadioButton rdBasis
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Basis')]"
+		[+] WPFRadioButton rdStoichiometry
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Stoichiometry')]"
+		[+] WPFCheckBox rdBootCheckBox
+			[ ] locator "//WPFCheckBox[@automationId='PART_CheckBox']"
+		[+] WPFRadioButton rdKeq
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Keq')]"
+		[+] WPFRadioButton rdApproach
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Approach')]"
+		[+] WPFRadioButton rdFlowSpecs
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Flow Specs')]"
+		[ ] 
+		[ ] //Reactions-->Overall
+		[+] WPFRadioButton rdGibbes
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Gibbs Reactions Only')]"
+		[+] WPFRadioButton rdSpecEqReact
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Specify Equilibrium Reactions')]"
+		[+] WPFCheckBox rdNoReact
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='NO Reactions (=Separator)')]"
+		[ ] 
+		[ ] //Dynamics-->Heat Exchangers
+		[+] WPFRadioButton rdLiqHeat
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Liquid Heater')]"
+		[+] WPFRadioButton rdVesHeat
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Vessel Heater')]"
+		[+] WPFCheckBox rdDirectQ
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Direct Q')]"
+		[+] WPFCheckBox rdDQHeating
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Heating')]"
+		[+] WPFCheckBox rdDQCooling
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Cooling')]"
+		[+] WPFCheckBox rdUtility
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Utility')]"
+		[+] WPFCheckBox rdDuty
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Duty')]"
+		[ ] 
+		[ ] //Design-->Parameters
+		[+] WPFTextBox txbVolume
+			[ ] locator "//WPFTextBox[@automationId='RxnVolumeInput']"
+		[+] WPFTextBox txbLiquidVolume
+			[ ] locator "//WPFTextBox[@automationId='LiqVolInput']"
+		[+] WPFTextBox txbPercentLiquid
+			[ ] locator "//WPFTextBox[@automationId='SSLiqLevelInput']"
+		[ ] 
+		[ ] //Design-->Connections
+		[+] WPFDataGridCell dgcInlet1
+			[ ] locator "//WPFDataGridCell[@caption='<< Stream >>']"
+		[+] WPFComboBox cboVapourOutlet
+			[ ] locator "//WPFComboBox[@automationId='VapourProd']"
+		[+] WPFComboBox cboLiquidOutlet
+			[ ] locator "//WPFComboBox[@automationId='LiquidProd']"
+		[ ] 
+		[ ] //Design-->Parameters
+		[+] WPFDataGridCell dgcInletDeltaP
+			[ ] locator "//WPFDataGridCell[2]"
+		[ ] 
+		[ ] //Rating -->Sizing
+		[+] WPFRadioButton rdFlatCylinder
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Flat Cylinder')]"
+		[+] WPFRadioButton rdSphere
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Sphere')]"
+		[+] WPFRadioButton rdEllipsoidalHead
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Ellipsoidal Head')]"
+		[+] WPFRadioButton rdHemisphericalHead
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Hemispherical Head')]"
+		[+] WPFRadioButton rdCylinder
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Cylinder')]"
+		[+] WPFRadioButton rdVertical
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Vertical')]"
+		[+] WPFRadioButton rdHorizontal
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Horizontal')]"
+			[ ] 
+	[ ] //April 26, 2013
+	[+] winclass wcLiquidLiquidHydrocyclone		:					wcHysysTabBase
+		[ ] //Design-->Parameters
+		[+] WPFComboBox cboLinerType
+			[ ] locator "//WPFComboBox[@automationId='cbLiner']"
+		[ ] 
+		[ ] //Design-->Droplet Distribution
+		[+] WPFRadioButton rdVolbasedDistrib
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Volume-based Distribution']"
+		[+] WPFRadioButton rdNumbasedDistrib
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Number-based Distribution']"
+	[ ] //May 2, 2013
+	[+] winclass wcContinuousReactor		:					wcHysysTabBase
+		[ ] //Design-->Connections
+		[+] WPFDataGridCell dgcInlet1
+			[ ] locator "//WPFDataGridCell[@caption='<< Stream >>']"
+		[+] WPFComboBox cboVapourOutlet
+			[ ] locator "//WPFComboBox[@automationId='VapourProd']"
+		[+] WPFComboBox cboLiquidOutlet
+			[ ] locator "//WPFComboBox[@automationId='LiquidProd']"
+		[ ] //Design-->Parameters
+		[+] WPFDataGridCell dgcInletDeltaP
+			[ ] locator "//WPFDataGridCell[2]"
+			[ ] 
+		[+] WPFCheckBox chkSinglePhase
+			[ ] locator "//WPFCheckBox[@automationId='SinglePhaseCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+		[+] WPFTextBox txbVolume
+			[ ] locator "//WPFTextBox[@automationId='VolumeInput']"
+		[+] WPFTextBox txbPercentLiquid
+			[ ] locator "//WPFTextBox[@automationId='LiqLevelInput']"
+		[+] WPFTextBox txbLiquidVolume
+			[ ] locator "//WPFTextBox[@automationId='LiqVolInput']"
+		[+] WPFTextBox txbDuty
+			[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+			[ ] 
+		[+] WPFTextBox txbDutyInput
+			[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+		[ ] //Reactions-->Details
+		[+] WPFRadioButton rdBasis
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Basis')]"
+		[+] WPFRadioButton rdStoichiometry
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Stoichiometry')]"
+		[ ] //Rating -->Sizing
+		[+] WPFRadioButton rdCylinder
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Cylinder')]"
+		[+] WPFRadioButton rdSphere
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Sphere')]"
+		[+] WPFRadioButton rdVertical
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Vertical')]"
+		[+] WPFRadioButton rdHorizontal
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Horizontal')]"
+			[ ] 
+		[ ] //Rating -->Heat Loss
+		[+] WPFRadioButton rdNone
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='None')]"
+		[+] WPFRadioButton rdSimple
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Simple')]"
+		[+] WPFRadioButton rdDetailed
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Detailed')]"
+		[ ] //Dynamics-->Heat Exchangers
+		[+] WPFRadioButton rdLiqHeat
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Liquid Heater')]"
+		[+] WPFRadioButton rdVesHeat
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Vessel Heater')]"
+		[+] WPFRadioButton rdDirectQ
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Direct Q')]"
+		[+] WPFRadioButton rdUtility
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Utility')]"
+		[+] WPFRadioButton rdDuty
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Duty')]"
+		[ ] 
+	[+] winclass wcPlugFlowReactor		:					wcHysysTabBase
+		[ ] //Design-->Connections
+		[+] WPFTextBox txbInlet
+			[ ] locator "//WPFTextBlock[@caption='<empty>']"
+		[+] WPFComboBox cboOutlet
+			[ ] locator "//WPFComboBox[@automationId='Product']"
+		[+] WPFComboBox cboEnergy
+			[ ] locator "//WPFComboBox[@automationId='Energy']"
+		[+] WPFComboBox cboFluidPackage
+			[ ] locator "//WPFComboBox[@automationId='attFluidPkg']"
+		[ ] //Design-->Parameters
+		[+] WPFTextBox dgcInletDeltaP
+			[ ] locator "//WPFTextBox[@automationId='niDeltaP']"
+		[+] WPFRadioButton rdUserspecified
+			[ ] locator" //WPFRadioButton[(@automationId='PART_RadioButton' and @caption='User Specified')]"
+		[+] WPFRadioButton rdErgunEquation
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Ergun Equation')]"
+		[+] WPFCheckBox chkSinglePhaseCB
+			[ ] locator "//WPFCheckBox[@automationId='SinglePhaseCB']/WPFCheckBox[@automationId='PART_CheckBox']"
+		[+] WPFTextBox txbDuty
+			[ ] locator "//WPFTextBox[@automationId='DutyInput']"
+		[+] WPFRadioButton rdFormula
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Formula')]"
+		[+] WPFRadioButton rdDirectQValue
+			[ ] locator "///WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Direct Q Value')]"
+		[ ] //Append by Susan
+		[ ] //Design-->Heat Transfer 
+		[+] WPFRadioButton	rdbFormula
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Formula']"
+		[+] WPFRadioButton	rdbDirectQValue
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Direct Q Value']"
+		[ ] //Reactions-->Overall
+		[+] WPFComboBox	cboReactionSet
+			[ ] locator "//WPFComboBox[@automationId='RxnSetAttachment']"
+		[+] WPFRadioButton	rdbReInt
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Re-init']"
+		[+] WPFRadioButton	rdbprevious
+			[ ] locator "//WPFRadioButton[@automationId='PART_RadioButton' and @caption='Previous']"
+		[ ] //Append done
+		[ ] //Reactions-->Details
+		[+] WPFRadioButton rdBasis
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Basis')]"
+		[+] WPFRadioButton rdStoichiometry
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Stoichiometry')]"
+		[+] WPFButton	btnViewReaction
+			[ ] locator "//WPFButton[@automationId='ViewRxnButton']"
+		[+] WPFComboBox cboReaction
+			[ ] locator "//WPFComboBox[@automationId='ReactionEnum']"
+		[ ] //Dynamics-->Specs
+		[+] WPFRadioButton rdInitFromProduct
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Init From Product')]"
+		[+] WPFRadioButton rdInitFromFirstFeed
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Init From First Feed')]"
+		[+] WPFRadioButton rdDryStartup
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Dry Startup (Feed)')]"
+		[+] WPFRadioButton rdSteadyState
+			[ ] locator "//WPFRadioButton[(@automationId='PART_RadioButton' and @caption='Vessel Heater')]"
+		[+] WPFCheckBox chkSinglePhaseCheckBox
+			[ ] locator "//WPFCheckBox[@automationId='SinglePhaseCheckBox']/WPFCheckBox[@automationId='PART_CheckBox']"
+		[+] WPFCheckBox chkLagRxnTempCheckBox
+			[ ] locator "//WPFCheckBox[@automationId='LagRxnTempCheckBox']/WPFCheckBox[@automationId='PART_CheckBox']"
+		[+] WPFCheckBox chkExplicitRxnCalcs_ChkBx
+			[ ] locator "//WPFCheckBox[@automationId='ExplicitRxnCalcs_ChkBx']/WPFCheckBox[@automationId='PART_CheckBox']"
+		[ ] //Append by Susan
+		[ ] //Performance tab
+		[+] WPFButton	btnPlot
+			[ ] locator "//WPFButton[@automationId='ProfilesButton']"
+		[ ] //Append done
+	[-] winclass wcLNG										:	wcHysysTabBase
+		[ ] //Common Objects
+		[+] WPFTabItem	tabiDesign
+			[ ] locator "//WPFTabItem[@caption='Design']"
+		[+] WPFTabItem	tabiRating
+			[ ] locator "//WPFTabItem[@caption='Rating']"
+		[+] WPFTabItem	tabiWorksheet
+			[ ] locator "//WPFTabItem[@caption='Worksheet']"
+		[+] WPFTabItem	tabiPerformance
+			[ ] locator "//WPFTabItem[@caption='Performance']"
+		[+] WPFTabItem	tabiDynamics
+			[ ] locator "//WPFTabControl[2]//WPFTabItem[@caption='Dynamics']"
+		[+] WPFTabItem	tabiWoundCoil
+			[ ] locator "//WPFTabItem[@caption='Wound Coil']"
+		[+] WPFTabItem	tabiEDRPlateFin
+			[ ] locator "//WPFTabItem[@caption='EDR PlateFin']"
+		[ ] //Performance-->Summary (dynamics)
+		[+] AnyWin	tpgPerformance									//Performance tab page
+			[+] wcHysysDataGridSimple	dgDataGrid
+				[ ] locator "//WPFDataGrid[@className='OdfDataGrid' or @automationId='PART_DataGrid']"
+		[+] AnyWin	tpgSummarydynamics
+			[+] WPFComboBox	cboFluidPkg
+				[ ] locator "//WPFComboBox[@automationId='FPAttachmentName_1']"
+			[+] WPFCheckBox	chkHorizontalMatrix
+				[ ] locator "//WPFCheckBox[@automationId='FlipMatrixCheckBox_1']"
+			[+] WPFCheckBox	chkSubFlowsheets
+				[ ] locator "//WPFCheckBox[@automationId='SubFSCheckBox_1']"
+			[+] WPFCheckBox	chkShowNameOnly
+				[ ] locator "//WPFCheckBox[@automationId='NameOnlyCheckBox_1']"
+			[ ] 
+		[+] AnyWin	tpgDynamics									//Dynamics tab page
+			[+] WPFCheckBox	chkCombineLayers
+				[ ] locator "//WPFCheckBox[@automationId='SimpleDynModelCB']"
+		[+] AnyWin	tpgRating									       //Added by Juan on 8/26/2013
+			[+] WPFCheckBox	chkAutoPreventTempCross
+				[ ] locator "//WPFCheckBox[@automationId='AutoTemCrossCHeckbox']"
+			[+] WPFTextBox	txtReachsmallsplitsteps
+				[ ] locator "//WPFTextBox[@automationId='NumericalInput1']"
+		[ ] //Append done
+	[ ] //Add End
+	[ ] 
+	[ ] //Appended by Weiwei Wu
+	[ ] //12/12/2013
+	[+] winclass wcStatusBase		:							AnyWin
+		[ ] //Currently, we are getting automation id for the status bar. Therefore, we should stop define status by its text or caption
+		[ ] // However, this increase the difficuties of programming because we cannot use command like .exist(10) to do a timeout.
+		[ ] //Therefore, I create this win class so that we can use .Exist command to do the timeout
+		[+] boolean Exist(inout real rTime optional,string sLabel optional)
+			[ ] HTIMER hTime=TimerCreate("Exist Timer")
+			[ ] boolean bFind=false
+			[ ] TimerStart(hTime)
+			[ ] string sCurrentStatus
+			[+] if rTime==null
+				[ ] rTime=0
+			[+] while TimerValue(hTime)<=rTime
+				[+] if sLabel!=null
+					[+] do
+						[ ] sCurrentStatus=this.TextCapture()
+					[+] except
+						[ ] sCurrentStatus=""
+					[+] if MatchStr(sLabel,sCurrentStatus)
+						[ ] TimerStop(hTime)
+						[ ] bFind=true
+						[ ] break
+				[+] else
+					[+] if this.Exists()
+						[ ] TimerStop(hTime)
+						[ ] bFind=true
+						[ ] break
+				[ ] sleep(0.1)
+			[ ] rTime=TimerValue(hTime)
+			[ ] TimerDestroy(hTime)
+			[ ] print(sCurrentStatus)
+			[ ] return bFind
+			[ ] 
+			[ ] 
+		[ ] 
+	[+] winclass wcWPFTextBox:									WPFTextBox
+		[ ] //This data type is setup because sometimes(Delayed Coker/Calibrate/Cuts, .SetText does not work well with WPFTextBox. Even though the value may change graphically, the actual value remains the same, 
+		[ ] //only typekey method works, however, it is too complicated to use setfocus and typekeys method all the time.
+		[+] void Input(string sInput)
+			[ ] int i
+			[+] list of STRING lsTable=<text>
+				[ ] 234@ADSFASFD
+			[+] while true
+				[+] do
+					[ ] Clipboard.SetText(lsTable)
+					[ ] break
+				[ ] except
+			[+] for (i=0;i<=10;i++)
+				[ ] this.SetFocus()
+				[ ] sleep(1)
+				[ ] this.TypeKeys("{sInput}",0.1)
+				[ ] sleep(1)
+				[ ] this.TypeKeys("<Ctrl-a>")
+				[ ] sleep(0.8)
+				[ ] this.TypeKeys("<Ctrl-c>")
+				[+] do
+					[+] if Clipboard.GetText()[1]==sInput
+						[ ] break
+				[+] except
+					[ ] continue
+			[ ] print(Clipboard.GetText()[1])
+			[ ] 
+			[+] if i==10
+				[ ] glFail("Fail to set text")
+			[+] else
+				[ ] this.TypeKeys("<Enter>")
+	[ ] //Add End
+	[ ] 
+	[+] winclass wcProIIConverter							: wcHysysTabBase
+		[ ] //Added by Justin Watanasiri on August 23, 2013
+		[ ] const sCmdLine = "{sProgramFilePath}\AspenTech\Converter {sVersion}\P2Converter.exe /HYSYS /{sVersion}"
+		[ ] 
+		[ ] //Methods
+		[+] Launch()
+			[ ] //close any prevous instances of Pro II Converter
+			[ ] SYS_Execute("taskkill /f /t /im P2Converter.exe")
+			[ ] //launch
+			[ ] this.Invoke()
+			[ ] //wait for Pro II Converter to exist and set the window active. If it doesn't, output an error message
+			[ ] glWaitForExists(this, 60)
+			[+] if this.Exists()
+				[ ] Log.Pass("Pro II Converter has opened successfully.")
+				[ ] this.SetActive()
+			[+] else
+				[ ] Log.Error("Pro II Converter has not opened successfully.")
+		[+] Open(string sCaseName)
+			[ ] //Open button
+			[ ] this.SetActive()
+			[ ] this.btnOpen.Click()
+			[ ] glWaitForExists(dlgOpen, 30)
+			[ ] dlgOpen.SetActive()
+			[ ] //specify case to open
+			[ ] dlgOpen.txtFileName.SetText(sCaseName)
+			[ ] Sleep(1)
+			[ ] //open it
+			[ ] dlgOpen.btnOpen.Click()
+			[ ] 
+		[ ] 
+		[ ] //Objects
+		[+] WPFButton btnOpen
+			[ ] locator "//WPFButton[@caption='Open']"
+			[ ] 
+		[+] WPFButton btnRun
+			[ ] locator "//WPFButton[@automationId='btnRun']"
+		[ ] 
+	[ ] 
+[ ] 
+[ ] 
+[ ] 

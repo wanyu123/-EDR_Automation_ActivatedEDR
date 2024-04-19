@@ -1,0 +1,582 @@
+MM "32.0" FLAVOR "NO" VERSION "32.0" DATETIME "Sun Jan 26 07:42:11 2014" 
+MACHINE "WIN-NT/VC"  ; 
+startlibrary
+version1
+NumLibs = 2
+Built-In
+ACM Built-In
+NumCats = 10
+Mixers/Splitters
+active
+Separators
+active
+Exchangers
+active
+Columns
+active
+Reactors
+active
+Pressure Changers
+active
+Manipulators
+active
+Solids
+active
+Solids Separators
+active
+User Models
+active
+endlibrary
+; 
+7
+>VERSION 0
+B1
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B2
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B3
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B4
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B5
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B6
+RGibbs
+Built-In
+RGIBBS
+>VERSION 0
+B7
+RGibbs
+Built-In
+RGIBBS
+? SETUP MAIN ? \ "RUN-CLASS" RUN-CLASS = FLOWSHEET \ \ SIMULATE INTERACTIVE
+ = NO MOLEFLOW = MOLEFLOW PSVUNITS = "SI" \ ? SETUP GLOBAL ? \ "IN-UNITS" 
+INSET = METCBAR \ ? SETUP DIAGNOSTICS ? ? SETUP "SIM-OPTIONS" ? ; 
+"METCBAR_MOLE" ; ? SETUP "MODEL-OPTION" ? ; "METCBAR_MOLE" ; ? SETUP 
+"UNITS-SET" METCBAR ? \ DESCRIPTION DESCRIPTION = "User-defined units set" \ 
+\ MMLOCAL \ \ UNITSET BASESET = MET ( 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 5 
+3 4 3 3 3 3 3 3 3 3 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 5 3 3 3 3 3 3 5 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+3 3 3 3 3 ) \ ? COMPONENTS MAIN ? ? COMPONENTS "ADA/PCS" "LE-PROP-DATA" ? ; 
+"METCBAR_MOLE" ; ? COMPONENTS "COMP-LIST" GLOBAL ? ? COMPONENTS "UNIFAC-GROUP" 
+? ? SOLVE ? \ "RUN-MODE" MODE = SIM \ ? "DYN-OPTIONS" ? ? FLOWSHEET GLOBAL ? 
+\ BLOCK BLKID = B1 BLKTYPE = RGIBBS MDLTYPE = "RGibbs" \ \ BLOCK BLKID = B2 
+BLKTYPE = RGIBBS MDLTYPE = "RGibbs" IN = ( S1 Q1-2 ) \ \ BLOCK BLKID = B3 
+BLKTYPE = RGIBBS MDLTYPE = "RGibbs" \ \ BLOCK BLKID = B4 BLKTYPE = RGIBBS 
+MDLTYPE = "RGibbs" IN = ( S2 Q1-2 ) \ \ BLOCK BLKID = B5 BLKTYPE = RGIBBS 
+MDLTYPE = "RGibbs" \ \ BLOCK BLKID = B6 BLKTYPE = RGIBBS MDLTYPE = "RGibbs" \ 
+\ BLOCK BLKID = B7 BLKTYPE = RGIBBS MDLTYPE = "RGibbs" IN = ( S5 M0-1 S7 Q1-2 
+) OUT = ( S6 M0-1 ) \ ? PROPERTIES MAIN ? \ GPROPERTIES PARCON = -2 \ ? 
+PROPERTIES PARAMETERS BINARY SCALAR "MLQKIJ-1" ? ; "ENG_MOLE" ; \ PROP-LIST 
+PARAMNAME = MLQKIJ SETNO = 1 \ ? PROPERTIES PARAMETERS BINARY SCALAR "RKTKIJ-1" 
+? ; "ENG_MOLE" ; \ PROP-LIST PARAMNAME = RKTKIJ SETNO = 1 \ ? PROPERTIES 
+PARAMETERS BINARY "T-DEPENDENT" "ANDKIJ-1" ? ; "ENG_MOLE" ; \ PROP-LIST 
+PARAMNAME = ANDKIJ SETNO = 1 UNITROW = 0 TUNITROW = 22 TUNITLABEL = F NEL = 2 
+\ ? PROPERTIES PARAMETERS BINARY "T-DEPENDENT" "ANDMIJ-1" ? ; "ENG_MOLE" ; \ 
+PROP-LIST PARAMNAME = ANDMIJ SETNO = 1 UNITROW = 0 TUNITROW = 22 TUNITLABEL
+ = F NEL = 2 \ ? PROPERTIES PARAMETERS BINARY "T-DEPENDENT" "MUKIJ-1" ? ; 
+"ENG_MOLE" ; \ PROP-LIST PARAMNAME = MUKIJ SETNO = 1 UNITROW = 0 TUNITROW = 22 
+TUNITLABEL = F NEL = 6 \ ? PROPERTIES PARAMETERS BINARY "T-DEPENDENT" "MULIJ-1" 
+? ; "ENG_MOLE" ; \ PROP-LIST PARAMNAME = MULIJ SETNO = 1 UNITROW = 0 TUNITROW
+ = 22 TUNITLABEL = F NEL = 11 \ ? PROPERTIES "ATTR-COMPS" ? ? POLYMERS ? ? 
+"STREAM-NAMES" ? ? BLOCK RGIBBS B1 ? ; "METCBAR_MOLE" ; ; ICON2 ; ? BLOCK 
+RGIBBS B2 ? ; "METCBAR_MOLE" ; ; ICON2 ; \ PARAM CHEMEQ = YES RESTR-EQUIL = 
+NO \ ? BLOCK RGIBBS B3 ? ; "METCBAR_MOLE" ; ; ICON2 ; \ PARAM CHEMEQ = YES 
+OPT-CHEMEQ = "CALC-TAPP" RESTR-EQUIL = NO \ ? BLOCK RGIBBS B4 ? ; 
+"METCBAR_MOLE" ; ; ICON2 ; \ PARAM CHEMEQ = YES OPT-CHEMEQ = "CALC-TAPP" 
+RESTR-EQUIL = NO \ ? BLOCK RGIBBS B5 ? ; "METCBAR_MOLE" ; ; ICON2 ; \ PARAM 
+TEMP = 150. <22> <4> PRES = 1. <20> <5> CHEMEQ = YES OPT-CHEMEQ = "PHASE-CHEM" 
+DUTY = 10. <13> <3> RESTR-EQUIL = NO MERGE-SOLIDS = NO \ ? BLOCK RGIBBS B6 ? 
+; "METCBAR_MOLE" ; ; ICON2 ; \ PARAM TEMP = 150. <22> <4> PRES = 1. <20> <5> 
+CHEMEQ = YES OPT-CHEMEQ = "CALC-TAPP" DUTY = 10. <13> <3> RESTR-EQUIL = NO 
+MERGE-SOLIDS = YES \ ? BLOCK RGIBBS B7 ? ; "METCBAR_MOLE" ; ; ICON2 ; \ PARAM 
+PRES = 1. <20> <5> NPHASE = 2 CHEMEQ = NO OPT-CHEMEQ = "PHASE-ONLY" 
+RESTR-EQUIL = NO \ ? "EO-CONV-OPTI" ? \ DMO-PARAMS MODE = DEFAULT \ \ 
+DMO-PARAMS MODE = SIMULATION \ \ DMO-PARAMS MODE = "PARAMETER-ESTIMATION" \ \ 
+DMO-PARAMS MODE = RECONCILIATION \ \ DMO-PARAMS MODE = OPTIMIZATION \ \ 
+LSSQP-PARAMS MODE-L = DEFAULT \ \ LSSQP-PARAMS MODE-L = SIMULATION \ \ 
+LSSQP-PARAMS MODE-L = "PARAMETER-ESTIMATION" \ \ LSSQP-PARAMS MODE-L = 
+RECONCILIATION \ \ LSSQP-PARAMS MODE-L = OPTIMIZATION \ \ NSOLVE-PARAM 
+NSOLVE-MODE = DEFAULT \ \ NSOLVE-PARAM NSOLVE-MODE = SIMULATION \ \ 
+NSOLVE-PARAM NSOLVE-MODE = "PARAMETER-ESTIMATION" \ \ XSLP-PARAMS XSLP-MODE
+ = DEFAULT \ \ XSLP-PARAMS XSLP-MODE = SIMULATION \ \ XSLP-PARAMS XSLP-MODE
+ = "PARAMETER-ESTIMATION" \ \ XSLP-PARAMS XSLP-MODE = RECONCILIATION \ \ 
+XSLP-PARAMS XSLP-MODE = OPTIMIZATION \ ? REPORT "BLOCK-REPORT" ? ? REPORT 
+"STREAM-REPOR" ? \ OPTIONS MOLEFLOW = MOLEFLOW \ 
+
+ GRAPHICS_BACKUP
+PFS V 5.00
+$CONFIG
+paramdata APV86 ENRTL-RK
+paramdata APV86 VLE-IG
+paramdata APV86 VLE-RK
+paramdata APV86 VLE-HOC
+paramdata APV86 LLE-LIT
+paramdata APV86 LLE-ASPEN
+paramdata APV86 VLE-LIT
+paramdata APV86 BINARY
+paramdata APV86 EOS-LIT
+paramdata APV86 HENRY-AP
+paramdata APV86 SRK-ASPEN
+paramdata APV86 PC-SAFT
+paramdata APV86 POLYPCSF
+paramdata APV86 HYSYS
+purebank APV86 PURE32
+purebank APV86 AQUEOUS
+purebank APV86 SOLIDS
+purebank APV86 INORGANIC
+regdbank 1
+ftn_check 1
+autoblockid 1
+autostreamid 1
+showblockid 1
+showstreamid 1
+autoplacement 1
+grid 2
+gridresolution 0.100000
+scale 0
+streamprefix S
+blockprefix B
+labelscale 1.000000
+3DOn 1
+qwformat %.0f
+tempformat %.0f
+presformat %.0f
+flowformat %.0f
+strmqwformat %.0f
+vflowformat %.0f
+mflowformat %.0f
+vfracformat %.2f
+pseudobatch 0
+partial 1
+animation 1
+runanyway 0
+globalqw 0
+globaltemp 0
+globalpres 0
+globalflow 0
+globalstrmqw 0
+globalvflow 0
+globalmflow 0
+globalvfrac 0
+tooldrawvisible 0
+browserheight 7530
+browserwidth 10725
+browsertreewidth 2450
+polyplusenabled 1
+dynaplusenabled 1
+bfracenabled 1
+rtfenabled 1
+rspenabled 1
+initializeicarus 0
+pinchenabled 0
+linklimit 5000
+material_color 0
+material_style 0
+material_width 1
+material_termid  
+heat_color 0
+heat_style 2
+heat_width 1
+heat_termid Q
+work_color 0
+work_style 1
+work_width 1
+work_termid W
+connections_color 9
+connections_style 3
+connections_width 1
+connections_termid C
+measurements_color 4
+measurements_style 3
+measurements_width 1
+measurements_termid M
+displayeoconn 0
+displaycalcs 0
+displaytransfers 0
+displaymeas 0
+displaydesignspecs 0
+displaycalccons 0
+displaymeascons 0
+displayothercons 0
+displayeomeas 1
+displayeomeastype 2
+displayothermanipconn 0
+showeoviews 0
+eoautosave 1
+lockflowsheet 0
+allow_system_userprops 0
+copy_estimation 1
+copy_retrieved 1
+purge_incomp_params 0
+set_default_biparams 0
+set_default_dataset1 0
+set_default_dataset0 1
+bestinput 0
+autosmrun 0
+genallpropset 0
+strmresformdefault 0
+roottype 1
+exchangerfile 1
+streamformat 1
+runsettingfile 1
+usermodelfile 1
+fortranfile 0
+allow_system_autoparam 1
+timeout 1000
+auto_evaluate 0
+customglobaldatapropset1 0 | Custom1 | * | %.2f | 0 | 6
+customglobaldatapropset2 0 | Custom2 | * | %.2f | 1 | 7
+customglobaldatapropset3 0 | Custom3 | * | %.2f | 2 | 8
+customglobaldatapropset4 0 | Custom4 | * | %.2f | 4 | 9
+customglobaldatapropset5 0 | Custom5 | * | %.2f | 5 | 10
+customglobaldatapropset6 0 | Custom6 | * | %.2f | 6 | 11
+economics_active 0
+ignoreEOVarNameFixupsOnImport 1
+#
+$_APWNSHELL_SETTINGS
+<CommonShellSettings xmlns="http://schemas.aspentech.com/xaml/presentation/visualisation/commonshell" xmlns:atapi="clr-namespace:AspenTech.AspenPlus.Infrastructure;assembly=AspenTech.AspenPlus.Infrastructure" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:atapmaa="clr-namespace:AspenTech.AspenPlus.Modules.ApwnApplication;assembly=ApwnShell" xmlns:atapie="clr-namespace:AspenTech.AspenPlus.Infrastructure.Events;assembly=AspenTech.AspenPlus.Infrastructure" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:apmab="clr-namespace:AspenPlus.Modules.ApwnBrowser;assembly=ApwnShell" xmlns:cxv="http://schemas.aspentech.com/xaml/presentation/cxsviewmodel">
+  <CommonShellSettings.CurrentWorkspace>
+    <ShellWorkspace Layout="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#xD;&#xA;&lt;xamDockManager version=&quot;13.1.20131.2073&quot;&gt;&#xD;&#xA;  &lt;contentPanes&gt;&#xD;&#xA;    &lt;contentPane name=&quot;FlowsheetScreenFactory&quot; location=&quot;Document&quot; lastActivatedTime=&quot;2014-01-26T06:41:16.7917734Z&quot; /&gt;&#xD;&#xA;    &lt;contentPane name=&quot;_AnonymousScreen6&quot; location=&quot;Document&quot; lastActivatedTime=&quot;2014-01-26T06:10:25.6706797Z&quot; /&gt;&#xD;&#xA;    &lt;contentPane name=&quot;ModelLibraryScreenFactoryKey&quot; location=&quot;DockedBottom&quot; lastActivatedTime=&quot;2014-01-26T03:09:55.2409922Z&quot; /&gt;&#xD;&#xA;  &lt;/contentPanes&gt;&#xD;&#xA;  &lt;panes&gt;&#xD;&#xA;    &lt;splitPane splitterOrientation=&quot;Vertical&quot; location=&quot;DockedBottom&quot;&gt;&#xD;&#xA;      &lt;contentPane name=&quot;ModelLibraryScreenFactoryKey&quot; /&gt;&#xD;&#xA;    &lt;/splitPane&gt;&#xD;&#xA;  &lt;/panes&gt;&#xD;&#xA;  &lt;documents splitterOrientation=&quot;Vertical&quot;&gt;&#xD;&#xA;    &lt;splitPane splitterOrientation=&quot;Vertical&quot;&gt;&#xD;&#xA;      &lt;tabGroup selectedIndex=&quot;0&quot;&gt;&#xD;&#xA;        &lt;contentPane name=&quot;FlowsheetScreenFactory&quot; /&gt;&#xD;&#xA;        &lt;contentPane name=&quot;_AnonymousScreen6&quot; /&gt;&#xD;&#xA;      &lt;/tabGroup&gt;&#xD;&#xA;    &lt;/splitPane&gt;&#xD;&#xA;  &lt;/documents&gt;&#xD;&#xA;&lt;/xamDockManager&gt;" NavigationGroupToSelect="Simulation" IsNavigationPaneMinimized="False" IsRibbonMinimized="False">
+      <ShellWorkspace.Screens>
+        <WorkspaceScreenData PaneName="FlowsheetScreenFactory" ScreenFactoryKey="FlowsheetScreenFactory">
+          <WorkspaceScreenData.ScreenSubject>
+            <atapi:StringScreenSubject subject="{assembly:Null}" fatherNodePath="{assembly:Null}" NavigationGroupKey="Simulation" />
+          </WorkspaceScreenData.ScreenSubject>
+          <WorkspaceScreenData.ScreenState>
+            <ScreenState Zoom="0.990001" />
+          </WorkspaceScreenData.ScreenState>
+        </WorkspaceScreenData>
+        <WorkspaceScreenData PaneName="_AnonymousScreen6" ScreenFactoryKey="ApwnFormContentFactory">
+          <WorkspaceScreenData.ScreenSubject>
+            <atapmaa:ApwnFormScreenSubject Key="Blocks.B7" NavigationGroupKey="Simulation">
+              <atapmaa:ApwnFormScreenSubject.ShowFormArgs>
+                <atapie:ShowFormEventArgs FormProgId="MMRGIBBS.MMRGIBBS_SETUP" FormKey="Blocks.B7" Header="B7 (RGibbs)" ResultsOnly="False" PathKey="Top.appModelV8.Blocks.B7">
+                  <atapie:ShowFormEventArgs.Parameters>
+                    <s:String assembly:Key="id">B7</s:String>
+                    <s:String assembly:Key="main">Top.appModelV8.Blocks.B7</s:String>
+                  </atapie:ShowFormEventArgs.Parameters>
+                </atapie:ShowFormEventArgs>
+              </atapmaa:ApwnFormScreenSubject.ShowFormArgs>
+              <atapmaa:ApwnFormScreenSubject.PlotwizardRule>
+                <apmab:ApwnPlotwizardRule IsHierarchy="True" ContextPath="Top.appModelV8.Blocks.B7">
+                  <apmab:ApwnPlotwizardRule.ProgId>
+                    <s:String>WpfPLSOLID.RibbonPlotWizardMgr</s:String>
+                  </apmab:ApwnPlotwizardRule.ProgId>
+                </apmab:ApwnPlotwizardRule>
+              </atapmaa:ApwnFormScreenSubject.PlotwizardRule>
+            </atapmaa:ApwnFormScreenSubject>
+          </WorkspaceScreenData.ScreenSubject>
+          <WorkspaceScreenData.ScreenState>
+            <atapmaa:ApwnFormScreenState>
+              <atapmaa:ApwnFormScreenState.Parameters>
+                <cxv:CxvParameter Name="main" Value="Top.appModelV8.Blocks.B7" />
+                <cxv:CxvParameter Name="id" Value="B7" />
+                <cxv:CxvParameter Name="extraComments_path" Value="Comments" />
+                <cxv:CxvParameter Name="extraDescription_path" Value="Input.DESCRIPTION" />
+                <cxv:CxvParameter Name="extraUnits_path" Value="Input.Unit Set" />
+                <cxv:CxvParameter Name="selected_tab" Value="tab0" />
+              </atapmaa:ApwnFormScreenState.Parameters>
+            </atapmaa:ApwnFormScreenState>
+          </WorkspaceScreenData.ScreenState>
+        </WorkspaceScreenData>
+        <WorkspaceScreenData PaneName="ModelLibraryScreenFactoryKey" ScreenFactoryKey="ModelLibraryScreenFactoryKey">
+          <WorkspaceScreenData.ScreenState>
+            <ScreenState />
+          </WorkspaceScreenData.ScreenState>
+        </WorkspaceScreenData>
+      </ShellWorkspace.Screens>
+    </ShellWorkspace>
+  </CommonShellSettings.CurrentWorkspace>
+  <CommonShellSettings.SavedWorkspaces>
+    <ShellWorkspaceFolder />
+  </CommonShellSettings.SavedWorkspaces>
+  <CommonShellSettings.NavigatorGroupWorkspaces>
+    <ShellWorkspace Name="Properties" Layout="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#xD;&#xA;&lt;xamDockManager version=&quot;13.1.20131.2073&quot;&gt;&#xD;&#xA;  &lt;contentPanes&gt;&#xD;&#xA;    &lt;contentPane name=&quot;_AnonymousScreen1&quot; location=&quot;Document&quot; lastActivatedTime=&quot;2014-01-24T08:57:48.6296718Z&quot; /&gt;&#xD;&#xA;  &lt;/contentPanes&gt;&#xD;&#xA;  &lt;documents splitterOrientation=&quot;Vertical&quot;&gt;&#xD;&#xA;    &lt;splitPane splitterOrientation=&quot;Vertical&quot;&gt;&#xD;&#xA;      &lt;tabGroup selectedIndex=&quot;0&quot;&gt;&#xD;&#xA;        &lt;contentPane name=&quot;_AnonymousScreen1&quot; /&gt;&#xD;&#xA;      &lt;/tabGroup&gt;&#xD;&#xA;    &lt;/splitPane&gt;&#xD;&#xA;  &lt;/documents&gt;&#xD;&#xA;&lt;/xamDockManager&gt;" NavigationGroupToSelect="Properties" IsNavigationPaneMinimized="False" IsRibbonMinimized="False">
+      <ShellWorkspace.Screens>
+        <WorkspaceScreenData PaneName="_AnonymousScreen1" ScreenFactoryKey="ApwnFormContentFactory">
+          <WorkspaceScreenData.ScreenSubject>
+            <atapmaa:ApwnFormScreenSubject Key="Components.Specifications" NavigationGroupKey="Properties">
+              <atapmaa:ApwnFormScreenSubject.ShowFormArgs>
+                <atapie:ShowFormEventArgs FormProgId="MMCOMP_SPEC.MMCOMP_SPEC_INPUT" FormKey="Components.Specifications" Header="Components - Specifications" ResultsOnly="False" PathKey="Top.appModelV8.Components.Specifications">
+                  <atapie:ShowFormEventArgs.Parameters>
+                    <s:String assembly:Key="id">Specifications</s:String>
+                    <s:String assembly:Key="main">Top.appModelV8.Components.Specifications</s:String>
+                  </atapie:ShowFormEventArgs.Parameters>
+                </atapie:ShowFormEventArgs>
+              </atapmaa:ApwnFormScreenSubject.ShowFormArgs>
+              <atapmaa:ApwnFormScreenSubject.PlotwizardRule>
+                <apmab:ApwnPlotwizardRule ContextPath="Top.appModelV8.Components.Specifications" />
+              </atapmaa:ApwnFormScreenSubject.PlotwizardRule>
+            </atapmaa:ApwnFormScreenSubject>
+          </WorkspaceScreenData.ScreenSubject>
+          <WorkspaceScreenData.ScreenState>
+            <atapmaa:ApwnFormScreenState>
+              <atapmaa:ApwnFormScreenState.Parameters>
+                <cxv:CxvParameter Name="main" Value="Top.appModelV8.Components.Specifications" />
+                <cxv:CxvParameter Name="id" Value="Specifications" />
+                <cxv:CxvParameter Name="extraComments_path" Value="Comments" />
+                <cxv:CxvParameter Name="extraDescription_path" Value="Input.DESCRIPTION" />
+                <cxv:CxvParameter Name="extraUnits_path" Value="Input.Unit Set" />
+                <cxv:CxvParameter Name="NotNeedName" Value="NotNull" />
+                <cxv:CxvParameter Name="NotNeedType" Value="NotNull" />
+                <cxv:CxvParameter Name="selected_tab" Value="tab0" />
+              </atapmaa:ApwnFormScreenState.Parameters>
+            </atapmaa:ApwnFormScreenState>
+          </WorkspaceScreenData.ScreenState>
+        </WorkspaceScreenData>
+      </ShellWorkspace.Screens>
+    </ShellWorkspace>
+  </CommonShellSettings.NavigatorGroupWorkspaces>
+</CommonShellSettings>Args>
+              <atapmaa:ApwnFormScreenSubject.PlotwizardRule>
+$_END_APWNSHELL_SETTINGS
+#
+PFSVData
+# of PFS Objects = 13
+SIZE -5.398 4.9 -2.3 1.647
+BLOCK
+ID: B1
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At -4.600000 0.800000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B2
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At -1.700000 1.000000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B3
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At 1.700000 1.000000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B4
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At 4.600000 0.800000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B5
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At -4.800000 -1.700000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B6
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At -3.000000 -1.600000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+BLOCK
+ID: B7
+Version: 1
+ICON: "ICON2"
+Flag 0
+Section GLOBAL
+At 0.100000 -1.500000
+Label At -0.598000 0.647000
+Scale 1.000000 Modifier 0
+STREAM
+ID: S1
+Version: 2
+Flag 0
+TYPE 1 TERMINAL 1
+At -3.000000 0.694286
+Label At 0.250000 0.000000
+ROUTE 0 0
+$ $ 0.0 0.0
+ROUTE 1 0
+r r -3.000000 0.694286 0
+x x -2.500000 0.694286 0
+y y -2.500000 0.699098 0
+x x -2.196182 0.699098 0
+t l -1.996182 0.699098 0
+$ C 1.000000 0.0
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 1
+$ $ 0.0 0.0
+ROUTE 1 1
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 2
+$ $ 0.0 0.0
+ROUTE 1 2
+$ $ 0.0 0.0
+STREAM
+ID: S2
+Version: 2
+Flag 0
+TYPE 1 TERMINAL 1
+At 2.605714 0.197143
+Label At 0.422143 0.000000
+ROUTE 0 0
+$ $ 0.0 0.0
+ROUTE 1 0
+r r 2.605714 0.197143 0
+x x 3.450000 0.197143 0
+y y 3.450000 0.499098 0
+x x 4.103818 0.499098 0
+t l 4.303818 0.499098 0
+$ C 1.000000 0.0
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 1
+$ $ 0.0 0.0
+ROUTE 1 1
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 2
+$ $ 0.0 0.0
+ROUTE 1 2
+$ $ 0.0 0.0
+STREAM
+ID: S5
+Version: 2
+Flag 0
+TYPE 0 TERMINAL 1
+At -1.793782 -1.202759
+Label At 0.406121 0.000000
+ROUTE 0 0
+$ $ 0.0 0.0
+ROUTE 1 0
+r r -1.793782 -1.202759 0
+x x -1.000000 -1.202759 0
+y y -1.000000 -1.200158 0
+x x -0.399186 -1.200158 0
+t l -0.199186 -1.200158 0
+$ C 1.000000 0.0
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 1
+$ $ 0.0 0.0
+ROUTE 1 1
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 2
+$ $ 0.0 0.0
+ROUTE 1 2
+$ $ 0.0 0.0
+STREAM
+ID: S6
+Version: 2
+Flag 0
+TYPE 0 TERMINAL 2
+At 2.306291 -1.092935
+Label At -0.478146 0.000000
+ROUTE 0 0
+r l 2.306291 -1.092935 0
+x y 1.350000 -1.092935 0
+y x 1.350000 -1.200158 0
+x 0 0.598555 -1.200158 0
+t r 0.398555 -1.200158 0
+$ C 1.000000 0.0
+$ $ 0.0 0.0
+ROUTE 1 0
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 1
+$ $ 0.0 0.0
+ROUTE 1 1
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 2
+$ $ 0.0 0.0
+ROUTE 1 2
+$ $ 0.0 0.0
+STREAM
+ID: S7
+Version: 2
+Flag 0
+TYPE 1 TERMINAL 1
+At -1.299577 -1.898307
+Label At 0.274788 0.000000
+ROUTE 0 0
+$ $ 0.0 0.0
+ROUTE 1 0
+r r -1.299577 -1.898307 0
+x x -0.750000 -1.898307 0
+y y -0.750000 -1.800902 0
+x x -0.396182 -1.800902 0
+t l -0.196182 -1.800902 0
+$ C 1.000000 0.0
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 1
+$ $ 0.0 0.0
+ROUTE 1 1
+$ $ 0.0 0.0
+At 0.000000 0.000000
+Label At 0.000000 0.000000
+ROUTE 0 2
+$ $ 0.0 0.0
+ROUTE 1 2
+$ $ 0.0 0.0
+LEGEND
+Version: 2
+Unfixed
+# of PFS Objects = 0
+VIEWPORT -7.248343 7.248343 3.300000 -3.747000
+LAYOUT
+TableFormat 1
+Pages 1 1 1 1
+PAGESETUP
+PAPERSIZE 
+PAPERSOURCE 
+ORIENTATION -1
+PRINTPAGENO 1 1
+LEFTMARGIN 10mm
+RIGHTMARGIN 10mm
+TOPMARGIN 10mm
+BOTTOMMARGIN 10mm
+VISIBILITY 0.030000
+PFDFLAG 255 255
+PFDMODE 0
+SCALE 0.018304

@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _2552slo.inm
+MODNAME: apmain
+RUNID: _2552slo
+NEW_RUNID: _2552slo
+OLD_RUNID: _2552slo
+PDF: _2552slo.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

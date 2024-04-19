@@ -1,0 +1,181 @@
+<HTEdata FileSignature="AspenTech/EDR 7.3.2.0 (26.0.0.3676)" Date="9/19/2012" Time="12:18:02 PM" FileDescription="Company:\nLocation:\nService of Unit:                                 Our Reference:\nItem No.:                                        Your Reference:\nDate:                       Rev No.:             Job No.:">
+    <application name="Acol">
+        <match>false
+        </match>
+        <result>0
+        </result>
+        <uomset>2
+        </uomset>
+        <engineuomset>2
+        </engineuomset>
+        <scalars type="input">
+            <scalar name="DesignDimUnits">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubeGeomCount">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="input">
+            <array name="arFinFrequency">
+                <uom>#/m
+                </uom>
+                <values>
+                    <valueslist list="433"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arFinHtAreaScale">
+                <uom></uom>
+                <values>
+                    <valueslist list="1"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arFinRootDia">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="25.4"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arFinThk">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list=".28"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arFinTipDia">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="57.15"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arFinType">
+                <uom></uom>
+                <values>
+                    <valueslist list="2"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arTubeFinMtl">
+                <uom></uom>
+                <values>
+                    <valueslist list="62"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arTubeID">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="22.098"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arTubeInsert">
+                <uom></uom>
+                <values>
+                    <valueslist list="1"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arTubeOD">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="25.4"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="arTubeWallThk">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="1.651"/>
+                    <sourcelist list="Default"/>
+                </values>
+            </array>
+            <array name="Heading">
+                <uom></uom>
+                <values>
+                    <valueslist list="Company:,Location:,Service of Unit:                                 Our Reference:,Item No.:                                        Your Reference:,Date:                       Rev No.:             Job No.:"/>
+                    <sourcelist list="User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="NozFlangeTksTS">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="25,25"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="NozLengthTS">
+                <uom>mm
+                </uom>
+                <values>
+                    <valueslist list="300,300"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="NozNumTS">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="NozOrientationTS">
+                <uom>Degrees
+                </uom>
+                <values>
+                    <valueslist list="89.99995,-89.99995"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="RecapVariables">
+                <uom></uom>
+                <values>
+                    <valueslist list="arTubesInBundle,arRowsDeep,arTubeLen,arTubePass,arBundlP,arBayP,arAreaCalc,arAreaAct,arAreaRatio,arPrDrShell,arDpRatioOT,arPrDrTube,arDpRatioTS,arAirFlow,TempOutTS,TempOutOT,HtLdTotal,arTotPrice,arCoCost"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="DBToBeUsed">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="PressureReference" SizePerSet="5">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list="5,1"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+        </arrays>
+        <scalars type="results"></scalars>
+        <arrays type="results"></arrays>
+        <objects>
+            <object name="AspenPropertiesTS"></object>
+            <object name="COMThermoInfoOT"></object>
+            <object name="COMThermoInfoTS"></object>
+        </objects>
+    </application>
+</HTEdata>

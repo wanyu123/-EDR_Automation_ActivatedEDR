@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _3756jmv.inm
+MODNAME: apmain
+RUNID: _3756jmv
+NEW_RUNID: _3756jmv
+OLD_RUNID: _3756jmv
+PDF: _3756jmv.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

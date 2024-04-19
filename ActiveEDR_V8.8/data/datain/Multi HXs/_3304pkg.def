@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _3304pkg.inm
+MODNAME: apmain
+RUNID: _3304pkg
+NEW_RUNID: _3304pkg
+OLD_RUNID: _3304pkg
+PDF: _3304pkg.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files\AspenTech\Aspen Plus V11.0\Engine\xeq\apmain
+SPONLY:

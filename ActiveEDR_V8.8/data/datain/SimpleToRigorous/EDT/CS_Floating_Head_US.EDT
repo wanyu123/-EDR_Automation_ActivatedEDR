@@ -1,0 +1,737 @@
+<HTEdata FileSignature="AspenTech/EDR 7.3.2.0 (26.0.0.3676)" Date="9/19/2012" Time="11:56:54 AM" FileDescription="Company:\nLocation:\nService of Unit:                                 Our Reference:\nItem No.:                                        Your Reference:\nDate:                       Rev No.:             Job No.:">
+    <application name="Tasc">
+        <match>false
+        </match>
+        <result>0
+        </result>
+        <uomset>1
+        </uomset>
+        <engineuomset>1
+        </engineuomset>
+        <scalars type="input">
+            <scalar name="CallingProgram">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="DesignDimUnits">
+                <uom></uom>
+                <value>2
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="HdFrType">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="HdReType">
+                <uom></uom>
+                <value>5
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="OptPathCaseNum">
+                <uom></uom>
+                <value>-1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="ShlType">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="TubePattern">
+                <uom></uom>
+                <value>90
+                </value>
+                <source>User
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="input">
+            <array name="Heading">
+                <uom></uom>
+                <values>
+                    <valueslist list="Company:,Location:,Service of Unit:                                 Our Reference:,Item No.:                                        Your Reference:,Date:                       Rev No.:             Job No.:"/>
+                    <sourcelist list="User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="PassRegMatchTubeNumber">
+                <uom></uom>
+                <values>
+                    <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default"/>
+                </values>
+            </array>
+            <array name="RecapVariables">
+                <uom></uom>
+                <values>
+                    <valueslist list="arShellSize,arTubeLenAct,arTubeLenReq,arPresDropShell,arPresDropTube,arBafSpacing,arBafNo,arTubePass,arTubeNo,arUnitsSer,arUnitsPar,arTotalPrice,ProgramMode,MethCalculationMethod,AreaRatioDirty,FilmCoefSS,FilmCoefTS,HtLdTotal,RecapStorage"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="DBToBeUsed">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="Default,Default"/>
+                </values>
+            </array>
+            <array name="PressureReference" SizePerSet="5">
+                <uom>psi
+                </uom>
+                <values>
+                    <valueslist list="145.0376,29.00752,,,,145.0376,29.00752"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default"/>
+                </values>
+            </array>
+        </arrays>
+        <scalars type="results"></scalars>
+        <arrays type="results"></arrays>
+        <objects>
+            <object name="ResultsTubeLayout">
+                <Exchanger>
+                    <Shell>
+                        <Nozzle>
+                            <NozzleUse/>
+                        </Nozzle>
+                        <Nozzle>
+                            <NozzleUse/>
+                        </Nozzle>
+                    </Shell>
+                    <TubeBundle>
+                        <TubeRegion/>
+                        <PassRegion>
+                            <TubeLine>
+                                <CentrePosition/>
+                                <CentrePosition/>
+                            </TubeLine>
+                        </PassRegion>
+                    </TubeBundle>
+                    <FrontHead/>
+                    <RearHead/>
+                </Exchanger>
+            </object>
+            <object name="BEXStructure">
+                <engExchanger>
+                    <units value="0"/>
+                    <position value="0"/>
+                    <frontheadloconverunit value="0"/>
+                    <engts name="frontTS">
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <tks value="0"/>
+                        <gapwidth value="0"/>
+                        <recesstype value="0"/>
+                        <recesstype value="0"/>
+                        <recessouterdia value="0"/>
+                        <recessouterdia value="0"/>
+                        <recessinnerdepth value="0"/>
+                        <recessinnerdepth value="0"/>
+                        <recessinnerdia value="0"/>
+                        <recessinnerdia value="0"/>
+                        <recessouterdepth value="0"/>
+                        <recessouterdepth value="0"/>
+                        <tubeholeod value="0"/>
+                        <tierodholeod value="0"/>
+                    </engts>
+                    <engts name="rearTS">
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <tks value="0"/>
+                        <gapwidth value="0"/>
+                        <recesstype value="0"/>
+                        <recesstype value="0"/>
+                        <recessouterdia value="0"/>
+                        <recessouterdia value="0"/>
+                        <recessinnerdepth value="0"/>
+                        <recessinnerdepth value="0"/>
+                        <recessinnerdia value="0"/>
+                        <recessinnerdia value="0"/>
+                        <recessouterdepth value="0"/>
+                        <recessouterdepth value="0"/>
+                        <tubeholeod value="0"/>
+                        <tierodholeod value="0"/>
+                    </engts>
+                    <enghead name="fronthead">
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <length value="0"/>
+                        <cylinderlength value="0"/>
+                        <assemblylength value="0"/>
+                        <cylinder value="0"/>
+                        <engcover>
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <tks value="0"/>
+                            <cylinderlength value="0"/>
+                            <conesmalldia value="0"/>
+                            <coneangle value="0"/>
+                            <dishradius value="0"/>
+                            <knuckleradius value="0"/>
+                            <recesstype value="0"/>
+                            <recessgaskoddiam value="0"/>
+                            <recessgaskoddepth value="0"/>
+                            <recessgaskiddiam value="0"/>
+                            <recessgaskiddepth value="0"/>
+                        </engcover>
+                        <engbodyflange name="cover">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="shell">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="back">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                    </enghead>
+                    <engshell>
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <cylinderlength value="0"/>
+                        <cylinderlength2 value="0"/>
+                        <assemblylength value="0"/>
+                        <kettleod value="0"/>
+                        <kettletks value="0"/>
+                        <kettlecylinderlength value="0"/>
+                        <kettleangle value="0"/>
+                        <length value="0"/>
+                        <engbodyflange name="front">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="rear">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                    </engshell>
+                    <enghead name="rearhead">
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <length value="0"/>
+                        <cylinderlength value="0"/>
+                        <assemblylength value="0"/>
+                        <cylinder value="0"/>
+                        <engcover>
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <tks value="0"/>
+                            <cylinderlength value="0"/>
+                            <conesmalldia value="0"/>
+                            <coneangle value="0"/>
+                            <dishradius value="0"/>
+                            <knuckleradius value="0"/>
+                            <recesstype value="0"/>
+                            <recessgaskoddiam value="0"/>
+                            <recessgaskoddepth value="0"/>
+                            <recessgaskiddiam value="0"/>
+                            <recessgaskiddepth value="0"/>
+                        </engcover>
+                        <engbodyflange name="cover">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="shell">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="back">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                    </enghead>
+                    <enghead name="shellcover">
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <tks value="0"/>
+                        <length value="0"/>
+                        <cylinderlength value="0"/>
+                        <assemblylength value="0"/>
+                        <cylinder value="0"/>
+                        <engcover>
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <tks value="0"/>
+                            <cylinderlength value="0"/>
+                            <conesmalldia value="0"/>
+                            <coneangle value="0"/>
+                            <dishradius value="0"/>
+                            <knuckleradius value="0"/>
+                            <recesstype value="0"/>
+                            <recessgaskoddiam value="0"/>
+                            <recessgaskoddepth value="0"/>
+                            <recessgaskiddiam value="0"/>
+                            <recessgaskiddepth value="0"/>
+                        </engcover>
+                        <engbodyflange name="cover">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="shell">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                        <engbodyflange name="back">
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <od value="0"/>
+                            <id value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <recesstype value="0"/>
+                            <recessod value="0"/>
+                            <recessdepth value="0"/>
+                            <hubod value="0"/>
+                            <ringod value="0"/>
+                            <ringid value="0"/>
+                            <ringtks value="0"/>
+                            <disttotube value="0"/>
+                            <disttodish value="0"/>
+                            <disttocylinder value="0"/>
+                            <weldheight value="0"/>
+                            <engbolt>
+                                <materialid value="0"/>
+                                <holeod value="0"/>
+                                <od value="0"/>
+                                <boltcircle value="0"/>
+                                <numbolt value="0"/>
+                                <length value="0"/>
+                            </engbolt>
+                            <enggasket>
+                                <materialid value="0"/>
+                                <id value="0"/>
+                                <od value="0"/>
+                                <tks value="0"/>
+                            </enggasket>
+                        </engbodyflange>
+                    </enghead>
+                    <supports></supports>
+                    <belts></belts>
+                    <ejs></ejs>
+                    <nozzles></nozzles>
+                    <couplings></couplings>
+                    <baffles></baffles>
+                    <engtubelayout>
+                        <type value="0"/>
+                        <numtubepasses value="0"/>
+                        <tubelength value="0"/>
+                        <tubeod value="0"/>
+                        <tubeprojfromfts value="0"/>
+                        <ytop value="0"/>
+                        <ybottom value="0"/>
+                        <tubepitch value="0"/>
+                        <tubepattern value="0"/>
+                        <numtubes value="0"/>
+                        <ribs>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                            <rib value="0"/>
+                        </ribs>
+                        <engbundle>
+                            <materialid value="0"/>
+                            <tubeod value="0"/>
+                            <tubetks value="0"/>
+                            <tubelength value="0"/>
+                            <numtuberows value="0"/>
+                            <tubetotubexdist value="0"/>
+                            <tuberows></tuberows>
+                        </engbundle>
+                        <engtierod>
+                            <materialid value="0"/>
+                            <tieroddia value="0"/>
+                            <spacerod value="0"/>
+                            <NumberOfTierods value="0"/>
+                            <tierodvalues></tierodvalues>
+                        </engtierod>
+                        <engimpplate>
+                            <type value="0"/>
+                            <materialid value="0"/>
+                            <dia value="0"/>
+                            <width value="0"/>
+                            <tks value="0"/>
+                            <length value="0"/>
+                            <dist value="0"/>
+                        </engimpplate>
+                        <engsealstrip>
+                            <materialid value="0"/>
+                            <sealstrips></sealstrips>
+                        </engsealstrip>
+                    </engtubelayout>
+                    <engbaffles>
+                        <type value="0"/>
+                        <materialid value="0"/>
+                        <od value="0"/>
+                        <orient value="0"/>
+                        <tubeholeod value="0"/>
+                        <tierodholeod value="0"/>
+                        <cutdists>
+                            <cutdist value=" 0"/>
+                            <cutdist value=" 0"/>
+                            <cutdist value=" 0"/>
+                            <cutdist value=" 0"/>
+                        </cutdists>
+                    </engbaffles>
+                    <engEng>
+                        <engprocessdetails>
+                            <shellpressure value="0"/>
+                            <tubepressure value="0"/>
+                            <shelltestpressure value="0"/>
+                            <tubetestpressure value="0"/>
+                            <shelltemperature value="0"/>
+                            <tubetemperature value="0"/>
+                        </engprocessdetails>
+                        <engdesigndata>
+                            <shellcorrosionallowance value="0"/>
+                            <tubecorrosionallowance value="0"/>
+                        </engdesigndata>
+                        <engweights>
+                            <dryweight value="0"/>
+                            <wetweight value="0"/>
+                            <bundleweight value="0"/>
+                            <operweight value="0"/>
+                            <shellsidevolume value="0"/>
+                            <tubesidevolume value="0"/>
+                        </engweights>
+                        <enggeneral></enggeneral>
+                    </engEng>
+                </engExchanger>
+            </object>
+            <object name="AspenPropertiesHS"></object>
+            <object name="COMThermoInfoCS"></object>
+            <object name="COMThermoInfoHS"></object>
+        </objects>
+    </application>
+</HTEdata>

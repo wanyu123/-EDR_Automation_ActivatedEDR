@@ -1,0 +1,58 @@
+
+C:\qe\dev\AUTOMATION\Aspen Plus\MyLibraryV8.6>cd /d "C:\qe\dev\AUTOMATION\Aspen
+Plus\MyLibraryV8.6\data\dataout\CQ00396859"
+
+C:\qe\dev\AUTOMATION\Aspen Plus\MyLibraryV8.6\data\dataout\CQ00396859>Aspen htfs
+-cdt-design.inp
+Runid is htfs-cdt-design
+5:25 PM Wednesday, February 26, 2014
+
+
+->Processing input specifications ...
+
+
+
+->Calculations begin ...
+
+> Beginning Convergence Loop $OLVER01 Method: WEGSTEIN
+  Converging tear streams: HOTCRUDE
+
+> Loop $OLVER01 Method: WEGSTEIN     Iteration    1
+  Converging tear streams: HOTCRUDE
+  40 vars not converged, Max Err/Tol   0.10000E+07
+
+> Loop $OLVER01 Method: WEGSTEIN     Iteration    2
+  Converging tear streams: HOTCRUDE
+   2 vars not converged, Max Err/Tol   0.27382E+03
+
+> Loop $OLVER01 Method: WEGSTEIN     Iteration    3
+  Converging tear streams: HOTCRUDE
+# Converged              Max Err/Tol   0.77939E-02
+
+->Generating results ...
+
+
+->Report generated
+
+
+ *** SUMMARY OF ERRORS  ***
+
+                  PHYSICAL
+                  PROPERTY  SYSTEM  SIMULATION
+ TERMINAL ERRORS      0        0         0
+   SEVERE ERRORS      0        0         0
+          ERRORS      0        0         0
+        WARNINGS      0        1        14
+
+
+ **************************************************
+ *  ASPEN PLUS SIMULATION PROGRAM ENDS EXECUTION  *
+ **************************************************
+4
+5:26 PM Wednesday, February 26, 2014
+Elapsed time: 1 minute 16 seconds
+Total problem time for: aspen htfs-cdt-design
+5:26 PM Wednesday, February 26, 2014
+Elapsed time: 1 minute 16 seconds
+
+C:\qe\dev\AUTOMATION\Aspen Plus\MyLibraryV8.6\data\dataout\CQ00396859>

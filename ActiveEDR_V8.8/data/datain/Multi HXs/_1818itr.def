@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _1818itr.inm
+MODNAME: apmain
+RUNID: _1818itr
+NEW_RUNID: _1818itr
+OLD_RUNID: _1818itr
+PDF: _1818itr.appdf
+USERNAME: admin
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V8.8\Engine\xeq\apmain
+SPONLY:

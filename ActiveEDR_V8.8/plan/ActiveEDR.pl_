@@ -1,0 +1,130 @@
+﻿[ ] ////////////////////////////////////////////////////////////////////////////////////////
+[ ] 
+[ ] // 		EDR in Aspen Plus Plant tests plan file                     
+[ ] 
+[ ] // 		Susan Shi                             
+[ ] 
+[ ] // 		Jan 08 2014
+[ ] 
+[ ] // 		CopyRight(R) AspenTech 
+[ ] ////////////////////////////////////////////////////////////////////////////////////////
+[ ] 
+[ ] 
+[ ] 
+[ ] script: ..\Script\EDR_HYSYS.t
+[+] testcase CQ00510213()
+	[ ] testcase:CQ00510213
+[-] testcase CQ00510214()
+	[ ] testcase:CQ00510214
+[+] testcase CQ00510216()
+	[ ] testcase:CQ00510216
+[+] testcase CQ00510225()
+	[ ] testcase:CQ00510225
+[+] testcase CQ00510226()
+	[ ] testcase:CQ00510226
+[+] testcase CQ00510236()
+	[ ] testcase:CQ00510236
+[+] testcase CQ00510240()
+	[ ] testcase:CQ00510240
+[+] testcase CQ00510242()
+	[ ] testcase:CQ00510242
+[+] testcase CQ00510244()
+	[ ] testcase:CQ00510244
+[+] testcase CQ00510245()
+	[ ] testcase:CQ00510245
+[+] testcase CQ00510248()
+	[ ] testcase:CQ00510248
+[+] testcase CQ00510249()
+	[ ] testcase:CQ00510249
+[+] testcase CQ00510252()
+	[ ] testcase:CQ00510252
+[+] testcase CQ00510254()
+	[ ] testcase:CQ00510254
+[+] testcase CQ00510255()
+	[ ] testcase:CQ00510255
+[+] testcase CQ00510258()
+	[ ] testcase:CQ00510258
+[+] testcase CQ00510260()
+	[ ] testcase:CQ00510260
+[+] testcase CQ00510262()
+	[ ] testcase:CQ00510262
+[+] testcase CQ00510263()
+	[ ] testcase:CQ00510263
+[+] testcase CQ00510264()
+	[ ] testcase:CQ00510264
+[+] testcase CQ00510265()
+	[ ] testcase:CQ00510265
+[+] testcase CQ00510266()
+	[ ] testcase:CQ00510266
+[+] testcase CQ00510268()
+	[ ] testcase:CQ00510268
+[+] testcase CQ00510270()
+	[ ] testcase:CQ00510270
+[+] testcase CQ00510272()
+	[ ] testcase:CQ00510272
+[+] testcase CQ00510273()
+	[ ] testcase:CQ00510273
+[+] testcase CQ00510275()
+	[ ] testcase:CQ00510275
+[+] testcase CQ00510280()
+	[ ] testcase:CQ00510280
+[+] testcase CQ00510223()
+	[ ] testcase:CQ00510223
+[ ] 
+[ ] 
+[ ] script: ..\Script\EDR_Plus.t
+[-] testcase CQ00510122() // Risize Aspen Plus to small window before run.
+	[ ] testcase:CQ00510122
+[+] testcase CQ00510118()
+	[ ] testcase:CQ00510118
+[+] testcase CQ00510120()
+	[ ] testcase:CQ00510120
+[+] testcase CQ00510169()
+	[ ] testcase:CQ00510169
+[+] testcase CQ00510171()
+	[ ] testcase:CQ00510171
+[+] testcase CQ00510173()
+	[ ] testcase:CQ00510173
+[-] testcase CQ00510175()
+	[ ] testcase:CQ00510175
+[+] testcase CQ00510176()
+	[ ] testcase:CQ00510176
+[+] testcase CQ00510177()
+	[ ] testcase:CQ00510177
+[+] testcase CQ00510178()
+	[ ] testcase:CQ00510178
+[+] testcase CQ00510180()
+	[ ] testcase:CQ00510180
+[+] testcase CQ00510181()
+	[ ] testcase:CQ00510181
+[+] testcase CQ00510182()
+	[ ] testcase:CQ00510182
+[+] testcase CQ00510184()
+	[ ] testcase:CQ00510184
+[+] testcase CQ00510185()
+	[ ] testcase:CQ00510185
+[+] testcase CQ00510186()
+	[ ] testcase:CQ00510186
+[+] testcase CQ00510187()
+	[ ] testcase:CQ00510187
+[+] testcase CQ00510188()
+	[ ] testcase:CQ00510188
+[+] testcase CQ00510190()
+	[ ] testcase:CQ00510190
+[+] testcase CQ00510191()
+	[ ] testcase:CQ00510191
+[+] //testcase CQ00510192()
+	[ ] //testcase:CQ00510192
+[+] //testcase CQ00510199()
+	[ ] //testcase:CQ00510199
+[+] //testcase CQ00510201()
+	[ ] //testcase:CQ00510201
+[+] //testcase CQ00510202()
+	[ ] //testcase:CQ00510202
+[+] testcase CQ00510206()
+	[ ] testcase:CQ00510206
+[+] testcase CQ00545026()
+	[ ] testcase:CQ00545026
+[+] testcase CQ00510127()
+	[ ] testcase:CQ00510127
+[ ] 

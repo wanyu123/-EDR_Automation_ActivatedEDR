@@ -1,0 +1,4 @@
+script: C:\V14.0\ActiveEDR_V8.8\script\EDR_Plus.t
+CQ00510175
+	testcase: CQ00510175()
+	testdata: 

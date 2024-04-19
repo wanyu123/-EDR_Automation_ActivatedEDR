@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _3330wqy.inm
+MODNAME: apmain
+RUNID: _3330wqy
+NEW_RUNID: _3330wqy
+OLD_RUNID: _3330wqy
+PDF: _3330wqy.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

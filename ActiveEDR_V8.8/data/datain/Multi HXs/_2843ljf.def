@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _2843ljf.inm
+MODNAME: apmain
+RUNID: _2843ljf
+NEW_RUNID: _2843ljf
+OLD_RUNID: _2843ljf
+PDF: _2843ljf.appdf
+USERNAME: admin
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V8.8\Engine\xeq\apmain
+SPONLY:

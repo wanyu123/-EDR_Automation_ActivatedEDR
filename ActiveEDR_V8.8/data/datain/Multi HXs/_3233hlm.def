@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _3233hlm.inm
+MODNAME: apmain
+RUNID: _3233hlm
+NEW_RUNID: _3233hlm
+OLD_RUNID: _3233hlm
+PDF: _3233hlm.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files\AspenTech\Aspen Plus V11.0\Engine\xeq\apmain
+SPONLY:

@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _1455coh.inm
+MODNAME: apmain
+RUNID: _1455coh
+NEW_RUNID: _1455coh
+OLD_RUNID: _1455coh
+PDF: _1455coh.appdf
+USERNAME: Administrator
+XMOD: C:\Program Files (x86)\AspenTech\Aspen Plus V9.0\Engine\xeq\apmain
+SPONLY:

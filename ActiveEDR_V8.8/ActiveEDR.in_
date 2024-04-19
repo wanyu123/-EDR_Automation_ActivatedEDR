@@ -1,0 +1,223 @@
+﻿
+[General]
+FileHistorySize=4
+Undolevels=1000
+
+[ProjectState]
+ProjectWndInfo=321,0,1,1
+CurrentProject=C:\ActiveEDR\ActiveEDR.vtp
+
+[Classmap]
+AOL Toolbar=Ignore
+_AOL_Toolbar=Ignore
+
+[Runtime]
+AnimationRunMode=FALSE
+MinimizeOnRun=TRUE
+ResultsHistorySize=15
+TraceAgentTags=FALSE
+TraceAgentCalls=TRUE
+UseFiles=extend\OpenAgentIncludes.inc
+NetworkProtocol=TCP/IP
+DefaultAgent=Open Agent
+
+[State]
+WrapSearch=FALSE
+LastOptionSet9=
+LastOptionSet8=
+LastOptionSet7=
+LastOptionSet6=
+LastOptionSet5=
+LastOptionSet4=
+LastOptionSet3=
+LastOptionSet2=
+LastOptionSet1=
+Placement=234,234,1440,759,1
+LastFile9=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\include\APChildwin.inc
+LastFile8=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\include\APMainWin.inc
+LastFile7=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\include\Functions.inc
+LastFile6=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\include\generic_library.inc
+LastFile5=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\include\LocatorDefine.inc
+LastFile4=Open C:\V12.2\ActiveEDR_V8.8\extend\accex.ini
+LastFile3=Open C:\V12.2\ActiveEDR_V8.8\extend\attributes.ini
+LastFile2=Open C:\V12.2\ActiveEDR_V8.8\ActiveEDR.ini
+LastFile1=Open C:\V12.2\ActiveEDR_V8.8\frame\APlus\frame\Settings.inc
+CurrentDirectory=C:\V14.0\ActiveEDR_V8.8
+
+[FileList]
+
+[EditorColors]
+TextBackground=CFE8CC
+4TestStrings=0
+
+[EditorFont]
+FontName=MS Reference Sans Serif
+
+[RecordWinId]
+WinPosY=505
+WinPosX=517
+
+[RecordWinLoc]
+WinPosY=340
+WinPosX=444
+
+[Agent]
+OPT_APPREADY_TIMEOUT=1000000
+OPT_TRUELOG_MODE=0
+OPT_LOCATOR_ATTRIBUTES_CASE_SENSITIVE=TRUE
+OPT_REMOVE_FOCUS_ON_CAPTURE_TEXT=TRUE
+OPT_ENABLE_ACCESSIBILITY=TRUE
+OPT_ENABLE_MOBILE_WEBVIEW_FALLBACK_SUPPORT=TRUE
+OPT_XBROWSER_SYNC_EXCLUDE_URLS=fpdownload.macromedia.com,  fpdownload.adobe.com,  download.microsoft.com
+OPT_XBROWSER_LOCATOR_ATTRIBUTE_VALUE_BLACKLIST=*ext-gen*,  *x-auto*,  :*
+OPT_XBROWSER_LOCATOR_ATTRIBUTE_NAME_BLACKLIST=CHECKED,  DISABLED,  style,  width,  height,  size,  __*,  on*,  value
+OPT_OBJECT_ENABLED_TIMEOUT=30000
+OPT_MOUSE_DELAY=100
+OPT_KEYBOARD_DELAY=100
+OPT_WINDOW_TIMEOUT=100000
+OPT_SYNC_TIMEOUT=5000
+
+[RecordWinDecl]
+WinHeight=393
+WinWidth=585
+WinPosY=295
+WinPosX=347
+
+[ExtensionOA_0: *\WerFault.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_1: *\concepts.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_2: *\PVTProPkg.Exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_3: *\WerFault.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_4: *\regsvr32.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_5: *\AspenSplash.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_6: *\bjacwin.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_7: *\ConceptualDesignBuilder.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_8: *\Explorer.EXE]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_9: *\Test_LNG.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_10: *\AspenFlareSystemAnalyzer.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_11: *\setaped.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_12: *\P2Converter.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_13: *\notepad.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_14: *\iexplore.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=InternetExplorer
+TechDomains=Auto
+
+[ExtensionOA_15: *\AspenPlus.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_16: *\IcarusAdapterExe.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_17: *\SLMLicenseProfiler.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_18: *\EXCEL.EXE]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_19: *\ICARUSKB.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_20: *\AspenEDR.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[ExtensionOA_21: *\AspenHysys.exe]
+CmdLine=
+MobileDeviceName=
+BrowserType=
+TechDomains=Auto
+
+[CompilerConstants]
+
+
+[RecordActions]
+WinPosY=401
+WinPosX=663

@@ -1,0 +1,48 @@
+﻿[ ] ////////////////////////////////////////////////////////////////////////////////////////
+[ ] 
+[ ] // 		EDR in Aspen Plus Plant tests plan file                     
+[ ] 
+[ ] // 		Susan Shi                             
+[ ] 
+[ ] // 		Jan 08 2014
+[ ] 
+[ ] // 		CopyRight(R) AspenTech 
+[ ] ////////////////////////////////////////////////////////////////////////////////////////
+[ ] 
+[ ] script: ..\Script\HYSYS_EE.t
+[+] testcase CQ00481028()
+	[ ] testcase:CQ00481028
+[+] testcase CQ00467985()
+	[ ] testcase:CQ00467985
+[+] testcase CQ00477556()
+	[ ] testcase:CQ00477556
+[+] testcase CQ00477555()
+	[ ] testcase:CQ00477555
+[+] testcase CQ00477557()
+	[ ] testcase:CQ00477557
+[+] testcase CQ00477558()
+	[ ] testcase:CQ00477558
+[+] testcase CQ00477565()
+	[ ] testcase:CQ00477565
+[+] testcase CQ00467986()
+	[ ] testcase:CQ00467986
+[+] testcase CQ00477569()
+	[ ] testcase:CQ00477569
+[+] testcase CQ00477573()
+	[ ] testcase:CQ00477573
+[+] testcase CQ00467987()
+	[ ] testcase:CQ00467987
+[+] testcase CQ00477576()
+	[ ] testcase:CQ00477576
+[+] testcase CQ00479814()
+	[ ] testcase:CQ00479814
+[+] testcase CQ00479838_01()
+	[ ] testcase:CQ00479838_01
+[+] testcase CQ00479838_02()
+	[ ] testcase:CQ00479838_02
+[+] testcase CQ00479820()
+	[ ] testcase:CQ00479820
+[+] testcase CQ00479825()
+	[ ] testcase:CQ00479825
+[+] testcase CQ00479829()
+	[ ] testcase:CQ00479829

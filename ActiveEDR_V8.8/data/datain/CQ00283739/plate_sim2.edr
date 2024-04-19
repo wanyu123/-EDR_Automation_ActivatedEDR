@@ -1,0 +1,943 @@
+<HTEdata FileSignature="AspenTech/B-JAC " Date="5/16/2006" Time="12:14:15 PM" FileDescription="Company:\nLocation:\nService of Unit:                                 Our Reference:\nItem No.:                                        Your Reference:\nDate:                       Rev No.:             Job No.:">
+    <application name="Aple">
+        <match>true
+        </match>
+        <result>101
+        </result>
+        <uomset>2
+        </uomset>
+        <engineuomset>2
+        </engineuomset>
+        <scalars type="input">
+            <scalar name="PlateProgMode">
+                <uom></uom>
+                <value>3
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="AreaOfPlateS">
+                <uom>m2
+                </uom>
+                <value>1.4
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="ChevronAngleMixed">
+                <uom>Degrees
+                </uom>
+                <value>30
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="ChevronAngleToHorizontal">
+                <uom>Degrees
+                </uom>
+                <value>30
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="CompressedPlatePitch">
+                <uom>mm
+                </uom>
+                <value>4.11
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="DoubleBankingOption">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="FlowDistributionCalcs">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="OptItemNum">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="OptPathOffset">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PlateWidth">
+                <uom>mm
+                </uom>
+                <value>550
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="NumberOfPlatesForArea">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PlateMaterial">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PlateThickness">
+                <uom>mm
+                </uom>
+                <value>.6
+                </value>
+                <source>User
+                </source>
+            </scalar>
+            <scalar name="PortDiameter">
+                <uom>mm
+                </uom>
+                <value>250
+                </value>
+                <source>User
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="input">
+            <array name="AllowablePressureDrop">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list=".3,.3"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="EstimatedPressureDrop">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list=".3,.3"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="FoulingResistance">
+                <uom>m2*K/W
+                </uom>
+                <values>
+                    <valueslist list="0,.00005"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="HeatLoad">
+                <uom>kW
+                </uom>
+                <values>
+                    <valueslist list="772.859"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="Temperature">
+                <uom>C
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="93.3342,33.712,33.3591,32.9786,32.5677,32.1245,31.6455,31.1245,30.5572,29.9383,29.2616,28.5202,27.7065,26.8117,25.8264,24.74,23.5412,22.2178,20.7571,19.1457,17.371,15.4199,13.2807,10.9425,93.3333,31.6857,31.3453,30.9794,30.585,30.1598,29.6981,29.1981,28.6546,28.0626,27.4163,26.7091,25.934,25.0827,24.1463,23.1146,21.977,20.7216,19.3361,17.807,16.1219,14.2673,12.2309,10.0012,93.3333,30.6447,30.3105,29.9513,29.5644,29.1483,28.6953,28.2059,27.6742,27.0955,26.4642,25.774,25.0179,24.1881,23.2758,22.2713,21.1639,19.9422,18.594,17.1061,15.4658,13.6598,11.6753,9.5007,93.3333,29.5841,29.2559,28.9034,28.524,28.1161,27.6725,27.1935,26.6736,26.1081,25.4917,24.8182,24.081,23.2725,22.3841,21.4064,20.3291,19.1409,17.8299,16.383,14.7875,13.0302,11.098,8.9791"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+                <stream>
+                    <values>
+                        <valueslist list="10,13.9003,17.7749,21.6252,25.4509,29.2519,33.0281,36.7792,40.5052,44.2059,47.8813,51.5312,55.1556,58.7545,62.3278,65.8754,69.3974,72.8937,76.3643,79.8093,83.2287,86.6224,89.9906,93.3333,10.0012,13.9,17.7747,21.625,25.4508,29.2518,33.028,36.7791,40.5051,44.2058,47.8812,51.5312,55.1556,58.7545,62.3277,65.8754,69.3973,72.8937,76.3643,79.8093,83.2287,86.6224,89.9906,93.3333,10.001,13.8999,17.7746,21.6249,25.4507,29.2518,33.0279,36.7791,40.5051,44.2058,47.8812,51.5312,55.1556,58.7544,62.3277,65.8754,69.3973,72.8937,76.3643,79.8093,83.2287,86.6224,89.9906,93.3323,10.0009,13.8998,17.7745,21.6249,25.4506,29.2517,33.0279,36.779,40.5051,44.2058,47.8812,51.5312,55.1556,58.7544,62.3277,65.8754,69.3973,72.8937,76.3643,79.8093,83.2287,86.6224,89.9906,93.3326"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="LiquidSpecificHeat">
+                <uom>kJ/(kg*K)
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="3.762953,3.786293,3.810118,3.834435,3.85924,3.884531,3.910306,3.936561,3.963293,3.9905,4.018179,4.046327,4.074941,4.104018,4.133556,4.163551,4.194002,4.224905,4.256257,4.288058,4.320303,4.352991,4.386121,4.419689,3.762959,3.786291,3.810117,3.834434,3.859239,3.884531,3.910305,3.93656,3.963292,3.9905,4.018179,4.046327,4.074941,4.104018,4.133556,4.163551,4.194002,4.224905,4.256257,4.288058,4.320303,4.352991,4.386121,4.419689,3.762958,3.786291,3.810116,3.834433,3.859239,3.88453,3.910305,3.93656,3.963292,3.9905,4.018179,4.046327,4.074941,4.104018,4.133556,4.163551,4.194001,4.224905,4.256257,4.288058,4.320303,4.352991,4.386121,4.419678,3.762958,3.78629,3.810116,3.834433,3.859239,3.88453,3.910305,3.93656,3.963292,3.9905,4.018179,4.046327,4.074941,4.104018,4.133556,4.163551,4.194001,4.224905,4.256257,4.288058,4.320303,4.352991,4.386121,4.419682"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="VaporSpecificHeat">
+                <uom>kJ/(kg*K)
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="2.046848,1.768165,1.769285,1.770524,1.7719,1.773429,1.775133,1.77705,1.779211,1.781658,1.784442,1.787623,1.791274,1.795484,1.800361,1.806035,1.812663,1.820436,1.829582,1.840376,1.853137,1.868248,1.886153,1.907365,2.046844,1.758704,1.759827,1.761065,1.762436,1.763954,1.765653,1.767552,1.769685,1.772093,1.774822,1.777929,1.781484,1.785568,1.790282,1.795747,1.802111,1.809551,1.818279,1.828554,1.840676,1.855005,1.871962,1.892034,2.046844,1.75385,1.754976,1.756215,1.757584,1.759098,1.760794,1.762683,1.764802,1.767191,1.769893,1.772965,1.776472,1.780494,1.785129,1.790492,1.796727,1.804004,1.812528,1.822548,1.834355,1.8483,1.864788,1.884297,2.046844,1.74891,1.750038,1.751278,1.752647,1.754158,1.755849,1.757729,1.759835,1.762204,1.76488,1.767917,1.771377,1.775339,1.779895,1.785158,1.791266,1.798381,1.806704,1.816473,1.82797,1.841534,1.857559,1.876508"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="ReCapVariables">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,,,,,,,ProgramMode,arAreaRatio,arMaldDis"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,Default,User,User,User"/>
+                </values>
+            </array>
+            <array name="VaporMassFraction">
+                <uom></uom>
+                <stream>
+                    <values>
+                        <valueslist list="1,1,.9553102,.9109304,.8668934,.8234106,.7805011,.7380326,.6961127,.6548108,.614197,.5743468,.535348,.4972912,.460276,.4244086,.3898,.3565639,.3248136,.2946525,.2661841,.2394875,.2146237,.191628,1,1,.9563711,.9130641,.8701054,.8275992,.7853704,.7436759,.7024944,.6618816,.6218998,.582617,.5441138,.5064735,.4697889,.4341596,.3996913,.3664936,.334678,.3043493,.2756147,.2485618,.2232629,.1997683,1,1,.9568849,.9140691,.871582,.8295924,.7877301,.7464451,.705649,.6653952,.6257436,.586759,.5485187,.5111028,.4746006,.4391084,.4047289,.3715694,.3397401,.3093457,.2804947,.2532777,.2277724,.2040357,1,1,.9573869,.9150575,.8730404,.8314999,.7900746,.7492024,.7087962,.6689071,.6295921,.5909132,.5529444,.5157624,.4794531,.4441094,.4098308,.3767222,.3448919,.3144442,.2854882,.2581174,.2324139,.2084409"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+                <stream>
+                    <values>
+                        <valueslist list="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="VaporViscosity">
+                <uom>mPa*s
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list=".0104547,8.852511E-03,8.857641E-03,8.863148E-03,8.869073E-03,8.875432E-03,8.882269E-03,8.889662E-03,8.897659E-03,8.906316E-03,.0089157,8.925879E-03,8.936923E-03,8.948903E-03,8.961889E-03,8.975941E-03,8.991103E-03,9.007397E-03,9.024804E-03,9.043259E-03,9.062606E-03,9.082608E-03,9.102899E-03,9.122967E-03,1.045468E-02,8.797204E-03,8.802257E-03,8.807671E-03,8.813483E-03,8.81972E-03,8.826459E-03,8.833716E-03,8.841554E-03,8.850031E-03,8.859211E-03,8.86916E-03,8.879949E-03,8.891649E-03,8.904333E-03,8.918065E-03,.0089329,8.948871E-03,8.965981E-03,8.984191E-03,9.003385E-03,9.023373E-03,9.043844E-03,9.064358E-03,1.045468E-02,8.768769E-03,8.773787E-03,8.77916E-03,8.784925E-03,8.791098E-03,8.797786E-03,8.804973E-03,8.81273E-03,8.821116E-03,8.830193E-03,8.840027E-03,8.850686E-03,8.862245E-03,8.874774E-03,8.888341E-03,8.903004E-03,8.918803E-03,8.935751E-03,8.953819E-03,8.972912E-03,8.992859E-03,9.013382E-03,9.03407E-03,1.045468E-02,8.739783E-03,8.744766E-03,8.750099E-03,8.755818E-03,8.761938E-03,8.768564E-03,8.77568E-03,8.783358E-03,8.791652E-03,8.800625E-03,8.810342E-03,8.820873E-03,8.832288E-03,8.84466E-03,8.858059E-03,8.872546E-03,8.888168E-03,8.904944E-03,8.922858E-03,8.941833E-03,8.961718E-03,8.982264E-03,9.003095E-03"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="LiquidViscosity">
+                <uom>mPa*s
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="1.301937,1.180989,1.075874,.9840692,.903543,.8326204,.7699124,.7142617,.6646992,.6204098,.5807053,.5450016,.5128015,.4836796,.4572713,.4332621,.4113808,.3913917,.3730902,.3562975,.3408575,.3266328,.313503,.3013613,1.301899,1.180996,1.07588,.984073,.9035457,.8326223,.7699138,.7142627,.6646998,.6204103,.5807056,.5450018,.5128016,.4836797,.4572713,.4332622,.4113808,.3913917,.3730902,.3562975,.3408575,.3266328,.313503,.3013613,1.301904,1.181,1.075882,.9840747,.9035469,.8326232,.7699144,.7142631,.6647001,.6204105,.5807058,.5450019,.5128016,.4836798,.4572714,.4332622,.4113808,.3913917,.3730902,.3562975,.3408575,.3266328,.313503,.3013649,1.301908,1.181003,1.075884,.9840762,.9035479,.8326239,.7699149,.7142634,.6647003,.6204107,.5807059,.545002,.5128017,.4836798,.4572714,.4332622,.4113808,.3913917,.3730902,.3562975,.3408575,.3266328,.313503,.3013637"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="SpecificEnthalpy">
+                <uom>kJ/kg
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="-2338.774,-2452.529,-2467.309,-2482.089,-2496.87,-2511.65,-2526.43,-2541.211,-2555.991,-2570.771,-2585.552,-2600.332,-2615.112,-2629.893,-2644.673,-2659.454,-2674.234,-2689.014,-2703.795,-2718.575,-2733.355,-2748.136,-2762.916,-2777.696,-2338.774,-2456.102,-2470.72,-2485.338,-2499.956,-2514.574,-2529.191,-2543.809,-2558.427,-2573.045,-2587.663,-2602.281,-2616.899,-2631.517,-2646.135,-2660.753,-2675.371,-2689.989,-2704.607,-2719.225,-2733.843,-2748.461,-2763.078,-2777.696,-2338.774,-2457.93,-2472.465,-2487,-2501.535,-2516.069,-2530.604,-2545.139,-2559.674,-2574.209,-2588.744,-2603.278,-2617.813,-2632.348,-2646.883,-2661.418,-2675.953,-2690.487,-2705.022,-2719.557,-2734.092,-2748.627,-2763.162,-2777.696,-2338.774,-2459.788,-2474.238,-2488.688,-2503.139,-2517.589,-2532.04,-2546.49,-2560.94,-2575.391,-2589.841,-2604.292,-2618.742,-2633.192,-2647.643,-2662.093,-2676.544,-2690.994,-2705.444,-2719.895,-2734.345,-2748.796,-2763.246,-2777.696"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+                <stream>
+                    <values>
+                        <valueslist list="-15914.97,-15900.26,-15885.54,-15870.82,-15856.1,-15841.39,-15826.67,-15811.95,-15797.23,-15782.52,-15767.8,-15753.08,-15738.36,-15723.65,-15708.93,-15694.21,-15679.5,-15664.78,-15650.06,-15635.34,-15620.63,-15605.91,-15591.19,-15576.47,-15914.97,-15900.26,-15885.54,-15870.82,-15856.1,-15841.39,-15826.67,-15811.95,-15797.23,-15782.52,-15767.8,-15753.08,-15738.36,-15723.65,-15708.93,-15694.21,-15679.5,-15664.78,-15650.06,-15635.34,-15620.63,-15605.91,-15591.19,-15576.47,-15914.97,-15900.26,-15885.54,-15870.82,-15856.1,-15841.39,-15826.67,-15811.95,-15797.23,-15782.52,-15767.8,-15753.08,-15738.36,-15723.65,-15708.93,-15694.21,-15679.5,-15664.78,-15650.06,-15635.34,-15620.63,-15605.91,-15591.19,-15576.47,-15914.97,-15900.26,-15885.54,-15870.82,-15856.1,-15841.39,-15826.67,-15811.95,-15797.23,-15782.52,-15767.8,-15753.08,-15738.36,-15723.65,-15708.93,-15694.21,-15679.5,-15664.78,-15650.06,-15635.34,-15620.63,-15605.91,-15591.19,-15576.47"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="VaporDensity">
+                <uom>kg/m3
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="18.27699,21.82814,21.7298,21.62414,21.51039,21.3882,21.25668,21.11429,20.96002,20.79264,20.61077,20.41286,20.19729,19.96227,19.70592,19.42631,19.1215,18.78962,18.429,18.03819,17.6164,17.16327,16.67929,16.16579,17.4067,20.9269,20.83475,20.73598,20.62991,20.51599,20.39279,20.25997,20.11631,19.96067,19.79176,19.60818,19.40844,19.19087,18.95373,18.69519,18.41339,18.10652,17.77287,17.4109,17.01961,16.59839,16.14733,15.66732,16.97153,20.47364,20.3845,20.28899,20.18649,20.07664,19.95755,19.82945,19.69098,19.54106,19.37847,19.20186,19.00981,18.80073,18.57294,18.32466,18.05409,17.75943,17.43898,17.09119,16.71495,16.30955,15.87489,15.41165,16.53636,20.01856,19.93237,19.84007,19.74107,19.63504,19.52019,19.39672,19.26335,19.11904,18.96264,18.79288,18.60838,18.40762,18.18899,17.95079,17.69124,17.40859,17.10116,16.76736,16.40603,16.01632,15.59801,15.15155"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="LiquidDensity">
+                <uom>kg/m3
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="1007.862,1004.153,1000.453,996.7623,993.0797,989.4057,985.7407,982.0847,978.438,974.8006,971.1727,967.5544,963.9459,960.3472,956.7583,953.1794,949.6107,946.0519,942.5034,938.9651,935.437,931.9191,928.4116,924.9143,1007.861,1004.153,1000.454,996.7625,993.0798,989.4058,985.7408,982.0848,978.438,974.8007,971.1728,967.5544,963.9459,960.3472,956.7583,953.1794,949.6107,946.0519,942.5034,938.9651,935.437,931.9191,928.4116,924.9143,1007.861,1004.153,1000.454,996.7625,993.0798,989.4059,985.7408,982.0848,978.438,974.8007,971.1728,967.5545,963.9459,960.3472,956.7583,953.1794,949.6107,946.0519,942.5034,938.9651,935.437,931.9191,928.4116,924.9154,1007.861,1004.153,1000.454,996.7626,993.0799,989.4059,985.7408,982.0848,978.4381,974.8007,971.1728,967.5545,963.9459,960.3472,956.7583,953.1794,949.6107,946.0519,942.5034,938.9651,935.437,931.9191,928.4116,924.915"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="DBToBeUsed">
+                <uom></uom>
+                <values>
+                    <valueslist list="4,4,4,4,,4,4,4,4"/>
+                    <sourcelist list="User,User,User,User,Default,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfPointsOnCurve">
+                <uom></uom>
+                <values>
+                    <valueslist list="24,24"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfCurves">
+                <uom></uom>
+                <values>
+                    <valueslist list="4,4"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="PressureReference">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list="14.47899,13.78952,13.44478,13.10004,,3.792117,3.447379,3.27501,3.102641"/>
+                    <sourcelist list="User,User,User,User,User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="TemperatureHigh">
+                <uom>C
+                </uom>
+                <values>
+                    <valueslist list="100,100"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="TemperatureLow">
+                <uom>C
+                </uom>
+                <values>
+                    <valueslist list="10,10"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="TemperatureRangeOption">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="ApplicationType">
+                <uom></uom>
+                <values>
+                    <valueslist list="0,0"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="LiquidThermalConductivity">
+                <uom>W/(m*K)
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list=".5837774,.5899134,.595814,.6014856,.6069321,.6121575,.617166,.6219614,.6265479,.6309294,.6351098,.6390933,.6428838,.6464853,.6499015,.6531365,.6561941,.6590781,.6617923,.6643406,.6667264,.6689537,.6710259,.6729468,.5837792,.589913,.5958137,.6014853,.6069319,.6121574,.6171659,.6219614,.6265478,.6309293,.6351098,.6390933,.6428838,.6464853,.6499015,.6531365,.6561941,.6590781,.6617923,.6643405,.6667264,.6689537,.6710259,.6729468,.583779,.5899128,.5958135,.6014852,.6069318,.6121573,.6171658,.6219613,.6265478,.6309293,.6351098,.6390933,.6428838,.6464853,.6499015,.6531365,.6561941,.6590781,.6617923,.6643405,.6667264,.6689537,.6710259,.6729462,.5837788,.5899127,.5958134,.6014851,.6069317,.6121573,.6171658,.6219613,.6265478,.6309293,.6351098,.6390933,.6428838,.6464852,.6499015,.6531365,.6561941,.6590781,.6617923,.6643405,.6667264,.6689537,.6710259,.6729463"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="LiquidSurfaceTension">
+                <uom>N/m
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="7.585219E-02,7.505571E-02,.0742697,7.349345E-02,7.272656E-02,7.196864E-02,7.121935E-02,.0704783,6.974516E-02,6.901961E-02,6.830133E-02,6.759003E-02,.0668854,6.618718E-02,6.549511E-02,6.480893E-02,6.412839E-02,6.345328E-02,6.278337E-02,6.211845E-02,6.145833E-02,6.080282E-02,6.015174E-02,5.950493E-02,7.585196E-02,7.505576E-02,7.426974E-02,7.349348E-02,7.272658E-02,7.196867E-02,7.121936E-02,7.047831E-02,6.974517E-02,6.901962E-02,6.830133E-02,6.759003E-02,.0668854,6.618719E-02,6.549511E-02,6.480893E-02,6.412839E-02,6.345328E-02,6.278337E-02,6.211845E-02,6.145833E-02,6.080282E-02,6.015174E-02,5.950493E-02,7.585199E-02,7.505579E-02,7.426976E-02,.0734935,.0727266,7.196868E-02,7.121937E-02,7.047831E-02,6.974518E-02,6.901962E-02,6.830134E-02,6.759004E-02,.0668854,6.618719E-02,6.549511E-02,6.480893E-02,6.412839E-02,6.345328E-02,6.278337E-02,6.211845E-02,6.145833E-02,6.080282E-02,6.015174E-02,5.950513E-02,7.585201E-02,7.505581E-02,7.426978E-02,7.349351E-02,7.272661E-02,7.196869E-02,7.121938E-02,7.047832E-02,6.974518E-02,6.901962E-02,6.830134E-02,6.759004E-02,.0668854,6.618719E-02,6.549511E-02,6.480893E-02,6.412839E-02,6.345328E-02,6.278337E-02,6.211845E-02,6.145833E-02,6.080282E-02,6.015174E-02,5.950506E-02"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="LiquidMolecularWeight">
+                <uom></uom>
+                <stream>
+                    <values>
+                        <valueslist list="18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528,18.01528"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="VaporThermalConductivity">
+                <uom>W/(m*K)
+                </uom>
+                <stream>
+                    <values>
+                        <valueslist list="3.085106E-02,2.295042E-02,2.308449E-02,2.322983E-02,2.338781E-02,2.355926E-02,2.374585E-02,2.395031E-02,.0241747,.0244216,2.469401E-02,2.499537E-02,2.532961E-02,2.570123E-02,2.611534E-02,2.657772E-02,2.709478E-02,2.767363E-02,2.832193E-02,2.904799E-02,2.986014E-02,3.076699E-02,.0317768,3.289715E-02,3.085094E-02,2.269787E-02,2.282834E-02,2.296942E-02,2.312233E-02,2.328821E-02,2.346954E-02,.0236673,.0238839,2.412179E-02,2.438376E-02,2.467305E-02,2.499335E-02,2.534887E-02,2.574443E-02,2.618548E-02,2.667811E-02,.0272291,2.784585E-02,2.853643E-02,2.930907E-02,3.017237E-02,3.113475E-02,3.220415E-02,3.085094E-02,2.256855E-02,2.269728E-02,2.283639E-02,2.298706E-02,2.315012E-02,2.332878E-02,2.352317E-02,2.373589E-02,.0239693,2.422611E-02,2.450945E-02,2.482286E-02,2.517045E-02,2.555686E-02,2.598738E-02,2.646793E-02,2.700514E-02,2.760624E-02,2.827916E-02,2.903206E-02,2.987352E-02,3.081201E-02,.0318556,3.085094E-02,2.243709E-02,2.256411E-02,2.270127E-02,2.284973E-02,2.301027E-02,.023186,2.337704E-02,2.358591E-02,2.381489E-02,2.406658E-02,2.434402E-02,2.465062E-02,2.499035E-02,.0253677,2.578779E-02,2.625638E-02,.0267799,2.736545E-02,2.802078E-02,2.875398E-02,2.957358E-02,3.048808E-02,3.150566E-02"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="VaporMolecularWeight">
+                <uom></uom>
+                <stream>
+                    <values>
+                        <valueslist list="38.46351,38.46351,38.24619,38.01297,37.76223,37.4933,37.20429,36.89189,36.55407,36.18827,35.79164,35.36106,34.89325,34.38466,33.83161,33.23037,32.57733,31.86911,31.10291,30.27642,29.38892,28.44069,27.4338,26.37215,38.46351,38.46351,38.2514,38.0243,37.78074,37.5195,37.23742,36.93383,36.60603,36.25154,35.86765,35.45136,34.99951,34.50867,33.97523,33.3955,32.76583,32.0827,31.34303,30.54417,29.6848,28.76452,27.78457,26.748,38.46351,38.46351,38.25392,38.02962,37.78918,37.53188,37.25335,36.95422,36.63143,36.28259,35.90505,35.49587,35.05197,34.56997,34.04633,33.47737,32.85943,32.18896,31.46276,30.67801,29.83314,28.9274,27.96166,26.93848,38.46351,38.46351,38.25637,38.03484,37.7975,37.54367,37.2691,36.9744,36.65661,36.31339,35.94215,35.54005,35.10406,34.63088,34.117,33.55882,32.95263,32.29488,31.58227,30.81182,29.98171,29.09089,28.13982,27.13061"/>
+                        <sourcelist list="User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User,User"/>
+                    </values>
+                </stream>
+            </array>
+            <array name="FlowRate">
+                <uom>kg/s
+                </uom>
+                <values>
+                    <valueslist list="41.13831,255.0197"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="CompositionSpecification">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="VLECalculationMethod">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="BJacDBSymbol">
+                <uom></uom>
+                <values>
+                    <valueslist list="Water,,,,,,,,,,Water"/>
+                    <sourcelist list="User,Default,Default,Default,Default,Default,Default,Default,Default,Default,User"/>
+                </values>
+            </array>
+            <array name="VLECalculationType">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="ComponentType">
+                <uom></uom>
+                <values>
+                    <valueslist list="0,,,,,,,,,,0"/>
+                    <sourcelist list="User,Default,Default,Default,Default,Default,Default,Default,Default,Default,User"/>
+                </values>
+            </array>
+            <array name="Heading">
+                <uom></uom>
+                <values>
+                    <valueslist list="Company:,Location:,Service of Unit:                                 Our Reference:,Item No.:                                        Your Reference:,Date:                       Rev No.:             Job No.:"/>
+                    <sourcelist list="User,User,User,User,User"/>
+                </values>
+            </array>
+            <array name="InletMassQuality">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,0"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="InletPortPoint">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,3,,,0,0"/>
+                    <sourcelist list="User,User,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="InletPressure">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list="13.78952,3.447379"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="InletTemperature">
+                <uom>C
+                </uom>
+                <values>
+                    <valueslist list="93.3333,10.0012"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="LiquidHTCMultiplier">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfChannelsInPass1">
+                <uom></uom>
+                <values>
+                    <valueslist list="50,50,,,,,1.99,.0006"/>
+                    <sourcelist list="User,User,Default,Default,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfChannelsInPass2">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,.0006,.00411"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfChannelsInPass3">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,.00411,.25"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="NumberOfChannelsInPass4">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,.25"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,User"/>
+                </values>
+            </array>
+            <array name="NumberOfChannelsInPass5">
+                <uom></uom>
+                <values>
+                    <valueslist list=",,,,,,,1.4"/>
+                    <sourcelist list="Default,Default,Default,Default,Default,Default,Default,User"/>
+                </values>
+            </array>
+            <array name="NumberOfPasses">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1,,,0,0"/>
+                    <sourcelist list="User,User,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="OutletPortPoint">
+                <uom></uom>
+                <values>
+                    <valueslist list="3,2"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="PressureDropInPorts">
+                <uom></uom>
+                <values>
+                    <valueslist list="40,40"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="PressureDropMultiplier">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="Remarks">
+                <uom></uom>
+                <values>
+                    <valueslist list="Design test case1"/>
+                    <sourcelist list="User"/>
+                </values>
+            </array>
+            <array name="ReviseForHeatBalance">
+                <uom></uom>
+                <values>
+                    <valueslist list="3,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="TotalMassFlow">
+                <uom></uom>
+                <values>
+                    <valueslist list="5.9687,2.3867"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="TotalNumberChannels">
+                <uom></uom>
+                <values>
+                    <valueslist list="50,50,,,1.99,1"/>
+                    <sourcelist list="User,User,Default,Default,User,User"/>
+                </values>
+            </array>
+            <array name="TwoPhaseHTCMultiplier">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+            <array name="VaporHTCMultiplier">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                </values>
+            </array>
+        </arrays>
+        <scalars type="results">
+            <scalar name="TotalHeatExchanged">
+                <uom>kW
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCClean">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCDirty">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCMargin">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="MTDCorrected">
+                <uom>C
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="EffSurfTotal">
+                <uom>m2
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCColdSide">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCHotSide">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HTCWall">
+                <uom>W/(m2*K)
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ExchangerNumber">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlatesTotal">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlateLength">
+                <uom>mm
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlateFlowWidth">
+                <uom>mm
+                </uom>
+                <value>550
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="CompressedPlatePitch">
+                <uom>in
+                </uom>
+                <value>.161811
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlateThickness">
+                <uom>mm
+                </uom>
+                <value>.6
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PortDiameter">
+                <uom>in
+                </uom>
+                <value>9.84252
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ChevronAngle">
+                <uom>Degrees
+                </uom>
+                <value>30.00002
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="OptPathItemNum">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="NumberOfDesigns">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ResHot">
+                <uom>m2*K/W
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ResWall">
+                <uom>m2*K/W
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ResFoulHot">
+                <uom>m2*K/W
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ResFoulCold">
+                <uom>m2*K/W
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="ResCold">
+                <uom>m2*K/W
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="AreaRatio">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="FoulingMargin">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="DoubleBankingOption">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlateMaterial">
+                <uom></uom>
+                <value>1
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PackWeight">
+                <uom>lb
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="MalDistribution">
+                <uom></uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="HorizontalPortCentreDistance">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="AreaOfPlate">
+                <uom>ft2
+                </uom>
+                <value>15.06947
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="VerticalPortCentreDistance">
+                <uom>in
+                </uom>
+                <value>0
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+            <scalar name="PlateWidth">
+                <uom>mm
+                </uom>
+                <value>550
+                </value>
+                <source>Default
+                </source>
+            </scalar>
+        </scalars>
+        <arrays type="results">
+            <array name="arInletTemperature">
+                <uom>C
+                </uom>
+                <values>
+                    <valueslist list="93.333,10.001"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arMassFlowRate">
+                <uom>kg/s
+                </uom>
+                <values>
+                    <valueslist list="5.9687,2.3867"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arInletPressure">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list="13.7895,3.44738"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arQualityIn">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,0"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arMaxDP">
+                <uom>bar
+                </uom>
+                <values>
+                    <valueslist list=".3,.3"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arFoulResistance">
+                <uom>m2*K/W
+                </uom>
+                <values>
+                    <valueslist list="0,.00005"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="NumberOfPasses">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,1"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="TotalNumberChannels">
+                <uom></uom>
+                <values>
+                    <valueslist list="50,50"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="ApleMsg">
+                <uom></uom>
+                <values>
+                    <valueslist list="Input Error;1123;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;   302;     1;     1;     1;   302;     1;     1;     1;Str.1 Stream number      ;,Input Error;1123;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;   302;     1;     2;     1;   302;     1;     2;     1;Str.2 Stream number      ;,Input Error;1123;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;   302;     1;     3;     1;   302;     1;     3;     1;Str.3 Stream number      ;,Input Error;1123;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;   302;     1;     4;     1;   302;     1;     4;     1;Str.4 Stream number      ;,Message;1044;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;     0;     0;     0;     0;     0;     0;     0;     0;,Message;1835;0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0; 0.000000000;  0;     0;     0;     0;     0;     0;     0;     0;     0;"/>
+                    <sourcelist list="User,User,User,User,User,User"/>
+                    <textlist list=",,,,,"/>
+                </values>
+            </array>
+            <array name="InletPortPoint">
+                <uom></uom>
+                <values>
+                    <valueslist list="1,3"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list="Fixed end: top,Follower: bottom"/>
+                </values>
+            </array>
+            <array name="OutletPortPoint">
+                <uom></uom>
+                <values>
+                    <valueslist list="3,2"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list="Follower: bottom,Follower: top"/>
+                </values>
+            </array>
+            <array name="NumberofChannelsInPass1">
+                <uom></uom>
+                <values>
+                    <valueslist list="50,50"/>
+                    <sourcelist list="User,User"/>
+                    <textlist list=","/>
+                </values>
+            </array>
+            <array name="arAspenMsgs">
+                <uom></uom>
+                <values>
+                    <valueslist list="6"/>
+                    <sourcelist list="User"/>
+                    <textlist list=""/>
+                </values>
+            </array>
+        </arrays>
+        <objects></objects>
+    </application>
+</HTEdata>

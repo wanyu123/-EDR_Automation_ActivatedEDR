@@ -1,0 +1,122 @@
+;
+;Input Summary created by Aspen Plus Rel. 20.0 at 17:01:28 Fri Apr 13, 2007
+;Directory E:\Documents and Settings\zhengx\My Documents\TC004 Interface\A+ Engine  Filename E:\Documents and Settings\zhengx\My Documents\TC004 Interface\A+ Engine\htfs-plate.inp
+;
+
+
+    
+;
+;Input Summary created by Aspen Plus Rel. 20.0 at 16:58:29 Fri Apr 13, 2007
+;Directory E:\Documents and Settings\zhengx\My Documents\TC004 Interface\A+
+;
+
+TITLE 'INTERFACE EXAMPLE TO HTFS+ PLATE+ PROGRAM' 
+    
+;
+;Input Summary created by Aspen Plus Rel. 13.2 at 17:21:49 Fri Mar 17, 2006
+;Directory C:\bjactest\a+heatxaple\simulation  Filename C:\bjactest\a+heatxa
+;
+;                             ****************
+;                             PROPRIETARY DATA
+;                             ****************
+;
+;        The information or data contained herein is proprietary to
+;        Air Products and Chemicals, Inc. and is not to be copied,
+;        reproduced, duplicated or disclosed to others, in whole or
+;        in part without the prior written consent of Air Products
+;        and Chemicals, Inc. This restriction shall not apply to any
+;        information or data contained herein which is available to
+;        the public generally.
+;
+;
+;Input Summary created by Aspen Plus Rel. 10.2-0 at 09:35:27 Wed Dec 15, 199
+;Directory T:\BJACTEST\A+Interface\HETRAN  Filename T:\BJACTEST\A+Interface\
+;
+
+IN-UNITS ENG 
+
+DEF-STREAMS CONVEN ALL 
+
+DIAGNOSTICS 
+    HISTORY SIM-LEVEL=3 
+
+DATABANKS PURE25  / AQUEOUS  / SOLIDS  / INORGANIC  /  &
+        NOASPENPCD
+
+PROP-SOURCES PURE25  / AQUEOUS  / SOLIDS  / INORGANIC 
+
+COMPONENTS 
+    O2 O2 / 
+    CO2 CO2 / 
+    CO CO / 
+    SO2 O2S / 
+    NO2 NO2 / 
+    H2 H2 / 
+    NH3 H3N / 
+    AIR AIR / 
+    WATER H2O / 
+    METHANE CH4 / 
+    ETHANE C2H6 / 
+    PROPANE C3H8 / 
+    BUTANE C4H10-1 / 
+    PENTANE C5H12-1 / 
+    HEXANE C6H14-1 / 
+    HEPTANE C7H16-1 / 
+    METHANOL CH4O / 
+    ETHANOL C2H6O-2 / 
+    ETHYLENE C2H4 / 
+    E-GLYCOL C2H6O2 / 
+    ACETIC C2H4O2-1 / 
+    ADIPIC C6H10O4-D1 / 
+    TOLUENE C7H8 / 
+    STYRENE C8H8 / 
+    BTL-BENZ C10H14-1 / 
+    N-HEPTA C17H34O2 
+
+FLOWSHEET 
+    BLOCK B1 IN=HOT-IN COLD-IN OUT=HOT-OUT COLD-OUT 
+
+PROPERTIES IDEAL 
+
+STREAM COLD-IN 
+    SUBSTREAM MIXED TEMP=50.0000036 PRES=29.0075475  &
+        MASS-FLOW=18942.3822 
+    MASS-FRAC O2 0.0 / CO2 0.0 / CO 0.0 / SO2 0.0 / NO2  &
+        0.0 / H2 0.0 / NH3 0.0 / AIR 0.0 / WATER 1.0 /  &
+        METHANE 0.0 / ETHANE 0.0 / PROPANE 0.0 / BUTANE  &
+        0.0 / PENTANE 0.0 / HEXANE 0.0 / HEPTANE 0.0 /  &
+        METHANOL 0.0 / ETHANOL 0.0 / ETHYLENE 0.0 /  &
+        E-GLYCOL 0.0 / ACETIC 0.0 / ADIPIC 0.0 / TOLUENE  &
+        0.0 / STYRENE 0.0 / BTL-BENZ 0.0 / N-HEPTA 0.0 
+
+STREAM HOT-IN 
+    SUBSTREAM MIXED TEMP=194.000002 PRES=29.0075475  &
+        MASS-FLOW=47371.4320 
+    MASS-FRAC O2 0.0 / CO2 0.0 / CO 0.0 / SO2 0.0 / NO2  &
+        0.0 / H2 0.0 / NH3 0.0 / AIR 0.0 / WATER 1.0 /  &
+        METHANE 0.0 / ETHANE 0.0 / PROPANE 0.0 / BUTANE  &
+        0.0 / PENTANE 0.0 / HEXANE 0.0 / HEPTANE 0.0 /  &
+        METHANOL 0.0 / ETHANOL 0.0 / ETHYLENE 0.0 /  &
+        E-GLYCOL 0.0 / ACETIC 0.0 / ADIPIC 0.0 / TOLUENE  &
+        0.0 / STYRENE 0.0 / BTL-BENZ 0.0 / N-HEPTA 0.0 
+
+BLOCK B1 HEATX 
+    PARAM CALC-TYPE=SIMULATION CALC-METHOD=APLE-RIG 
+    HETRAN-PARAM VENDOR=B-JAC INPUT-FILE= & 
+    'HTFS-PLCG.EDR' 
+    HOT-PCURVE GENERATE=YES TYPE=ISOBARIC 
+    COLD-PCURVE GENERATE=YES TYPE=ISOBARIC 
+    FEEDS HOT=HOT-IN COLD=COLD-IN 
+    PRODUCTS HOT=HOT-OUT COLD=COLD-OUT 
+
+EO-CONV-OPTI 
+
+CONV-OPTIONS 
+    PARAM CHECKSEQ=NO 
+
+STREAM-REPOR MOLEFLOW 
+;
+;
+;
+;
+;
